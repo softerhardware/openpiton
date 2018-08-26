@@ -96,6 +96,7 @@ module l2_pipe1_ctrl(
     input wire l2_tag_hit_S2,
     input wire l2_evict_S2,
     input wire l2_wb_S2,
+    input wire l2_data_ack_l15line64_S2;
     input wire [`L2_MESI_BITS-1:0] l2_way_state_mesi_S2,
     input wire [`L2_VD_BITS-1:0] l2_way_state_vd_S2,
     input wire [`L2_DI_BIT-1:0] l2_way_state_cache_type_S2,
@@ -2094,7 +2095,7 @@ begin
     begin
         l2_load_data_subline_S2_next = `L2_DATA_SUBLINE_0;
     end
-    else if (valid_S2 && !(stall_real_S2) && (l2_wb_S2 || l2_ifill_S2))
+    else if (valid_S2 && !(stall_real_S2) && (l2_wb_S2 || l2_ifill_S2 || l2_data_ack_l15line64_S2))
     begin
         l2_load_data_subline_S2_next = l2_load_data_subline_S2_f + 1;
     end
@@ -2114,7 +2115,7 @@ reg stall_load_S2;
 
 always @ *
 begin
-    if (l2_wb_S2)
+    if (l2_wb_S2 || l2_data_ack_l15line64_S2)
     begin
         stall_load_S2 = (l2_load_data_subline_S2_f != `L2_DATA_SUBLINE_3);
     end
@@ -3153,20 +3154,18 @@ begin
     else if (msg0_send_valid_S4 && msg1_send_valid_S4 && valid_S4 
     && !(dir_data_stall_S4 || (msg_send_valid_S4 && !msg_send_ready_S4) || global_stall_S4))
     begin
-        if (msg_state_S4_f == msg_state_0)
+        if (msg_state_S4_f == msg_state_0 && (l2_load_data_subline_S4_f == `L2_DATA_SUBLINE_3 ||
+        (msg_type_S4_f != `MSG_TYPE_L2_DIS_FLUSH_REQ && msg_type_S4_f != `MSG_TYPE_L2_LINE_FLUSH_REQ )))
         begin
             msg_state_S4_next = msg_state_1;
         end
-        else    
+        else if (msg_state_S4_f == msg_state_1 && l2_load_data_subline_S4_f == `L2_DATA_SUBLINE_3)   
         begin
-            if (l2_load_data_subline_S4_f == `L2_DATA_SUBLINE_3)
-            begin
-                msg_state_S4_next = msg_state_0;
-            end
-            else
-            begin
-                msg_state_S4_next = msg_state_1;
-            end
+            msg_state_S4_next = msg_state_0;
+        end
+        else
+        begin
+            msg_state_S4_next = msg_state_S4_f;
         end
     end
     else 
@@ -3362,11 +3361,18 @@ begin
             end
             else if (cache_type_S4_f == `MSG_CACHE_TYPE_DATA)
             begin
-                msg_send_mode_S4 = `L2_P1_BUF_OUT_MODE_1H2D;
-                msg_send_length_S4 = 2;
-                msg_send_data_size_S4 = `MSG_DATA_SIZE_16B;
+                msg_send_length_S4 = 8;
+                msg_send_data_size_S4 = `MSG_DATA_SIZE_64B;
                 msg_send_cache_type_S4 = cache_type_S4_f;
                 msg_send_mshrid_S4 = mshrid_S4; 
+                if (l2_load_data_subline_S4_f == `L2_DATA_SUBLINE_0)
+                begin
+                    msg_send_mode_S4 = `L2_P1_BUF_OUT_MODE_1H2D;
+                end
+                else
+                begin
+                    msg_send_mode_S4 = `L2_P1_BUF_OUT_MODE_0H2D;
+                end
             end
             else
             begin

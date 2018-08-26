@@ -211,6 +211,7 @@ module l2_pipe1_dpath(
     output reg l2_tag_hit_S2,
     output reg l2_evict_S2,
     output reg l2_wb_S2,
+    output reg l2_data_ack_l15line64_S2;
     output reg [`L2_MESI_BITS-1:0] l2_way_state_mesi_S2,
     output reg [`L2_VD_BITS-1:0] l2_way_state_vd_S2,
     output reg [`L2_DI_BIT-1:0] l2_way_state_cache_type_S2,
@@ -774,6 +775,26 @@ begin
     end
 end
 
+// TODO Need to consider all possible situations where we need to send dataACK to l15d
+always @ *
+begin
+    if ( (l2_tag_hit_S2 && ( ( msg_type_S2 == `MSG_TYPE_LOAD_REQ && (l2_way_state_mesi_S2 == `L2_MESI_I ||
+                (l2_way_state_mesi_S2 == `L2_MESI_E && req_from_owner_S2 && cache_type_S2 == l2_way_state_cache_type_S2 ) || 
+                (l2_way_state_mesi_S2 == `L2_MESI_S && cache_type_S2 == l2_way_state_cache_type_S2 ) ||
+                (l2_way_state_mesi_S2 == `L2_MESI_B && cache_type_S2 == l2_way_state_cache_type_S2 ) ) ) ||
+            ( msg_type_S2 == `MSG_TYPE_STORE_REQ && (l2_way_state_mesi_S2 == `L2_MESI_I || 
+                (l2_way_state_mesi_S2 == `L2_MESI_E && req_from_owner_S2 && cache_type_S2 == l2_way_state_cache_type_S2 ) ) ) ) ) || 
+        ( (msg_type_S2 == `MSG_TYPE_L2_LINE_FLUSH_REQ || msg_type_S2 == `MSG_TYPE_L2_DIS_FLUSH_REQ) &&
+         !(l2_tag_hit_S2 && l2_way_state_mesi_S2 != `L2_MESI_I) ) )
+    begin
+        l2_data_ack_l15line64_S2 = 1'b1;
+    end
+    else
+    begin
+        l2_data_ack_l15line64_S2 = 1'b0;
+    end
+end
+
 
 reg [`L2_OWNER_BITS-1:0] l2_way_state_owner_S2;
 
@@ -810,7 +831,7 @@ end
 
 always @ *
 begin
-    if (l2_wb_S2)
+    if (l2_wb_S2 || l2_data_ack_l15line64_S2)
     begin
         data_addr_S2 = {addr_S2_f[`L2_TAG_INDEX],l2_way_sel_S2, l2_load_data_subline_S2};
     end

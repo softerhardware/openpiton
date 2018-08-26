@@ -46,7 +46,7 @@ module noc2decoder(
     input wire clk,
     input wire rst_n,
 
-    input wire [511:0] noc2_data,
+    input wire [575:0] noc2_data,
     input wire noc2_data_val,
     input wire l15_noc2decoder_ack,
     input wire l15_noc2decoder_header_ack,
@@ -70,6 +70,10 @@ module noc2decoder(
     output reg [63:0] noc2decoder_l15_data_1,
     output reg [63:0] noc2decoder_l15_data_2,
     output reg [63:0] noc2decoder_l15_data_3,
+    output reg [63:0] noc2decoder_l15_data_4,
+    output reg [63:0] noc2decoder_l15_data_5,
+    output reg [63:0] noc2decoder_l15_data_6,
+    output reg [63:0] noc2decoder_l15_data_7,
     output reg [39:0] noc2decoder_l15_address,
     output reg [3:0] noc2decoder_l15_fwd_subcacheline_vector,
     output reg [`L15_CSM_NUM_TICKETS_LOG2-1:0] noc2decoder_l15_csm_mshrid,
@@ -112,6 +116,10 @@ begin
     noc2decoder_l15_data_1 = noc2_data[3*64 - 1 -: 64];
     noc2decoder_l15_data_2 = noc2_data[4*64 - 1 -: 64];
     noc2decoder_l15_data_3 = noc2_data[5*64 - 1 -: 64];
+    noc2decoder_l15_data_4 = noc2_data[6*64 - 1 -: 64];
+    noc2decoder_l15_data_5 = noc2_data[7*64 - 1 -: 64];
+    noc2decoder_l15_data_6 = noc2_data[8*64 - 1 -: 64];
+    noc2decoder_l15_data_7 = noc2_data[9*64 - 1 -: 64];
 
     noc2decoder_l15_src_homeid = 0;
     noc2decoder_l15_src_homeid[`PACKET_HOME_ID_Y_MASK] = noc2_data[`MSG_SRC_Y];

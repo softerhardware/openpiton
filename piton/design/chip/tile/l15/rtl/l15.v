@@ -225,7 +225,7 @@ l15_csm l15_csm(
             ie. we can have a header ready signal + data ready signal
 */
 
-wire [511:0] noc2_data;
+wire [575:0] noc2_data;
 wire noc2_data_val;
 wire noc2_data_ack;
 
@@ -253,6 +253,10 @@ wire [63:0] noc2decoder_l15_data_0;
 wire [63:0] noc2decoder_l15_data_1;
 wire [63:0] noc2decoder_l15_data_2;
 wire [63:0] noc2decoder_l15_data_3;
+wire [63:0] noc2decoder_l15_data_4;
+wire [63:0] noc2decoder_l15_data_5;
+wire [63:0] noc2decoder_l15_data_6;
+wire [63:0] noc2decoder_l15_data_7;
 wire [`L15_PADDR_HI:0] noc2decoder_l15_address;
 wire [3:0] noc2decoder_l15_fwd_subcacheline_vector;
 wire [`PACKET_HOME_ID_WIDTH-1:0] noc2decoder_l15_src_homeid;
@@ -284,6 +288,10 @@ noc2decoder noc2decoder(
     .noc2decoder_l15_data_1(noc2decoder_l15_data_1),
     .noc2decoder_l15_data_2(noc2decoder_l15_data_2),
     .noc2decoder_l15_data_3(noc2decoder_l15_data_3),
+    .noc2decoder_l15_data_4(noc2decoder_l15_data_4),
+    .noc2decoder_l15_data_5(noc2decoder_l15_data_5),
+    .noc2decoder_l15_data_6(noc2decoder_l15_data_6),
+    .noc2decoder_l15_data_7(noc2decoder_l15_data_7),
     .noc2decoder_l15_address(noc2decoder_l15_address),
     .noc2decoder_l15_fwd_subcacheline_vector(noc2decoder_l15_fwd_subcacheline_vector),
     .noc2decoder_l15_src_homeid(noc2decoder_l15_src_homeid),
@@ -395,7 +403,7 @@ sram_l15_tag dtag(
 // DCACHE
 wire l15_dcache_val_s2;
 wire l15_dcache_rw_s2;
-wire [(`L15_CACHE_INDEX_WIDTH+`L15_WAY_WIDTH)-1:0] l15_dcache_index_s2;
+wire [(`L15_CACHE_INDEX_WIDTH+`L15_WAY_WIDTH+`L15_SUBLINE_INDEX_WIDTH)-1:0] l15_dcache_index_s2;
 wire [127:0] l15_dcache_write_data_s2;
 wire [127:0] l15_dcache_write_mask_s2;
 wire [127:0] dcache_l15_dout_s3;
@@ -664,6 +672,10 @@ l15_pipeline pipeline(
     .noc2decoder_l15_data_1(noc2decoder_l15_data_1),
     .noc2decoder_l15_data_2(noc2decoder_l15_data_2),
     .noc2decoder_l15_data_3(noc2decoder_l15_data_3),
+    .noc2decoder_l15_data_4(noc2decoder_l15_data_4),
+    .noc2decoder_l15_data_5(noc2decoder_l15_data_5),
+    .noc2decoder_l15_data_6(noc2decoder_l15_data_6),
+    .noc2decoder_l15_data_7(noc2decoder_l15_data_7),
     .noc2decoder_l15_address(noc2decoder_l15_address),
     .noc2decoder_l15_fwd_subcacheline_vector(noc2decoder_l15_fwd_subcacheline_vector),
     .noc2decoder_l15_src_homeid(noc2decoder_l15_src_homeid),

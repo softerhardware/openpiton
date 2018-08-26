@@ -48,17 +48,17 @@ module simplenocbuffer(
    input wire [`NOC_DATA_WIDTH-1:0] noc_in_data,
    input wire msg_ack,
    output reg noc_in_rdy,
-   output reg [511:0] msg,
+   output reg [575:0] msg,   // msg has at most 9 flits: 1 header and 8 for data 
    output reg msg_val
    );
 
-reg [2:0] index;
-reg [2:0] index_next;
+reg [3:0] index;
+reg [3:0] index_next;
 reg [`MSG_LENGTH_WIDTH-1:0] msg_len;
 reg [`NOC2_STATE_WIDTH-1:0] state;
 reg [`NOC2_STATE_WIDTH-1:0] state_next;
-reg [`NOC_DATA_WIDTH-1:0] buffer [0:7];
-reg [`NOC_DATA_WIDTH-1:0] buffer_next [0:7];
+reg [`NOC_DATA_WIDTH-1:0] buffer [0:8];
+reg [`NOC_DATA_WIDTH-1:0] buffer_next [0:8];
 
 // Reset logic & sequential
 always @ (posedge clk)
@@ -73,6 +73,7 @@ begin
       buffer[5] <= 1'b0;
       buffer[6] <= 1'b0;
       buffer[7] <= 1'b0;
+      buffer[8] <= 1'b0;
       index <= 0;
       state <= 0;
    end
@@ -86,6 +87,7 @@ begin
       buffer[5] <= buffer_next[5];
       buffer[6] <= buffer_next[6];
       buffer[7] <= buffer_next[7];
+      buffer[8] <= buffer_next[8];
       index <= index_next;
       state <= state_next;
    end
@@ -102,6 +104,7 @@ begin
    msg[(5+1)*64 - 1 -: 64] = buffer[5];
    msg[(6+1)*64 - 1 -: 64] = buffer[6];
    msg[(7+1)*64 - 1 -: 64] = buffer[7];
+   msg[(8+1)*64 - 1 -: 64] = buffer[8];
 end
 
 always @ *
@@ -118,6 +121,7 @@ begin
    buffer_next[5] = buffer[5];
    buffer_next[6] = buffer[6];
    buffer_next[7] = buffer[7];
+   buffer_next[8] = buffer[8];
    noc_in_rdy = 1'b0;
 
    if (state == `NOC2_STATE_IDLE)

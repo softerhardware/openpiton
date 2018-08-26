@@ -39,8 +39,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     type="1rw", 
     # height=CONFIG_SRAM_L15_HMT_HEIGHT, 
     # width=CONFIG_SRAM_L15_HMT_WIDTH
-    height_define="`L15_NUM_ENTRIES",
-    heightlog2_define="`L15_NUM_ENTRIES_LOG2",
+    height_define="`L15_DATA_ARRAY_HEIGHT",
+    heightlog2_define="`L15_DATA_ARRAY_HEIGHT_LOG2",
     width_define="`L15_HMT_ENTRY_WIDTH"
     );
 %>

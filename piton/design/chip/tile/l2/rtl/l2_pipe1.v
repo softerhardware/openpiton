@@ -258,6 +258,7 @@ wire [`PHY_ADDR_WIDTH-1:0] addr_S2;
 wire l2_tag_hit_S2;
 wire l2_evict_S2;
 wire l2_wb_S2;
+wire l2_data_ack_l15line64_S2;
 wire [`L2_MESI_BITS-1:0] l2_way_state_mesi_S2;
 wire [`L2_VD_BITS-1:0] l2_way_state_vd_S2;
 wire [`L2_DI_BIT-1:0] l2_way_state_cache_type_S2;
@@ -437,7 +438,8 @@ l2_pipe1_ctrl ctrl(
     `endif
     .msg_data_valid_S1          (msg_data_valid),
     .addr_S1                    (addr_S1),
-   
+  
+    .l2_data_ack_l15line64_S2   (l2_data_ack_l15line64_S2),
     .global_stall_S2            (global_stall_S2),
     .l2_tag_hit_S2              (l2_tag_hit_S2),
     .l2_evict_S2                (l2_evict_S2),
@@ -633,6 +635,7 @@ l2_pipe1_dpath dpath(
     .msg_from_mshr_S1           (msg_from_mshr_S1), 
 
 
+    .l2_data_ack_l15line64_S2   (l2_data_ack_l15line64_S2),
     .state_data_S2              (state_data_out),
     .tag_data_S2                (tag_data_out),
     .msg_data_S2                (msg_data),
