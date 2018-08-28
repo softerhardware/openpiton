@@ -52,6 +52,12 @@ module noc3encoder(
     input wire [`L15_NOC3_REQTYPE_WIDTH-1:0] l15_noc3encoder_req_type,
     input wire [63:0] l15_noc3encoder_req_data_0,
     input wire [63:0] l15_noc3encoder_req_data_1,
+    input wire [63:0] l15_noc3encoder_req_data_2,
+    input wire [63:0] l15_noc3encoder_req_data_3,
+    input wire [63:0] l15_noc3encoder_req_data_4,
+    input wire [63:0] l15_noc3encoder_req_data_5,
+    input wire [63:0] l15_noc3encoder_req_data_6,
+    input wire [63:0] l15_noc3encoder_req_data_7,
     input wire [`L15_MSHR_ID_WIDTH-1:0] l15_noc3encoder_req_mshrid,
     input wire [`L15_THREADID_MASK] l15_noc3encoder_req_threadid,
     input wire [1:0] l15_noc3encoder_req_sequenceid,
@@ -124,6 +130,18 @@ begin
             l15_noc3encoder_req_data_0_f <= l15_noc3encoder_req_data_0;
         else if (l15_noc3encoder_req_val && is_request && flit_state_next == `NOC3_REQ_DATA_2)
             l15_noc3encoder_req_data_0_f <= l15_noc3encoder_req_data_1;
+        else if (l15_noc3encoder_req_val && is_request && flit_state_next == `NOC3_REQ_DATA_3)
+            l15_noc3encoder_req_data_0_f <= l15_noc3encoder_req_data_2;
+        else if (l15_noc3encoder_req_val && is_request && flit_state_next == `NOC3_REQ_DATA_4)
+            l15_noc3encoder_req_data_0_f <= l15_noc3encoder_req_data_3;
+        else if (l15_noc3encoder_req_val && is_request && flit_state_next == `NOC3_REQ_DATA_5)
+            l15_noc3encoder_req_data_0_f <= l15_noc3encoder_req_data_4;
+        else if (l15_noc3encoder_req_val && is_request && flit_state_next == `NOC3_REQ_DATA_6)
+            l15_noc3encoder_req_data_0_f <= l15_noc3encoder_req_data_5;
+        else if (l15_noc3encoder_req_val && is_request && flit_state_next == `NOC3_REQ_DATA_7)
+            l15_noc3encoder_req_data_0_f <= l15_noc3encoder_req_data_6;
+        else if (l15_noc3encoder_req_val && is_request && flit_state_next == `NOC3_REQ_DATA_8)
+            l15_noc3encoder_req_data_0_f <= l15_noc3encoder_req_data_7;
         else if (l15_noc3encoder_req_val && is_response && flit_state_next == `NOC3_RES_DATA_1)
             l15_noc3encoder_req_data_0_f <= l15_noc3encoder_req_data_0;
         else if (l15_noc3encoder_req_val && is_response && flit_state_next == `NOC3_RES_DATA_2)
@@ -195,7 +213,7 @@ begin
         begin
             // specify address (should be specified by default)
             msg_type = `MSG_TYPE_WB_REQ;
-            msg_length = 4; // 2 extra req headers + 2 data (128b)
+            msg_length = 2+8; // 2 extra req headers + 2 data (128b)
             // msg_cache_type = `MSG_CACHE_TYPE_DATA;
         end
         `L15_NOC3_REQTYPE_DOWNGRADE_ACK:
@@ -285,11 +303,7 @@ begin
             flit[`MSG_SRC_FBITS_] = src_fbits;
             flit[`MSG_OPTIONS_3_] = msg_options_3;
         end
-        else if (flit_state == `NOC3_REQ_DATA_1)
-        begin
-            flit[`NOC_DATA_WIDTH-1:0] = l15_noc3encoder_req_data_0_f;
-        end
-        else if (flit_state == `NOC3_REQ_DATA_2)
+        else  // (flit_state == `NOC3_REQ_DATA_1 ~ 8)
         begin
             flit[`NOC_DATA_WIDTH-1:0] = l15_noc3encoder_req_data_0_f;
         end
