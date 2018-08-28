@@ -96,7 +96,7 @@ module l2_pipe1_ctrl(
     input wire l2_tag_hit_S2,
     input wire l2_evict_S2,
     input wire l2_wb_S2,
-    input wire l2_data_ack_l15line64_S2;
+    input wire l2_data_ack_l15line64_S2,
     input wire [`L2_MESI_BITS-1:0] l2_way_state_mesi_S2,
     input wire [`L2_VD_BITS-1:0] l2_way_state_vd_S2,
     input wire [`L2_DI_BIT-1:0] l2_way_state_cache_type_S2,
@@ -3356,6 +3356,15 @@ begin
                 msg_send_mode_S4 = `L2_P1_BUF_OUT_MODE_1H2D;
                 msg_send_length_S4 = 2;
                 msg_send_data_size_S4 = data_size_S4_f;
+                msg_send_cache_type_S4 = cache_type_S4_f;
+                msg_send_mshrid_S4 = mshrid_S4;           
+            end
+            if (cache_type_S4_f == `MSG_CACHE_TYPE_DATA && 
+                (msg_type_S4 == `MSG_TYPE_NC_LOAD_REQ || msg_type_S4 == `MSG_TYPE_NC_STORE_REQ ))
+            begin
+                msg_send_mode_S4 = `L2_P1_BUF_OUT_MODE_1H2D;
+                msg_send_length_S4 = 2;
+                msg_send_data_size_S4 = `MSG_DATA_SIZE_16B;
                 msg_send_cache_type_S4 = cache_type_S4_f;
                 msg_send_mshrid_S4 = mshrid_S4;           
             end

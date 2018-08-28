@@ -57,8 +57,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
    # 512
    numentries = CONFIG_L15_SIZE / L15_LINE_SIZE
-   l15_data_aray_size = 16  // Fix array size to 16B 
-   #  
+   
+   #Fix array size to 16B 
+   l15_data_array_size = 16  
+     
    print("`define L15_LINE_SIZE_WIDTH %d" % math.log(L15_LINE_SIZE,2))
    print("`define L15_DATA_ARRAY_SIZE %d" % l15_data_array_size )
    print("`define L15_DATA_ARRAY_SIZE_WIDTH %d" % math.log(l15_data_array_size, 2) )
@@ -131,7 +133,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 `define L15_CACHE_INDEX_VECTOR_WIDTH (`L15_NUM_ENTRIES/4)
 
 // 16B cache lines
-`define L15_IDX_LOW (L15_LINE_SIZE_WIDTH)
+`define L15_IDX_LOW (`L15_LINE_SIZE_WIDTH)
 // 10
 `define L15_IDX_HI (`L15_CACHE_INDEX_WIDTH+`L15_IDX_LOW-1)
 
