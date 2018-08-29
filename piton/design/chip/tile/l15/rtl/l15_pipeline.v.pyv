@@ -2359,15 +2359,6 @@ end
 
 always @ *
 begin
-    // lru_way or states should remains the same when we scan the sublines (in 4 cycles)
-    noc3_wb_s2 = (noc1_operation_s2 == `L15_NOC1_GEN_WRITEBACK_GUARD_IF_LRU_M && lru_state_m_s2) ||
-                 (noc1_operation_s2 == `L15_NOC1_GEN_WRITEBACK_GUARD_IF_FLUSH_M && flush_state_m_s2) ||
-                 (noc1_operation_s2 == `L15_NOC1_GEN_WRITEBACK_GUARD_IF_TAGCHECK_M && tagcheck_state_m_s2);
-end
-
-
-always @ *
-begin
     // PCX/Noc2 ack logics
     // COV: doesn't seem like anything acks in stage 2
     pcx_ack_s2 = val_s2 && !stall_real_s2 && (pcx_ack_stage_s2 == `L15_ACK_STAGE_S2);
@@ -2413,6 +2404,17 @@ reg [`L15_UNPARAM_1_0] flush_way_s2;
 // reg [`L15_UNPARAM_3_0] flush_way_mask_s2;
 reg [`L15_CACHE_TAG_WIDTH-1:0] flush_way_tag_s2;
 reg [`L15_PADDR_MASK] flush_way_address_s2;
+
+
+always @ *
+begin
+    // lru_way or states should remains the same when we scan the sublines (in 4 cycles)
+    noc3_wb_s2 = (noc1_operation_s2 == `L15_NOC1_GEN_WRITEBACK_GUARD_IF_LRU_M && lru_state_m_s2) ||
+                 (noc1_operation_s2 == `L15_NOC1_GEN_WRITEBACK_GUARD_IF_FLUSH_M && flush_state_m_s2) ||
+                 (noc1_operation_s2 == `L15_NOC1_GEN_WRITEBACK_GUARD_IF_TAGCHECK_M && tagcheck_state_m_s2);
+end
+
+
 always @ *
 begin
     // note: dtag has 33b per tag entry way, but we are only using 29b
