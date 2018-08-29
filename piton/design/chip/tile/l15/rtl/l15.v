@@ -354,6 +354,12 @@ wire noc3buffer_noc3encoder_req_val;
 wire [`L15_NOC3_REQTYPE_WIDTH-1:0] l15_noc3encoder_req_type;
 wire [63:0] l15_noc3encoder_req_data_0;
 wire [63:0] l15_noc3encoder_req_data_1;
+wire [63:0] l15_noc3encoder_req_data_2;
+wire [63:0] l15_noc3encoder_req_data_3;
+wire [63:0] l15_noc3encoder_req_data_4;
+wire [63:0] l15_noc3encoder_req_data_5;
+wire [63:0] l15_noc3encoder_req_data_6;
+wire [63:0] l15_noc3encoder_req_data_7;
 wire [`L15_MSHR_ID_WIDTH-1:0] l15_noc3encoder_req_mshrid;
 wire [1:0] l15_noc3encoder_req_sequenceid;
 wire [`L15_THREADID_MASK] l15_noc3encoder_req_threadid;
@@ -366,6 +372,12 @@ wire [`PACKET_HOME_ID_WIDTH-1:0] l15_noc3encoder_req_homeid;
 wire [`L15_NOC3_REQTYPE_WIDTH-1:0] noc3buffer_noc3encoder_req_type;
 wire [63:0] noc3buffer_noc3encoder_req_data_0;
 wire [63:0] noc3buffer_noc3encoder_req_data_1;
+wire [63:0] noc3buffer_noc3encoder_req_data_2;
+wire [63:0] noc3buffer_noc3encoder_req_data_3;
+wire [63:0] noc3buffer_noc3encoder_req_data_4;
+wire [63:0] noc3buffer_noc3encoder_req_data_5;
+wire [63:0] noc3buffer_noc3encoder_req_data_6;
+wire [63:0] noc3buffer_noc3encoder_req_data_7;
 wire [`L15_MSHR_ID_WIDTH-1:0] noc3buffer_noc3encoder_req_mshrid;
 wire [1:0] noc3buffer_noc3encoder_req_sequenceid;
 wire [`L15_THREADID_MASK] noc3buffer_noc3encoder_req_threadid;
@@ -754,6 +766,12 @@ l15_pipeline pipeline(
     // .l15_noc1buffer_req_blkinitstore(l15_noc1buffer_req_blkinitstore),
     .l15_noc1buffer_req_data_0(l15_noc1buffer_req_data_0),
     .l15_noc1buffer_req_data_1(l15_noc1buffer_req_data_1),
+    .l15_noc3encoder_req_data_2(l15_noc3encoder_req_data_2),
+    .l15_noc3encoder_req_data_3(l15_noc3encoder_req_data_3),
+    .l15_noc3encoder_req_data_4(l15_noc3encoder_req_data_4),
+    .l15_noc3encoder_req_data_5(l15_noc3encoder_req_data_5),
+    .l15_noc3encoder_req_data_6(l15_noc3encoder_req_data_6),
+    .l15_noc3encoder_req_data_7(l15_noc3encoder_req_data_7),
     .l15_noc1buffer_req_csm_data(l15_noc1buffer_req_csm_data),
     .l15_noc3encoder_req_val(l15_noc3encoder_req_val),
     .l15_noc3encoder_req_type(l15_noc3encoder_req_type),
@@ -965,6 +983,12 @@ noc3buffer noc3buffer(
     .l15_noc3encoder_req_type(l15_noc3encoder_req_type),
     .l15_noc3encoder_req_data_0(l15_noc3encoder_req_data_0),
     .l15_noc3encoder_req_data_1(l15_noc3encoder_req_data_1),
+    .l15_noc3encoder_req_data_2(l15_noc3encoder_req_data_2),
+    .l15_noc3encoder_req_data_3(l15_noc3encoder_req_data_3),
+    .l15_noc3encoder_req_data_4(l15_noc3encoder_req_data_4),
+    .l15_noc3encoder_req_data_5(l15_noc3encoder_req_data_5),
+    .l15_noc3encoder_req_data_6(l15_noc3encoder_req_data_6),
+    .l15_noc3encoder_req_data_7(l15_noc3encoder_req_data_7),
     .l15_noc3encoder_req_mshrid(l15_noc3encoder_req_mshrid),
     .l15_noc3encoder_req_sequenceid(l15_noc3encoder_req_sequenceid),
     .l15_noc3encoder_req_threadid(l15_noc3encoder_req_threadid),
@@ -980,6 +1004,12 @@ noc3buffer noc3buffer(
     .noc3buffer_noc3encoder_req_type(noc3buffer_noc3encoder_req_type),
     .noc3buffer_noc3encoder_req_data_0(noc3buffer_noc3encoder_req_data_0),
     .noc3buffer_noc3encoder_req_data_1(noc3buffer_noc3encoder_req_data_1),
+    .noc3buffer_noc3encoder_req_data_2(noc3buffer_noc3encoder_req_data_2),
+    .noc3buffer_noc3encoder_req_data_3(noc3buffer_noc3encoder_req_data_3),
+    .noc3buffer_noc3encoder_req_data_4(noc3buffer_noc3encoder_req_data_4),
+    .noc3buffer_noc3encoder_req_data_5(noc3buffer_noc3encoder_req_data_5),
+    .noc3buffer_noc3encoder_req_data_6(noc3buffer_noc3encoder_req_data_6),
+    .noc3buffer_noc3encoder_req_data_7(noc3buffer_noc3encoder_req_data_7),
     .noc3buffer_noc3encoder_req_mshrid(noc3buffer_noc3encoder_req_mshrid),
     .noc3buffer_noc3encoder_req_sequenceid(noc3buffer_noc3encoder_req_sequenceid),
     .noc3buffer_noc3encoder_req_threadid(noc3buffer_noc3encoder_req_threadid),

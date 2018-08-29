@@ -52,6 +52,12 @@ module noc3buffer(
     input wire [`L15_NOC3_REQTYPE_WIDTH-1:0] l15_noc3encoder_req_type,
     input wire [63:0] l15_noc3encoder_req_data_0,
     input wire [63:0] l15_noc3encoder_req_data_1,
+    input wire [63:0] l15_noc3encoder_req_data_2,
+    input wire [63:0] l15_noc3encoder_req_data_3,
+    input wire [63:0] l15_noc3encoder_req_data_4,
+    input wire [63:0] l15_noc3encoder_req_data_5,
+    input wire [63:0] l15_noc3encoder_req_data_6,
+    input wire [63:0] l15_noc3encoder_req_data_7,
     input wire [`L15_MSHR_ID_WIDTH-1:0] l15_noc3encoder_req_mshrid,
     input wire [`L15_THREADID_MASK] l15_noc3encoder_req_threadid,
     input wire [1:0] l15_noc3encoder_req_sequenceid,
@@ -65,6 +71,12 @@ module noc3buffer(
     output reg [`L15_NOC3_REQTYPE_WIDTH-1:0] noc3buffer_noc3encoder_req_type,
     output reg [63:0] noc3buffer_noc3encoder_req_data_0,
     output reg [63:0] noc3buffer_noc3encoder_req_data_1,
+    output reg [63:0] noc3buffer_noc3encoder_req_data_2,
+    output reg [63:0] noc3buffer_noc3encoder_req_data_3,
+    output reg [63:0] noc3buffer_noc3encoder_req_data_4,
+    output reg [63:0] noc3buffer_noc3encoder_req_data_5,
+    output reg [63:0] noc3buffer_noc3encoder_req_data_6,
+    output reg [63:0] noc3buffer_noc3encoder_req_data_7,
     output reg [`L15_MSHR_ID_WIDTH-1:0] noc3buffer_noc3encoder_req_mshrid,
     output reg [1:0] noc3buffer_noc3encoder_req_sequenceid,
     output reg [`L15_THREADID_MASK] noc3buffer_noc3encoder_req_threadid,
@@ -88,6 +100,12 @@ reg new_buffer;
 reg [`L15_NOC3_REQTYPE_WIDTH-1:0] l15_noc3encoder_req_type_buf;
 reg [63:0] l15_noc3encoder_req_data_0_buf;
 reg [63:0] l15_noc3encoder_req_data_1_buf;
+reg [63:0] l15_noc3encoder_req_data_2_buf;
+reg [63:0] l15_noc3encoder_req_data_3_buf;
+reg [63:0] l15_noc3encoder_req_data_4_buf;
+reg [63:0] l15_noc3encoder_req_data_5_buf;
+reg [63:0] l15_noc3encoder_req_data_6_buf;
+reg [63:0] l15_noc3encoder_req_data_7_buf;
 reg [`L15_MSHR_ID_WIDTH-1:0] l15_noc3encoder_req_mshrid_buf;
 reg [1:0] l15_noc3encoder_req_threadid_buf;
 reg [1:0] l15_noc3encoder_req_sequenceid_buf;
@@ -111,6 +129,12 @@ begin
             l15_noc3encoder_req_type_buf <= l15_noc3encoder_req_type;
             l15_noc3encoder_req_data_0_buf <= l15_noc3encoder_req_data_0;
             l15_noc3encoder_req_data_1_buf <= l15_noc3encoder_req_data_1;
+            l15_noc3encoder_req_data_2_buf <= l15_noc3encoder_req_data_2;
+            l15_noc3encoder_req_data_3_buf <= l15_noc3encoder_req_data_3;
+            l15_noc3encoder_req_data_4_buf <= l15_noc3encoder_req_data_4;
+            l15_noc3encoder_req_data_5_buf <= l15_noc3encoder_req_data_5;
+            l15_noc3encoder_req_data_6_buf <= l15_noc3encoder_req_data_6;
+            l15_noc3encoder_req_data_7_buf <= l15_noc3encoder_req_data_7;
             l15_noc3encoder_req_mshrid_buf <= l15_noc3encoder_req_mshrid;
             l15_noc3encoder_req_threadid_buf <= l15_noc3encoder_req_threadid;
             l15_noc3encoder_req_sequenceid_buf <= l15_noc3encoder_req_sequenceid;
@@ -129,6 +153,12 @@ begin
     noc3buffer_noc3encoder_req_type = l15_noc3encoder_req_type_buf;
     noc3buffer_noc3encoder_req_data_0 = l15_noc3encoder_req_data_0_buf;
     noc3buffer_noc3encoder_req_data_1 = l15_noc3encoder_req_data_1_buf;
+    noc3buffer_noc3encoder_req_data_2 = l15_noc3encoder_req_data_2_buf;
+    noc3buffer_noc3encoder_req_data_3 = l15_noc3encoder_req_data_3_buf;
+    noc3buffer_noc3encoder_req_data_4 = l15_noc3encoder_req_data_4_buf;
+    noc3buffer_noc3encoder_req_data_5 = l15_noc3encoder_req_data_5_buf;
+    noc3buffer_noc3encoder_req_data_6 = l15_noc3encoder_req_data_6_buf;
+    noc3buffer_noc3encoder_req_data_7 = l15_noc3encoder_req_data_7_buf;
     noc3buffer_noc3encoder_req_mshrid = l15_noc3encoder_req_mshrid_buf;
     noc3buffer_noc3encoder_req_threadid = l15_noc3encoder_req_threadid_buf;
     noc3buffer_noc3encoder_req_sequenceid = l15_noc3encoder_req_sequenceid_buf;

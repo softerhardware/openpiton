@@ -233,6 +233,12 @@ module l15_pipeline(
     output reg [`L15_NOC3_REQTYPE_WIDTH-1:0] l15_noc3encoder_req_type,
     output reg [`L15_UNPARAM_63_0] l15_noc3encoder_req_data_0,
     output reg [`L15_UNPARAM_63_0] l15_noc3encoder_req_data_1,
+    output reg [`L15_UNPARAM_63_0] l15_noc3encoder_req_data_2,
+    output reg [`L15_UNPARAM_63_0] l15_noc3encoder_req_data_3,
+    output reg [`L15_UNPARAM_63_0] l15_noc3encoder_req_data_4,
+    output reg [`L15_UNPARAM_63_0] l15_noc3encoder_req_data_5,
+    output reg [`L15_UNPARAM_63_0] l15_noc3encoder_req_data_6,
+    output reg [`L15_UNPARAM_63_0] l15_noc3encoder_req_data_7,
     output reg [`L15_MSHR_ID_WIDTH-1:0] l15_noc3encoder_req_mshrid,
     output reg [`L15_UNPARAM_1_0] l15_noc3encoder_req_sequenceid,
     output reg [`L15_THREADID_MASK] l15_noc3encoder_req_threadid,
@@ -2224,6 +2230,7 @@ reg [`L15_SUBLINE_INDEX_WIDTH-1:0] cache_subline_s2;
 reg [`L15_SUBLINE_INDEX_WIDTH-1:0] req_subline_s2_next, req_subline_s2;
 reg [`L15_WAY_MASK] dtag_written_way_s2;
 reg stall_real_s2, stall_load_s2;
+reg noc3_wb_s2;
 
 always @ (posedge clk) 
 begin
@@ -2317,14 +2324,14 @@ begin
         noc2_src_homeid_s2_next = noc2decoder_l15_src_homeid;
 	req_subline_s2_next = predecode_address_s1[`L15_SUBLINE_MASK]; //{`L15_SUBLINE_INDEX_WIDTH{1'b0}};
 
-	if ((predecode_reqtype_s1 == `L15_REQTYPE_ACKDT_ST_IM || 
-             predecode_reqtype_s1 == `L15_REQTYPE_ACKDT_LD) && 
-            fetch_state_s1 != `L15_FETCH_STATE_NORMAL)
-	begin
+	//if ((predecode_reqtype_s1 == `L15_REQTYPE_ACKDT_ST_IM || 
+         //    predecode_reqtype_s1 == `L15_REQTYPE_ACKDT_LD) && 
+          //  fetch_state_s1 != `L15_FETCH_STATE_NORMAL)
+	//begin
         // TODO add write back condition
 	    //address_s2_next[`L15_SUBLINE_MASK] = {`L15_SUBLINE_INDEX_WIDTH{1'b0}};
 	    //req_subline_s2_next = predecode_address_s1[`L15_SUBLINE_MASK]; // only used for ST_ACK_IM
-	end
+	//end
 
         `ifndef NO_RTL_CSM
         hmt_fill_homeid_s2_next = predecode_mshr_read_homeid_s1;
@@ -2343,10 +2350,19 @@ begin
     // Stalling logics
     // The only reason that S2 can stall is that S3 is stalled
     stall_real_s2 = val_s2 && stall_s3;
-    stall_load_s2 = val_s2 && cache_subline_s2 != {`L15_SUBLINE_INDEX_WIDTH{1'b1}} &&   // TODO FOCUS ON THIS
+    stall_load_s2 = val_s2 && cache_subline_s2 != {`L15_SUBLINE_INDEX_WIDTH{1'b1}} &&   // TODO FOCUS ON THIS add condition for writeback
                     ( dcache_operation_s2 == `L15_DCACHE_WRITE_LRU_WAY_FROM_NOC2 || 
-                      dcache_operation_s2 == `L15_DCACHE_WRITE_LRU_WAY_FROM_NOC2_AND_MSHR );
+                      dcache_operation_s2 == `L15_DCACHE_WRITE_LRU_WAY_FROM_NOC2_AND_MSHR || 
+                      noc3_wb_s2 );
     stall_s2 = stall_real_s2 || stall_load_s2;
+end
+
+always @ *
+begin
+    // lru_way or states should remains the same when we scan the sublines (in 4 cycles)
+    noc3_wb_s2 = (noc1_operation_s2 == `L15_NOC1_GEN_WRITEBACK_GUARD_IF_LRU_M && lru_state_m_s2) ||
+                 (noc1_operation_s2 == `L15_NOC1_GEN_WRITEBACK_GUARD_IF_FLUSH_M && flush_state_m_s2) ||
+                 (noc1_operation_s2 == `L15_NOC1_GEN_WRITEBACK_GUARD_IF_TAGCHECK_M && tagcheck_state_m_s2);
 end
 
 
@@ -2618,7 +2634,7 @@ begin
     case (dcache_operation_s2)
         `L15_DCACHE_READ_TAGCHECK_WAY_IF_M:
         begin
-            dcache_val_s2 = tagcheck_state_m_s2;
+            dcache_val_s2 = tagcheck_state_m_s2 || noc3_wb_s2;
             dcache_rw_s2 = `L15_DTAG_RW_READ;
             dcache_index_s2 = cache_index_s2;
             dcache_way_s2 = tagcheck_way_s2;
@@ -2626,7 +2642,7 @@ begin
         end
         `L15_DCACHE_READ_TAGCHECK_WAY_IF_MES:
         begin
-            dcache_val_s2 = tagcheck_state_mes_s2;
+            dcache_val_s2 = tagcheck_state_mes_s2 || noc3_wb_s2;
             dcache_rw_s2 = `L15_DTAG_RW_READ;
             dcache_index_s2 = cache_index_s2;
             dcache_way_s2 = tagcheck_way_s2;
@@ -2634,7 +2650,7 @@ begin
         end
         `L15_DCACHE_READ_LRU_WAY_IF_M:
         begin
-            dcache_val_s2 = lru_state_m_s2;
+            dcache_val_s2 = lru_state_m_s2 || noc3_wb_s2;
             dcache_rw_s2 = `L15_DTAG_RW_READ;
             dcache_index_s2 = cache_index_s2;
             dcache_way_s2 = lru_way_s2;
@@ -3202,6 +3218,8 @@ end
 reg subline_not_req_s3;
 reg subline_is_req_s3;
 reg [`L15_SUBLINE_INDEX_WIDTH-1:0] dcache_subline_s3;
+reg noc3_wb_s3_next, noc3_wb_s3;
+
 always @ (posedge clk)
 begin
     if (!rst_n)
@@ -3209,18 +3227,21 @@ begin
         subline_not_req_s3 <= 1'b0;
         subline_is_req_s3 <= 1'b0;
         dcache_subline_s3 <= {`L15_SUBLINE_INDEX_WIDTH{1'b0}};
+        noc3_wb_s3 <= 1'b0;
     end
     else if (!stall_s3)
     begin
         subline_not_req_s3 <= subline_not_req_s2;
         subline_is_req_s3 <= subline_is_req_s2;
         dcache_subline_s3 <= dcache_subline_s2;
+        noc3_wb_s3 <= noc3_wb_s2; 
     end
     else
     begin
         subline_not_req_s3 <= subline_not_req_s3;
         subline_is_req_s3 <= subline_is_req_s3;
         dcache_subline_s3 <= dcache_subline_s3;
+        noc3_wb_s3 <= noc3_wb_s3;
     end
 end
 
@@ -3524,7 +3545,8 @@ begin
     endcase
     lruarray_write_index_s3 = cache_index_s3;
 
-    l15_lruarray_write_val_s3 = lruarray_write_val_s3 && val_s3;
+    l15_lruarray_write_val_s3 = lruarray_write_val_s3 && val_s3 && ((noc3_wb_s3 && dcache_subline_s3 == {`L15_SUBLINE_INDEX_WIDTH{1'b1}}) || !noc3_wb_s3);
+
     l15_lruarray_write_data_s3 = lruarray_write_data_s3;
     l15_lruarray_write_mask_s3 = 6'b111111;
     // l15_lruarray_write_mask_s3 = 6'b0;
@@ -4071,7 +4093,7 @@ begin
     case (noc1_operation_s3)
         `L15_NOC1_GEN_WRITEBACK_GUARD_IF_LRU_M:
         begin
-            noc1_req_val_s3 = val_s3 && lru_state_m_s3;
+            noc1_req_val_s3 = val_s3 && (lru_state_m_s3 || noc3_wb_s3);
             noc1_type_s3 = `L15_NOC1_REQTYPE_WRITEBACK_GUARD;
             l15_noc1buffer_req_address = lru_way_address_s3;
             creditman_noc1_mispredicted_s3 = noc1_req_val_s3 ? 0 : val_s3;
@@ -4079,7 +4101,7 @@ begin
         end
         `L15_NOC1_GEN_WRITEBACK_GUARD_IF_FLUSH_M:
         begin
-            noc1_req_val_s3 = val_s3 && flush_state_m_s3;
+            noc1_req_val_s3 = val_s3 && (flush_state_m_s3 || noc3_wb_s3);
             noc1_type_s3 = `L15_NOC1_REQTYPE_WRITEBACK_GUARD;
             l15_noc1buffer_req_address = flush_way_address_s3;
             creditman_noc1_mispredicted_s3 = noc1_req_val_s3 ? 0 : val_s3;
@@ -4087,7 +4109,7 @@ begin
         end
         `L15_NOC1_GEN_WRITEBACK_GUARD_IF_TAGCHECK_M:
         begin
-            noc1_req_val_s3 = val_s3 && tagcheck_state_m_s3;
+            noc1_req_val_s3 = val_s3 && (tagcheck_state_m_s3 || noc3_wb_s3);
             noc1_type_s3 = `L15_NOC1_REQTYPE_WRITEBACK_GUARD;
             l15_noc1buffer_req_address = address_s3;
             creditman_noc1_mispredicted_s3 = noc1_req_val_s3 ? 0 : val_s3;
@@ -4225,7 +4247,8 @@ begin
         end
     endcase
 
-    l15_noc1buffer_req_val = noc1_req_val_s3 && !noc1encoder_req_staled_s3;
+    l15_noc1buffer_req_val = noc1_req_val_s3 && !noc1encoder_req_staled_s3 &&
+                             ((noc3_wb_s3 && dcache_subline_s3 == {`L15_SUBLINE_INDEX_WIDTH{1'b1}}) || !noc3_wb_s3);
     l15_noc1buffer_req_type = noc1_type_s3;
     l15_noc1buffer_req_threadid = threadid_s3;
     l15_noc1buffer_req_mshrid = mshrid_s3;
@@ -4299,7 +4322,7 @@ begin
     case (noc3_operations_s3)
         `L15_NOC3_GEN_WRITEBACK_IF_TAGCHECK_M_FROM_DCACHE:
         begin
-            noc3_req_val_s3 = val_s3 && tagcheck_state_m_s3;
+            noc3_req_val_s3 = val_s3 && (tagcheck_state_m_s3 || noc3_wb_s3);
             noc3_type_s3 = `L15_NOC3_REQTYPE_WRITEBACK;
             noc3_with_data_s3 = 1;
             noc3_address_s3 = address_s3;
@@ -4307,7 +4330,7 @@ begin
         end
         `L15_NOC3_GEN_WRITEBACK_IF_LRU_M_FROM_DCACHE:
         begin
-            noc3_req_val_s3 = val_s3 && lru_state_m_s3;
+            noc3_req_val_s3 = val_s3 && (lru_state_m_s3 || noc3_wb_s3);
             noc3_type_s3 = `L15_NOC3_REQTYPE_WRITEBACK;
             noc3_with_data_s3 = 1;
             noc3_address_s3 = lru_way_address_s3;
@@ -4315,7 +4338,7 @@ begin
         end
         `L15_NOC3_GEN_WRITEBACK_IF_FLUSH_M_FROM_DCACHE:
         begin
-            noc3_req_val_s3 = val_s3 && flush_state_m_s3;
+            noc3_req_val_s3 = val_s3 && (flush_state_m_s3 || noc3_wb_s3);
             noc3_type_s3 = `L15_NOC3_REQTYPE_WRITEBACK;
             noc3_with_data_s3 = 1;
             noc3_address_s3 = flush_way_address_s3;
@@ -4361,11 +4384,9 @@ begin
             noc3_homeid_source_s3 = `L15_HOMEID_SRC_NOC2_SOURCE;
         end
     endcase
-    l15_noc3encoder_req_val = noc3_req_val_s3 && !noc3encoder_req_staled_s3;
+    l15_noc3encoder_req_val = noc3_req_val_s3 && !noc3encoder_req_staled_s3 && 
+                             ((noc3_wb_s3 && dcache_subline_s3 == {`L15_SUBLINE_INDEX_WIDTH{1'b1}}) || !noc3_wb_s3);
     l15_noc3encoder_req_type = noc3_type_s3;
-    // TODO change to sequencial signal
-    l15_noc3encoder_req_data_0 = dcache_l15_dout_s3[127:64];
-    l15_noc3encoder_req_data_1 = dcache_l15_dout_s3[`L15_UNPARAM_63_0];
     l15_noc3encoder_req_mshrid = mshrid_s3;
     l15_noc3encoder_req_sequenceid = cache_index_s3[`L15_UNPARAM_1_0];
     l15_noc3encoder_req_threadid = threadid_s3[`L15_THREADID_MASK];
@@ -4392,6 +4413,92 @@ begin
                 l15_noc3encoder_req_homeid = expanded_hmt_homeid_s3;
             `endif
     endcase
+end
+
+reg [`L15_UNPARAM_63_0] dcache_l15_dout_buf0; 
+reg [`L15_UNPARAM_63_0] dcache_l15_dout_buf1; 
+reg [`L15_UNPARAM_63_0] dcache_l15_dout_buf2; 
+reg [`L15_UNPARAM_63_0] dcache_l15_dout_buf3; 
+reg [`L15_UNPARAM_63_0] dcache_l15_dout_buf4; 
+reg [`L15_UNPARAM_63_0] dcache_l15_dout_buf5; 
+
+always @*
+begin
+    if (!noc3_wb_s3)
+    begin
+        l15_noc3encoder_req_data_0 = dcache_l15_dout_s3[127:64];
+        l15_noc3encoder_req_data_1 = dcache_l15_dout_s3[`L15_UNPARAM_63_0];
+    end
+    else
+    begin
+        l15_noc3encoder_req_data_0 = dcache_l15_dout_buf0[`L15_UNPARAM_63_0];
+        l15_noc3encoder_req_data_1 = dcache_l15_dout_buf1[`L15_UNPARAM_63_0];
+    end
+
+    l15_noc3encoder_req_data_2 = dcache_l15_dout_buf2[`L15_UNPARAM_63_0];
+    l15_noc3encoder_req_data_3 = dcache_l15_dout_buf3[`L15_UNPARAM_63_0];
+    l15_noc3encoder_req_data_4 = dcache_l15_dout_buf4[`L15_UNPARAM_63_0];
+    l15_noc3encoder_req_data_5 = dcache_l15_dout_buf5[`L15_UNPARAM_63_0];
+
+    l15_noc3encoder_req_data_6 = dcache_l15_dout_s3[127:64];
+    l15_noc3encoder_req_data_7 = dcache_l15_dout_s3[`L15_UNPARAM_63_0];
+end
+
+always @(posedge clk)
+begin
+    if (!rst_n)
+    begin
+        dcache_l15_dout_buf0[`L15_UNPARAM_63_0] <= 0;
+        dcache_l15_dout_buf1[`L15_UNPARAM_63_0] <= 0;
+    end
+    else if (val_s3 && noc3_wb_s3 && dcache_subline_s3 == `L15_SUBLINE_0)  
+    begin
+        dcache_l15_dout_buf0[`L15_UNPARAM_63_0] <= dcache_l15_dout_s3[127:64];
+        dcache_l15_dout_buf1[`L15_UNPARAM_63_0] <= dcache_l15_dout_s3[`L15_UNPARAM_63_0];
+    end
+    else
+    begin
+        dcache_l15_dout_buf0[`L15_UNPARAM_63_0] <= dcache_l15_dout_buf0[`L15_UNPARAM_63_0];
+        dcache_l15_dout_buf1[`L15_UNPARAM_63_0] <= dcache_l15_dout_buf1[`L15_UNPARAM_63_0];
+    end
+end
+
+always @(posedge clk)
+begin
+    if (!rst_n)
+    begin
+        dcache_l15_dout_buf2[`L15_UNPARAM_63_0] <= 0;
+        dcache_l15_dout_buf3[`L15_UNPARAM_63_0] <= 0;
+    end
+    else if (val_s3 && noc3_wb_s3 && dcache_subline_s3 == `L15_SUBLINE_1)  
+    begin
+        dcache_l15_dout_buf2[`L15_UNPARAM_63_0] <= dcache_l15_dout_s3[127:64];
+        dcache_l15_dout_buf3[`L15_UNPARAM_63_0] <= dcache_l15_dout_s3[`L15_UNPARAM_63_0];
+    end
+    else
+    begin
+        dcache_l15_dout_buf2[`L15_UNPARAM_63_0] <= dcache_l15_dout_buf2[`L15_UNPARAM_63_0];
+        dcache_l15_dout_buf3[`L15_UNPARAM_63_0] <= dcache_l15_dout_buf3[`L15_UNPARAM_63_0];
+    end
+end
+
+always @(posedge clk)
+begin
+    if (!rst_n)
+    begin
+        dcache_l15_dout_buf4[`L15_UNPARAM_63_0] <= 0;
+        dcache_l15_dout_buf5[`L15_UNPARAM_63_0] <= 0;
+    end
+    else if (val_s3 && noc3_wb_s3 && dcache_subline_s3 == `L15_SUBLINE_2)  
+    begin
+        dcache_l15_dout_buf4[`L15_UNPARAM_63_0] <= dcache_l15_dout_s3[127:64];
+        dcache_l15_dout_buf5[`L15_UNPARAM_63_0] <= dcache_l15_dout_s3[`L15_UNPARAM_63_0];
+    end
+    else
+    begin
+        dcache_l15_dout_buf4[`L15_UNPARAM_63_0] <= dcache_l15_dout_buf4[`L15_UNPARAM_63_0];
+        dcache_l15_dout_buf5[`L15_UNPARAM_63_0] <= dcache_l15_dout_buf5[`L15_UNPARAM_63_0];
+    end
 end
 
 endmodule
