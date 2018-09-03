@@ -64,6 +64,7 @@ module rf_l15_wmt(
    );
 
 <%
+   # L1D cache line is 16B, it is not changable.
    linesize = 16
    numset = int(CONFIG_L1D_SIZE)/int(CONFIG_L1D_ASSOCIATIVITY)/linesize
    numway=int(CONFIG_L1D_ASSOCIATIVITY)

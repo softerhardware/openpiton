@@ -95,7 +95,7 @@ begin
     end
     else if((msg_state_f == msg_state_header0) && valid_in)
     begin
-        if (data_in[`MSG_LENGTH] == 8)
+        if (data_in[`MSG_LENGTH] == 8 || data_in[`MSG_LENGTH] == 10)
         begin
             msg_data_state_next = msg_data_state_8F;
         end

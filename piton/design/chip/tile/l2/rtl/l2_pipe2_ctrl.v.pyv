@@ -974,7 +974,7 @@ assign state_rb_en_S2 = n;
 
 always @ *
 begin
-    if (msg_type_S2_f == `MSG_TYPE_LOAD_MEM_ACK)
+    if (msg_type_S2_f == `MSG_TYPE_LOAD_MEM_ACK || msg_type_S2_f == `MSG_TYPE_WB_REQ)
     begin
         l2_load_64B_S2 = y;
     end

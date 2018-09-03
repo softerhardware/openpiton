@@ -2231,6 +2231,8 @@ reg [`L15_SUBLINE_INDEX_WIDTH-1:0] req_subline_s2_next, req_subline_s2;
 reg [`L15_WAY_MASK] dtag_written_way_s2;
 reg stall_real_s2, stall_load_s2;
 reg noc3_wb_s2;
+reg l1_inv_s2;
+reg load_64B_s2;
 
 always @ (posedge clk) 
 begin
@@ -2263,7 +2265,8 @@ end
 always @ *
 begin
     cache_index_s2 = address_s2[`L15_IDX_HI:`L15_IDX_LOW];
-    cache_index_l1d_s2 = address_s2[`L1D_ADDRESS_HI:`L15_IDX_LOW];
+    cache_index_l1d_s2 = l1_inv_s2 ? {address_s2[`L1D_ADDRESS_HI:`L15_IDX_LOW], cache_subline_s2[`L15_SUBLINE_INDEX_WIDTH - 1 : 0]}
+                                   : address_s2[`L1D_ADDRESS_HI:`L1D_IDX_LOW] ;
     address_cache_tag_s2 = address_s2[`L15_CACHE_TAG_HI:`L15_CACHE_TAG_LOW];
     //cache_subline_s2 = address_s2[`L15_SUBLINE_MASK];
 
@@ -2351,9 +2354,7 @@ begin
     // The only reason that S2 can stall is that S3 is stalled
     stall_real_s2 = val_s2 && stall_s3;
     stall_load_s2 = val_s2 && cache_subline_s2 != {`L15_SUBLINE_INDEX_WIDTH{1'b1}} &&   // TODO FOCUS ON THIS add condition for writeback
-                    ( dcache_operation_s2 == `L15_DCACHE_WRITE_LRU_WAY_FROM_NOC2 || 
-                      dcache_operation_s2 == `L15_DCACHE_WRITE_LRU_WAY_FROM_NOC2_AND_MSHR || 
-                      noc3_wb_s2 );
+                    (load_64B_s2 || noc3_wb_s2 || l1_inv_s2);
     stall_s2 = stall_real_s2 || stall_load_s2;
 end
 
@@ -2412,6 +2413,20 @@ begin
     noc3_wb_s2 = (noc1_operation_s2 == `L15_NOC1_GEN_WRITEBACK_GUARD_IF_LRU_M && lru_state_m_s2) ||
                  (noc1_operation_s2 == `L15_NOC1_GEN_WRITEBACK_GUARD_IF_FLUSH_M && flush_state_m_s2) ||
                  (noc1_operation_s2 == `L15_NOC1_GEN_WRITEBACK_GUARD_IF_TAGCHECK_M && tagcheck_state_m_s2);
+end
+
+always @ *
+begin
+    load_64B_s2 =  dcache_operation_s2 == `L15_DCACHE_WRITE_LRU_WAY_FROM_NOC2 || 
+                   dcache_operation_s2 == `L15_DCACHE_WRITE_LRU_WAY_FROM_NOC2_AND_MSHR ; 
+end
+
+always @ *
+begin
+    // TODO: should we consider the pure invalidation? CPX_GEN_XX_INVALIDATIOM 
+    l1_inv_s2 =  (cpx_operation_s2 == `L15_CPX_GEN_INVALIDATION_IF_TAGCHECK_MES_AND_WAYMAP_VALID && tagcheck_state_mes_s2) ||
+                 (cpx_operation_s2 == `L15_CPX_GEN_INVALIDATION_IF_LRU_MES_AND_WAYMAP_VALID && lru_state_mes_s2) ||
+                 (cpx_operation_s2 == `L15_CPX_GEN_INVALIDATION_IF_FLUSH_MES_AND_WAYMAP_VALID && flush_state_mes_s2);
 end
 
 
@@ -2640,7 +2655,7 @@ begin
             dcache_rw_s2 = `L15_DTAG_RW_READ;
             dcache_index_s2 = cache_index_s2;
             dcache_way_s2 = tagcheck_way_s2;
-	    dcache_subline_s2 = req_subline_s2;
+	    dcache_subline_s2 = noc3_wb_s2 ? cache_subline_s2 : req_subline_s2;
         end
         `L15_DCACHE_READ_TAGCHECK_WAY_IF_MES:
         begin
@@ -2648,7 +2663,7 @@ begin
             dcache_rw_s2 = `L15_DTAG_RW_READ;
             dcache_index_s2 = cache_index_s2;
             dcache_way_s2 = tagcheck_way_s2;
-	    dcache_subline_s2 = req_subline_s2;
+	    dcache_subline_s2 = noc3_wb_s2 ? cache_subline_s2 : req_subline_s2;
         end
         `L15_DCACHE_READ_LRU_WAY_IF_M:
         begin
@@ -2656,7 +2671,7 @@ begin
             dcache_rw_s2 = `L15_DTAG_RW_READ;
             dcache_index_s2 = cache_index_s2;
             dcache_way_s2 = lru_way_s2;
-	    dcache_subline_s2 = req_subline_s2;
+	    dcache_subline_s2 = noc3_wb_s2 ? cache_subline_s2 : req_subline_s2;
         end
         `L15_DCACHE_READ_FLUSH_WAY_IF_M:
         begin
@@ -3042,7 +3057,7 @@ begin
         end
     endcase
 
-    l15_wmt_read_val_s2 = wmt_read_val_s2 && val_s2 && !stall_s2;
+    l15_wmt_read_val_s2 = wmt_read_val_s2 && val_s2 && !stall_real_s2;
     l15_wmt_read_index_s2 = wmt_read_index_s2;
 end
 
@@ -3219,8 +3234,10 @@ end
 
 reg subline_not_req_s3;
 reg subline_is_req_s3;
-reg [`L15_SUBLINE_INDEX_WIDTH-1:0] dcache_subline_s3;
+reg [`L15_SUBLINE_INDEX_WIDTH-1:0] cache_subline_s3;
 reg noc3_wb_s3_next, noc3_wb_s3;
+reg l1_inv_s3;
+reg load_64B_s3;
 
 always @ (posedge clk)
 begin
@@ -3228,22 +3245,28 @@ begin
     begin
         subline_not_req_s3 <= 1'b0;
         subline_is_req_s3 <= 1'b0;
-        dcache_subline_s3 <= {`L15_SUBLINE_INDEX_WIDTH{1'b0}};
+        cache_subline_s3 <= {`L15_SUBLINE_INDEX_WIDTH{1'b0}};
         noc3_wb_s3 <= 1'b0;
+        l1_inv_s3 <= 1'b0;
+        load_64B_s3 <= 1'b0;
     end
     else if (!stall_s3)
     begin
         subline_not_req_s3 <= subline_not_req_s2;
         subline_is_req_s3 <= subline_is_req_s2;
-        dcache_subline_s3 <= dcache_subline_s2;
-        noc3_wb_s3 <= noc3_wb_s2; 
+        cache_subline_s3 <= cache_subline_s2;
+        noc3_wb_s3 <= noc3_wb_s2;
+        l1_inv_s3 <= l1_inv_s2;
+        load_64B_s3 <= load_64B_s2;
     end
     else
     begin
         subline_not_req_s3 <= subline_not_req_s3;
         subline_is_req_s3 <= subline_is_req_s3;
-        dcache_subline_s3 <= dcache_subline_s3;
+        cache_subline_s3 <= cache_subline_s3;
         noc3_wb_s3 <= noc3_wb_s3;
+        l1_inv_s3 <= l1_inv_s3;
+        load_64B_s3 <= load_64B_s3;
     end
 end
 
@@ -3316,9 +3339,10 @@ begin
                                                         || flush_state_s3 == `L15_MESI_STATE_S;
 
     cache_index_s3 = address_s3[`L15_IDX_HI:`L15_IDX_LOW];
-    cache_index_l1d_s3 = address_s3[`L1D_ADDRESS_HI:`L15_IDX_LOW];
-    lru_way_address_s3 = {lru_way_tag_s3, cache_index_s3, 4'b0};
-    flush_way_address_s3 = {flush_way_tag_s3, cache_index_s3, 4'b0};
+    cache_index_l1d_s3 = l1_inv_s3 ? {address_s3[`L1D_ADDRESS_HI:`L15_IDX_LOW], cache_subline_s3[`L15_SUBLINE_INDEX_WIDTH - 1 : 0]}
+                                   : address_s3[`L1D_ADDRESS_HI:`L1D_IDX_LOW] ;
+    lru_way_address_s3 = {lru_way_tag_s3, cache_index_s3, {`L15_SUBLINE_INDEX_WIDTH{1'b0}}, 4'b0};
+    flush_way_address_s3 = {flush_way_tag_s3, cache_index_s3, {`L15_SUBLINE_INDEX_WIDTH{1'b0}}, 4'b0};
 
 end
 
@@ -3526,7 +3550,7 @@ begin
             // lruarray_write_data_s3[`L15_UNPARAM_3_0] = lru_data_s3[`L15_UNPARAM_3_0] & ~lruarray_lru_mask_s3;
             //    // retain old access bits and remove the evicted bit
             // lruarray_write_data_s3[5:4] = lru_data_s3[5:4] + 2'b1;
-            lruarray_write_val_s3 = ~subline_not_req_s3; // no change for now, only turn on access bit on the second access
+            lruarray_write_val_s3 = 1'b1; //TODO ~subline_not_req_s3; // no change for now, only turn on access bit on the second access
             lruarray_write_data_s3[`L15_UNPARAM_3_0] = lru_data_s3[`L15_UNPARAM_3_0] | lruarray_lru_mask_s3;
             lruarray_write_data_s3[5:4] = lru_data_s3[5:4] + 2'b1;
         end
@@ -3547,7 +3571,9 @@ begin
     endcase
     lruarray_write_index_s3 = cache_index_s3;
 
-    l15_lruarray_write_val_s3 = lruarray_write_val_s3 && val_s3 && ((noc3_wb_s3 && dcache_subline_s3 == {`L15_SUBLINE_INDEX_WIDTH{1'b1}}) || !noc3_wb_s3);
+    l15_lruarray_write_val_s3 = lruarray_write_val_s3 && val_s3 && 
+        (((noc3_wb_s3 || l1_inv_s3 || load_64B_s3) && cache_subline_s3 == {`L15_SUBLINE_INDEX_WIDTH{1'b1}}) || 
+         !(noc3_wb_s3 || l1_inv_s3 || load_64B_s3));
 
     l15_lruarray_write_data_s3 = lruarray_write_data_s3;
     l15_lruarray_write_mask_s3 = 6'b111111;
@@ -4028,7 +4054,7 @@ begin
             l15_cpxencoder_data_3[`L15_UNPARAM_63_0] = noc2decoder_l15_data_3[`L15_UNPARAM_63_0];
             if (subline_is_req_s3)
             begin
-                case (dcache_subline_s3)
+                case (cache_subline_s3)
                     2'b00:
                     begin
                         l15_cpxencoder_data_0[`L15_UNPARAM_63_0] = noc2decoder_l15_data_0[`L15_UNPARAM_63_0];
@@ -4250,7 +4276,7 @@ begin
     endcase
 
     l15_noc1buffer_req_val = noc1_req_val_s3 && !noc1encoder_req_staled_s3 &&
-                             ((noc3_wb_s3 && dcache_subline_s3 == {`L15_SUBLINE_INDEX_WIDTH{1'b1}}) || !noc3_wb_s3);
+                             ((noc3_wb_s3 && cache_subline_s3 == {`L15_SUBLINE_INDEX_WIDTH{1'b1}}) || !noc3_wb_s3);
     l15_noc1buffer_req_type = noc1_type_s3;
     l15_noc1buffer_req_threadid = threadid_s3;
     l15_noc1buffer_req_mshrid = mshrid_s3;
@@ -4387,7 +4413,7 @@ begin
         end
     endcase
     l15_noc3encoder_req_val = noc3_req_val_s3 && !noc3encoder_req_staled_s3 && 
-                             ((noc3_wb_s3 && dcache_subline_s3 == {`L15_SUBLINE_INDEX_WIDTH{1'b1}}) || !noc3_wb_s3);
+                             ((noc3_wb_s3 && cache_subline_s3 == {`L15_SUBLINE_INDEX_WIDTH{1'b1}}) || !noc3_wb_s3);
     l15_noc3encoder_req_type = noc3_type_s3;
     l15_noc3encoder_req_mshrid = mshrid_s3;
     l15_noc3encoder_req_sequenceid = cache_index_s3[`L15_UNPARAM_1_0];
@@ -4453,7 +4479,7 @@ begin
         dcache_l15_dout_buf0[`L15_UNPARAM_63_0] <= 0;
         dcache_l15_dout_buf1[`L15_UNPARAM_63_0] <= 0;
     end
-    else if (val_s3 && noc3_wb_s3 && dcache_subline_s3 == `L15_SUBLINE_0)  
+    else if (val_s3 && noc3_wb_s3 && cache_subline_s3 == `L15_SUBLINE_0)  
     begin
         dcache_l15_dout_buf0[`L15_UNPARAM_63_0] <= dcache_l15_dout_s3[127:64];
         dcache_l15_dout_buf1[`L15_UNPARAM_63_0] <= dcache_l15_dout_s3[`L15_UNPARAM_63_0];
@@ -4472,7 +4498,7 @@ begin
         dcache_l15_dout_buf2[`L15_UNPARAM_63_0] <= 0;
         dcache_l15_dout_buf3[`L15_UNPARAM_63_0] <= 0;
     end
-    else if (val_s3 && noc3_wb_s3 && dcache_subline_s3 == `L15_SUBLINE_1)  
+    else if (val_s3 && noc3_wb_s3 && cache_subline_s3 == `L15_SUBLINE_1)  
     begin
         dcache_l15_dout_buf2[`L15_UNPARAM_63_0] <= dcache_l15_dout_s3[127:64];
         dcache_l15_dout_buf3[`L15_UNPARAM_63_0] <= dcache_l15_dout_s3[`L15_UNPARAM_63_0];
@@ -4491,7 +4517,7 @@ begin
         dcache_l15_dout_buf4[`L15_UNPARAM_63_0] <= 0;
         dcache_l15_dout_buf5[`L15_UNPARAM_63_0] <= 0;
     end
-    else if (val_s3 && noc3_wb_s3 && dcache_subline_s3 == `L15_SUBLINE_2)  
+    else if (val_s3 && noc3_wb_s3 && cache_subline_s3 == `L15_SUBLINE_2)  
     begin
         dcache_l15_dout_buf4[`L15_UNPARAM_63_0] <= dcache_l15_dout_s3[127:64];
         dcache_l15_dout_buf5[`L15_UNPARAM_63_0] <= dcache_l15_dout_s3[`L15_UNPARAM_63_0];
