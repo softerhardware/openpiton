@@ -1872,7 +1872,6 @@ reg dtag_val_s1;
 reg dtag_rw_s1;
 reg [`L15_CACHE_INDEX_WIDTH-1:0] dtag_index_s1;
 reg [`L15_WAY_MASK] dtag_write_way_s1;
-reg [`L15_WAY_MASK] dtag_written_way_s2_next;
 reg [`L15_CACHE_TAG_RAW_WIDTH-1:0] dtag_write_tag_s1;
 reg [`L15_UNPARAM_3_0] dtag_write_way_mask;
 
@@ -1897,7 +1896,6 @@ begin
             dtag_rw_s1 = `L15_DTAG_RW_WRITE;
             dtag_index_s1 = predecode_cache_index_s1;
             dtag_write_way_s1 = lru_way_s2; // previous instruction (eviction) is guaranteed to be in s2
-            dtag_written_way_s2_next = lru_way_s2;
             // pad the address to the raw tag space required
             dtag_write_tag_s1[`L15_CACHE_TAG_RAW_WIDTH-1:0]  = {{`L15_CACHE_TAG_RAW_WIDTH-`L15_CACHE_TAG_WIDTH{1'b0}},predecode_dtag_write_data_s1[`L15_CACHE_TAG_WIDTH-1:0]} ;
         end
@@ -2228,7 +2226,6 @@ reg [`L15_UNPARAM_1_0] way_mshr_st_s2;
 reg [`L15_CACHE_TAG_WIDTH-1:0] address_cache_tag_s2;
 reg [`L15_SUBLINE_INDEX_WIDTH-1:0] cache_subline_s2;
 reg [`L15_SUBLINE_INDEX_WIDTH-1:0] req_subline_s2_next, req_subline_s2;
-reg [`L15_WAY_MASK] dtag_written_way_s2;
 reg stall_real_s2, stall_load_s2;
 reg noc3_wb_s2;
 reg l1_inv_s2;
@@ -2240,25 +2237,21 @@ begin
     begin
         req_subline_s2 <= {`L15_SUBLINE_INDEX_WIDTH {1'b0}};
         cache_subline_s2 <= {`L15_SUBLINE_INDEX_WIDTH {1'b0}};
-        dtag_written_way_s2 <= {`L15_WAY_WIDTH {1'b0}};
     end
     else if (!stall_s2)
     begin
         req_subline_s2 <= req_subline_s2_next;
         cache_subline_s2 <= {`L15_SUBLINE_INDEX_WIDTH{1'b0}};  //address_s2_next[`L15_SUBLINE_MASK];
-        dtag_written_way_s2 <= dtag_written_way_s2_next;
     end
     else if (val_s2 && !stall_real_s2)
     begin 
         req_subline_s2 <= req_subline_s2;
         cache_subline_s2 <= cache_subline_s2 + 1;
-        dtag_written_way_s2 <= dtag_written_way_s2;
     end
     else 
     begin 
         req_subline_s2 <= req_subline_s2;
         cache_subline_s2 <= cache_subline_s2;
-        dtag_written_way_s2 <= dtag_written_way_s2;
     end
 end
 
@@ -2695,7 +2688,7 @@ begin
             dcache_val_s2 = 1'b1;
             dcache_rw_s2 = `L15_DTAG_RW_WRITE;
             dcache_index_s2 = cache_index_s2;
-            dcache_way_s2 = dtag_written_way_s2;
+            dcache_way_s2 = lru_way_s2;
 	    dcache_subline_s2 = cache_subline_s2;
             dcache_source_s2 = `L15_DCACHE_SOURCE_NOC2;
         end
@@ -2704,7 +2697,7 @@ begin
             dcache_val_s2 = 1'b1;
             dcache_rw_s2 = `L15_DTAG_RW_WRITE;
             dcache_index_s2 = cache_index_s2;
-            dcache_way_s2 = dtag_written_way_s2; 
+            dcache_way_s2 = lru_way_s2; 
 	    dcache_subline_s2 = cache_subline_s2;
             dcache_source_s2 = `L15_DCACHE_SOURCE_NOC2_AND_MSHR;
         end
@@ -2891,7 +2884,7 @@ begin
         begin
             mesi_write_val_s2 = 1'b1;
             mesi_write_index_s2 = cache_index_s2;
-            mesi_write_way_s2 = dtag_written_way_s2;  // should be the way that chose in the eviction stage(previous lru way)
+            mesi_write_way_s2 = lru_way_s2;  // should be the way that chose in the eviction stage(previous lru way)
             mesi_write_state_s2 = noc2_ack_state_s2;
         end
         `L15_S3_MESI_WRITE_MSHR_WAY_ACK_STATE:
@@ -4108,6 +4101,7 @@ reg [`L15_NOC1_REQTYPE_WIDTH-1:0] noc1_type_s3;
 reg [`L15_NOC1_SOURCE_WIDTH-1:0] noc1_data_source_s3;
 reg noc1_homeid_not_required_s3;
 reg [`L15_HOMEID_SRC_WIDTH-1:0] noc1_homeid_source_s3;
+reg test_s3;
 always @ *
 begin
     noc1_req_val_s3 = 0;
@@ -4124,7 +4118,10 @@ begin
             noc1_req_val_s3 = val_s3 && (lru_state_m_s3 || noc3_wb_s3);
             noc1_type_s3 = `L15_NOC1_REQTYPE_WRITEBACK_GUARD;
             l15_noc1buffer_req_address = lru_way_address_s3;
-            creditman_noc1_mispredicted_s3 = noc1_req_val_s3 ? 0 : val_s3;
+            // mispredicted signal only lasts for one cycle (the first one in a 4-cycle burst) in order to make the noc1 credit correct
+            creditman_noc1_mispredicted_s3 = ((noc3_wb_s3 || load_64B_s3 || l1_inv_s3) && cache_subline_s3 != 0) ? 0 : 
+                                             (noc1_req_val_s3 ? 0 : val_s3);
+            test_s3 = ((noc3_wb_s3 || load_64B_s3 || l1_inv_s3) && cache_subline_s3 != 0) ? 0 : 1'b1; 
             noc1_homeid_source_s3 = `L15_HOMEID_SRC_HMT;
         end
         `L15_NOC1_GEN_WRITEBACK_GUARD_IF_FLUSH_M:
@@ -4132,7 +4129,8 @@ begin
             noc1_req_val_s3 = val_s3 && (flush_state_m_s3 || noc3_wb_s3);
             noc1_type_s3 = `L15_NOC1_REQTYPE_WRITEBACK_GUARD;
             l15_noc1buffer_req_address = flush_way_address_s3;
-            creditman_noc1_mispredicted_s3 = noc1_req_val_s3 ? 0 : val_s3;
+            creditman_noc1_mispredicted_s3 = ((noc3_wb_s3 || load_64B_s3 || l1_inv_s3) && cache_subline_s3 != 0) ? 0 :
+                                             noc1_req_val_s3 ? 0 : val_s3;
             noc1_homeid_source_s3 = `L15_HOMEID_SRC_HMT;
         end
         `L15_NOC1_GEN_WRITEBACK_GUARD_IF_TAGCHECK_M:
@@ -4140,7 +4138,8 @@ begin
             noc1_req_val_s3 = val_s3 && (tagcheck_state_m_s3 || noc3_wb_s3);
             noc1_type_s3 = `L15_NOC1_REQTYPE_WRITEBACK_GUARD;
             l15_noc1buffer_req_address = address_s3;
-            creditman_noc1_mispredicted_s3 = noc1_req_val_s3 ? 0 : val_s3;
+            creditman_noc1_mispredicted_s3 = ((noc3_wb_s3 || load_64B_s3 || l1_inv_s3) && cache_subline_s3 != 0) ? 0 :
+                                             noc1_req_val_s3 ? 0 : val_s3;
             noc1_homeid_source_s3 = `L15_HOMEID_SRC_HMT;
         end
         `L15_NOC1_GEN_DATA_LD_REQUEST:

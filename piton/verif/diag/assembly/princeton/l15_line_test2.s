@@ -56,6 +56,7 @@
 #define ADDR1_REG %o2
 #define ADDR2_REG %o4
 #define ANSWER 0xc0c0c0c0c0c0c0c1
+#define ANSWER2 0xc0c0c0c0c0c0c0c2
 
 # buildmanycore -x_tiles=2 -y_tiles=1
 # runmanycore test_l2_race_condition3.s -finish_mask=33  -midas_args=-DTHREAD_COUNT=4
@@ -93,11 +94,24 @@ loop0:
     stx %i1, [ADDR_REG]
     add OFFSET_L1_REG, ADDR_REG, ADDR_REG
     ldx [ADDR_REG], %i1
+    add %i1, 2, %i1
+    stx %i1, [ADDR_REG]
+    add OFFSET_L1_REG, ADDR_REG, ADDR_REG
+    ldx [ADDR_REG], %i1
+    add %i1, 2, %i1
+    stx %i1, [ADDR_REG]
+    add OFFSET_L1_REG, ADDR_REG, ADDR_REG
+    ldx [ADDR_REG], %i1
+    add %i1, 2, %i1
+    stx %i1, [ADDR_REG]
+    add OFFSET_L1_REG, ADDR_REG, ADDR_REG
+    ldx [ADDR_REG], %i1
+    add %i1, 2, %i1
+    stx %i1, [ADDR_REG]
     
    # mov ADDR_REG, SAVED_REG
 
     mov BASE_ADDRESS_REG, ADDR_REG
-    ldx [ADDR_REG], %i1
 
    # mov SAVED_REG, ADDR_REG
    # add 1024, ADDR_REG, ADDR_REG
@@ -134,12 +148,60 @@ delay_loop:
     nop
     nop
     ldx [ADDR_REG], %i1
-	
-
     setx ANSWER, TMP, %i2
+    cmp %i1, %i2
+    bne bad_end
+    nop                             ! Delay slot
+
+    add OFFSET_L1_REG, ADDR_REG, ADDR_REG
+    ldx [ADDR_REG], %i1
+    setx ANSWER, TMP, %i2
+    cmp %i1, %i2
+    bne bad_end
+    nop                             ! Delay slot
+
+    add OFFSET_L1_REG, ADDR_REG, ADDR_REG
+    ldx [ADDR_REG], %i1
+    setx ANSWER, TMP, %i2
+    cmp %i1, %i2
+    bne bad_end
+    nop                             ! Delay slot
+
+    add OFFSET_L1_REG, ADDR_REG, ADDR_REG
+    ldx [ADDR_REG], %i1
+    setx ANSWER, TMP, %i2
+    cmp %i1, %i2
+    bne bad_end
+    nop                             ! Delay slot
+
+    add OFFSET_L1_REG, ADDR_REG, ADDR_REG
+    ldx [ADDR_REG], %i1
+    setx ANSWER2, TMP, %i2
+    cmp %i1, %i2
+    bne bad_end
+    nop                             ! Delay slot
+
+    add OFFSET_L1_REG, ADDR_REG, ADDR_REG
+    ldx [ADDR_REG], %i1
+    setx ANSWER2, TMP, %i2
+    cmp %i1, %i2
+    bne bad_end
+    nop                             ! Delay slot
+
+    add OFFSET_L1_REG, ADDR_REG, ADDR_REG
+    ldx [ADDR_REG], %i1
+    setx ANSWER2, TMP, %i2
+    cmp %i1, %i2
+    bne bad_end
+    nop                             ! Delay slot
+
+    add OFFSET_L1_REG, ADDR_REG, ADDR_REG
+    ldx [ADDR_REG], %i1
+    setx ANSWER2, TMP, %i2
     cmp %i1, %i2
     be good_end
     nop                             ! Delay slot
+
 bad_end:
     ta T_BAD_TRAP
     ba end
