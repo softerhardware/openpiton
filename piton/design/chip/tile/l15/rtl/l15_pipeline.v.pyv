@@ -443,6 +443,7 @@ reg predecode_tagcheck_matched_s1;
 reg [19:4] predecode_partial_tag_s1;
 reg predecode_hit_stbuf_s1;
 reg [`L15_THREADID_MASK] predecode_hit_stbuf_threadid_s1;
+reg predecode_multicyc_invordowngrade_s1;
 
 wire [`L15_PADDR_MASK] constant_int_vec_dis_address = `L15_INT_VEC_DIS;
 
@@ -474,6 +475,7 @@ begin
     predecode_noc2_inval_s1 = 0;
     predecode_fwd_subcacheline_vector_s1 = 0;
     predecode_interrupt_broadcast_s1 = 0;
+    predecode_multicyc_invordowngrade_s1 = 0;
     case (predecode_source_s1)
         `L15_PREDECODE_SOURCE_NOC2:
         begin
@@ -498,6 +500,7 @@ begin
             predecode_dcache_noc2_store_sm_s1 = mshr_st_state_array[predecode_threadid_s1] == `L15_MESI_TRANSITION_STATE_SM;
 
 
+            // It's hard coded, needs more configurability. TODO
             predecode_address_plus0_s1 = {noc2decoder_l15_address[39:6], 2'b00, noc2decoder_l15_address[`L15_UNPARAM_3_0]};
             predecode_address_plus1_s1 = {noc2decoder_l15_address[39:6], 2'b01, noc2decoder_l15_address[`L15_UNPARAM_3_0]};
             predecode_address_plus2_s1 = {noc2decoder_l15_address[39:6], 2'b10, noc2decoder_l15_address[`L15_UNPARAM_3_0]};
@@ -537,6 +540,7 @@ begin
                                                 (fetch_state_s1 == `L15_FETCH_STATE_INVAL_3) ? predecode_address_plus2_s1 :
                                                 (fetch_state_s1 == `L15_FETCH_STATE_INVAL_4) ? predecode_address_plus3_s1 :
                                                                                                 predecode_address_plus0_s1;
+                        predecode_multicyc_invordowngrade_s1 = 1'b1;
                     end
                 end
                 `MSG_TYPE_INV_FWD:
@@ -559,6 +563,7 @@ begin
                                                 (fetch_state_s1 == `L15_FETCH_STATE_INVAL_3) ? predecode_address_plus2_s1 :
                                                 (fetch_state_s1 == `L15_FETCH_STATE_INVAL_4) ? predecode_address_plus3_s1 :
                                                                                                 predecode_address_plus0_s1;
+                        predecode_multicyc_invordowngrade_s1 = 1'b1;
                     end
                 end
                 `MSG_TYPE_LOAD_FWD:
@@ -580,6 +585,7 @@ begin
                                                 (fetch_state_s1 == `L15_FETCH_STATE_INVAL_3) ? predecode_address_plus2_s1 :
                                                 (fetch_state_s1 == `L15_FETCH_STATE_INVAL_4) ? predecode_address_plus3_s1 :
                                                                                                 predecode_address_plus0_s1;
+                        predecode_multicyc_invordowngrade_s1 = 1'b1;
                     end
                 end
                 `MSG_TYPE_DATA_ACK:
@@ -1804,6 +1810,9 @@ begin
         (predecode_source_s1 == `L15_PREDECODE_SOURCE_NOC2) ? noc2decoder_l15_mshrid : decoder_mshr_allocation_type_s1;
 end
 
+// Used for 64B l15 cacheline. We only write to the state(mesi, lru) array in the last inv   
+wire predecode_not_last_inv_s1 = predecode_multicyc_invordowngrade_s1 & (~predecode_is_last_inval_s1);
+
 ///////////////////////////////////
 // STALL LOGIC FOR S1
 ///////////////////////////////////
@@ -2123,6 +2132,8 @@ s2floplist = [
     ('f4b','1'),
     ('predecode_noc2_inval', '1'),
     ('predecode_fwd_subcacheline_vector', '4'),
+    ('predecode_not_last_inv', '1'),
+    ('predecode_multicyc_invordowngrade', '1'),
     ('blockstore', '1'),
     ('blockstoreinit', '1'),
     ('predecode_reqtype', '`L15_REQTYPE_WIDTH'),
@@ -2164,6 +2175,8 @@ s2floplist_no_rtl_csm = [
     ('f4b','1'),
     ('predecode_noc2_inval', '1'),
     ('predecode_fwd_subcacheline_vector', '4'),
+    ('predecode_not_last_inv', '1'),
+    ('predecode_multicyc_invordowngrade', '1'),
     ('blockstore', '1'),
     ('blockstoreinit', '1'),
     ('predecode_reqtype', '`L15_REQTYPE_WIDTH'),
@@ -2313,7 +2326,9 @@ begin
         noc2_ack_stage_s2_next = decoder_noc2_ack_stage_s1;
         noc2_ack_state_s2_next = noc2decoder_l15_ack_state;
         predecode_reqtype_s2_next = predecode_reqtype_s1;
-        predecode_fwd_subcacheline_vector_s2_next = predecode_fwd_subcacheline_vector_s1;
+        predecode_fwd_subcacheline_vector_s2_next = predecode_fwd_subcacheline_vector_s1;        
+        predecode_not_last_inv_s2_next = predecode_not_last_inv_s1;
+        predecode_multicyc_invordowngrade_s2_next = predecode_multicyc_invordowngrade_s1;
         predecode_noc2_inval_s2_next = predecode_noc2_inval_s1;
         blockstore_s2_next = predecode_blockstore_bit_s1;
         blockstoreinit_s2_next = predecode_blockstore_init_s1;
@@ -2417,9 +2432,9 @@ end
 always @ *
 begin
     // TODO: should we consider the pure invalidation? CPX_GEN_XX_INVALIDATIOM 
-    l1_inv_s2 =  (cpx_operation_s2 == `L15_CPX_GEN_INVALIDATION_IF_TAGCHECK_MES_AND_WAYMAP_VALID && tagcheck_state_mes_s2) ||
+    l1_inv_s2 = ((cpx_operation_s2 == `L15_CPX_GEN_INVALIDATION_IF_TAGCHECK_MES_AND_WAYMAP_VALID && tagcheck_state_mes_s2) ||
                  (cpx_operation_s2 == `L15_CPX_GEN_INVALIDATION_IF_LRU_MES_AND_WAYMAP_VALID && lru_state_mes_s2) ||
-                 (cpx_operation_s2 == `L15_CPX_GEN_INVALIDATION_IF_FLUSH_MES_AND_WAYMAP_VALID && flush_state_mes_s2);
+                 (cpx_operation_s2 == `L15_CPX_GEN_INVALIDATION_IF_FLUSH_MES_AND_WAYMAP_VALID && flush_state_mes_s2)) && !predecode_multicyc_invordowngrade_s2;
 end
 
 
@@ -2897,7 +2912,7 @@ begin
     endcase
     // bugfix (stall signal needs to be here)
     // trin todo: why stall_s2 is needed
-    l15_mesi_write_val_s2 = mesi_write_val_s2 && val_s2 && !stall_s2; // only write state in the last cycle, if have multiple sublines
+    l15_mesi_write_val_s2 = mesi_write_val_s2 && val_s2 && !stall_s2 && !predecode_not_last_inv_s2; // only write state in the last cycle, if have multiple sublines
     l15_mesi_write_index_s2[`L15_CACHE_INDEX_MASK] = mesi_write_index_s2;
     l15_mesi_write_mask_s2[`L15_UNPARAM_7_0] =  (mesi_write_way_s2 == 0) ? 8'b00_00_00_11 :
                             (mesi_write_way_s2 == 1) ? 8'b00_00_11_00 :
@@ -3119,6 +3134,7 @@ s3floplist = [
     ('lruarray_write_op','`L15_LRUARRAY_WRITE_OP_WIDTH'),
     ('predecode_noc2_inval', '1'),
     ('predecode_fwd_subcacheline_vector', '4'),
+    ('predecode_not_last_inv', '1'),
     ('predecode_reqtype', '`L15_REQTYPE_WIDTH'),
     #('wmt_read_operation','`L15_WMT_READ_OP_WIDTH'),
     ('wmt_write_op','`L15_WMT_WRITE_OP_WIDTH'),
@@ -3564,7 +3580,7 @@ begin
     endcase
     lruarray_write_index_s3 = cache_index_s3;
 
-    l15_lruarray_write_val_s3 = lruarray_write_val_s3 && val_s3 && 
+    l15_lruarray_write_val_s3 = lruarray_write_val_s3 && val_s3 && (~predecode_not_last_inv_s3) &&
         (((noc3_wb_s3 || l1_inv_s3 || load_64B_s3) && cache_subline_s3 == {`L15_SUBLINE_INDEX_WIDTH{1'b1}}) || 
          !(noc3_wb_s3 || l1_inv_s3 || load_64B_s3));
 
@@ -4101,7 +4117,7 @@ reg [`L15_NOC1_REQTYPE_WIDTH-1:0] noc1_type_s3;
 reg [`L15_NOC1_SOURCE_WIDTH-1:0] noc1_data_source_s3;
 reg noc1_homeid_not_required_s3;
 reg [`L15_HOMEID_SRC_WIDTH-1:0] noc1_homeid_source_s3;
-reg test_s3;
+//reg test_s3;
 always @ *
 begin
     noc1_req_val_s3 = 0;
@@ -4121,7 +4137,7 @@ begin
             // mispredicted signal only lasts for one cycle (the first one in a 4-cycle burst) in order to make the noc1 credit correct
             creditman_noc1_mispredicted_s3 = ((noc3_wb_s3 || load_64B_s3 || l1_inv_s3) && cache_subline_s3 != 0) ? 0 : 
                                              (noc1_req_val_s3 ? 0 : val_s3);
-            test_s3 = ((noc3_wb_s3 || load_64B_s3 || l1_inv_s3) && cache_subline_s3 != 0) ? 0 : 1'b1; 
+            //test_s3 = ((noc3_wb_s3 || load_64B_s3 || l1_inv_s3) && cache_subline_s3 != 0) ? 0 : 1'b1; 
             noc1_homeid_source_s3 = `L15_HOMEID_SRC_HMT;
         end
         `L15_NOC1_GEN_WRITEBACK_GUARD_IF_FLUSH_M:
@@ -4415,7 +4431,7 @@ begin
                              ((noc3_wb_s3 && cache_subline_s3 == {`L15_SUBLINE_INDEX_WIDTH{1'b1}}) || !noc3_wb_s3);
     l15_noc3encoder_req_type = noc3_type_s3;
     l15_noc3encoder_req_mshrid = mshrid_s3;
-    l15_noc3encoder_req_sequenceid = cache_index_s3[`L15_UNPARAM_1_0];
+    l15_noc3encoder_req_sequenceid = address_s3[`L15_SUBLINE_MASK];//TODO cache_index_s3[`L15_UNPARAM_1_0];
     l15_noc3encoder_req_threadid = threadid_s3[`L15_THREADID_MASK];
     l15_noc3encoder_req_address[`L15_PADDR_MASK] = noc3_address_s3[`L15_PADDR_MASK];
     l15_noc3encoder_req_with_data = noc3_with_data_s3;

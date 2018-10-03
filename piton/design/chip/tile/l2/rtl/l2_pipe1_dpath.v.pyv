@@ -1102,7 +1102,7 @@ always @ *
 begin
     if (cache_type_S2 == `MSG_CACHE_TYPE_DATA)
     begin
-        //addr_subline_S2= {1'b1, {(`L2_SUBLINE_BITS-1){1'b0}}} >> addr_S2_f[`L2_DATA_SUBLINE];
+        //addr_subline_S2= {1'b1, {(`L2_SUBLINE_BITS-1){1'b0}}} >> addr_S2_f[`L2_DATA_SUBLINE];   // TODO still needs more consideration
         addr_subline_S2= {{(`L2_SUBLINE_BITS-1){1'b0}},1'b1} << addr_S2_f[`L2_DATA_SUBLINE];
     end
     else
@@ -1118,6 +1118,10 @@ begin
     if (state_load_sdid_S2)
     begin
         state_subline_S2 = sdid_S2_f[`L2_STATE_SUBLINE];
+    end
+    else if (l2_data_ack_l15line64_S2 && state_subline_op_S2 == `OP_ADD)
+    begin
+        state_subline_S2 = {`L2_SUBLINE_BITS{1'b1}};
     end
     else if (state_subline_op_S2 == `OP_ADD)
     begin

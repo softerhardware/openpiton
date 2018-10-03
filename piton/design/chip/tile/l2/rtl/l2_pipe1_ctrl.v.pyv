@@ -3112,7 +3112,7 @@ localparam msg_state_1 = 1'b1;
 reg msg_state_S4_f;
 reg msg_state_S4_next;
 
-
+// When we need to send two different messages, we send msg0 first, and then msg1. Use msg_state to control which msg to be sent
 `ifndef NO_RTL_CSM
 always @ *
 begin
