@@ -761,9 +761,9 @@ begin
     begin
         l2_wb_S2 = 1'b0;
     end
-    else if (((!l2_tag_hit_S2 && (msg_type_S2 != `MSG_TYPE_NC_STORE_REQ))
-           || (msg_type_S2 == `MSG_TYPE_NC_LOAD_REQ || msg_type_S2 == `MSG_TYPE_L2_DIS_FLUSH_REQ)
-           || (l2_tag_hit_S2 && msg_type_S2 == `MSG_TYPE_NC_STORE_REQ))
+    else if (( l2_evict_S2 || (l2_tag_hit_S2 && 
+    (msg_type_S2 == `MSG_TYPE_NC_LOAD_REQ || msg_type_S2 == `MSG_TYPE_NC_STORE_REQ || 
+     msg_type_S2 == `MSG_TYPE_L2_DIS_FLUSH_REQ || msg_type_S2 == `MSG_TYPE_L2_LINE_FLUSH_REQ)))  
     && (state_way_S2[l2_way_sel_S2][`L2_STATE_MESI] == `L2_MESI_I)
     && (state_way_S2[l2_way_sel_S2][`L2_STATE_VD] == `L2_VD_DIRTY))
     begin
@@ -776,6 +776,7 @@ begin
 end
 
 // TODO Need to consider all possible situations where we need to send dataACK to l15d
+// Three more conditions: Special_addr, NC_ld, Atomic_op
 always @ *
 begin
     if ( (l2_tag_hit_S2 && !l2_ifill_S2 && ( ( msg_type_S2 == `MSG_TYPE_LOAD_REQ && (l2_way_state_mesi_S2 == `L2_MESI_I ||
