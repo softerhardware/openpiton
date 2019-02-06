@@ -42,6 +42,10 @@ set GLOBAL_INCLUDE_FILES [list \
     "${DV_ROOT}/design/include/ifu.h" \
     "${DV_ROOT}/design/include/lsu.h" \
     "${DV_ROOT}/design/chipset/include/chipset_define.vh" \
+    "${DV_ROOT}/design/chip/tile/anycore/configs/CommonConfig.h" \
+    "${DV_ROOT}/design/chip/tile/anycore/configs/RAM_Params.h" \
+    "${DV_ROOT}/design/chip/tile/anycore/ISA/RISCV_ISA.h" \
+    "${DV_ROOT}/design/chip/tile/anycore/include/structs.sv" \
 ]
 
 set GLOBAL_DEFAULT_VERILOG_MACROS "NO_SCAN FPGA_SYN PITON_FPGA_SYNTH PITON_PROTO"
@@ -137,6 +141,7 @@ set CHIP_RTL_IMPL_FILES [list \
     "${DV_ROOT}/design/chip/tile/l15/rtl/l15_mshr.v" \
     "${DV_ROOT}/design/chip/tile/l15/rtl/l15_csm.v" \
     "${DV_ROOT}/design/chip/tile/l15/rtl/l15_picoencoder.v" \
+    "${DV_ROOT}/design/chip/tile/l15/rtl/l15_anycoreencoder.v" \
     "${DV_ROOT}/design/chip/tile/l15/rtl/l15_cpxencoder.v" \
     "${DV_ROOT}/design/chip/tile/l15/rtl/noc3encoder.v" \
     "${DV_ROOT}/design/chip/tile/l15/rtl/noc3buffer.v" \
@@ -145,6 +150,7 @@ set CHIP_RTL_IMPL_FILES [list \
     "${DV_ROOT}/design/chip/tile/l15/rtl/noc1buffer.v" \
     "${DV_ROOT}/design/chip/tile/l15/rtl/simplenocbuffer.v" \
     "${DV_ROOT}/design/chip/tile/l15/rtl/pico_decoder.v" \
+    "${DV_ROOT}/design/chip/tile/l15/rtl/anycore_decoder.v" \
     "${DV_ROOT}/design/chip/tile/l15/rtl/pcx_decoder.v" \
     "${DV_ROOT}/design/chip/tile/l15/rtl/pcx_buffer.v" \
     "${DV_ROOT}/design/chip/tile/l15/rtl/l15_priority_encoder.v" \
@@ -523,6 +529,103 @@ set CHIP_RTL_IMPL_FILES [list \
     "${DV_ROOT}/design/chip/tile/ariane/src/fpu/src/fpnew_opgroup_multifmt_slice.sv"                \
     "${DV_ROOT}/design/chip/tile/ariane/src/fpu/src/fpnew_rounding.sv"                              \
     "${DV_ROOT}/design/chip/tile/ariane/src/fpu/src/fpnew_top.sv"                                   \
+    "${DV_ROOT}/design/chip/tile/anycore/chip_top/AnyCore_Piton.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/core_top/Core_OOO.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/core_top/ResetControl.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/dcache/DCache_controller.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/decode/Decode.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/decode/Decode_RISCV.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/decode/InstBufRename.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/decode/InstructionBuffer.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/decode/PreDecode_RISCV.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/dispatch/Dispatch.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/dispatch/ExePipeScheduler.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/dispatch/ldViolationPred.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/execute/AGEN_ALU.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/execute/AgenLsu.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/execute/Complex_ALU.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/execute/Ctrl_ALU.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/execute/Demux.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/execute/Execute_Ctrl.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/execute/Execute_M.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/execute/Execute_SC.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/execute/ExecutionPipe_Ctrl.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/execute/ExecutionPipe_M.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/execute/ExecutionPipe_SC.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/execute/FP_ALU.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/execute/ForwardCheck.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/execute/Mux.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/execute/Simple_ALU.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/fetch/BTB.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/fetch/BranchPrediction_2-bit.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/fetch/CtrlQueue.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/fetch/Fetch1Fetch2.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/fetch/Fetch2Decode.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/fetch/FetchStage1.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/fetch/FetchStage2.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/fetch/L1ICache.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/fetch/RAS.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/icache/ICache_controller.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/issue/Encoder.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/issue/FreeIssueq.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/issue/IssueQFreeList.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/issue/IssueQRegRead.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/issue/IssueQueue.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/issue/PriorityEncoder.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/issue/RSRLane.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/issue/Select.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/issue/SelectBetweenBlocks.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/issue/SelectBlock.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/issue/SelectFromBlock.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/lsu/DispatchedLoad.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/lsu/DispatchedStore.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/lsu/L1DataCache.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/lsu/LDX_path_structured.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/lsu/LSUControl.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/lsu/LSUDatapath.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/lsu/LoadStoreUnit.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/lsu/STX_path_structured.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/rams/ALCTRL_RAM.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/rams/ALDATA_RAM.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/rams/ALNPC_RAM.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/rams/ALREADY_RAM.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/rams/ALVIO_RAM.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/rams/AMT_RAM.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/rams/BP_RAM.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/rams/BTB_RAM.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/rams/CTI_COMMIT_RAM.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/rams/CTI_COUNTER_RAM.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/rams/FREELIST_RAM.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/rams/IBUFF_RAM.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/rams/IQFREELIST_RAM.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/rams/IQPAYLOAD_RAM.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/rams/LDQ_CAM.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/rams/LDVIO_RAM.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/rams/PRF_RAM.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/rams/RAM_1R1W.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/rams/RAS_RAM.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/rams/RMT_RAM.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/rams/STQ_CAM.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/rams/STQ_FOLLOWINGLD_RAM.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/rams/STQ_RAM.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/rams/WAKEUP_CAM.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/rams/LDQ_RAM.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/rams/LDVIO_VLD_RAM.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/rams/ALEXCPT_RAM.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/regRead/Bypass_1D.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/regRead/PhyRegFile.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/regRead/RegRead.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/regRead/RegReadExecute.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/regRead/SupRegFile.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/rename/Rename.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/rename/RenameDispatch.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/rename/RenameMapTable.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/rename/SpecFreeList.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/retire/ActiveList.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/retire/ArchMapTable.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/writeback/Writeback_Ctrl.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/writeback/Writeback_M.sv" \
+    "${DV_ROOT}/design/chip/tile/anycore/writeback/Writeback_SC.sv" \
 ]
 
 set CHIP_INCLUDE_FILES [list \

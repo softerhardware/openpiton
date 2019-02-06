@@ -64,6 +64,19 @@ input                                 ok_iob
 `endif
 );
 
+//`ifdef PITON_ANYCORE
+//import "DPI-C" context task initializeSim();
+//import "DPI-C" function int get_logging_mode();
+//import "DPI-C" function longint getArchRegValue(int reg_id);
+//import "DPI-C" function longint getArchPC();
+//import "DPI-C" function int checkInstruction(longint v_cycle,longint v_commit,longint v_pc, int v_dest, longint v_dest_value, int is_fission );
+////import "DPI-C" function void testing();
+//import "DPI-C" function void set_pcr(int which_csr, longint value);
+//import "DPI-C" function longint get_pcr(int which_csr);
+//import "DPI-C" context task htif_tick(output int htif_return);
+//import "DPI-C" function int virt_to_phys(longint virt_addr, int bytes, int store_access, int fetch_access, output int exception);
+//`endif
+
 //////////////////////
 // Type Declarations
 //////////////////////

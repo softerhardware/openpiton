@@ -33,7 +33,6 @@
 // Setting the time scale
 // If the timescale changes, JP_TIMESCALE may also have to change.
 `timescale	1ps/1ps
-`default_nettype wire
 
 //
 // Number of threads in a core

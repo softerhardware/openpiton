@@ -320,6 +320,7 @@ print(s)
     wire [63:0]                         l15_transducer_data_3;
     wire                                l15_transducer_inval_icache_all_way;
     wire                                l15_transducer_inval_dcache_all_way;
+    wire [`L15_PADDR_MASK]              l15_transducer_address;
     wire [15:4]                         l15_transducer_inval_address_15_4;
     wire                                l15_transducer_cross_invalidate;
     wire [1:0]                          l15_transducer_cross_invalidate_way;
@@ -1068,8 +1069,154 @@ print(str)
     assign unavailable_o = 1'b0;
 
 `endif // ifdef PITON_ARIANE
-  end
-  endgenerate
+end
+endgenerate
+generate
+if (TILE_TYPE == `ANYCORE_TILE) begin : g_anycore_core
+`ifdef PITON_ANYCORE
+    //////////////////
+    // AnyCore Core //
+    //////////////////
+    wire [`ICACHE_BLOCK_ADDR_BITS-1:0]  anycore_ic2mem_reqaddr;
+    wire                                anycore_ic2mem_reqvalid;
+    wire [`ICACHE_TAG_BITS-1:0]         anycore_mem2ic_tag;
+    wire [`ICACHE_INDEX_BITS-1:0]       anycore_mem2ic_index;
+    wire [`ICACHE_BITS_IN_LINE-1:0]     anycore_mem2ic_data;
+    wire                                anycore_mem2ic_respvalid;
+    wire [`DCACHE_BLOCK_ADDR_BITS-1:0]  anycore_dc2mem_ldaddr;
+    wire                                anycore_dc2mem_ldvalid;
+    wire [`DCACHE_TAG_BITS-1:0]         anycore_mem2dc_ldtag;
+    wire [`DCACHE_INDEX_BITS-1:0]       anycore_mem2dc_ldindex;
+    wire [`DCACHE_BITS_IN_LINE-1:0]     anycore_mem2dc_lddata;
+    wire                                anycore_mem2dc_ldvalid;
+    wire [`DCACHE_ST_ADDR_BITS-1:0]     anycore_dc2mem_staddr;  
+    wire [`SIZE_DATA-1:0]               anycore_dc2mem_stdata;
+    wire [2:0]                          anycore_dc2mem_stsize;
+    wire                                anycore_dc2mem_stvalid;
+    wire                                anycore_mem2dc_stcomplete;
+    wire                                anycore_mem2dc_ststall;
+    wire                                anycore_int;
+
+    // not supported at the moment
+    assign transducer_l15_amo_op = `L15_AMO_OP_NONE;
+
+    AnyCore_Piton core (
+        .clk(clk_gated),
+        .rst_n(rst_n_f),
+        .spc_grst_l (spc_grst_l),
+
+        .regAddr_i (6'b0),
+        .regWrData_i (64'b0),
+        .regWrEn_i (1'b0),
+        .regRdData_o (),
+
+        .ic2memReqAddr_o    (anycore_ic2mem_reqaddr   ), // memory read address
+        .ic2memReqValid_o   (anycore_ic2mem_reqvalid  ), // memory read enable
+        .mem2icTag_i        (anycore_mem2ic_tag       ), // tag of incoming data
+        .mem2icIndex_i      (anycore_mem2ic_index     ), // index of incoming data
+        .mem2icData_i       (anycore_mem2ic_data      ), // requested data
+        .mem2icRespValid_i  (anycore_mem2ic_respvalid ), // requested data is ready
+
+        .dc2memLdAddr_o     (anycore_dc2mem_ldaddr    ), // memory read address
+        .dc2memLdValid_o    (anycore_dc2mem_ldvalid   ), // memory read enable
+
+        .mem2dcLdTag_i      (anycore_mem2dc_ldtag     ), // tag of the incoming datadetermine
+        .mem2dcLdIndex_i    (anycore_mem2dc_ldindex   ), // index of the incoming data
+        .mem2dcLdData_i     (anycore_mem2dc_lddata    ), // requested data
+        .mem2dcLdValid_i    (anycore_mem2dc_ldvalid   ), // indicates the requested data is ready
+
+        .dc2memStAddr_o     (anycore_dc2mem_staddr    ),
+        .dc2memStData_o     (anycore_dc2mem_stdata    ),
+        .dc2memStSize_o     (anycore_dc2mem_stsize    ),
+        .dc2memStValid_o    (anycore_dc2mem_stvalid   ),
+
+        .mem2dcStComplete_i (anycore_mem2dc_stcomplete),
+        .mem2dcStStall_i    (anycore_mem2dc_ststall   ),
+
+        .anycore_int        (anycore_int)
+    );
+
+    anycore_decoder anycore_decoder(
+        .clk                                     (clk),
+        .rst_n                                   (rst_n),
+
+        .l15_transducer_ack                      (l15_transducer_ack),
+    
+        .anycore_ic2mem_reqaddr                  (anycore_ic2mem_reqaddr),
+        .anycore_ic2mem_reqvalid                 (anycore_ic2mem_reqvalid),
+
+        .anycore_dc2mem_ldaddr                   (anycore_dc2mem_ldaddr),
+        .anycore_dc2mem_ldvalid                  (anycore_dc2mem_ldvalid),
+
+        .anycore_dc2mem_staddr                   (anycore_dc2mem_staddr),
+        .anycore_dc2mem_stdata                   (anycore_dc2mem_stdata),
+        .anycore_dc2mem_stsize                   (anycore_dc2mem_stsize),
+        .anycore_dc2mem_stvalid                  (anycore_dc2mem_stvalid),
+    
+        .anycoredecoder_l15_rqtype               (transducer_l15_rqtype),
+        .anycoredecoder_l15_nc                   (transducer_l15_nc),
+        .anycoredecoder_l15_size                 (transducer_l15_size),
+        .anycoredecoder_l15_threadid             (transducer_l15_threadid),
+        .anycoredecoder_l15_prefetch             (transducer_l15_prefetch),
+        .anycoredecoder_l15_blockstore           (transducer_l15_blockstore),
+        .anycoredecoder_l15_blockinitstore       (transducer_l15_blockinitstore),
+        .anycoredecoder_l15_l1rplway             (transducer_l15_l1rplway),
+        .anycoredecoder_l15_val                  (transducer_l15_val),
+        .anycoredecoder_l15_invalidate_cacheline (transducer_l15_invalidate_cacheline),
+        .anycoredecoder_l15_address              (transducer_l15_address),
+        .anycoredecoder_l15_csm_data             (transducer_l15_csm_data),
+        .anycoredecoder_l15_data                 (transducer_l15_data),
+        .anycoredecoder_l15_data_next_entry      (transducer_l15_data_next_entry)
+    );
+
+    l15_anycoreencoder l15_anycoreencoder(
+        .clk(clk), 
+        .rst_n(rst_n),
+        .l15_anycoreencoder_val                 (l15_transducer_val),
+        .l15_anycoreencoder_returntype          (l15_transducer_returntype),
+        .l15_anycoreencoder_l2miss              (l15_transducer_l2miss),
+        .l15_anycoreencoder_error               (l15_transducer_error),
+        .l15_anycoreencoder_noncacheable        (l15_transducer_noncacheable),
+        .l15_anycoreencoder_atomic              (l15_transducer_atomic),
+        .l15_anycoreencoder_threadid            (l15_transducer_threadid),
+        .l15_anycoreencoder_prefetch            (l15_transducer_prefetch),
+        .l15_anycoreencoder_f4b                 (l15_transducer_f4b),
+        .l15_anycoreencoder_data_0              (l15_transducer_data_0),
+        .l15_anycoreencoder_data_1              (l15_transducer_data_1),
+        .l15_anycoreencoder_data_2              (l15_transducer_data_2),
+        .l15_anycoreencoder_data_3              (l15_transducer_data_3),
+        .l15_anycoreencoder_inval_icache_all_way(l15_transducer_inval_icache_all_way),
+        .l15_anycoreencoder_inval_dcache_all_way(l15_transducer_inval_dcache_all_way),
+        .l15_anycoreencoder_address             (l15_transducer_address),
+        .l15_anycoreencoder_inval_address_15_4  (l15_transducer_inval_address_15_4),
+        .l15_anycoreencoder_cross_invalidate    (l15_transducer_cross_invalidate),
+        .l15_anycoreencoder_cross_invalidate_way(l15_transducer_cross_invalidate_way),
+        .l15_anycoreencoder_inval_dcache_inval  (l15_transducer_inval_dcache_inval),
+        .l15_anycoreencoder_inval_icache_inval  (l15_transducer_inval_icache_inval),
+        .l15_anycoreencoder_inval_way           (l15_transducer_inval_way),
+        .l15_anycoreencoder_blockinitstore      (l15_transducer_blockinitstore),
+        .anycoreencoder_l15_req_ack             (transducer_l15_req_ack),
+
+        .anycore_mem2ic_tag                     (anycore_mem2ic_tag),
+        .anycore_mem2ic_index                   (anycore_mem2ic_index),
+        .anycore_mem2ic_data                    (anycore_mem2ic_data),
+        .anycore_mem2ic_respvalid               (anycore_mem2ic_respvalid),
+
+        .anycore_mem2dc_ldtag                   (anycore_mem2dc_ldtag),
+        .anycore_mem2dc_ldindex                 (anycore_mem2dc_ldindex),
+        .anycore_mem2dc_lddata                  (anycore_mem2dc_lddata),
+        .anycore_mem2dc_ldvalid                 (anycore_mem2dc_ldvalid),
+                              
+        .anycore_dc2mem_stvalid                 (anycore_dc2mem_stvalid),
+        .anycore_mem2dc_stcomplete              (anycore_mem2dc_stcomplete),
+        .anycore_mem2dc_ststall                 (anycore_mem2dc_ststall),
+
+        .anycore_int                            (anycore_int)
+    );
+
+`endif // PITON_ANYCORE
+end
+endgenerate
 
 
     //////////
@@ -1115,6 +1262,7 @@ print(str)
         .l15_transducer_data_3              (l15_transducer_data_3),
         .l15_transducer_inval_icache_all_way(l15_transducer_inval_icache_all_way),
         .l15_transducer_inval_dcache_all_way(l15_transducer_inval_dcache_all_way),
+        .l15_transducer_address             (l15_transducer_address),
         .l15_transducer_inval_address_15_4  (l15_transducer_inval_address_15_4),
         .l15_transducer_cross_invalidate    (l15_transducer_cross_invalidate),
         .l15_transducer_cross_invalidate_way(l15_transducer_cross_invalidate_way),

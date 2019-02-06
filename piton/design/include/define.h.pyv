@@ -616,6 +616,7 @@ print("`define Y_TILES %d"   % Y_TILES)
 `define SPARC_TILE       0
 `define PICORV32_TILE    1
 `define ARIANE_RV64_TILE 2
+`define ANYCORE_TILE     3
 
 `endif
 

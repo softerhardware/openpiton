@@ -127,6 +127,7 @@ Getopt::Long::Configure ('no_auto_abbrev') ;
 
 %opt = (
         'alias' => "",
+        'anycore' => 0,
         'asm_diag_name' => "",
         'asm_diag_path' => "",
         'asm_diag_root' => [],
@@ -325,6 +326,7 @@ if (($opt{injobq} == 1) or $opt{interactive}) {
 
 GetOptions (\%opt,
             'alias=s',
+            'anycore!',
             'config_cpp_args=s@',
             'debug' => \$opt_debug,
             'diaglist=s',
@@ -353,7 +355,7 @@ die ("DIE. -pico and -pico_het cannot both be set") if ($opt{pico} && $opt{pico_
 
 # Setting ost1 by default. This works better than default to 1
 # for heterogeneous-ISA stuff
-if (!$opt{pico} && !$opt{ariane}) {
+if (!$opt{pico} && !$opt{ariane} && !$opt{anycore}) {
   $opt{ost1} = 1 ;
 }
 
@@ -361,6 +363,7 @@ push (@{$opt{config_cpp_args}}, "-DFLIST_OST1")     if ($opt{ost1} || $opt{pico_
 push (@{$opt{config_cpp_args}}, "-DFLIST_PICO")     if ($opt{pico} || $opt{pico_het}) ;
 push (@{$opt{config_cpp_args}}, "-DFLIST_ARIANE")   if ($opt{ariane}) ;
 push (@{$opt{config_cpp_args}}, "-DFLIST_ORAM")     if ($opt{oram}) ;
+push (@{$opt{config_cpp_args}}, "-DFLIST_ANYCORE")  if ($opt{anycore}) ;
 
 ################################################################################
 # define $result_dir
@@ -2309,12 +2312,18 @@ sub assemble_diag
         if ($opt{ariane}) {
           $ENV{RV64_TARGET_TRIPLE} = "riscv64-unknown-elf" ;
         }
+        if ($opt{anycore}) {
+          $ENV{RV64_TARGET_TRIPLE} = "riscv64-unknown-elf" ;
+        }
       } else {
         $ENV{RV64_TARGET_TRIPLE} = $opt{rv64_target_triple} ;
       }
       if (!$opt{rv64_march}) {
         if ($opt{ariane}) {
           $ENV{RV64_MARCH} = "rv64imafdc" ;
+        }
+        if ($opt{anycore}) {
+          $ENV{RV64_MARCH} = "rv64imaf" ;
         }
       } else {
         $ENV{RV64_MARCH} = $opt{rv64_march} ;
@@ -2323,8 +2332,17 @@ sub assemble_diag
         if ($opt{ariane}) {
           $ENV{RV64_MABI} = "lp64d" ;
         }
+        if ($opt{ariane}) {
+          $ENV{RV64_MABI} = "lp64" ;
+        }
       } else {
         $ENV{RV64_MABI} = $opt{rv64_mabi} ;
+      }
+      if ($opt{ariane}) {
+        $ENV{RV32_CORE} = "ariane" ;
+      }
+      if ($opt{anycore}) {
+        $ENV{RV32_CORE} = "rv64" ;
       }
       # only recompile if necessary
       if (!$opt{precompiled}) {
@@ -2796,19 +2814,27 @@ sub parse_args
     $opt{rv64} = 1 ;
     print "$prg: Building/running for rv64\n" ;
   }
+  if ($opt{anycore}) {
+    $opt{rv64} = 1 ;
+    print "$prg: Building/running for rv64\n" ;
+  }
 
   $ENV{PITON_OST1}     = $opt{ost1};
   $ENV{PITON_PICO}     = $opt{pico};
   $ENV{PITON_PICO_HET} = $opt{pico_het};
   $ENV{PITON_ARIANE}   = $opt{ariane};
+  $ENV{PITON_ANYCORE}  = $opt{anycore};
   push (@{$opt{config_rtl}}, "PITON_OST1")     if ($opt{ost1});
   push (@{$opt{config_rtl}}, "PITON_PICO")     if ($opt{pico});
   push (@{$opt{config_rtl}}, "PITON_PICO")     if ($opt{pico_het});
   push (@{$opt{config_rtl}}, "PITON_PICO_HET") if ($opt{pico_het});
   push (@{$opt{config_rtl}}, "PITON_ARIANE")   if ($opt{ariane});
   push (@{$opt{config_rtl}}, "WT_DCACHE")      if ($opt{ariane});
+  push (@{$opt{config_rtl}}, "PITON_ANYCORE")  if ($opt{anycore});
+  push (@{$opt{config_rtl}}, "SIM")  if ($opt{anycore});
+  push (@{$opt{vcs_build_args}}, "-sverilog")  if ($opt{anycore});
 
-  if ($opt{pico} or $opt{pico_het} or $opt{ariane}) {
+  if ($opt{pico} or $opt{pico_het} or $opt{ariane} or $opt{anycore}) {
     push (@{$opt{config_rtl}}, "NO_MRA_VAL") ;
     push (@{$opt{config_rtl}}, "NO_SLAM_RANDOM") ;
   }
@@ -2843,6 +2869,8 @@ sub parse_args
         push (@{$opt{config_rtl}}, "RTL_PICO" . $i);
     } elsif ($opt{ariane}) {
         push (@{$opt{config_rtl}}, "RTL_ARIANE" . $i);
+    } elsif ($opt{anycore}) {
+        push (@{$opt{config_rtl}}, "RTL_ANYCORE" . $i);
     } elsif ($opt{ost1}) {
         push (@{$opt{config_rtl}}, "RTL_SPARC" . $i);
     }
