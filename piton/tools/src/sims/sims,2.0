@@ -1424,7 +1424,7 @@ sub generic_sim_build
       $cmd .= $ncelab;
       $cmd .= " " ;
       push (@{$opt{ncv_build_args}}, $cmd);
-      push (@{$opt{ncv_build_args}}, "-arr_access");
+      push (@{$opt{ncv_build_args}}, "-arr_access") if (!$opt{anycore});
       push (@{$opt{ncv_build_args}}, "+access+rw");
       #push (@{$opt{ncv_build_args}}, "+ncloadpli1=$dv_root/tools/pli/libiob_ncv:iob_boot");
       #push (@{$opt{ncv_build_args}}, "+ncloadpli1=$dv_root/tools/pli/libjbus_mon_ncv:jbus_monboot");
@@ -2833,6 +2833,7 @@ sub parse_args
   push (@{$opt{config_rtl}}, "PITON_ANYCORE")  if ($opt{anycore});
   push (@{$opt{config_rtl}}, "SIM")  if ($opt{anycore});
   push (@{$opt{vcs_build_args}}, "-sverilog")  if ($opt{anycore});
+  push (@{$opt{ncv_build_args}}, "-sverilog")  if ($opt{anycore});
 
   if ($opt{pico} or $opt{pico_het} or $opt{ariane} or $opt{anycore}) {
     push (@{$opt{config_rtl}}, "NO_MRA_VAL") ;

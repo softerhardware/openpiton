@@ -30,7 +30,7 @@ module l15_anycoreencoder(
 
     output [`ICACHE_TAG_BITS-1:0]           anycore_mem2ic_tag,
     output [`ICACHE_INDEX_BITS-1:0]         anycore_mem2ic_index,
-    output reg [`ICACHE_BITS_IN_LINE-1:0]   anycore_mem2ic_data,
+    output [`ICACHE_BITS_IN_LINE-1:0]   anycore_mem2ic_data,
     output reg                              anycore_mem2ic_respvalid,
 
     output [`DCACHE_TAG_BITS-1:0]       anycore_mem2dc_ldtag,
