@@ -1080,7 +1080,7 @@ ciop_fake_iob ciop_fake_iob(
         `endif
         `ifdef RTL_ANYCORE0
           .spc0_inst_done    (1'b1),
-          .pc_w0             (system.chip.tile0.g_core.core.coreTop.activeList.currentCommitPC[48:0]),
+          .pc_w0             (`ANYCORE_CORE0.coreTop.activeList.currentCommitPC[48:0]),
         `endif
         '''
 
