@@ -305,6 +305,10 @@ module system(
 `ifdef PITONSYS_UART
     output                                      uart_tx,
     input                                       uart_rx,
+`ifdef PITONSYS_UART2
+    output                                      uart_tx2,
+    input                                       uart_rx2,
+`endif // ifdef PITONSYS_UART2
 `ifdef VCU118_BOARD
 		input                                       uart_cts,
 		output                                      uart_rts,
@@ -510,14 +514,14 @@ wire                uart_rst_out_n;
 // Debug
 wire                     ndmreset;    // non-debug module reset
 wire                     dmactive;    // debug module is active
-wire  [`NUM_TILES-1:0]   debug_req;   // async debug request
-wire  [`NUM_TILES-1:0]   unavailable; // communicate whether the hart is unavailable (e.g.: power down)
+wire  [`NUM_TILES/2-1:0] debug_req;   // async debug request
+wire  [`NUM_TILES/2-1:0] unavailable; // communicate whether the hart is unavailable (e.g.: power down)
 // CLINT
 wire                     rtc;         // Real-time clock in (usually 32.768 kHz)
-wire  [`NUM_TILES-1:0]   timer_irq;   // Timer interrupts
-wire  [`NUM_TILES-1:0]   ipi;         // software interrupt (a.k.a inter-process-interrupt)
+wire  [`NUM_TILES/2-1:0] timer_irq;   // Timer interrupts
+wire  [`NUM_TILES/2-1:0] ipi;         // software interrupt (a.k.a inter-process-interrupt)
 // PLIC
-wire  [`NUM_TILES*2-1:0] irq;         // level sensitive IR lines, mip & sip (async)
+wire  [`NUM_TILES-1:0]   irq;         // level sensitive IR lines, mip & sip (async)
 
 `endif
 
@@ -1124,6 +1128,10 @@ chipset chipset(
 `ifdef PITONSYS_UART
     .uart_tx(uart_tx),
     .uart_rx(uart_rx),
+`ifdef PITONSYS_UART2
+    .uart_tx2(uart_tx2),
+    .uart_rx2(uart_rx2),
+`endif // ifdef PITONSYS_UART2
 `ifdef PITONSYS_UART_BOOT
     .test_start(test_start),
 `endif // endif PITONSYS_UART_BOOT

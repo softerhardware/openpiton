@@ -30,7 +30,7 @@ def get_bootrom_info(devices, nCpus, cpuFreq, timeBaseFreq, periphFreq, dtsPath,
     memLen  = 0
     for i in range(len(devices)):
         if devices[i]["name"] == "mem":
-            memLen  = devices[i]["length"]
+            memLen  = devices[i]["length"] - 0x20000000
 
     if 'PROTOSYN_RUNTIME_BOARD' in os.environ:
         boardName = os.environ['PROTOSYN_RUNTIME_BOARD']
@@ -182,7 +182,7 @@ def gen_riscv_dts(devices, nCpus, cpuFreq, timeBaseFreq, periphFreq, dtsPath, ti
     for i in range(len(devices)):
         if devices[i]["name"] == "mem":
             addrBase = devices[i]["base"]
-            addrLen  = devices[i]["length"]
+            addrLen  = devices[i]["length"] - 0x20000000
             tmpStr += '''
     memory@%08x {
         device_type = "memory";
@@ -201,7 +201,7 @@ def gen_riscv_dts(devices, nCpus, cpuFreq, timeBaseFreq, periphFreq, dtsPath, ti
     # TODO: this needs to be extended
     # get the number of interrupt sources
     numIrqs = 0
-    devWithIrq = ["uart", "net"];
+    devWithIrq = ["secondary_uart", "net"];
     for i in range(len(devices)):
         if devices[i]["name"] in devWithIrq:
             numIrqs += 1
@@ -260,7 +260,7 @@ def gen_riscv_dts(devices, nCpus, cpuFreq, timeBaseFreq, periphFreq, dtsPath, ti
         };
             ''' % (_reg_fmt(addrBase, addrLen, 2, 2))
         # UART
-        if devices[i]["name"] == "uart":
+        if devices[i]["name"] == "secondary_uart":
             addrBase = devices[i]["base"]
             addrLen  = devices[i]["length"]
             tmpStr += '''

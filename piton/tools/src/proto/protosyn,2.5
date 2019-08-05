@@ -74,6 +74,7 @@ def usage():
     print >> sys.stderr, "                  pico      (32bit RISCV core)"
     print >> sys.stderr, "                  pico_het  (heterogeneous pico+sparc arrangement)"
     print >> sys.stderr, "                  ariane    (64bit RISCV core)"
+    print >> sys.stderr, "                  ariane_het  (heterogeneous ariane+sparc arrangement)"
     print >> sys.stderr, "\n       --network_config <network_config>"
     print >> sys.stderr, "              Name of the network type to be used:"
     print >> sys.stderr, "                  2dmesh_config (default)"
@@ -487,7 +488,7 @@ def makeDefList(options):
     #defines.append(df)
 
     # disable CSM in this case
-    if options.core == 'ariane':
+    if options.core == 'ariane' or options.core == 'ariane_het':
         defines.append("NO_RTL_CSM")
 
     if (options.board == "f1"):
@@ -577,7 +578,7 @@ def makeDefList(options):
         defines.append("PITON_UART16550")
 
     # --eth CL options is default for chipset
-    if options.eth or options.design == "chipset" or options.design == "system":
+    if options.eth:
         # Ethernet controller is supported on Genesys2 and nexysVideo
         if options.board == "genesys2" or options.board == "nexysVideo":
             defines.append("PITON_FPGA_ETHERNETLITE")
@@ -757,6 +758,21 @@ def main():
             os.environ['RTL_ARIANE' + str(i)] = "1"
             print_info('setenv RTL_ARIANE' + str(i))
 
+    elif options.core == 'ariane_het':
+
+        os.environ['PITON_ARIANE']     = "1"
+        os.environ['PITON_ARIANE_HET'] = "1"
+        os.environ['WT_DCACHE']    = "1"
+
+        for i in range(int(options.num_tiles)):
+            if i %2:
+                os.environ['RTL_ARIANE' + str(i)] = "1"
+                print_info('setenv RTL_ARIANE' + str(i))
+
+            else:
+                os.environ['RTL_SPARC' + str(i)] = "1"
+                print_info('setenv RTL_SPARC' + str(i))
+
     elif options.core == 'sparc':
         # this is the default
         for i in range(int(options.num_tiles)):
@@ -831,6 +847,9 @@ def main():
 
         if options.core == 'ariane':
             config += ' -ariane'
+
+        if options.core == 'ariane_het':
+            config += ' -ariane_het'
 
         print_info("Synthesizing a test: %s" % options.test_name)
         print_info("Compilation started")

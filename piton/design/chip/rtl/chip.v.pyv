@@ -143,13 +143,13 @@ module chip(
     ,
     // Debug
     input                                       ndmreset_i,    // non-debug module reset
-    input   [`NUM_TILES-1:0]                    debug_req_i,   // async debug request
-    output  [`NUM_TILES-1:0]                    unavailable_o, // communicate whether the hart is unavailable (e.g.: power down)
+    input   [`NUM_TILES/2-1:0]                  debug_req_i,   // async debug request
+    output  [`NUM_TILES/2-1:0]                  unavailable_o, // communicate whether the hart is unavailable (e.g.: power down)
     // CLINT
-    input   [`NUM_TILES-1:0]                    timer_irq_i,   // Timer interrupts
-    input   [`NUM_TILES-1:0]                    ipi_i,         // software interrupt (a.k.a inter-process-interrupt)
+    input   [`NUM_TILES/2-1:0]                  timer_irq_i,   // Timer interrupts
+    input   [`NUM_TILES/2-1:0]                  ipi_i,         // software interrupt (a.k.a inter-process-interrupt)
     // PLIC
-    input   [`NUM_TILES*2-1:0]                  irq_i          // level sensitive IR lines, mip & sip (async)
+    input   [`NUM_TILES-1:0]                    irq_i          // level sensitive IR lines, mip & sip (async)
 `endif
 );
 
@@ -1038,12 +1038,12 @@ module chip(
         .default_coreid_x           (COREIDX),
         .default_coreid_y           (COREIDY),
         .flat_tileid                (`JTAG_FLATID_WIDTH'd_FLAT_ID_),
-    `ifdef PITON_ARIANE
-        .debug_req_i         ( debug_req_i[_FLAT_ID_]   ),
-        .unavailable_o       ( unavailable_o[_FLAT_ID_] ),
-        .timer_irq_i         ( timer_irq_i[_FLAT_ID_]   ),
-        .ipi_i               ( ipi_i[_FLAT_ID_]         ),
-        .irq_i               ( irq_i[_FLAT_ID_*2 +: 2]  ),
+    `ifdef RTL_ARIANE_FLAT_ID_
+        .debug_req_i         ( debug_req_i[_FLAT_ID_/2]   ),
+        .unavailable_o       ( unavailable_o[_FLAT_ID_/2] ),
+        .timer_irq_i         ( timer_irq_i[_FLAT_ID_/2]   ),
+        .ipi_i               ( ipi_i[_FLAT_ID_/2]         ),
+        .irq_i               ( irq_i[_FLAT_ID_ : _FLAT_ID_-1]  ),
     `endif
         // ucb from tiles to jtag
         .tile_jtag_ucb_val   ( tile0_jtag_ucb_val      ),
@@ -1115,6 +1115,11 @@ module chip(
                     currenttile = currenttile.replace("TYPE_OF_TILE", "`SPARC_TILE")
                 else:
                     currenttile = currenttile.replace("TYPE_OF_TILE", "`PICORV32_TILE")
+            if (PITON_ARIANE_HET):
+                if (flatid % 2) == 0:
+                    currenttile = currenttile.replace("TYPE_OF_TILE", "`SPARC_TILE")
+                else:
+                    currenttile = currenttile.replace("TYPE_OF_TILE", "`ARIANE_RV64_TILE")
             elif (PITON_PICO):
                 currenttile = currenttile.replace("TYPE_OF_TILE", "`PICORV32_TILE")
             elif (PITON_ARIANE):

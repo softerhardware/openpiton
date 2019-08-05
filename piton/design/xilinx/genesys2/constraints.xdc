@@ -70,6 +70,11 @@ set_property IOSTANDARD LVCMOS33 [get_ports uart_rx]
 set_property PACKAGE_PIN Y20 [get_ports uart_rx]
 set_property IOSTANDARD LVCMOS33 [get_ports uart_tx]
 set_property PACKAGE_PIN Y23 [get_ports uart_tx]
+## PMOD UART
+set_property IOSTANDARD LVCMOS33 [get_ports uart_rx2]
+set_property PACKAGE_PIN AK30 [get_ports uart_rx2]
+set_property IOSTANDARD LVCMOS33 [get_ports uart_tx2]
+set_property PACKAGE_PIN AK28 [get_ports uart_tx2]
 
 # Switches
 set_property IOSTANDARD LVCMOS33 [get_ports {sw[7]}]

@@ -320,6 +320,10 @@ module chipset(
     `ifdef PITONSYS_UART
         output                                      uart_tx,
         input                                       uart_rx,
+    `ifdef PITONSYS_UART2
+        output                                      uart_tx2,
+        input                                       uart_rx2,
+    `endif // ifdef PITONSYS_UART2
         `ifdef PITONSYS_UART_BOOT
             `ifndef PITONSYS_CHIPSET_TOP
                 output                                      test_start,
@@ -481,8 +485,8 @@ module chipset(
     // Debug
     output                                      ndmreset_o,    // non-debug module reset
     output                                      dmactive_o,    // debug module is active
-    output  [`NUM_TILES-1:0]                    debug_req_o,   // async debug request
-    input   [`NUM_TILES-1:0]                    unavailable_i, // communicate whether the hart is unavailable (e.g.: power down)
+    output  [`NUM_TILES/2-1:0]                  debug_req_o,   // async debug request
+    input   [`NUM_TILES/2-1:0]                  unavailable_i, // communicate whether the hart is unavailable (e.g.: power down)
     // JTAG
     input                                       tck_i,
     input                                       tms_i,
@@ -492,10 +496,10 @@ module chipset(
     output                                      tdo_oe_o,
     // CLINT
     input                                       rtc_i,         // Real-time clock in (usually 32.768 kHz)
-    output  [`NUM_TILES-1:0]                    timer_irq_o,   // Timer interrupts
-    output  [`NUM_TILES-1:0]                    ipi_o,         // software interrupt (a.k.a inter-process-interrupt)
+    output  [`NUM_TILES/2-1:0]                  timer_irq_o,   // Timer interrupts
+    output  [`NUM_TILES/2-1:0]                  ipi_o,         // software interrupt (a.k.a inter-process-interrupt)
     // PLIC
-    output  [`NUM_TILES*2-1:0]                  irq_o          // level sensitive IR lines, mip & sip (async)
+    output  [`NUM_TILES-1:0]                    irq_o          // level sensitive IR lines, mip & sip (async)
 `endif
 
 );
@@ -1373,6 +1377,11 @@ chipset_impl_noc_power_test  chipset_impl (
             ,
             .uart_tx(uart_tx),
             .uart_rx(uart_rx)
+        `ifdef PITONSYS_UART2
+            ,
+            .uart_tx2(uart_tx2),
+            .uart_rx2(uart_rx2)
+        `endif // ifdef PITONSYS_UART2
             `ifdef PITONSYS_UART_BOOT
                 ,
                 .uart_boot_en(uart_boot_en),
