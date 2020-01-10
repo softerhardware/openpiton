@@ -1188,6 +1188,7 @@ if (TILE_TYPE == `ANYCORE_TILE) begin : g_anycore_core
         .anycore_mem2ic_data                    (anycore_mem2ic_data),
         .anycore_mem2ic_respvalid               (anycore_mem2ic_respvalid),
 
+        .anycore_dc2mem_ldvalid		              (anycore_dc2mem_ldvalid),
         .anycore_mem2dc_ldtag                   (anycore_mem2dc_ldtag),
         .anycore_mem2dc_ldindex                 (anycore_mem2dc_ldindex),
         .anycore_mem2dc_lddata                  (anycore_mem2dc_lddata),

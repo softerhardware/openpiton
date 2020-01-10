@@ -33,10 +33,11 @@ module l15_anycoreencoder(
     output [`ICACHE_BITS_IN_LINE-1:0]   anycore_mem2ic_data,
     output reg                              anycore_mem2ic_respvalid,
 
+    input                               anycore_dc2mem_ldvalid,
     output [`DCACHE_TAG_BITS-1:0]       anycore_mem2dc_ldtag,
     output [`DCACHE_INDEX_BITS-1:0]     anycore_mem2dc_ldindex,
     output [`DCACHE_BITS_IN_LINE-1:0]   anycore_mem2dc_lddata,
-    output                              anycore_mem2dc_ldvalid,
+    output reg                             anycore_mem2dc_ldvalid,
 
     input                               anycore_dc2mem_stvalid,
     output reg                          anycore_mem2dc_stcomplete,
@@ -50,12 +51,17 @@ module l15_anycoreencoder(
 //
 localparam STORE_IDLE = 1'b0;
 localparam STORE_ACTIVE = 1'b1;
+localparam LOAD_IDLE = 1'b0;
+localparam LOAD_ACTIVE = 1'b1;
 
 //reg state;
 //reg state_next;
 
 reg store_reg;
 reg store_next;
+
+reg load_reg;
+reg load_next;
 
 wire [63:0] l15_anycoreencoder_address_sext;
 
@@ -76,13 +82,15 @@ wire [63:0] l15_anycoreencoder_data_3_swap = {l15_anycoreencoder_data_3[7:0], l1
 always @ (posedge clk) begin
     if (!rst_n) begin
         store_reg <= STORE_IDLE;
+        load_reg <= LOAD_IDLE;
     end
     else begin
         store_reg <= store_next;
+        load_reg <= load_next;
     end
 end
 
-assign anycore_mem2dc_ststall = (store_reg == STORE_ACTIVE) | anycore_dc2mem_stvalid;
+assign anycore_mem2dc_ststall = (store_reg == STORE_ACTIVE) | anycore_dc2mem_stvalid | (load_reg == LOAD_ACTIVE) | anycore_dc2mem_ldvalid;
 
 assign l15_anycoreencoder_address_sext = {{24{l15_anycoreencoder_address[`PHY_ADDR_WIDTH-1]}}, l15_anycoreencoder_address};
 assign anycoreencoder_l15_req_ack = l15_anycoreencoder_val;
@@ -90,6 +98,12 @@ assign anycoreencoder_l15_req_ack = l15_anycoreencoder_val;
 assign anycore_mem2ic_tag = l15_anycoreencoder_address_sext[63:64-`ICACHE_TAG_BITS];
 assign anycore_mem2ic_index = l15_anycoreencoder_address_sext[64-`ICACHE_TAG_BITS-1:64-`ICACHE_TAG_BITS-`ICACHE_INDEX_BITS];
 assign anycore_mem2ic_data[`ICACHE_BITS_IN_LINE-1:0] = {l15_anycoreencoder_data_3_swap, l15_anycoreencoder_data_2_swap, l15_anycoreencoder_data_1_swap, l15_anycoreencoder_data_0_swap};
+
+assign anycore_mem2dc_ldtag = l15_anycoreencoder_address_sext[63:64-`DCACHE_TAG_BITS];
+assign anycore_mem2dc_ldindex = l15_anycoreencoder_address_sext[64-`DCACHE_TAG_BITS-1:64-`DCACHE_TAG_BITS-`DCACHE_INDEX_BITS];
+//assign anycore_mem2dc_lddata[`DCACHE_BITS_IN_LINE-1:0] = {{l15_anycoreencoder_data_3_swap, l15_anycoreencoder_data_2_swap, l15_anycoreencoder_data_1_swap, l15_anycoreencoder_data_0_swap}, {l15_anycoreencoder_data_3_swap, l15_anycoreencoder_data_2_swap, l15_anycoreencoder_data_1_swap, l15_anycoreencoder_data_0_swap}};
+//assign anycore_mem2dc_lddata[`DCACHE_BITS_IN_LINE-1:0] = {l15_anycoreencoder_data_3_swap, l15_anycoreencoder_data_2_swap, l15_anycoreencoder_data_1_swap, l15_anycoreencoder_data_0_swap};
+assign anycore_mem2dc_lddata[`DCACHE_BITS_IN_LINE-1:0] = {l15_anycoreencoder_data_1_swap, l15_anycoreencoder_data_0_swap};
 
 // keep track of whether we have received the wakeup interrupt
 reg int_recv;
@@ -107,18 +121,26 @@ end
 
 always @ * begin
     store_next = store_reg;
+    load_next = load_reg;
     if (anycore_dc2mem_stvalid) begin
         store_next = STORE_ACTIVE;
     end
     if (anycore_mem2dc_stcomplete) begin
         store_next = STORE_IDLE;
     end
+		if (anycore_dc2mem_ldvalid) begin
+				load_next = LOAD_ACTIVE;
+		end
+		if (anycore_mem2dc_ldvalid) begin
+				load_next = LOAD_IDLE;
+		end
 end
    
 always @ * begin
     //state_next = `STATE_NORMAL;
     anycore_mem2ic_respvalid = 1'b0;
     anycore_mem2dc_stcomplete = 1'b0;
+		anycore_mem2dc_ldvalid = 1'b0;
     int_recv = 1'b0;
     if (l15_anycoreencoder_val) begin
         case(l15_anycoreencoder_returntype)
@@ -136,6 +158,9 @@ always @ * begin
         `ST_ACK: begin
             anycore_mem2dc_stcomplete = 1'b1;
         end
+				`LOAD_RET: begin
+						anycore_mem2dc_ldvalid = 1'b1;
+				end
         default: begin
             int_recv = 1'b0;
         end
