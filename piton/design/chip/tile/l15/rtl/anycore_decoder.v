@@ -227,7 +227,7 @@ assign anycoredecoder_l15_invalidate_cacheline = 1'b0;
 //assign anycoredecoder_l15_val = current_val && !prev_val;
 //assign anycoredecoder_l15_val = anycore_ic2mem_reqvalid | anycore_dc2mem_stvalid | store_reg;
 
-assign anycoredecoder_l15_nc = 1'b0;//anycoredecoder_l15_address[`PHY_ADDR_WIDTH-1];
+assign anycoredecoder_l15_nc = anycoredecoder_l15_address[`PHY_ADDR_WIDTH-1];
 
 /*always @ * begin
 if (imiss_next == ISSUE) begin

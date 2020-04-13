@@ -3,4 +3,4 @@
 	url = https://github.com/pulp-platform/ariane.git
 [submodule "piton/design/chip/tile/anycore"]
 	path = piton/design/chip/tile/anycore
-	url = http://github.com/anycore/anycore-riscv-src.git
+	url = https://github.com/xkf15/anycore-riscv-src.git
