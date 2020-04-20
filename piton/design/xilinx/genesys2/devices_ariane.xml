@@ -80,5 +80,12 @@ Description: Peripheral address map for OpenPiton+Ariane configurations.
         <stream_accessible/>
     </port>
     <!-- end ariane specific periphs -->
+    <!-- nyuzi test-->
+    <port>
+        <name>nyuzi</name>
+        <base>0xf400000000</base>
+        <length>0x8000000</length>
+        <noc2in/>
+    </port>    
 </devices>
 

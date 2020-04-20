@@ -160,3 +160,5 @@
 `elsif XUPP3R_BOARD
     `define PITONSYS_DDR4
 `endif
+
+`define PITON_DUMMY

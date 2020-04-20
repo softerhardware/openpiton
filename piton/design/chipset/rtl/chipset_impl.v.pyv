@@ -1112,6 +1112,21 @@ fake_uart fake_uart (
     .uart_dst_noc3_data ( uart_buf_noc3_data  ),
     .uart_dst_noc3_rdy  ( buf_uart_noc3_ready )
 );
+
+// instantiation of dummy 
+
+`ifdef PITON_DUMMY
+dummy_uart dummy_uart (
+    .clk(chipset_clk),
+    .rst_n(chipset_rst_n),
+    .src_uart_noc2_val(buf_dummy_uart_noc2_valid),
+    .src_uart_noc2_data(buf_dummy_uart_noc2_data),
+    .src_uart_noc2_rdy(dummy_uart_buf_noc2_rdy),
+    .uart_dst_noc3_val(dummy_uart_buf_noc3_val),
+    .uart_dst_noc3_data(dummy_uart_buf_noc3_data),
+    .uart_dst_noc3_rdy(buf_dummy_uart_noc3_ready)
+);
+`endif
 `endif // endif PITONSYS_IOCTRL
 
 

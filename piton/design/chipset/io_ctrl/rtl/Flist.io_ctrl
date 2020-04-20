@@ -37,3 +37,4 @@ eth_top.v
 //uart_reader.v
 //uart_top.v
 //uart_writer.v
+dummy_uart.v
