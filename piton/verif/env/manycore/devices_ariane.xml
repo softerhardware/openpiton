@@ -33,7 +33,7 @@ Description: Peripheral address map for OpenPiton+Ariane configurations.
     </port>
     <port>
         <name>uart</name>
-        <base>0xfff0c2c000</base>
+        <base>0xfff1c2c000</base>
         <!-- Just give it all the space up to the network device? -->
         <length>0xd4000</length>
         <noc2in/>
@@ -72,8 +72,14 @@ Description: Peripheral address map for OpenPiton+Ariane configurations.
     <!-- nyuzi test-->
     <port>
         <name>dummy_uart</name>
-        <base>0xfffcc2c000</base>
+        <base>0xfff0c2c000</base>
         <length>0xd4000</length>
+        <noc2in/>
+    </port>
+    <port>
+        <name>axilite_peripheral</name>
+        <base>0xfffc000000</base>
+        <length>0x40000</length>
         <noc2in/>
     </port>
 </devices>

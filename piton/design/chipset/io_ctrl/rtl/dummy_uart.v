@@ -103,6 +103,62 @@ noc_axilite_bridge #(
     .r_reqbuf_size          ()
 );
 
+wire [`NOC_DATA_WIDTH-1:0]  uart_noc2_data_test;
+wire                        uart_noc2_valid_test;
+wire                        uart_noc2_ready_test;
 
+wire [`NOC_DATA_WIDTH-1:0]  m_axi_awaddr_test;
+wire                        m_axi_awvalid_test;
+
+wire [`NOC_DATA_WIDTH-1:0]  m_axi_wdata_test;
+wire                        m_axi_wvalid_test;
+
+assign m_axi_awaddr_test = m_axi_awaddr;
+assign m_axi_awvalid_test = m_axi_awvalid;
+assign m_axi_wdata_test = m_axi_wdata;
+assign m_axi_wvalid_test = m_axi_wvalid;
+
+
+/* reroute noc-axi signals to axi-noc bridge */
+/*axilite_noc_bridge axilite_noc_bridge (
+    .clk                    (clk),
+    .rst                    (~rst_n),
+    
+    .bridge_splitter_val    (uart_noc2_valid_test),
+    .bridge_splitter_data   (uart_noc2_data_test),
+    .splitter_bridge_rdy    (1'b1),
+
+    .splitter_bridge_val    (1'b1),
+    .splitter_bridge_data   (0),
+    .bridge_splitter_rdy    (),
+
+    //axi lite signals
+    //write address channel
+    .m_axi_awaddr           (m_axi_awaddr_test),
+    .m_axi_awvalid          (m_axi_awvalid_test),
+    .m_axi_awready          (),
+
+    //write data channel
+    .m_axi_wdata            (m_axi_wdata_test),
+    .m_axi_wstrb            (),
+    .m_axi_wvalid           (m_axi_wvalid_test),
+    .m_axi_wready           (),
+
+    //read address channel
+    .m_axi_araddr           (0),
+    .m_axi_arvalid          (0),
+    .m_axi_arready          (),
+
+    //read data channel
+    .m_axi_rdata            (),
+    .m_axi_rresp            (),
+    .m_axi_rvalid           (),
+    .m_axi_rready           (0),
+
+    //write response channel
+    .m_axi_bresp            (),
+    .m_axi_bvalid           (),
+    .m_axi_bready           (0)
+);*/
 
 endmodule

@@ -26,3 +26,6 @@
 // ========== Copyright Header End ============================================
 
 noc_axilite_bridge.v
+axilite_noc_bridge.v
+test_generator/axilite_master_test.v
+noc_axilite_peripheral_wrapper.v
