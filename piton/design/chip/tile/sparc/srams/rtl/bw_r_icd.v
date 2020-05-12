@@ -51,7 +51,7 @@
 ////////////////////////////////////////////////////////////////////////
 
 `include "ifu.tmp.h"
-
+`include "define.tmp.h"
 
 `ifdef SIM_FPGA_SYN_SRAM_LSU_ICACHE // simulation flag
 `define PITON_PROTO

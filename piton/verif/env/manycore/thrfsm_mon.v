@@ -20,6 +20,7 @@
 //
 // ========== Copyright Header End ============================================
 `include "ifu.tmp.h"
+`include "cross_module.tmp.h"
 
 module thrfsm_mon(/*AUTOARG*/
    // Inputs

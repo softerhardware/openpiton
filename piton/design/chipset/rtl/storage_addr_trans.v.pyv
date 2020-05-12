@@ -27,6 +27,7 @@
 // Auto generated mapping module
 // It is provided for test: unknown
 //-----------------------------------------
+`include "chipset_define.vh"
 
 <%
 import pyhplib

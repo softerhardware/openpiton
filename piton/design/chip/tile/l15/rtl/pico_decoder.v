@@ -25,6 +25,7 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 `include "iop.h" 
+`include "l15.tmp.h"
 module pico_decoder(
     input wire         clk,
     input wire         rst_n,

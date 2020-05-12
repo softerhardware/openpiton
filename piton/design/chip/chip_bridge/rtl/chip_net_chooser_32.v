@@ -33,9 +33,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * empty and which have been given priority previously
  * *******************************************************************/
 
-
-`timescale 1ns/1ps
-
 module bridge_network_chooser(
     rst,
     clk,

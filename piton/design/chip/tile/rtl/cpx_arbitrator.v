@@ -25,6 +25,7 @@
 
 // the cpx arbitrator should give priority to the L1.5
 // when communicating with the sparc core
+`include "iop.h"
 
 module cpx_arbitrator(
    clk,

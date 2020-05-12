@@ -38,6 +38,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //pcx_decoder.v
 
 `include "iop.h"
+`include "l15.tmp.h"
 
 module pcx_decoder(
    input wire clk,

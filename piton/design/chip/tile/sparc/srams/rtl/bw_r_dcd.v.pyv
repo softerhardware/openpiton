@@ -49,6 +49,8 @@
 
 //`include "iop.h"
 //`include "fabric.h"
+`include "define.tmp.h"
+`include "lsu.tmp.h"
 
 
 `ifdef SIM_FPGA_SYN_SRAM_LSU_DCACHE // simulation flag

@@ -27,6 +27,7 @@
 // ***************************************************************************
 
 `include "ifu.tmp.h"
+`include "cross_module.tmp.h"
 
 module nc_inv_chk (/*AUTOARG*/
    // Inputs

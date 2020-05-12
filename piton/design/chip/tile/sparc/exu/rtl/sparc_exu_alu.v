@@ -23,6 +23,7 @@
 /*
 //  Module Name: sparc_exu_alu
 */
+`include "lsu.tmp.h"
 
 module sparc_exu_alu
 (

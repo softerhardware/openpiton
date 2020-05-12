@@ -56,6 +56,8 @@ targets:
         generate: [pyhp_preprocess]
         toplevel: [cmp_top]
         tools:
+            verilator:
+                verilator_options: [-Wno-fatal -Wno-BLKANDNBLK]
     pickle:
         default_tool: icarus
         filesets: [tb_files]

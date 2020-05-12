@@ -21,6 +21,8 @@
 // ========== Copyright Header End ============================================
 
 `include "ifu.tmp.h"
+`include "cross_module.tmp.h"
+`include "iop.h"
 
 module l_cache_mon(/*AUTOARG*/
    // Inputs

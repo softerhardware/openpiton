@@ -39,6 +39,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 //==================================================================================================
 //cpxencoder.v
+`include "iop.h"
+`include "l15.tmp.h"
 
 /* OLDNOTE (5/15/14) Note regarding l15_cpxencoder_blockinitstore
     in cpx.cc, the 125 bit of the return inval vector is set when block init store is set

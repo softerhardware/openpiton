@@ -35,6 +35,7 @@
 //
 //Instantiates: 
 //
+`include "network_define.v"
 
 module valrdy_to_credit (
             clk,

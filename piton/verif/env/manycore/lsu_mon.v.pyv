@@ -28,6 +28,7 @@
 ////////////////////////////////////////////////////////
 
 `include "cross_module.tmp.h"
+`include "lsu.tmp.h"
 `include "sys.h"
 `include "iop.h"
 
@@ -3108,7 +3109,7 @@ end // always @ (posedge clk)
 '''
 pattern = ["RTL_SPARC1", "CORE1", "spc1"]
 tt = ReplicatePattern1(text, pattern)
-print tt
+print(tt)
 %>
 
 endmodule

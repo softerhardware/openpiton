@@ -39,7 +39,7 @@
 ////////////////////////////////////////////////////////////////////////
 
 `include "ifu.tmp.h"
-
+`include "define.tmp.h"
 
 module sparc_ifu_fcl(/*AUTOARG*/
    // Outputs

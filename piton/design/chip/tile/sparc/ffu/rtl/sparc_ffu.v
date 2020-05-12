@@ -28,6 +28,7 @@
 */
 
 `include "iop.h"
+`include "define.tmp.h"
 `define FPRET_CMP    69
 `define FPRET_CC_HI  68
 `define FPRET_CC_LO  67

@@ -71,6 +71,7 @@
 // `endif
 
 // sink #(94) s0(.in (snap_data_ff));
+`include "define.tmp.h"
 
 module sparc_ifu_sscan(
     input wire [10:0] swl_sscan_thrstate,

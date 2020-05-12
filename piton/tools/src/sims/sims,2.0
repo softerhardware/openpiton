@@ -131,6 +131,7 @@ Getopt::Long::Configure ('no_auto_abbrev') ;
         'asm_diag_path' => "",
         'asm_diag_root' => [],
         'build' => 1,
+        'capi_core' => "",
         'config_rtl' => [],
         'config_cpp_args' => [],
         'copyall' => 0,
@@ -143,7 +144,6 @@ Getopt::Long::Configure ('no_auto_abbrev') ;
         'env_base' => "",
         'fast_boot' => 0,
         'finish_mask' => "",
-        'flist' => [],
         'group' => [],
         'group_name' => "",
         'gzip' => 1,
@@ -233,7 +233,6 @@ Getopt::Long::Configure ('no_auto_abbrev') ;
         'vlt_build_args' => [],
         'vlt_run' => 0,
         'version' => 0,
-        'vfile' => [],
         'mem_init_py' => ""
        );
 
@@ -1062,125 +1061,6 @@ sub rerun
 }
 
 ################################################################################
-# Generate the verilog config file
-################################################################################
-
-sub gen_config
-{
-  open (OCONF, ">config.v") or die ("DIE. can't open file config.v") ;
-
-  print OCONF "`timescale 1ps/1ps\n" ;
-
-  foreach my $unit (@{$opt{config_rtl}}) {
-    print OCONF "`define $unit\n";
-  }
-
-  close (OCONF);
-}
-
-################################################################################
-# Generate the flist file
-################################################################################
-
-sub gen_flist
-{
-  open (OFLIST, ">flist") or die ("DIE. can't open flist file") ;
-
-  print OFLIST "$ENV{PWD}/config.v\n";
-
-  # Add ORAM flist if ORAM is specified
-  push (@{$opt{flist}}, "$ENV{DV_ROOT}/design/chip/tinyoram/rtl/Flist.oram") if ($opt{oram}) ;
-  # Add Ariane flist if -ariane is specified
-  push (@{$opt{flist}}, "$ENV{DV_ROOT}/design/chip/tile/ariane/Flist.ariane") if ($opt{ariane}) ;
-
-
-  foreach my $flist (@{$opt{flist}}) {
-    $flist =~ s/\$(\w+)/$ENV{$1}/g ;
-
-    # look for IBM flists
-    if ($opt{ibm}) {
-       my $ibmflist = $flist . ".ibm";
-       if (-e $ibmflist) {
-          $flist = $ibmflist;
-          # print("debug: IBM flist found: $flist\n");
-       }
-    }
-
-    open (IFLIST, "< $flist") or die ("DIE. can't open flist file $flist") ;
-
-    print "$flist\n";
-
-    while (<IFLIST>) {
-      my $line = $_ ;
-      my $base = dirname ($flist) ;
-
-      $line =~ s/^\s*(.*?)\s*$/$1/ ;
-      $line .= "\n" ;
-
-      if (($line =~ /^\s*\/\//) or ($line =~ /^\s*$/)) {
-        next ;
-      }
-
-      $line =~ s/\$(\w+)/$ENV{$1}/g ;
-
-      if ($line =~ /^\+incdir\+\//)
-      { }
-      elsif ($line =~ /^\+incdir\+/) {
-        $line =~ s/^\+incdir\+(.*)/\+incdir\+$base\/$1/ ;
-      }
-      elsif ($line =~ /^\-v\s\//)
-      { }
-      elsif ($line =~ /^\-v/) {
-        $line =~ s/-v\s*(.*)/-v $base\/$1/ ;
-      }
-      elsif ($line =~ /^-y\s\//)
-      { }
-      elsif ($line =~ /^-y/) {
-        $line =~ s/-y\s*(.*)/-y $base\/$1/ ;
-      }
-      elsif (($line =~ /^\+define/) or
-             ($line =~ /^\+libext/) or
-             ($line =~ /^\+librescan/))
-      { }
-      elsif ($line !~ /^\//) {
-        $line = "$base/$line" ;
-      }
-
-      # Tri
-      # Now we run pyphp
-
-      my $ibmfile = (split(' ',substr($line, 0, -1)))[-1] . ".ibm.v";
-      if ($opt{ibm} and -e $ibmfile) {
-           $line = $ibmfile . "\n";
-           # print("debug: IBM sram found: $line\n");
-      } else {
-        my $linepyv = (split(' ',substr($line, 0, -1)))[-1] . ".pyv";
-        # print("\$linepyv is $linepyv\n");
-        my $linetmp = substr($line, 0, -3) . ".tmp.". substr($line, -2, 1);
-        my $linetmpout = (split(' ',substr($line, 0, -3)))[-1] . ".tmp." . substr($line, -2, 1);
-        if (-e $linepyv) {
-          # print("original is $line\n");
-          system("pyhp.py $linepyv > $linetmpout");
-          $line = $linetmp . "\n";
-        }
-      }
-
-      print OFLIST $line ;
-    }
-
-    close (IFLIST) ;
-  }
-
-  foreach my $file (@{$opt{vfile}}) {
-    chomp $file ;
-    $file =~ s/\$(\w+)/$ENV{$1}/g ;
-    print OFLIST "$file\n" ;
-  }
-
-  close (OFLIST) ;
-}
-
-################################################################################
 # if a signal is received do some cleanup - delete tmp directories
 ################################################################################
 
@@ -1242,14 +1122,6 @@ sub pre_build
 
   # go to the model area
   chdir $model_path or die ("DIE. Can't cd to $model_path\n") ;
-
-  # generate the rtl config file
-  &gen_config ($opt{model});
-
-  # Generate the flist file
-  &gen_flist ();
-
-  system("cp -f flist $cur_dir");
 
   if($opt{ariane}) {
     print "compiling DTS and bootroms for Ariane...\n";
@@ -1324,16 +1196,8 @@ sub generic_sim_build
       print "$prg: LM_LICENSE_FILE : none\n";
     }
 
-    push (@{$opt{sim_build_args}}, "-f flist") ;
-
     if ($opt{vcs_build}) {
-      $lib_path = "-L$ENV{DV_ROOT}/tools/";
-      $lib_path .= $os_cpu_slash;
-      $lib_path .= "/lib ";
-
-      foreach my $top_n (@{$opt{toplevel}}) {
-        push(@{$opt{vcs_build_args}}, "-top $top_n") ;
-      }
+      $lib_path = "-L$ENV{DV_ROOT}/tools/$os_cpu_slash/lib ";
 
       push (@{$opt{vcs_build_args}}, "+compsdf") if ($opt{vcs_use_sdf}) ;
       push (@{$opt{vcs_build_args}}, "+initreg") if ($opt{vcs_use_initreg}) ;
@@ -1370,17 +1234,15 @@ sub generic_sim_build
 
       push (@{$opt{vcs_build_args}}, "+define+COPROCESSOR_ON") if ($opt{dmbr}) ;
       push (@{$opt{vcs_build_args}}, "+define+DMBR_CHECKER") if ($opt{dmbr_checker}) ;
+
+      # the ariane files do not contain the timescale
+      push (@{$opt{vcs_build_args}}, "-timescale=1ps/1ps") if ($opt{ariane}) ;
     }
     if ($opt{ncv_build}) {
       # build ncelab and ncsim executable files if not present
 
-      my $ncsim = "$ENV{DV_ROOT}/tools/";
-      $ncsim .= $os_cpu_slash;
-      $ncsim .= "/ncsim";
-
-      my $ncelab = "$ENV{DV_ROOT}/tools/";
-      $ncelab .= $os_cpu_slash;
-      $ncelab .= "/ncelab";
+      my $ncsim = "$ENV{DV_ROOT}/tools/$os_cpu_slash/ncsim";
+      my $ncelab = "$ENV{DV_ROOT}/tools/$os_cpu_slash/ncelab";
 
       if ( -f $ncsim) { print "$prg: file $ncsim found\n"; }
       if ( -f $ncelab) { print "$prg: file $ncelab found\n"; }
@@ -1395,77 +1257,22 @@ sub generic_sim_build
         chdir $cur_dir ;
       }
 
-      my $cmd = "+ncsimexe+";
-      $cmd .= $ncsim;
-      $cmd .= " +ncelabexe+";
-      $cmd .= $ncelab;
-      $cmd .= " " ;
-      push (@{$opt{ncv_build_args}}, $cmd);
+      push (@{$opt{ncv_build_args}}, "+ncsimexe+$ncsim +ncelabexe+$ncelab ");
       push (@{$opt{ncv_build_args}}, "-arr_access");
       push (@{$opt{ncv_build_args}}, "+access+rw");
-      #push (@{$opt{ncv_build_args}}, "+ncloadpli1=$dv_root/tools/pli/libiob_ncv:iob_boot");
-      #push (@{$opt{ncv_build_args}}, "+ncloadpli1=$dv_root/tools/pli/libjbus_mon_ncv:jbus_monboot");
-      #push (@{$opt{ncv_build_args}}, "+ncloadpli1=$dv_root/tools/pli/libmem_pli_ncv:mem_boot");
-      #push (@{$opt{ncv_build_args}}, "+ncloadpli1=$dv_root/tools/pli/libmonitor_ncv:monitor_boot");
-      #push (@{$opt{ncv_build_args}}, "+ncloadpli1=$dv_root/tools/pli/libsjm_ncv:sjm_boot");
-      #push (@{$opt{ncv_build_args}}, "+ncloadpli1=$dv_root/tools/pli/libsocket_pli_ncv:socketboot");
-      #push (@{$opt{ncv_build_args}}, "+ncloadpli1=$dv_root/tools/pli/libutility_ncv:utility_boot");
-
-      push (@{$opt{ncv_build_args}}, "+name+$opt{sys}") ;
       push (@{$opt{ncv_build_args}}, "-l compile.log") ;
-
-    }
-    if ($opt{icv_build}) {
-      foreach my $top_n (@{$opt{toplevel}}) {
-        push (@{$opt{icv_build_args}}, "-s $top_n") ;
-      }
-#      push (@{$opt{icv_build_args}}, "-I $ENV{DV_ROOT}/design/include") ;
-#      push (@{$opt{icv_build_args}}, "-I $ENV{DV_ROOT}/design/chipset/include") ;
-      push (@{$opt{icv_build_args}}, "-g 2001") ;
     }
 
     # copy vcs/icv/ncv/msm/vlt_build_args to generic sim_build_args
-    if ($opt{vcs_build}) {
-      foreach my $x (@{$opt{vcs_build_args}})
-      {
-          push (@{$opt{sim_build_args}}, $x);
-      }
-    }
-    if ($opt{ncv_build}) {
-      foreach my $x (@{$opt{ncv_build_args}})
-      {
-          push (@{$opt{sim_build_args}}, $x);
-      }
-    }
-    if ($opt{icv_build}) {
-      foreach my $x (@{$opt{icv_build_args}})
-      {
-          push (@{$opt{sim_build_args}}, $x);
-      }
-    }
-    if ($opt{msm_build}) {
-      foreach my $x (@{$opt{msm_build_args}})
-      {
-          push (@{$opt{sim_build_args}}, $x);
-      }
-    }
-    if ($opt{riv_build}) {
-      foreach my $x (@{$opt{riv_build_args}})
-      {
-          push (@{$opt{sim_build_args}}, $x);
-      }
-    }
-    if ($opt{vlt_build}) {
-      foreach my $x (@{$opt{vlt_build_args}})
-      {
-          push (@{$opt{sim_build_args}}, $x);
-      }
-    }
+    push (@{$opt{sim_build_args}}, @{$opt{vcs_build_args}}) if ($opt{vcs_build});
+    push (@{$opt{sim_build_args}}, @{$opt{ncv_build_args}}) if ($opt{ncv_build});
+    push (@{$opt{sim_build_args}}, @{$opt{icv_build_args}}) if ($opt{icv_build});
+    push (@{$opt{sim_build_args}}, @{$opt{msm_build_args}}) if ($opt{msm_build});
+    push (@{$opt{sim_build_args}}, @{$opt{riv_build_args}}) if ($opt{riv_build});
+    push (@{$opt{sim_build_args}}, @{$opt{vlt_build_args}}) if ($opt{vlt_build});
 
     if ($opt{ncv_build}) {
-      $ld_lib_path .= "$ENV{DV_ROOT}/tools/";
-      $ld_lib_path .= $os_cpu_slash;
-      $ld_lib_path .= "/lib";
+      $ld_lib_path .= "$ENV{DV_ROOT}/tools/$os_cpu_slash/lib";
       $ld_lib_path .= ":$ENV{NCV_HOME}/tools/lib/64bit:";
       $ld_lib_path .= $ENV{LD_LIBRARY_PATH};
       $ENV{LD_LIBRARY_PATH} = $ld_lib_path;
@@ -1475,64 +1282,38 @@ sub generic_sim_build
     # build the model
     print "$prg: Building rtl model\n" ;
 
+    $build_cmd = "fusesoc --config=$ENV{PITON_ROOT}/fusesoc.conf run --build-root=$model_path --setup --build --target=sim " ;
+    
     if ($opt{vcs_build}) {
-      if ($ENV{VCS_BIN}) {
-        $build_cmd = "$ENV{VCS_BIN} ";
-      } else {
-        $build_cmd  = "vcs " ;
-      }
+      $build_cmd .= "--tool=vcs " ;
       # lib_path needs to be before vcs_build_args
-      $build_cmd .= $lib_path;
-
-      # the ariane files do not contain the timescale
-      if ($opt{ariane}) {
-        $build_cmd .= " -timescale=1ps/1ps ";
-      }
+      $build_cmd .= "--system-name=simv ";
     }
     if ($opt{ncv_build}) {
-      $build_cmd = "LD_LIBRARY_PATH=";
-      $build_cmd .= $ld_lib_path;
-      $build_cmd  .= " ; export LD_LIBRARY_PATH;  ncverilog -C " ;
+      $build_cmd .= "--tool=incisive " ;
     }
     if ($opt{icv_build}) {
-      $build_cmd = "iverilog " ;
-      $build_cmd .= " ";
+      $build_cmd .= "--tool=icarus " ;
+      $build_cmd .= "--system-name=a.out ";
     }
     if ($opt{msm_build}) {
-      $build_cmd = "vlog" ;
+      $build_cmd .= "--tool=modelsim " ;
       if ($ENV{MODELSIM_VERSION}) {
         $build_cmd .= "$ENV{MODELSIM_VERSION}" ;
       }
       # compile everything as one compile unit (in order to keep the global defines in config.v)
-      $build_cmd .= " -mfcu ";
+      push (@{$opt{sim_build_args}}, "-mfcu");
       # also suppress the following warning, which unfortunately is hardly avoidable when using
       # always_comb blocks that operate on arrays inside a generate statement.
       # [SVCHK] - Some checking for conflicts with always_comb and always_latch variables not yet supported.
-      $build_cmd .= " -suppress 2583 ";
+      push (@{$opt{sim_build_args}}, "-suppress 2583");
     }
     if ($opt{riv_build}) {
       $build_cmd = "vlib work; vlog " ;
     }
 	
     if ($opt{vlt_build}) {
-      $build_cmd = "verilator -cc " ;
-      $build_cmd .= "-exe $dv_root/tools/verilator/my_top.cpp " ;
-      $build_cmd .= "$dv_root/tools/pli/iop/b_ary.c " ;
-      $build_cmd .= "$dv_root/tools/pli/iop/bw_lib.c " ;
-      $build_cmd .= "$dv_root/tools/pli/iop/iob_main.cc " ;
-      $build_cmd .= "$dv_root/tools/pli/iop/iob.cc " ;
-      $build_cmd .= "$dv_root/tools/pli/iop/cpx.cc " ;
-      $build_cmd .= "$dv_root/tools/pli/iop/pcx.cc " ;
-      $build_cmd .= "--top-module cmp_top " ;
-      $build_cmd .= "-Wno-fatal " ;
-      $build_cmd .= "-Wno-BLKANDNBLK " ;
-      $build_cmd .= "-DPITON_DPI " ;
-      $build_cmd .= "--unroll-count 256 " ;
-      $build_cmd .= "-CFLAGS -DVERILATOR " ;
-      $build_cmd .= "-CFLAGS -DPITON_DPI " ;
-      $build_cmd .= "-CFLAGS -lstdc++ " ;
-      $build_cmd .= "-CFLAGS -I$dv_root/tools/pli/iop " ;
-      $build_cmd .= "-CFLAGS -I$dv_root/tools/verilator " ;
+      $build_cmd .= "--tool=verilator " ;
     }
     if ($opt{other_sim_build}) {
       if (($opt{other_sim_build_cmd}) eq "") {
@@ -1543,43 +1324,42 @@ sub generic_sim_build
       $build_cmd .= " ";
     }
 
-    # Transfer some build args to the flist
-    open (IFLIST, "> flist.new") or die ("DIE. can't open flist.new") ;
+    $build_cmd .= "$opt{capi_core} " ;
+
+    if ($opt{vcs_build}) {
+      $build_cmd .= "--vcs_options=\"$lib_path " ;
+    }
+    if ($opt{ncv_build}) {
+      $build_cmd .= "--incisive_options=\"" ;
+    }
+    if ($opt{icv_build}) {
+      $build_cmd .= "--iverilog_options=\"" ;
+    }
+    if ($opt{msm_build}) {
+      $build_cmd .= "--vlog_options=\"" ;
+    }
+    if ($opt{vlt_build}) {
+      $build_cmd .= "--verilator_options=\"" ;
+    }
+
     foreach my $x (@{$opt{sim_build_args}}) {
-      $x =~ s/^"(.*?)"$/$1/ ;
-      if ($x =~ /\+define+|^-v |^-y |^-f (?!(flist|.*0in.*?\.arg))/) {
-        print IFLIST "$x\n";
+        $build_cmd .= "$x ";
+    }
+    foreach my $x (@{$opt{config_rtl}}) {
+      if (!$opt{icv_build}) {
+        $build_cmd .= "+define+$x ";
       } else {
-        $build_cmd .= "$x " ;
+        $build_cmd .= "-D$x ";
       }
     }
 
-    # Append flist to flist.new and rename to flist.
-    open (FLIST, "flist") or die ("DIE. can't open flist");
-    while (<FLIST>) {
-        print IFLIST "$_";
-    }
-    close FLIST;
-    close IFLIST;
-    rename "flist", "flist.orig" or die ("DIE. can't rename flist");
-    rename "flist.new", "flist" or die ("DIE. can't rename flist.new");
+    $build_cmd .= "\" ";
 
     print "$prg: $build_cmd\n";
 
     if (! $opt{dryrun}) {
       system ($build_cmd) ;
       die ("DIE. failed building model") if ($?) ;
-    }
-
-    if ($opt{vlt_build}) {
-      $build_cmd = "make -j -C $model_path/obj_dir -f Vcmp_top.mk Vcmp_top" ;
-
-      print "$prg: $build_cmd\n";
-
-      if (! $opt{dryrun}) {
-        system ($build_cmd) ;
-        die ("DIE. failed building model") if ($?) ;
-      }
     }
 
     # go back to where the script was invoked
@@ -1603,17 +1383,13 @@ sub generic_sim_run
     # copy the diff release over
     system ("cp -f $model_path/diff_rel.log .") if (-f "$model_path/diff_rel.log") ;
 
-    # copy the flist over
-    system ("cp -f $model_path/flist .") ;
-    die ("DIE. could not copy flist to $ENV{PWD}") if ($?) ;
-
     # verify that a model was compiled
-    die ("DIE. simv not found in $model_path") if ($opt{vcs_run} and ! -e "$model_path/simv") ;
-    die ("DIE. INCA_libs not found in $model_path") if ($opt{ncv_run} and ! -e "$model_path/INCA_libs") ;
-    die ("DIE. a.out not found in $model_path") if ($opt{icv_run} and ! -e "$model_path/a.out") ;
+    die ("DIE. simv not found in $model_path") if ($opt{vcs_run} and ! -e "$model_path/sim-vcs/simv") ;
+    die ("DIE. INCA_libs not found in $model_path") if ($opt{ncv_run} and ! -e "$model_path/sim-incisive/INCA_libs") ;
+    die ("DIE. a.out not found in $model_path") if ($opt{icv_run} and ! -e "$model_path/sim-icarus/a.out") ;
     die ("DIE. work/ not found in $model_path") if ($opt{msm_run} and ! -d "$model_path/work") ;
 	die ("DIE. work/ not found in $model_path") if ($opt{riv_run} and ! -d "$model_path/work") ;
-    die ("DIE. obj_dir/ not found in $model_path") if ($opt{vlt_run} and ! -d "$model_path/obj_dir") ;
+    die ("DIE. sim-verilator/ not found in $model_path") if ($opt{vlt_run} and ! -d "$model_path/sim-verilator") ;
 
     # pass the good trap and bad trap addresses to the testbench
     my $good_trap = "";
@@ -1709,41 +1485,29 @@ sub generic_sim_run
     # run the command
     if ($opt{vcs_run}) {
       $cmd .= "collect " if ($opt{vcs_prof}) ;
-      $cmd .= "$model_path/simv " ;
+      $cmd .= "$model_path/sim-vcs/simv " ;
       $cmd .= join (" ", @{$opt{sim_run_args}}) ;
     }
 
     if ($opt{ncv_run}) {
       $ld_lib_path = $ENV{LD_LIBRARY_PATH};
-      $ld_lib_path .= ":$ENV{DV_ROOT}/tools/";
-      $ld_lib_path .= $os_cpu_slash;
-      $ld_lib_path .= "/lib";
+      $ld_lib_path .= ":$ENV{DV_ROOT}/tools/$os_cpu_slash/lib";
       $ld_lib_path .= ":$ENV{NCV_HOME}/tools/lib/64bit";
-      $cmd .= "#!/bin/csh -f\nsetenv LD_LIBRARY_PATH ";
-      $cmd .= $ld_lib_path;
-      $cmd .= "\n" ;
-      $cmd .= "echo ";
-      $cmd .= $ncvcommand;
-      $cmd .= " | ncverilog " ;
-      $cmd .= "+nclibdirname+$model_path/INCA_libs " ;
-      $cmd .= "-r worklib.$opt{sys}:v " ;
-      $cmd .= "+name+$opt{sys} " ;
-      $cmd .= "+ncsimexe+$ENV{DV_ROOT}/tools/";
-      $cmd .= $os_cpu_slash;
-      $cmd .= "/ncsim " ;
-      $cmd .= "+ncelabexe+$ENV{DV_ROOT}/tools/";
-      $cmd .= $os_cpu_slash;
-      $cmd .= "/ncelab -s " ;
+      $cmd .= "#!/bin/csh -f\nsetenv LD_LIBRARY_PATH $ld_lib_path\n" ;
+      $cmd .= "echo $ncvcommand | ncverilog " ;
+      $cmd .= "+nclibdirname+$model_path/sim-incisive/INCA_libs " ;
+      foreach my $top_n (@{$opt{toplevel}}) {
+        $cmd .= "-r worklib.$top_n:v ";
+      }
+      $cmd .= "+ncsimexe+$ENV{DV_ROOT}/tools/$os_cpu_slash/ncsim " ;
+      $cmd .= "+ncelabexe+$ENV{DV_ROOT}/tools/$os_cpu_slash/ncelab -s " ;
       $cmd .= join (" ", @{$opt{sim_run_args}}) ;
     }
 
     if ($opt{icv_run}) {
       $cmd .= "vvp " ;
-      $cmd .= "-M$ENV{DV_ROOT}/tools/";
-      $cmd .= $os_cpu_slash;
-      $cmd .= "/lib ";
-      $cmd .= " -mveriuser $model_path/a.out " ;
-      $cmd .= " " ;
+      $cmd .= "-M$ENV{DV_ROOT}/tools/$os_cpu_slash/lib ";
+      $cmd .= " -mveriuser $model_path/sim-icarus/a.out " ;
       $cmd .= join (" ", @{$opt{sim_run_args}}) ;
     }
 
@@ -1762,19 +1526,14 @@ sub generic_sim_run
       	print("$prg: dumping all waves to save.wlf - this file can get very large so make sure you run this on a fast disk with enough space.\n");
       	$cmd .= " -wlfcompress -wlf all-waves.wlf -do \"log -r /*\" ";
       }
-      $cmd .= "-lib ";
-      $cmd .= "$model_path/work ";
+      $cmd .= "-lib $model_path/work ";
       $cmd .= "-do \"run -all\" ";
 
       foreach my $top_n (@{$opt{toplevel}}) {
         $cmd .= "$top_n ";
       }
 
-      $cmd .= "-pli \"";
-      $cmd .= "$ENV{DV_ROOT}/tools/";
-      $cmd .= $os_cpu_slash;
-      $cmd .= "/lib/libmodelsimpli.so\"";
-      $cmd .= " " ;
+      $cmd .= "-pli \"$ENV{DV_ROOT}/tools/$os_cpu_slash/lib/libmodelsimpli.so\" ";
       $cmd .= join (" ", @{$opt{sim_run_args}}) ;
       print("====================================\n$cmd\n====================================");
     }
@@ -1824,8 +1583,7 @@ if ($opt{riv_run}) {
     }	
 
     if ($opt{vlt_run}) {
-      $cmd .= "$model_path/obj_dir/Vcmp_top " ;
-      $cmd .= " " ;
+      $cmd .= "$model_path/sim-verilator/Vcmp_top " ;
       $cmd .= join (" ", @{$opt{sim_run_args}}) ;
     }
 
@@ -2468,6 +2226,7 @@ sub parse_args
             'asm_diag_path=s',
             'asm_diag_root=s@',
             'build!',
+            'capi_core=s',
             'precompiled!',
             'gcc_args=s',
             'uart_dmw!',
@@ -2484,7 +2243,6 @@ sub parse_args
             'env_base=s',
             'fast_boot!',
             'finish_mask=s',
-            'flist=s@',
             'group=s@',
             'group_name=s',
             'gzip!',
@@ -2568,7 +2326,6 @@ sub parse_args
             'vcs_use_initreg!',
             'vcs_use_sdf!',
             'verbose!',
-            'vfile=s@',
             'vlt_build!',
             'vlt_build_args=s@',
             'vlt_run!',
@@ -3006,15 +2763,6 @@ VERILOG COMPILATION RELATED
     -vcs_use_cli/-novcs_use_cli
            use the +cli -line options when building a vcs model (simv).
            defaults to off.
-
-    -flist=FLIST
-           full path to flist to be appended together to generate the
-           final verilog flist. multiple such arguments may be used and
-           each flist will be concatenated into the final verilog flist
-           used to build the model.
-
-    -vfile=FILE
-           verilog file to be included into the flist
 
     -config_rtl=DEFINE
            each such parameter is place as a `define in config.v to

@@ -7,7 +7,7 @@ filesets:
         depend:
             - openpiton::test_infrstrct
             - openpiton::chip_bridge
-            - openpiton::fpga_rcv_32
+            - openpiton::fpga_bridge_rcv_32
             - openpiton::piton_include
             - openpiton::piton_common
         files:

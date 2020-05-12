@@ -22,6 +22,8 @@
 //
 //define special register
 `include "tlu.h"
+`include "cross_module.tmp.h"
+`include "iop.h"
 `define MONITOR_SIGNAL                 155
 `define FLOAT_X                        154
 `define FLOAT_I                        153

@@ -38,6 +38,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //noc2decoder.v
 
 `include "iop.h"
+`include "l15.tmp.h"
+`include "define.tmp.h"
 
 `ifdef DEFAULT_NETTYPE_NONE
 `default_nettype none

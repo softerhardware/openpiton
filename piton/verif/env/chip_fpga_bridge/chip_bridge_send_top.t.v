@@ -44,8 +44,6 @@
 `define READ2_CHANCE 10
 `define READ3_CHANCE 10
 
-`timescale 1ns/1ps
-
 module bridge_out_tb;
 
 parameter DATASIZE = 1024;
@@ -161,7 +159,7 @@ initial begin
     // continuous integration pass/fail detection
     //$display( "    !TEST TIMEOUT!     ");
     //$display( " [ TEST BENCH FAILED ] ");
-    `TEST_CHECK("Timeout check", 0, `VERBOSITY);    
+    `TEST_CHECK("Timeout check", 0, `VERBOSITY)
     $finish;
 end
 /*****************************************************************

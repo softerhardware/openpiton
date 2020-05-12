@@ -28,6 +28,7 @@
 // ***************************************************************************
 
 `include "ifu.tmp.h"
+`include "cross_module.tmp.h"
 
 module stb_ovfl_mon (/*AUTOARG*/
    // Inputs

@@ -25,6 +25,7 @@
 // ***************************************************************************
 
 `include "ifu.tmp.h"
+`include "cross_module.tmp.h"
 
 module icache_mutex_mon(/*AUTOARG*/
    // Inputs

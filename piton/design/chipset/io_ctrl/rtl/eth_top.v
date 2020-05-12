@@ -31,6 +31,7 @@
 // Company:         Princeton University
 // Created:         1/25/2017
 //--------------------------------------------------
+`include "define.tmp.h"
 
 module eth_top #(
   parameter SWAP_ENDIANESS = 0

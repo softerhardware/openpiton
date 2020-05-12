@@ -33,9 +33,6 @@
  * empty and which have been given priority previously
  * *******************************************************************/
 
-
-`timescale 1ns/1ps
-
 module bridge_network_chooser_16 (
     rst,
     clk,

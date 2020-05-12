@@ -31,6 +31,7 @@
 `include  "iop.h"
 `include  "lsu.tmp.h"
 `include "ifu.tmp.h"
+`include "define.tmp.h"
 
 ////////////////////////////////////////////////////////////////////////
 // Local header file includes / local defines

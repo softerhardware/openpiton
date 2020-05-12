@@ -19,6 +19,7 @@
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 //
 // ========== Copyright Header End ============================================
+`include "cross_module.tmp.h"
 
 module exu_mon(/*AUTOARG*/
    // Inputs

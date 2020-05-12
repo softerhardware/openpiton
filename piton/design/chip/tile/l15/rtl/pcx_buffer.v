@@ -38,6 +38,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //pcx_buffer.v
 
 `include "iop.h"
+`include "define.tmp.h"
 
 //`default_nettype none
 module pcx_buffer(

@@ -30,7 +30,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * based upon round robin ordering factoring in which networks are 
  * empty and which have been given priority previously
  * *******************************************************************/
-`timescale 1ns/1ps
 
 module bridge_network_chooser_32 (
     rst,

@@ -25,7 +25,6 @@
 
 //top level module for chip_send tests 
 
-`timescale 1ns/1ps
 module chip_bridge_out_top(
     rst,
     chip_clk,

@@ -20,6 +20,8 @@
 // 
 // ========== Copyright Header End ============================================
 /////////////////////////////////////////////////////////////////
+`include "lsu.tmp.h"
+`include "define.tmp.h"
 
 //PITON_PROTO enables all FPGA related modifications
 `ifdef PITON_PROTO 
