@@ -145,6 +145,7 @@ Getopt::Long::Configure ('no_auto_abbrev') ;
         'finish_mask' => "",
         'flist' => [],
         'gcc_args' => [],
+        'flist_vhdl' => [],
         'group' => [],
         'group_name' => "",
         'gzip' => 1,
@@ -245,6 +246,7 @@ Getopt::Long::Configure ('no_auto_abbrev') ;
         'vlt_run' => 0,
         'version' => 0,
         'vfile' => [],
+        'vhdlfile' => [],
         'mem_init_py' => ""
        );
 
@@ -1200,6 +1202,68 @@ sub gen_flist
   close (OFLIST) ;
 }
 
+sub gen_flist_vhdl
+{
+  open (OFLIST, ">flist_vhdl") or die ("DIE. can't open flist_vhdl file") ;
+
+  foreach my $flist_vhdl (@{$opt{flist_vhdl}}) {
+    $flist_vhdl =~ s/\$(\w+)/$ENV{$1}/g ;
+
+    open (IFLIST, "< $flist_vhdl") or die ("DIE. can't open flist_vhdl file $flist_vhdl") ;
+
+    print "$flist_vhdl\n";
+
+    while (<IFLIST>) {
+      my $line = $_ ;
+      my $base = dirname ($flist_vhdl) ;
+
+      $line =~ s/^\s*(.*?)\s*$/$1/ ;
+      $line .= "\n" ;
+
+      if (($line =~ /^\s*\/\//) or ($line =~ /^\s*$/)) {
+        next ;
+      }
+
+      $line =~ s/\$(\w+)/$ENV{$1}/g ;
+
+      if ($line =~ /^\+incdir\+\//)
+      { }
+      elsif ($line =~ /^\+incdir\+/) {
+        $line =~ s/^\+incdir\+(.*)/\+incdir\+$base\/$1/ ;
+      }
+      elsif ($line =~ /^\-v\s\//)
+      { }
+      elsif ($line =~ /^\-v/) {
+        $line =~ s/-v\s*(.*)/-v $base\/$1/ ;
+      }
+      elsif ($line =~ /^-y\s\//)
+      { }
+      elsif ($line =~ /^-y/) {
+        $line =~ s/-y\s*(.*)/-y $base\/$1/ ;
+      }
+      elsif (($line =~ /^\+define/) or
+             ($line =~ /^\+libext/) or
+             ($line =~ /^\+librescan/))
+      { }
+      elsif ($line !~ /^\//) {
+        $line = "$base/$line" ;
+      }
+
+      print OFLIST $line ;
+    }
+
+    close (IFLIST) ;
+  }
+
+  foreach my $file (@{$opt{vhdlfile}}) {
+    chomp $file ;
+    $file =~ s/\$(\w+)/$ENV{$1}/g ;
+    print OFLIST "$file\n" ;
+  }
+
+  close (OFLIST) ;
+}
+
 ################################################################################
 # if a signal is received do some cleanup - delete tmp directories
 ################################################################################
@@ -1268,8 +1332,10 @@ sub pre_build
 
   # Generate the flist file
   &gen_flist ();
+  &gen_flist_vhdl ();
 
   system("cp -f flist $cur_dir");
+  system("cp -f flist_vhdl $cur_dir");
 
   if($opt{ariane}) {
     print "compiling DTS and bootroms for Ariane...\n";
@@ -1344,7 +1410,7 @@ sub generic_sim_build
       print "$prg: LM_LICENSE_FILE : none\n";
     }
 
-    push (@{$opt{sim_build_args}}, "-f flist") ;
+    push (@{$opt{sim_build_args}}, "-f flist") if (!($opt{vcs_build} && $opt{flist_vhdl}));
 
     if ($opt{vcs_build}) {
       $lib_path = "-L$ENV{DV_ROOT}/tools/";
@@ -1378,7 +1444,7 @@ sub generic_sim_build
       # some SystemVerilog-specific options
       if ($opt{ariane}) {
           push (@{$opt{vcs_build_args}}, "-sverilog +systemverilogext+.sv") ;
-          push (@{$opt{vcs_build_args}}, "-ntb_opts uvm-1.1 +vpi ") ;
+          unshift (@{$opt{vcs_build_args}}, "-ntb_opts uvm-1.1 +vpi ") ;
       }
 
       if ($opt{ibm}) {
@@ -1498,6 +1564,8 @@ sub generic_sim_build
     if ($opt{vcs_build}) {
       if ($ENV{VCS_BIN}) {
         $build_cmd = "$ENV{VCS_BIN} ";
+      } elsif ($opt{flist_vhdl}) {
+        $build_cmd = " " ;
       } else {
         $build_cmd  = "vcs " ;
       }
@@ -1507,6 +1575,17 @@ sub generic_sim_build
       # the ariane files do not contain the timescale
       if ($opt{ariane}) {
         $build_cmd .= " -timescale=1ps/1ps ";
+      }
+
+      if ($opt{flist_vhdl}) {
+        my $vhdl_build_cmd = "vhdlan -full64 -vhdl08 -work work -f flist_vhdl";
+
+        print "$prg: $vhdl_build_cmd\n";
+
+        if (! $opt{dryrun}) {
+          system ($vhdl_build_cmd) ;
+          die ("DIE. failed building model") if ($?) ;
+        }
       }
     }
     if ($opt{ncv_build}) {
@@ -1584,6 +1663,19 @@ sub generic_sim_build
     rename "flist", "flist.orig" or die ("DIE. can't rename flist");
     rename "flist.new", "flist" or die ("DIE. can't rename flist.new");
 
+    if ($opt{vcs_build} && $opt{flist_vhdl}) {
+      my $vlog_build_cmd = "vlogan -full64 -nc " . $build_cmd . " -work work -f flist -sverilog";
+
+      print "$prg: $vlog_build_cmd\n";
+
+      if (! $opt{dryrun}) {
+        system ($vlog_build_cmd) ;
+        die ("DIE. failed building model") if ($?) ;
+      }
+
+      $build_cmd = "vcs " . $build_cmd ;
+    } 
+
     print "$prg: $build_cmd\n";
 
     if (! $opt{dryrun}) {
@@ -1626,6 +1718,8 @@ sub generic_sim_run
     # copy the flist over
     system ("cp -f $model_path/flist .") ;
     die ("DIE. could not copy flist to $ENV{PWD}") if ($?) ;
+    system ("cp -f $model_path/flist_vhdl .") ;
+    die ("DIE. could not copy flist_vhdl to $ENV{PWD}") if ($?) ;
 
     # verify that a model was compiled
     die ("DIE. simv not found in $model_path") if ($opt{vcs_run} and ! -e "$model_path/simv") ;
@@ -2552,6 +2646,7 @@ sub parse_args
             'fast_boot!',
             'finish_mask=s',
             'flist=s@',
+            'flist_vhdl=s@',
             'group=s@',
             'group_name=s',
             'gzip!',
@@ -2645,6 +2740,7 @@ sub parse_args
             'vcs_use_sdf!',
             'verbose!',
             'vfile=s@',
+            'vhdlfile=s@',
             'vlt_build!',
             'vlt_build_args=s@',
             'vlt_run!',
@@ -3104,8 +3200,17 @@ VERILOG COMPILATION RELATED
            each flist will be concatenated into the final verilog flist
            used to build the model.
 
+    -flist_vhdl=FLIST
+           full path to flist to be appended together to generate the
+           final vhdl flist. multiple such arguments may be used and
+           each flist will be concatenated into the final vhdl flist
+           used to build the model.
+
     -vfile=FILE
            verilog file to be included into the flist
+
+    -vhdlfile=FILE
+           vhdl file to be included into the flist
 
     -config_rtl=DEFINE
            each such parameter is place as a `define in config.v to
