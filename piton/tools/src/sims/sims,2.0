@@ -159,6 +159,7 @@ Getopt::Long::Configure ('no_auto_abbrev') ;
         'image_diag_root' => [],
         'injobq' => -1,
         'max_cycle' => 0,
+        'microwatt' => 0,
         'midas_args' => [],
         'midas_only' => 0,
         'midas_use_tgseed' => 0,
@@ -338,6 +339,7 @@ GetOptions (\%opt,
             'ariane!',
             'pico!',
             'pico_het!',
+            'microwatt!',
             'regress!',
             'regress_id=s',
             'report!',
@@ -355,13 +357,14 @@ die ("DIE. -pico and -pico_het cannot both be set") if ($opt{pico} && $opt{pico_
 
 # Setting ost1 by default. This works better than default to 1
 # for heterogeneous-ISA stuff
-if (!$opt{pico} && !$opt{ariane}) {
+if (!$opt{pico} && !$opt{ariane} && !$opt{microwatt}) {
   $opt{ost1} = 1 ;
 }
 
 push (@{$opt{config_cpp_args}}, "-DFLIST_OST1")     if ($opt{ost1} || $opt{pico_het}) ;
 push (@{$opt{config_cpp_args}}, "-DFLIST_PICO")     if ($opt{pico} || $opt{pico_het}) ;
 push (@{$opt{config_cpp_args}}, "-DFLIST_ARIANE")   if ($opt{ariane}) ;
+push (@{$opt{config_cpp_args}}, "-DFLIST_MICROWATT") if ($opt{microwatt}) ;
 push (@{$opt{config_cpp_args}}, "-DFLIST_ORAM")     if ($opt{oram}) ;
 
 ################################################################################
@@ -2897,14 +2900,16 @@ sub parse_args
   $ENV{PITON_PICO}     = $opt{pico};
   $ENV{PITON_PICO_HET} = $opt{pico_het};
   $ENV{PITON_ARIANE}   = $opt{ariane};
+  $ENV{PITON_MICROWATT} = $opt{microwatt};
   push (@{$opt{config_rtl}}, "PITON_OST1")     if ($opt{ost1});
   push (@{$opt{config_rtl}}, "PITON_PICO")     if ($opt{pico});
   push (@{$opt{config_rtl}}, "PITON_PICO")     if ($opt{pico_het});
   push (@{$opt{config_rtl}}, "PITON_PICO_HET") if ($opt{pico_het});
   push (@{$opt{config_rtl}}, "PITON_ARIANE")   if ($opt{ariane});
   push (@{$opt{config_rtl}}, "WT_DCACHE")      if ($opt{ariane});
+  push (@{$opt{config_rtl}}, "PITON_MICROWATT") if ($opt{microwatt});
 
-  if ($opt{pico} or $opt{pico_het} or $opt{ariane}) {
+  if ($opt{pico} or $opt{pico_het} or $opt{ariane} or $opt{microwatt}) {
     push (@{$opt{config_rtl}}, "NO_MRA_VAL") ;
     push (@{$opt{config_rtl}}, "NO_SLAM_RANDOM") ;
   }
@@ -2939,6 +2944,8 @@ sub parse_args
         push (@{$opt{config_rtl}}, "RTL_PICO" . $i);
     } elsif ($opt{ariane}) {
         push (@{$opt{config_rtl}}, "RTL_ARIANE" . $i);
+    } elsif ($opt{microwatt}) {
+        push (@{$opt{config_rtl}}, "RTL_MICROWATT" . $i);
     } elsif ($opt{ost1}) {
         push (@{$opt{config_rtl}}, "RTL_SPARC" . $i);
     }
