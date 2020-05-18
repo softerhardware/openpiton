@@ -10,11 +10,11 @@ module axilite_master_test #(
     input                                   clk,
     input                                   rst,
 
-    output [AXILITE_ADDR_WIDTH-1:0]         m_axi_awaddr,
-    output                                  m_axi_awvalid,
+    output reg [AXILITE_ADDR_WIDTH-1:0]         m_axi_awaddr,
+    output reg                                  m_axi_awvalid,
     input                                   m_axi_awready,
-    output [AXILITE_DATA_WIDTH-1:0]         m_axi_wdata,
-    output                                  m_axi_wvalid,
+    output reg [AXILITE_DATA_WIDTH-1:0]         m_axi_wdata,
+    output reg                                  m_axi_wvalid,
     input                                   m_axi_wready,
 
 	/* verilator lint_off UNDRIVEN */

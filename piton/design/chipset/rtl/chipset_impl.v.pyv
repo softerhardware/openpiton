@@ -324,7 +324,7 @@ wire                                            test_good_end;
 wire                                            test_bad_end;
 
 <%
-for i in range(len(devices)-1):
+for i in range(len(devices)):
     if devices[i]["virtual"]:
             continue
 # wires for the noc2 crossbar
@@ -508,7 +508,7 @@ test_end_checker test_end_checker(
 
 # need to figure out number of invalid access signals
 tmpNum=0
-for i in range(len(devices)-1):
+for i in range(len(devices)):
     if devices[i]["noc2_in"]:
         tmpNum +=1
 
@@ -523,7 +523,7 @@ assign invalid_access_o = 1'b0;
 """
 
 tmpIdx=0
-for i in range(len(devices)-1):
+for i in range(len(devices)):
     if devices[i]["noc2_in"]:
         print """
 packet_filter %s_packet_filter(
@@ -573,16 +573,9 @@ io_xbar_top_wrap io_xbar_noc2 (
     .myLocX                     (8'b0),  // not used
     .myLocY                     (8'b0),  // not used
     
-    .dataIn_9(axilite_peripheral_buf_xbar_noc2_data),
-    .validIn_9(axilite_peripheral_buf_xbar_noc2_valid),
-    .yummyIn_9(axilite_peripheral_buf_xbar_noc2_yummy),
-    .dataOut_9(xbar_buf_axilite_peripheral_noc2_data),
-    .validOut_9(xbar_buf_axilite_peripheral_noc2_valid),
-    .yummyOut_9(xbar_buf_axilite_peripheral_noc2_yummy),
-
 '''
 
-for i in range(len(devices)-1):
+for i in range(len(devices)):
             if devices[i]["virtual"]:
                         continue
             xbartemplate += "    .dataIn_%d(%s_buf_xbar_noc2_data),\n"  % (devices[i]["portnum"], devices[i]["name"])
@@ -594,13 +587,6 @@ for i in range(len(devices)-1):
 
 xbartemplate = xbartemplate[:-3] + r'''
 );'''
-
-#xbartemplate += "    .dataIn_%d(axilite_peripheral_buf_xbar_noc2_data),\n"  % (devices[len(devices)]["portnum"], devices[len(devices)]["name"])
-#xbartemplate += "    .validIn_%d(axilite_peripheral_buf_xbar_noc2_valid),\n"  % (devices[len(devices)]["portnum"], devices[len(devices)]["name"])
-#xbartemplate += "    .yummyIn_%d(axilite_peripheral_buf_xbar_noc2_yummy),\n"  % (devices[len(devices)]["portnum"], devices[len(devices)]["name"])
-#xbartemplate += "    .dataOut_%d(xbar_buf_axilite_peripheral_noc2_data),\n"  % (devices[len(devices)]["portnum"], devices[len(devices)]["name"])
-#xbartemplate += "    .validOut_%d(xbar_buf_axilite_peripheral_noc2_valid),\n"  % (devices[len(devices)]["portnum"], devices[len(devices)]["name"])
-#xbartemplate += "    .yummyOut_%d(xbar_buf_axilite_peripheral_noc2_yummy),\n\n" % (devices[len(devices)]["portnum"], devices[len(devices)]["name"])
 
 print xbartemplate
 
@@ -615,14 +601,7 @@ io_xbar_top_wrap io_xbar_noc3 (
 
 '''
 
-xbartemplate += "    .dataIn_%d(axilite_peripheral_buf_xbar_noc3_data),\n"  % (devices[len(devices)]["portnum"], devices[len(devices)]["name"])
-xbartemplate += "    .validIn_%d(axilite_peripheral_buf_xbar_noc3_valid),\n"  % (devices[len(devices)]["portnum"], devices[len(devices)]["name"])
-xbartemplate += "    .yummyIn_%d(axilite_peripheral_buf_xbar_noc3_yummy),\n"  % (devices[len(devices)]["portnum"], devices[len(devices)]["name"])
-xbartemplate += "    .dataOut_%d(xbar_buf_axilite_peripheral_noc3_data),\n"  % (devices[len(devices)]["portnum"], devices[len(devices)]["name"])
-xbartemplate += "    .validOut_%d(xbar_buf_axilite_peripheral_noc3_valid),\n"  % (devices[len(devices)]["portnum"], devices[len(devices)]["name"])
-xbartemplate += "    .yummyOut_%d(xbar_buf_axilite_peripheral_noc3_yummy),\n\n" % (devices[len(devices)]["portnum"], devices[len(devices)]["name"])
-
-for i in range(len(devices)-1):
+for i in range(len(devices)):
             if devices[i]["virtual"]:
                         continue
 
@@ -641,7 +620,7 @@ xbartemplate = xbartemplate[:-3] + r'''
 
 print xbartemplate
 
-for i in range(len(devices)-1):
+for i in range(len(devices)):
     if devices[i]["virtual"]:  
         continue
 
@@ -1180,7 +1159,7 @@ DmBase    = 0
 RomBase   = 0
 ClintBase = 0
 PlicBase  = 0
-for i in range(len(devices)-1):
+for i in range(len(devices)):
     if devices[i]["name"] == "ariane_debug":
         DmBase = devices[i]["base"]
     if devices[i]["name"] == "ariane_bootrom":
@@ -1284,47 +1263,6 @@ Also, we do need to include noc2 response channels and noc3 request
 channel in the core, right? Is that what is used for ack or an ack for 
 noc2 request comes over noc3 and the one for noc3 come over noc2? */
 
-wire [`DATA_WIDTH-1:0]          axilite_peripheral_buf_xbar_noc2_data;
-wire                            axilite_peripheral_buf_xbar_noc2_valid;
-wire                            axilite_peripheral_buf_xbar_noc2_yummy;
-wire [`DATA_WIDTH-1:0]          xbar_buf_axilite_peripheral_noc2_data;
-wire                            xbar_buf_axilite_peripheral_noc2_valid;
-wire                            xbar_buf_axilite_peripheral_noc2_yummy;
-
-wire [`DATA_WIDTH-1:0]          buf_axilite_peripheral_noc2_data;
-wire                            buf_axilite_peripheral_noc2_valid;
-wire                            axilite_peripheral_buf_noc2_ready;
-
-wire [`DATA_WIDTH-1:0]          axilite_peripheral_buf_noc2_data;
-wire                            axilite_peripheral_buf_noc2_valid;
-wire                            buf_axilite_peripheral_noc2_ready;
-
-
-wire [`DATA_WIDTH-1:0]          axilite_peripheral_buf_xbar_noc3_data;
-wire                            axilite_peripheral_buf_xbar_noc3_valid;
-wire                            axilite_peripheral_buf_xbar_noc3_yummy;
-wire [`DATA_WIDTH-1:0]          xbar_buf_axilite_peripheral_noc3_data;
-wire                            xbar_buf_axilite_peripheral_noc3_valid;
-wire                            xbar_buf_axilite_peripheral_noc3_yummy;
-
-wire [`DATA_WIDTH-1:0]          buf_axilite_peripheral_noc3_data;
-wire                            buf_axilite_peripheral_noc3_valid;
-wire                            axilite_peripheral_buf_noc3_ready;
-
-wire [`DATA_WIDTH-1:0]          axilite_peripheral_buf_noc3_data;
-wire                            axilite_peripheral_buf_noc3_valid;
-wire                            buf_axilite_peripheral_noc3_ready;
-
-
-wire [`DATA_WIDTH-1:0]          axilite_peripheral_filter_noc2_data;
-wire                            axilite_peripheral_filter_noc2_valid;
-wire                            filter_axilite_peripheral_noc2_ready;
-
-
-wire [`DATA_WIDTH-1:0]          filter_axilite_peripheral_noc3_data;
-wire                            filter_axilite_peripheral_noc3_valid;
-wire                            axilite_peripheral_filter_noc3_ready;
-
 noc_axilite_peripheral_wrapper noc_axilite_peripheral_wrapper(
     .clk(chipset_clk),
     .rst_n(chipset_rst_n),
@@ -1340,87 +1278,6 @@ noc_axilite_peripheral_wrapper noc_axilite_peripheral_wrapper(
     .noc3_valid_out(axilite_peripheral_buf_noc3_valid),
     .noc3_data_out(axilite_peripheral_buf_noc3_data),
     .noc3_ready_in(buf_axilite_peripheral_noc3_ready)
-);
-
-valrdy_to_credit noc2_axilite_peripheral_to_xbar (
-      .clk(chipset_clk),
-      .reset(~chipset_rst_n),
-
-      .data_in(axilite_peripheral_buf_noc2_data),
-      .valid_in(axilite_peripheral_buf_noc2_valid),
-      .ready_in(buf_axilite_peripheral_noc2_ready),
-
-      .data_out(axilite_peripheral_buf_xbar_noc2_data),           // Data
-      .valid_out(axilite_peripheral_buf_xbar_noc2_valid),       // Val signal
-      .yummy_out(xbar_buf_axilite_peripheral_noc2_yummy)    // Yummy signal
-);
-
-credit_to_valrdy noc2_xbar_to_axilite_peripheral(
-      .clk(chipset_clk),
-      .reset(~chipset_rst_n),
-
-      .data_in(xbar_buf_axilite_peripheral_noc2_data),
-      .valid_in(xbar_buf_axilite_peripheral_noc2_valid),
-      .yummy_in(axilite_peripheral_buf_xbar_noc2_yummy),
-
-      .data_out(buf_axilite_peripheral_noc2_data),           // Data
-      .valid_out(buf_axilite_peripheral_noc2_valid),       // Val signal from dynamic network to processor
-      .ready_out(axilite_peripheral_buf_noc2_ready)    // Rdy signal from processor to dynamic network
-);
-
-valrdy_to_credit noc3_axilite_peripheral_to_xbar (
-      .clk(chipset_clk),
-      .reset(~chipset_rst_n),
-
-      .data_in(axilite_peripheral_buf_noc3_data),
-      .valid_in(axilite_peripheral_buf_noc3_valid),
-      .ready_in(buf_axilite_peripheral_noc3_ready),
-
-      .data_out(axilite_peripheral_buf_xbar_noc3_data),           // Data
-      .valid_out(axilite_peripheral_buf_xbar_noc3_valid),       // Val signal
-      .yummy_out(xbar_buf_axilite_peripheral_noc3_yummy)    // Yummy signal
-);
-
-credit_to_valrdy noc3_xbar_to_axilite_peripheral(
-      .clk(chipset_clk),
-      .reset(~chipset_rst_n),
-
-      .data_in(xbar_buf_axilite_peripheral_noc3_data),
-      .valid_in(xbar_buf_axilite_peripheral_noc3_valid),
-      .yummy_in(axilite_peripheral_buf_xbar_noc3_yummy),
-
-      .data_out(buf_axilite_peripheral_noc3_data),           // Data
-      .valid_out(buf_axilite_peripheral_noc3_valid),       // Val signal from dynamic network to processor
-      .ready_out(axilite_peripheral_buf_noc3_ready)    // Rdy signal from processor to dynamic network
-);
-
-packet_filter axilite_peripheral_packet_filter(
-    .clk(chipset_clk),
-    .rst_n(chipset_rst_n),
-    // need to connect this to a LED
-    .invalid_access_o(invalid_access[3]),
-
-    // noc2 to filter wires
-    .noc2_filter_val(axilite_peripheral_filter_noc2_valid),
-    .noc2_filter_data(axilite_peripheral_filter_noc2_data),
-    .filter_noc2_rdy(filter_axilite_peripheral_noc2_ready),
-
-    // filter to noc3 wires
-    .filter_noc3_val(filter_axilite_peripheral_noc3_valid),
-    .filter_noc3_data(filter_axilite_peripheral_noc3_data),
-    .noc3_filter_rdy(axilite_peripheral_filter_noc3_ready),
-
-    // filter to xbar wires
-    .filter_xbar_val(axilite_peripheral_buf_noc2_valid),
-    .filter_xbar_data(axilite_peripheral_buf_noc2_data),
-    .xbar_filter_rdy(buf_axilite_peripheral_noc2_ready),
-
-    // xbar to filter wires
-    .xbar_filter_val(buf_axilite_peripheral_noc3_valid),
-    .xbar_filter_data(buf_axilite_peripheral_noc3_data),
-    .filter_xbar_rdy(axilite_peripheral_buf_noc3_ready),
-
-    .uart_boot_en(uart_boot_en)
 );
 
 /* noc_axilite_peripheral_wrapper noc_axilite_peripheral_wrapper(
