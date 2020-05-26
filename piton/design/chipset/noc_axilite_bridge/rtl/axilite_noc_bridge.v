@@ -20,6 +20,16 @@ module axilite_noc_bridge (
     output [`NOC_DATA_WIDTH-1:0]     		      noc3_data_out,
     input wire      			                  noc3_ready_in,
 
+    input wire [`MSG_SRC_CHIPID_WIDTH-1:0]        src_chipid,
+    input wire [`MSG_SRC_X_WIDTH-1:0]             src_xpos,
+    input wire [`MSG_SRC_Y_WIDTH-1:0]             src_ypos,
+    input wire [`MSG_SRC_FBITS_WIDTH-1:0]         src_fbits,
+
+    input wire [`MSG_DST_CHIPID_WIDTH-1:0]        dest_chipid,
+    input wire [`MSG_DST_X_WIDTH-1:0]             dest_xpos,
+    input wire [`MSG_DST_Y_WIDTH-1:0]             dest_ypos,
+    input wire [`MSG_DST_FBITS_WIDTH-1:0]         dest_fbits,
+
     // AXI Write Address Channel Signals
     input  wire  [`C_M_AXI_LITE_ADDR_WIDTH-1:0]   m_axi_awaddr,
     input  wire                                   m_axi_awvalid,
@@ -61,10 +71,7 @@ module axilite_noc_bridge (
 
 /* flit fields */
 reg [`C_M_AXI_LITE_ADDR_WIDTH-1:0]      address;
-reg [`MSG_SRC_CHIPID_WIDTH-1:0]         src_chipid;
-reg [`MSG_SRC_X_WIDTH-1:0]              src_xpos;
-reg [`MSG_SRC_Y_WIDTH-1:0]              src_ypos;
-reg [`MSG_SRC_FBITS_WIDTH-1:0]          src_fbits;
+
 reg [`MSG_LENGTH_WIDTH-1:0]             msg_length;
 reg [`MSG_TYPE_WIDTH-1:0]               msg_type;
 reg [`MSG_MSHRID_WIDTH-1:0]             msg_mshrid;
@@ -72,10 +79,6 @@ reg [`MSG_OPTIONS_1]                    msg_options_1;
 reg [`MSG_OPTIONS_2_]                   msg_options_2;
 reg [`MSG_OPTIONS_3_]                   msg_options_3;
 reg [`MSG_OPTIONS_4]                    msg_options_4;
-reg [`MSG_DST_CHIPID_WIDTH-1:0]         dest_chipid;
-reg [`MSG_DST_X_WIDTH-1:0]              dest_xpos;
-reg [`MSG_DST_Y_WIDTH-1:0]              dest_ypos;
-reg [`MSG_DST_FBITS_WIDTH-1:0]          dest_fbits;
 
 reg [`MSG_LENGTH_WIDTH-1:0]             axi2noc_msg_counter;
 wire                                    axi2noc_msg_type_store;
@@ -125,7 +128,7 @@ end
 
 always @(posedge clk)
 begin
-    /*if (awaddr_fifo_ren)
+    if (awaddr_fifo_ren)
     begin
         $fwrite(file, "awaddr-fifo %064x\n", awaddr_fifo_out);
         $fflush(file);
@@ -139,11 +142,11 @@ begin
     begin
         $fwrite(file, "araddr-fifo %064x\n", araddr_fifo_out);
         $fflush(file);
-    end*/
-    if (noc2_valid_out && noc2_ready_in) begin
+    end
+    /*if (noc2_valid_out && noc2_ready_in) begin
         $fwrite(file, "bridge-write-data %064x\n", noc2_data_out);
         $fflush(file);
-    end 
+    end */
 end
 
 /******** Where the magic happens ********/
@@ -196,7 +199,7 @@ sync_fifo #(
 	.reset(rst)
 );
 
-assign awaddr_fifo_wval = m_axi_awvalid && noc2_ready_in && write_channel_ready;
+assign awaddr_fifo_wval = m_axi_awvalid && write_channel_ready;// && noc2_ready_in;
 assign awaddr_fifo_wdata = m_axi_awaddr;
 assign awaddr_fifo_ren = (flit_state == `MSG_STATE_HEADER_0 && !awaddr_fifo_empty);
 
@@ -217,7 +220,7 @@ sync_fifo #(
 	.reset(rst)
 );
 
-assign wdata_fifo_wval = m_axi_wvalid && noc2_ready_in && write_channel_ready;
+assign wdata_fifo_wval = m_axi_wvalid && write_channel_ready;// && noc2_ready_in;
 assign wdata_fifo_wdata = m_axi_wdata;
 assign wdata_fifo_ren = (flit_state == `MSG_STATE_HEADER_2 && !wdata_fifo_empty);
 
@@ -266,15 +269,17 @@ begin
                 flit_state_next = (flit_state == `MSG_STATE_HEADER_0) ? `MSG_STATE_HEADER_1 :
                                 (flit_state == `MSG_STATE_HEADER_1) ? `MSG_STATE_HEADER_2 :
                                 (flit_state == `MSG_STATE_HEADER_2) ? `MSG_STATE_DATA :
-                                (fifo_has_packet) ? `MSG_STATE_HEADER_0 :
-                                                                             `MSG_STATE_INVALID;
+                                (flit_state == `MSG_STATE_DATA) ? `MSG_STATE_INVALID :
+                                (fifo_has_packet && flit_state == `MSG_STATE_INVALID) ?
+                                         `MSG_STATE_HEADER_0 : `MSG_STATE_INVALID;
             end
 
             `MSG_TYPE_LOAD: begin
                 flit_state_next = (flit_state == `MSG_STATE_HEADER_0) ? `MSG_STATE_HEADER_1 :
                                 (flit_state == `MSG_STATE_HEADER_1) ? `MSG_STATE_HEADER_2 :
-                                (fifo_has_packet) ? `MSG_STATE_HEADER_0 :
-                                                                             `MSG_STATE_INVALID;
+                                (flit_state == `MSG_STATE_DATA) ? `MSG_STATE_INVALID :
+                                (fifo_has_packet && flit_state == `MSG_STATE_INVALID) ?
+                                         `MSG_STATE_HEADER_0 : `MSG_STATE_INVALID;
             end
 
             default: begin
@@ -294,15 +299,6 @@ begin
         flit_state <= flit_state_next;
     end
 end
-
-
-/* Prepare the NoC flits */
-assign dest_chipid = {14{1'b1}};
-assign dest_xpos = 8'hab;
-assign dest_ypos = 8'hcd;
-assign src_chipid = {14{1'b0}};
-assign src_xpos = 8'hef;
-assign src_ypos = 8'h12;
 
 /* set defaults for the flit */
 always @(*)
@@ -331,16 +327,18 @@ begin
             flit[`MSG_DST_CHIPID] = dest_chipid;
             flit[`MSG_DST_X] = dest_xpos;
             flit[`MSG_DST_Y] = dest_ypos;
-            flit[`MSG_DST_FBITS] = dest_fbits;
+            flit[`MSG_DST_FBITS] = dest_fbits; // towards memory?
             flit[`MSG_LENGTH] = msg_length;
             flit[`MSG_TYPE] = msg_type;
             flit[`MSG_MSHRID] = msg_mshrid;
             flit[`MSG_OPTIONS_1] = msg_options_1;
             flit_ready = 1'b1;
+
+            //flit[`NOC_DATA_WIDTH-1:0] = 64'habcdabcdabcdabcd;
         end
 
         `MSG_STATE_HEADER_1: begin
-            flit[`MSG_ADDR_] = address;
+            flit[`MSG_ADDR_] = awaddr_fifo_out;
             flit[`MSG_OPTIONS_2_] = msg_options_2;
             flit_ready = 1'b1;
         end

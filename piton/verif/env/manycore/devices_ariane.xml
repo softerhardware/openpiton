@@ -81,5 +81,5 @@ Description: Peripheral address map for OpenPiton+Ariane configurations.
         <base>0xfffc000000</base>
         <length>0x40000</length>
         <noc2in/>
-    </port>
+    </port>  
 </devices>

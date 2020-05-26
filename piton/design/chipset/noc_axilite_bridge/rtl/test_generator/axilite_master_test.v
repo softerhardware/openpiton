@@ -4,7 +4,7 @@ for Moore State Machine as well. */
 `include "define.tmp.h"
 
 module axilite_master_test #(
-    parameter AXILITE_ADDR_WIDTH = 48,
+    parameter AXILITE_ADDR_WIDTH = 64,
     parameter AXILITE_DATA_WIDTH = 64
 ) (
     input                                   clk,
@@ -27,6 +27,7 @@ module axilite_master_test #(
 
 localparam HOLD_WRITE = 1'b0;
 localparam GEN_WRITE = 1'd1;
+localparam WIDTH_CONSTANT = 48;
 
 reg      	                                gen_write_f;
 reg 	                                    gen_write_next;
@@ -106,7 +107,7 @@ begin
     if (rst) begin
         m_axi_awvalid <= 1'b0;
         m_axi_wvalid <= 1'b0;
-        m_axi_awaddr <= {AXILITE_ADDR_WIDTH{'h20000000}}; // let it start with some random addr in mem-range {AXILITE_ADDR_WIDTH{1'b0}};
+        m_axi_awaddr <= 64'h40000000; // let it start with some random addr in mem-range {AXILITE_ADDR_WIDTH{1'b0}};
         m_axi_wdata <= {AXILITE_DATA_WIDTH{1'b0}};
     end
     else begin
