@@ -240,6 +240,9 @@ Getopt::Long::Configure ('no_auto_abbrev') ;
         'vcs_use_cli' => 0,
         'vcs_use_initreg' => 0,
         'vcs_use_sdf' => 0,
+        'viv_build' => 0,
+        'viv_build_args' => [],
+        'viv_run' => 0,
         'vlt_build' => 0,
         'vlt_build_args' => [],
         'vlt_run' => 0,
@@ -498,7 +501,7 @@ else { $model_path = "$model_dir/$opt{model}/$opt{build_id}" ; }
 &create_model_path () if ($opt{vcs_build} or $opt{other_sim_build} or
                           $opt{icv_build} or $opt{ncv_build} or
                           $opt{msm_build} or $opt{vlt_build} or
-						  $opt{riv_build}) ;
+						  $opt{riv_build} or $opt{viv_build}) ;
 
 ################################################################################
 # do some pre building stuff - generate flist
@@ -507,7 +510,7 @@ else { $model_path = "$model_dir/$opt{model}/$opt{build_id}" ; }
 &pre_build () if ($opt{vcs_build} or $opt{other_sim_build} or
                   $opt{icv_build} or $opt{ncv_build} or
                   $opt{msm_build} or $opt{vlt_build} or
-				  $opt{riv_build}) ;
+				  $opt{riv_build} or $opt{viv_build}) ;
 
 ################################################################################
 # build the simulation model
@@ -516,7 +519,7 @@ else { $model_path = "$model_dir/$opt{model}/$opt{build_id}" ; }
 &generic_sim_build () if ($opt{vcs_build} or $opt{ncv_build} or
                           $opt{icv_build} or $opt{other_sim_build} or
                           $opt{msm_build} or $opt{vlt_build} or
-						  $opt{riv_build}) ;
+						  $opt{riv_build} or $opt{viv_build}) ;
 
 ################################################################################
 # assemble .s diag
@@ -532,7 +535,8 @@ else { $model_path = "$model_dir/$opt{model}/$opt{build_id}" ; }
 
 &oram_image () if (($opt{vcs_run} or $opt{ncv_run} or
                     $opt{icv_run} or $opt{other_sim_run} or
-                    $opt{msm_run} or $opt{vlt_run} or $opt{riv_run}) and
+                    $opt{msm_run} or $opt{vlt_run} or
+                    $opt{riv_run} or $opt{viv_run}) and
                     $opt{oram}); #if ($opt{image_diag_name}
 
 ################################################################################
@@ -541,7 +545,8 @@ else { $model_path = "$model_dir/$opt{model}/$opt{build_id}" ; }
 
 &generic_sim_run () if ($opt{vcs_run} or $opt{ncv_run} or
                         $opt{icv_run} or $opt{other_sim_run} or
-                        $opt{msm_run} or $opt{vlt_run} or $opt{riv_run}) ;
+                        $opt{msm_run} or $opt{vlt_run} or
+                        $opt{riv_run} or $opt{viv_run}) ;
 
 ################################################################################
 # run diag.pl if present
@@ -550,7 +555,8 @@ else { $model_path = "$model_dir/$opt{model}/$opt{build_id}" ; }
 if (    -e "diag.pl" and
   ( $opt{vcs_run} or $opt{ncv_run} or
       $opt{icv_run} or $opt{other_sim_run} or
-      $opt{msm_run} or $opt{vlt_run} or $opt{riv_run}) and
+      $opt{msm_run} or $opt{vlt_run} or
+      $opt{riv_run} or $opt{viv_run}) and
        $opt{run_diag_pl} )
 {
   print "$prg: executing diag.pl\n";
@@ -567,7 +573,8 @@ if (    -e "diag.pl" and
 
 &post_process if ($opt{vcs_run} or $opt{ncv_run} or
                   $opt{icv_run} or $opt{other_sim_run} or
-                  $opt{msm_run} or $opt{vlt_run} or $opt{riv_run}) ;
+                  $opt{msm_run} or $opt{vlt_run} or
+                  $opt{riv_run} or $opt{viv_run}) ;
 
 &print_footer () ;
 
@@ -908,6 +915,8 @@ sub regress
           $cmd .= "-vlt_build " ;
       } elsif (($opt{sim_type}) eq "riv") {
           $cmd .= "-riv_build " ;
+      } elsif (($opt{sim_type}) eq "viv") {
+          $cmd .= "-viv_build " ;
       } else {
           $cmd .= "-other_sim_build " ;
       }
@@ -982,6 +991,8 @@ sub regress
             push (@cmd, "-vlt_run") ;
           } elsif (($opt{sim_type}) eq "riv") {
             push (@cmd, "-riv_run") ;
+          } elsif (($opt{sim_type}) eq "viv") {
+            push (@cmd, "-viv_run") ;
           } else {
             push (@cmd, "-other_sim_run") ;
           }
@@ -1143,10 +1154,20 @@ sub gen_flist
 
       $line =~ s/\$(\w+)/$ENV{$1}/g ;
 
-      if ($line =~ /^\+incdir\+\//)
-      { }
+      if ($line =~ /^\+incdir\+\//) {
+        if (!$opt{viv_build}) 
+        { }
+        else {
+          $line =~ s/^\+incdir\+(.*)/\-i $base\/$1/ ;
+        }
+      }
       elsif ($line =~ /^\+incdir\+/) {
-        $line =~ s/^\+incdir\+(.*)/\+incdir\+$base\/$1/ ;
+        if (!$opt{viv_build}) {
+          $line =~ s/^\+incdir\+(.*)/\+incdir\+$base\/$1/ ;
+        }
+        else {
+          $line =~ s/^\+incdir\+(.*)/\-i $base\/$1/ ;
+        }
       }
       elsif ($line =~ /^\-v\s\//)
       { }
@@ -1293,7 +1314,7 @@ sub pre_build
 }
 
 ################################################################################
-# generic simulator build (incorporates vcs, ncv, icv, msm, vlt, other)
+# generic simulator build (incorporates vcs, ncv, icv, msm, vlt, riv, viv, other)
 ################################################################################
 
 sub generic_sim_build
@@ -1335,6 +1356,10 @@ sub generic_sim_build
       if ($opt{riv_build}) {
         if (!defined($ENV{RIVIERA_HOME})) { die ("DIE. RIVIERA_HOME not defined.") }
         print "$prg: RIVIERA_HOME is $ENV{RIVIERA_HOME}\n";
+      }
+      if ($opt{viv_build}) {
+        if (!defined($ENV{XILINX_VIVADO})) { die ("DIE. XILINX_VIVADO not defined.") }
+        print "$prg: XILINX_VIVADO is $ENV{XILINX_VIVADO}\n";
       }
     }
 
@@ -1443,8 +1468,10 @@ sub generic_sim_build
 #      push (@{$opt{icv_build_args}}, "-I $ENV{DV_ROOT}/design/chipset/include") ;
       push (@{$opt{icv_build_args}}, "-g 2001") ;
     }
+    if ($opt{viv_build}) {
+    }
 
-    # copy vcs/icv/ncv/msm/vlt_build_args to generic sim_build_args
+    # copy vcs/icv/ncv/msm/vlt/riv/viv_build_args to generic sim_build_args
     if ($opt{vcs_build}) {
       foreach my $x (@{$opt{vcs_build_args}})
       {
@@ -1471,6 +1498,12 @@ sub generic_sim_build
     }
     if ($opt{riv_build}) {
       foreach my $x (@{$opt{riv_build_args}})
+      {
+          push (@{$opt{sim_build_args}}, $x);
+      }
+    }
+    if ($opt{viv_build}) {
+      foreach my $x (@{$opt{viv_build_args}})
       {
           push (@{$opt{sim_build_args}}, $x);
       }
@@ -1532,6 +1565,15 @@ sub generic_sim_build
     }
     if ($opt{riv_build}) {
       $build_cmd = "vlib work; vlog " ;
+    }
+    if ($opt{viv_build}) {
+      $build_cmd = "xvlog -sv " ;
+      if ($opt{ariane}) {
+        $build_cmd .= "-L uvm " ;
+        $build_cmd .= "-i $ENV{XILINX_VIVADO}/data/system_verilog/uvm_1.2 " ;
+        $build_cmd .= "$ENV{XILINX_VIVADO}/data/system_verilog/uvm_1.2/uvm_pkg.sv " ;
+      }
+      $build_cmd .= "-d PITON_DPI " ;
     }
 	
     if ($opt{vlt_build}) {
@@ -1602,6 +1644,21 @@ sub generic_sim_build
       }
     }
 
+    if ($opt{viv_build}) {
+      $build_cmd = "xelab" ;
+      foreach my $top_n (@{$opt{toplevel}}) {
+        $build_cmd .= " $top_n" ;
+      }
+      $build_cmd .= " --sv_lib libpiton_dpi --dpi_absolute" ;
+
+      print "$prg: $build_cmd\n";
+
+      if (! $opt{dryrun}) {
+        system ($build_cmd) ;
+        die ("DIE. failed building model") if ($?) ;
+      }
+    }
+
     # go back to where the script was invoked
     chdir $cur_dir ;
 }
@@ -1633,11 +1690,14 @@ sub generic_sim_run
     die ("DIE. a.out not found in $model_path") if ($opt{icv_run} and ! -e "$model_path/a.out") ;
     die ("DIE. work/ not found in $model_path") if ($opt{msm_run} and ! -d "$model_path/work") ;
 	die ("DIE. work/ not found in $model_path") if ($opt{riv_run} and ! -d "$model_path/work") ;
+	die ("DIE. xsim.dir/ not found in $model_path") if ($opt{viv_run} and ! -d "$model_path/xsim.dir") ;
     die ("DIE. obj_dir/ not found in $model_path") if ($opt{vlt_run} and ! -d "$model_path/obj_dir") ;
 
     # pass the good trap and bad trap addresses to the testbench
     my $good_trap = "";
     my $bad_trap = "";
+    my @final_good_trap_list ;
+    my @final_bad_trap_list ;
 
     if (($opt{asm_diag_name} ne "") or ($opt{image_diag_name} ne ""))
     {
@@ -1656,6 +1716,7 @@ sub generic_sim_run
         foreach my $trap (@good_trap_list) {
           my ($tmp1, $va, $ra, $pa) = ($trap =~ /([\w_\.]+)\s+(\w+)\s+(\w+)\s+(\w+)/) ;
           $good_trap .= " +good_trap$trap_i=" . $pa ;
+          push (@{final_good_trap_list}, "+good_trap$trap_i=" . $pa) ;
           $trap_i++;
           $good_trap_list{$pa} = 1 ;
         }
@@ -1668,6 +1729,7 @@ sub generic_sim_run
         foreach my $trap (@bad_trap_list) {
           my ($tmp1, $va, $ra, $pa) = ($trap =~ /([\w_\.]+)\s+(\w+)\s+(\w+)\s+(\w+)/) ;
           $bad_trap .= " +bad_trap$trap_i=" . $pa ;
+          push (@{final_bad_trap_list}, "+bad_trap$trap_i=" . $pa) ;
           $trap_i++;
           $bad_trap_list{$pa} = $pa;
         }
@@ -1710,8 +1772,8 @@ sub generic_sim_run
 
     push (@{$opt{sim_run_args}}, "+initreg+$opt{tg_seed}") if ($opt{vcs_use_initreg}) ;
     push (@{$opt{sim_run_args}}, "+tg_seed=$opt{tg_seed}") ;
-    push (@{$opt{sim_run_args}},  $good_trap) if ($good_trap ne "") ;
-    push (@{$opt{sim_run_args}},  $bad_trap) if ($bad_trap ne "") ;
+    push (@{$opt{sim_run_args}}, @{final_good_trap_list}) ;
+    push (@{$opt{sim_run_args}}, @{final_bad_trap_list}) ;
     # push (@{$opt{sim_run_args}}, "-l sim.log") ;
     # push (@{$opt{sim_run_args}}, "-l ncverilog.log") ;
     push (@{$opt{sim_run_args}}, "+nolog") if ($opt{ncv_run}) ;
@@ -1843,6 +1905,25 @@ if ($opt{riv_run}) {
 	 } 
     }	
 
+    if ($opt{viv_run}) {
+      $cmd .= "xsim -R " ;
+
+      foreach my $top_n (@{$opt{toplevel}}) {
+        $cmd .= "work.$top_n ";
+      }
+
+      foreach my $runarg (@{$opt{sim_run_args}}) {
+        print "$prg: runarg $runarg\n" ;
+        if ($runarg =~ /^\+/) {
+          $runarg =~ s/^\+(.*)/--testplusarg \"$1\"/ ;
+          print "$prg: starts with +\n" ;
+        }
+        $cmd .= "$runarg " ;
+      }
+
+      $cmd .= join (" ", @{$opt{sim_run_args}}) ;
+    }
+
     if ($opt{vlt_run}) {
       $cmd .= "$model_path/obj_dir/Vcmp_top " ;
       $cmd .= " " ;
@@ -1855,6 +1936,7 @@ if ($opt{riv_run}) {
       }
       $cmd = $opt{other_sim_run_cmd};
       $cmd .= " " ;
+
       $cmd .= join (" ", @{$opt{sim_run_args}}) ;
     }
 
@@ -2645,6 +2727,9 @@ sub parse_args
             'vcs_use_sdf!',
             'verbose!',
             'vfile=s@',
+            'viv_build!',
+            'viv_build_args=s@',
+            'viv_run!',
             'vlt_build!',
             'vlt_build_args=s@',
             'vlt_run!',
@@ -2743,6 +2828,7 @@ sub parse_args
     $opt{icv_build} = 0 ;
     $opt{msm_build} = 0 ;
 	$opt{riv_build} = 0 ;
+	$opt{viv_build} = 0 ;
     $opt{vlt_build} = 0 ;
     $opt{other_sim_build} = 0 ;
   }
@@ -2889,7 +2975,7 @@ sub parse_args
   push (@{$opt{config_rtl}}, "ORAM_ON") if ($opt{oram}) ;
   push (@{$opt{sim_run_args}}, "+oram") if ($opt{oram}) ;
 
-  if ($opt{msm_build} or $opt{icv_build} or $opt{vlt_build}) {
+  if ($opt{msm_build} or $opt{icv_build} or $opt{vlt_build} or $opt{viv_build}) {
       push(@{$opt{config_rtl}}, "NO_SLAM_RANDOM") ;
       push(@{$opt{config_rtl}}, "NO_MRA_VAL") ;
   }
