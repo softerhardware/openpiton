@@ -305,12 +305,12 @@ always @(*)
 begin
     case (type_fifo_out)
         `MSG_TYPE_STORE: begin
-            msg_type = `MSG_TYPE_STORE_REQ; // axilite peripheral is writing to the memory?
+            msg_type = `MSG_TYPE_STORE_MEM; // axilite peripheral is writing to the memory?
             msg_length = 2'd3; // 2 extra headers + 1 data
         end
 
         `MSG_TYPE_LOAD: begin
-            msg_type = `MSG_TYPE_LOAD_REQ; // axilite peripheral is reading from the memory?
+            msg_type = `MSG_TYPE_LOAD_MEM; // axilite peripheral is reading from the memory?
             msg_length = 2'd2; // only 2 extra headers
         end
         

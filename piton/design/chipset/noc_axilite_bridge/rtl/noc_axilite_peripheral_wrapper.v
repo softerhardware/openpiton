@@ -4,6 +4,10 @@ module noc_axilite_peripheral_wrapper(
     input wire                                    clk,
     input wire                                    rst_n,
 
+    input wire [`MSG_SRC_CHIPID_WIDTH-1:0]        src_chipid,
+    input wire [`MSG_SRC_X_WIDTH-1:0]             src_xpos,
+    input wire [`MSG_SRC_Y_WIDTH-1:0]             src_ypos,
+
     input wire                                    noc2_valid_in,
     input wire [`NOC_DATA_WIDTH-1:0]              noc2_data_in,
     output                                        noc2_ready_out,
@@ -32,9 +36,6 @@ wire [`C_M_AXI_LITE_ADDR_WIDTH-1:0]          axi_araddr;
 wire                                         axi_arvalid;
 wire                                         axi_arready;
 
-wire [`MSG_SRC_CHIPID_WIDTH-1:0]             src_chipid;
-wire [`MSG_SRC_X_WIDTH-1:0]                  src_xpos;
-wire [`MSG_SRC_Y_WIDTH-1:0]                  src_ypos;
 wire [`MSG_SRC_FBITS_WIDTH-1:0]              src_fbits;
 
 wire [`MSG_DST_CHIPID_WIDTH-1:0]             dest_chipid;
@@ -66,9 +67,6 @@ assign dest_chipid = {14{1'b1}};
 assign dest_xpos = {8{1'b0}};
 assign dest_ypos = {8{1'b0}};
 assign dest_fbits = `NOC_FBITS_MEM; // {`FINAL_BITS{1'b1}};
-assign src_chipid = {14{1'b1}};
-assign src_xpos = {8{1'b0}};
-assign src_ypos = {8{1'b0}};
 assign src_fbits = {`FINAL_BITS{1'b1}}; //`NOC_FBITS_L2; // don't think it matters here, right?
 
 axilite_noc_bridge axilite_noc_bridge (
