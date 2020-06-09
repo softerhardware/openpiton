@@ -1258,7 +1258,7 @@ print(str)
 <%
 for i in range(1, len(devices)):
     if devices[i]["name"] == "axilite_peripheral":
-        print '''
+        print('''
 // With packet filter in the path
 noc_axilite_peripheral_wrapper noc_axilite_peripheral_wrapper(
     .clk(chipset_clk),
@@ -1281,7 +1281,7 @@ noc_axilite_peripheral_wrapper noc_axilite_peripheral_wrapper(
     .noc3_valid_out     (axilite_peripheral_buf_noc3_valid),
     .noc3_data_out      (axilite_peripheral_buf_noc3_data),
     .noc3_ready_in      (buf_axilite_peripheral_noc3_ready)
-);''' % (devices[i]["portnum"])
+);''' % (devices[i]["portnum"]))
 %>
 
 endmodule
