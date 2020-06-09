@@ -63,7 +63,7 @@ axilite_master_test #(
 );
 
 
-assign dest_chipid = {14{1'b1}};
+assign dest_chipid = {{1'b1, 13'b0}};
 assign dest_xpos = {8{1'b0}};
 assign dest_ypos = {8{1'b0}};
 assign dest_fbits = `NOC_FBITS_MEM; // {`FINAL_BITS{1'b1}};

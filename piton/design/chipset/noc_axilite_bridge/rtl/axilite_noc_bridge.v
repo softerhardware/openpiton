@@ -296,6 +296,9 @@ begin
         flit_state <= `MSG_STATE_INVALID;
     end
     else begin
+//        if (flit_state != flit_state_next) begin
+//            $display("axilite_noc_bridge: flit_state == %x", flit_state);
+//        end
         flit_state <= flit_state_next;
     end
 end
@@ -305,12 +308,12 @@ always @(*)
 begin
     case (type_fifo_out)
         `MSG_TYPE_STORE: begin
-            msg_type = `MSG_TYPE_STORE_MEM; // axilite peripheral is writing to the memory?
+            msg_type = `MSG_TYPE_NC_STORE_REQ; // axilite peripheral is writing to the memory?
             msg_length = 2'd3; // 2 extra headers + 1 data
         end
 
         `MSG_TYPE_LOAD: begin
-            msg_type = `MSG_TYPE_LOAD_MEM; // axilite peripheral is reading from the memory?
+            msg_type = `MSG_TYPE_NC_LOAD_REQ; // axilite peripheral is reading from the memory?
             msg_length = 2'd2; // only 2 extra headers
         end
         
@@ -322,6 +325,11 @@ end
 
 always @(*)
 begin
+    flit[`NOC_DATA_WIDTH-1:0] = {`NOC_DATA_WIDTH{1'b0}};
+    msg_mshrid = {`MSG_MSHRID_WIDTH{1'b0}};
+    msg_options_1 = {`MSG_OPTIONS_1_WIDTH{1'b0}};
+    msg_options_2 = 16'b0;
+    msg_options_3 = 30'b0;
     case (flit_state)
         `MSG_STATE_HEADER_0: begin
             flit[`MSG_DST_CHIPID] = dest_chipid;
@@ -338,8 +346,9 @@ begin
         end
 
         `MSG_STATE_HEADER_1: begin
-            flit[`MSG_ADDR_] = awaddr_fifo_out;
+            flit[`MSG_ADDR_] = {{`MSG_ADDR_WIDTH-`PHY_ADDR_WIDTH{1'b0}}, awaddr_fifo_out[`PHY_ADDR_WIDTH-1:0]};
             flit[`MSG_OPTIONS_2_] = msg_options_2;
+            flit[`MSG_DATA_SIZE_] = `MSG_DATA_SIZE_1B;
             flit_ready = 1'b1;
         end
 
