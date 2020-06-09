@@ -292,8 +292,8 @@ begin
    begin
       <%
          for i in range (L15_CSM_NUM_TICKETS):
-            print "ghid_ticketed_cache_val[%d] <= 0;" % (i)
-            print "ghid_ticketed_cache[%d] <= 0;" % (i)
+            print("ghid_ticketed_cache_val[%d] <= 0;" % (i))
+            print("ghid_ticketed_cache[%d] <= 0;" % (i))
       %>
    end
    else
@@ -495,9 +495,6 @@ begin
         end
         else
         begin
-            // csm_l15_res_data_s3 = {{`NOC_CHIPID_WIDTH{1'b0}},
-            //                       {(`NOC_X_WIDTH-`HOME_ID_Y_POS_WIDTH){1'b0}}, lhid_s3[`HOME_ID_Y_POS],
-            //                       {(`NOC_X_WIDTH-`HOME_ID_X_POS_WIDTH){1'b0}}, lhid_s3[`HOME_ID_X_POS]};
             csm_l15_res_data_s3 = 0;
             csm_l15_res_data_s3[`PACKET_HOME_ID_CHIP_MASK] = 1'b0; // non-csm mode only has 1 chip alone
             csm_l15_res_data_s3[`PACKET_HOME_ID_Y_MASK] = lhid_s3_y;
@@ -507,49 +504,10 @@ begin
 end
 
 flat_id_to_xy lhid_to_xy (
-    .flat_id(lhid_s3[`HOME_ID_Y_POS_WIDTH+`HOME_ID_X_POS_WIDTH-1:0]),
+    .flat_id(lhid_s3[`HOME_ID_WIDTH-1:0]),
     .x_coord(lhid_s3_x),
     .y_coord(lhid_s3_y)
     );
-
-/*
-always @ *
-begin
-    if (csm_en)
-    begin
-      refill_req_val_s3 = rd_en_s3 && (~diag_en_s3) && (~flush_en_s3) && (~hit_s3);
-       ;
-      // csm_l15_res_data_s3 = data_out_s3;
-      // csm_l15_res_valid_s3 = valid_out_s3;
-      // csm_l15_res_tag_s3 = tag_out_s3;
-      if (diag_en_s3 && rd_en_s3 && (addr_op_s3 == 1))
-      begin
-        csm_l15_res_data_s3 = valid_out_s3;
-      end
-      else if (diag_en_s3 && rd_en_s3 && (addr_op_s3 == 2))
-      begin
-        csm_l15_res_data_s3 = tag_out_s3;
-      end
-      else
-      begin
-        csm_l15_res_data_s3 = data_out_s3; // TODO: mux this with valid and tag
-      end
-    end
-    else
-    begin
-      // non-csm mode
-      refill_req_val_s3 = 1'b0;
-      csm_l15_res_val_s3 = l15_csm_req_val_s3;
-      // csm_l15_res_data_s3 = {{`NOC_CHIPID_WIDTH{1'b0}},
-      //                       {(`NOC_X_WIDTH-`HOME_ID_Y_POS_WIDTH){1'b0}}, lhid_s3[`HOME_ID_Y_POS],
-      //                       {(`NOC_X_WIDTH-`HOME_ID_X_POS_WIDTH){1'b0}}, lhid_s3[`HOME_ID_X_POS]};
-      csm_l15_res_data_s3 = 0;
-      csm_l15_res_data_s3[`PACKET_HOME_ID_CHIP_MASK] = 1'b0; // non-csm mode only has 1 chip alone
-      csm_l15_res_data_s3[`PACKET_HOME_ID_Y_MASK] = lhid_s3[`HOME_ID_Y_POS];
-      csm_l15_res_data_s3[`PACKET_HOME_ID_X_MASK] = lhid_s3[`HOME_ID_X_POS];
-    end
-end
-*/
 
 
 
@@ -559,7 +517,7 @@ begin
    begin
       <%
          for i in range (L15_CSM_NUM_TICKETS):
-            print "ghid_ticketed_cache_addr[%d] <= 0;" % (i)
+            print("ghid_ticketed_cache_addr[%d] <= 0;" % (i))
       %>
    end
    else
@@ -668,9 +626,9 @@ begin
    begin
       <%
          for i in range (L15_CSM_NUM_TICKETS):
-            print "refill_req_addr_buf[%d] <= 0;" % (i)
-            print "refill_req_ticket_buf[%d] <= 0;" % (i)
-            print "refill_req_val_buf[%d] <= 0;" % (i)
+            print("refill_req_addr_buf[%d] <= 0;" % (i))
+            print("refill_req_ticket_buf[%d] <= 0;" % (i))
+            print("refill_req_val_buf[%d] <= 0;" % (i))
       %>
    end
    else
@@ -691,7 +649,7 @@ assign csm_noc1encoder_req_type = `L15_NOC1_REQTYPE_LD_REQUEST;
 assign csm_noc1encoder_req_mshrid = refill_req_ticket_buf[refill_req_buf_rd_ptr];
 assign csm_noc1encoder_req_address = refill_req_addr_buf[refill_req_buf_rd_ptr];
 assign csm_noc1encoder_req_non_cacheable = 1'b1;
-assign csm_noc1encoder_req_size = `PCX_SZ_16B; // use pcx def because noc1enc translate it to packet def
+assign csm_noc1encoder_req_size = `MSG_DATA_SIZE_16B; 
 
 /*
 // calculate (or look up ghid from address)
@@ -732,8 +690,8 @@ begin
    begin
       <%
          for i in range (L15_CSM_NUM_TICKETS):
-            print "ghid_ticketed_cache_val[%d] <= 0;" % (i)
-            print "ghid_ticketed_cache[%d] <= 0;" % (i)
+            print("ghid_ticketed_cache_val[%d] <= 0;" % (i))
+            print("ghid_ticketed_cache[%d] <= 0;" % (i))
       %>
    end
    else
@@ -759,7 +717,7 @@ begin
                else if (l15_csm_clear_ticket_val && l15_csm_clear_ticket == %d)
                   ghid_ticketed_cache_val[%d] <= 1'b0;
                ''' % (i,i,i,i)
-            print text
+            print(text)
       %>
    end
 end
@@ -796,9 +754,6 @@ assign csm_noc1encoder_req_size = 0;
 
 always @ *
 begin
-    // csm_l15_res_data_s3 = {{`NOC_CHIPID_WIDTH{1'b0}},
-    //                       {(`NOC_X_WIDTH-`HOME_ID_Y_POS_WIDTH){1'b0}}, lhid_s3[`HOME_ID_Y_POS],
-    //                       {(`NOC_X_WIDTH-`HOME_ID_X_POS_WIDTH){1'b0}}, lhid_s3[`HOME_ID_X_POS]};
     csm_l15_res_data_s3 = 0;
     csm_l15_res_data_s3[`PACKET_HOME_ID_CHIP_MASK] = 1'b0; // non-csm mode only has 1 chip alone
     csm_l15_res_data_s3[`PACKET_HOME_ID_Y_MASK] = lhid_s3_y;
@@ -806,7 +761,7 @@ begin
 end
 
 flat_id_to_xy lhid_to_xy (
-    .flat_id(lhid_s3[`HOME_ID_Y_POS_WIDTH+`HOME_ID_X_POS_WIDTH-1:0]),
+    .flat_id(lhid_s3[`HOME_ID_WIDTH-1:0]),
     .x_coord(lhid_s3_x),
     .y_coord(lhid_s3_y)
     );
