@@ -41,8 +41,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *		along channel i
  *******************************************************************/
 
-`timescale 1ns/1ps
-
 module fpga_bridge_send_32 (
     rst, 
     wr_clk,

@@ -19,7 +19,6 @@
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 // 
 // ========== Copyright Header End ============================================
-`timescale 1ps/1ps
 module playback_driver();
 
 parameter	inputwidth=43;

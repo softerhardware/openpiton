@@ -33,11 +33,11 @@
  // mmckeown modified on 5/11/17
  //
 
-`ifdef IBM_VLOG_2ps
- `timescale 1 ns / 1 ps
-`else
- `timescale 1 ns / 10 ps
-`endif
+// `ifdef IBM_VLOG_2ps
+//  `timescale 1 ns / 1 ps
+// `else
+//  `timescale 1 ns / 10 ps
+// `endif
 
  module pll_top ( 
    output clk_locked,

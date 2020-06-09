@@ -31,7 +31,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "verilated_vcd_c.h"
 #endif
 
-uint64_t main_time = 0; // Current simulation time
+vluint64_t main_time = 0; // Current simulation time
 uint64_t clk = 0;
 Vcmp_top* top;
 #ifdef VERILATOR_VCD

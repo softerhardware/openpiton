@@ -27,7 +27,6 @@
 
 `include "mc_define.h"
 `include "define.tmp.h"
-`timescale 1ps/100fs
 
 //packet parser states
 `define ACCEPT_W1   0

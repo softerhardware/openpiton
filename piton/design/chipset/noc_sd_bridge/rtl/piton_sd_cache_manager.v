@@ -40,8 +40,6 @@
 `include "sd_defines.h"
 `include "piton_sd_define.vh"
 
-`timescale 1ns/1ps
-
 module piton_sd_cache_manager (
     input  wire                         clk,
     input  wire                         rst,

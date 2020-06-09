@@ -34,8 +34,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * *******************************************************************/
 
 
-`timescale 1ns/1ps
-
 module bridge_network_chooser(
     rst,
     clk,

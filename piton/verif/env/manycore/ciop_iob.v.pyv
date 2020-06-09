@@ -19,7 +19,6 @@
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 //
 // ========== Copyright Header End ============================================
-`timescale 1ps/1ps
 `include "define.tmp.h"
 `include "cross_module.tmp.h"
 
