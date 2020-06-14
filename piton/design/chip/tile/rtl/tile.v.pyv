@@ -1077,17 +1077,6 @@ if (TILE_TYPE == `MICROWATT_TILE) begin : g_microwatt_core
     // Microwatt OpenPOWER Core //
     //////////////////////////////
 
-    wire [63:0] wb_d_in_dat;
-    wire        wb_d_in_ack;
-    wire        wb_d_in_stall;
-
-    wire [31:0] wb_d_out_adr;
-    wire [63:0] wb_d_out_dat;
-    wire        wb_d_out_cyc;
-    wire        wb_d_out_stb;
-    wire [7:0]  wb_d_out_sel;
-    wire        wb_d_out_we;
-
     wire        terminated_out;
 
     reg transducer_l15_val_reg;
@@ -1103,17 +1092,6 @@ if (TILE_TYPE == `MICROWATT_TILE) begin : g_microwatt_core
         .clk            (clk_gated              ),
         .rst            (~rst_n_f | ~rst_pkt_rcv),
 
-        .wb_d_in_dat    (wb_d_in_dat            ),
-        .wb_d_in_ack    (wb_d_in_ack            ),
-        .wb_d_in_stall  (wb_d_in_stall          ),
-                                                
-        .wb_d_out_adr   (wb_d_out_adr           ),
-        .wb_d_out_dat   (wb_d_out_dat           ),
-        .wb_d_out_cyc   (wb_d_out_cyc           ),
-        .wb_d_out_stb   (wb_d_out_stb           ),
-        .wb_d_out_sel   (wb_d_out_sel           ),
-        .wb_d_out_we    (wb_d_out_we            ),
-                                                
         .l15_mw_ack                 (l15_transducer_ack),
         .l15_mw_header_ack          (l15_transducer_header_ack),
 
@@ -1170,10 +1148,6 @@ if (TILE_TYPE == `MICROWATT_TILE) begin : g_microwatt_core
             rst_pkt_rcv <= rst_pkt_rcv | (l15_transducer_val & (l15_transducer_returntype == `CPX_RESTYPE_INTERRUPT));
         end
     end
-
-    assign wb_d_in_ack = 1'b0;
-    assign wb_d_in_dat = l15_transducer_data_0;
-    assign wb_d_in_stall = 1'b0;
 
 `endif
 end
