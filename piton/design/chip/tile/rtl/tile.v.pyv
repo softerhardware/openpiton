@@ -1068,8 +1068,106 @@ print(str)
     assign unavailable_o = 1'b0;
 
 `endif // ifdef PITON_ARIANE
-  end
-  endgenerate
+end
+endgenerate
+generate
+if (TILE_TYPE == `MOR1KX_TILE) begin : g_mor1kx_core
+`ifdef PITON_MOR1KX
+//////////////////////////
+// mor1kx OpenRISC Core //
+//////////////////////////
+
+mor1kx_cpu_cappuccino #(
+    .FEATURE_DATACACHE          ("ENABLED"),
+    .OPTION_DCACHE_BLOCK_WIDTH  (4),
+    .OPTION_DCACHE_SET_WIDTH    (8),
+    .OPTION_DCACHE_WAYS         (4),
+    .OPTION_DCACHE_LIMIT_WIDTH  (31),
+    .OPTION_DCACHE_SNOOP        ("ENABLED"),
+
+    .FEATURE_INSTRUCTIONCACHE   ("ENABLED"),
+    .OPTION_ICACHE_BLOCK_WIDTH  (5),
+    .OPTION_ICACHE_SET_WIDTH    (8),
+    .OPTION_ICACHE_WAYS         (4),
+    .OPTION_ICACHE_LIMIT_WIDTH  (32),
+    .OPTION_ICACHE_SNOOP        ("ENABLED"),
+
+    .FEATURE_DMMU               ("ENABLED").
+    .FEATURE_DMMU_HW_TLB_RELOAD ("NONE"),
+    .OPTION_DMMU_SET_WIDTH      (6),
+    .OPTION_DMMU_WAYS           (1),
+
+    .FEATURE_IMMU               ("ENABLED").
+    .FEATURE_IMMU_HW_TLB_RELOAD ("NONE"),
+    .OPTION_IMMU_SET_WIDTH      (6),
+    .OPTION_IMMU_WAYS           (1),
+) core (
+    .clk                        (clk_gated),
+    .rst                        (~rst_n_f),
+
+    .ibus_err_i                 (),
+    .ibus_ack_i                 (),
+    .ibus_dat_i                 (),
+    .ibus_adr_o                 (),
+    .ibus_req_o                 (),
+    .ibus_burst_o               (),
+
+    .dbus_err_i                 (),
+    .dbus_ack_i                 (),
+    .dbus_dat_i                 (),
+    .dbus_adr_o                 (),
+    .dbus_dat_o                 (),
+    .dbus_req_o                 (),
+    .dbus_bsel_o                (),
+    .dbus_we_o                  (),
+    .dbus_burst_o               (),
+
+    .irq_i                      (),
+
+    .du_addr_i                  (16'b0),
+    .du_stb_i                   (1'b0),
+    .du_dat_i                   (32'b0),
+    .du_we_i                    (),
+    .du_dat_o                   (),
+    .du_ack_o                   (),
+    .du_stall_i                 (1'b0),
+    .du_stall_o                 (),
+
+    .traceport_exec_valid_o     (),
+    .traceport_exec_pc_o        (),
+    .traceport_exec_jb_o        (),
+    .traceport_exec_jal_o       (),
+    .traceport_exec_jr_o        (),
+    .traceport_exec_jbtarget_o  (),
+    .traceport_exec_insn_o      (),
+    .traceport_exec_wbdata_o    (),
+    .traceport_exec_wbreg_o     (),
+    .traceport_exec_wben_o      (),
+
+    .spr_bus_addr__o            (),
+    .spr_bus_we_o               (),
+    .spr_bus_stb_o              (),
+    .spr_bus_dat_o              (),
+    .spr_bus_dat_mac_i          (),
+    .spr_bus_ack_mac_i          (),
+    .spr_bus_dat_pmu_i          (),
+    .spr_bus_ack_pmu_i          (),
+    .spr_bus_dat_pcu_i          (),
+    .spr_bus_ack_pcu_i          (),
+    .spr_bus_dat_fpu_i          (),
+    .spr_bus_ack_fpu_i          (),
+    .spr_sr_o                   (),
+
+    .multicore_coreid_i         (flat_tileid),
+    .multicore_numcores_i       (config_system_tile_count),,
+
+    .snoop_adr_i                (),
+    .snoop_en_i                 (1'b0)
+);
+
+`endif // ifdef PITON_MOR1KX
+end
+endgenerate
 
 
     //////////

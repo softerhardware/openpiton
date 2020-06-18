@@ -163,6 +163,7 @@ Getopt::Long::Configure ('no_auto_abbrev') ;
         'midas_use_tgseed' => 0,
         'model' => "",
         'model_dir' => "",
+        'mor1kx' => 0,
         'msm_build' => 0,
         'msm_build_args' => [],
         'msm_run' => 0,
@@ -172,6 +173,7 @@ Getopt::Long::Configure ('no_auto_abbrev') ;
         'overwrite' => 0,
         'pal_use_tgseed' => 0,
         'parallel' => 0,
+        'or1k' => 0,
         'ost1' => 0,
         'ariane' => 0,
         'pico' => 0,
@@ -331,6 +333,7 @@ GetOptions (\%opt,
             'diaglist_cpp_args=s@',
             'group=s@',
             'model_dir=s',
+            'mor1kx!',
             'parallel!',
             'ost1!',
             'ariane!',
@@ -353,13 +356,14 @@ die ("DIE. -pico and -pico_het cannot both be set") if ($opt{pico} && $opt{pico_
 
 # Setting ost1 by default. This works better than default to 1
 # for heterogeneous-ISA stuff
-if (!$opt{pico} && !$opt{ariane}) {
+if (!$opt{pico} && !$opt{ariane} && !$opt{mor1kx}) {
   $opt{ost1} = 1 ;
 }
 
 push (@{$opt{config_cpp_args}}, "-DFLIST_OST1")     if ($opt{ost1} || $opt{pico_het}) ;
 push (@{$opt{config_cpp_args}}, "-DFLIST_PICO")     if ($opt{pico} || $opt{pico_het}) ;
 push (@{$opt{config_cpp_args}}, "-DFLIST_ARIANE")   if ($opt{ariane}) ;
+push (@{$opt{config_cpp_args}}, "-DFLIST_MOR1KX")   if ($opt{mor1kx}) ;
 push (@{$opt{config_cpp_args}}, "-DFLIST_ORAM")     if ($opt{oram}) ;
 
 ################################################################################
@@ -2404,6 +2408,9 @@ sub assemble_diag
         print ("$prg: warning could not copy files back to $launch_dir\n") if ($?) ;
       }
     }
+    if ($opt{or1k}) {
+
+    }
 
     exit (0) if ($opt{midas_only}) ;
 }
@@ -2576,6 +2583,7 @@ sub parse_args
             'ncv_build!',
             'ncv_build_args=s@',
             'ncv_run!',
+            'or1k!',
             'overwrite!',
             'pal_use_tgseed!',
             'parallel!',
@@ -2796,19 +2804,25 @@ sub parse_args
     $opt{rv64} = 1 ;
     print "$prg: Building/running for rv64\n" ;
   }
+  if ($opt{mor1kx}) {
+    $opt{or1k} = 1 ;
+    print "$prg: Building/running for or1k\n" ;
+  }
 
   $ENV{PITON_OST1}     = $opt{ost1};
   $ENV{PITON_PICO}     = $opt{pico};
   $ENV{PITON_PICO_HET} = $opt{pico_het};
   $ENV{PITON_ARIANE}   = $opt{ariane};
+  $ENV{PITON_MOR1KX}   = $opt{mor1kx};
   push (@{$opt{config_rtl}}, "PITON_OST1")     if ($opt{ost1});
   push (@{$opt{config_rtl}}, "PITON_PICO")     if ($opt{pico});
   push (@{$opt{config_rtl}}, "PITON_PICO")     if ($opt{pico_het});
   push (@{$opt{config_rtl}}, "PITON_PICO_HET") if ($opt{pico_het});
   push (@{$opt{config_rtl}}, "PITON_ARIANE")   if ($opt{ariane});
   push (@{$opt{config_rtl}}, "WT_DCACHE")      if ($opt{ariane});
+  push (@{$opt{config_rtl}}, "PITON_MOR1KX")   if ($opt{mor1kx});
 
-  if ($opt{pico} or $opt{pico_het} or $opt{ariane}) {
+  if ($opt{pico} or $opt{pico_het} or $opt{ariane} or $opt{mor1kx}) {
     push (@{$opt{config_rtl}}, "NO_MRA_VAL") ;
     push (@{$opt{config_rtl}}, "NO_SLAM_RANDOM") ;
   }
@@ -2843,6 +2857,8 @@ sub parse_args
         push (@{$opt{config_rtl}}, "RTL_PICO" . $i);
     } elsif ($opt{ariane}) {
         push (@{$opt{config_rtl}}, "RTL_ARIANE" . $i);
+    } elsif ($opt{mor1kx}) {
+        push (@{$opt{config_rtl}}, "RTL_MOR1KX" . $i);
     } elsif ($opt{ost1}) {
         push (@{$opt{config_rtl}}, "RTL_SPARC" . $i);
     }
