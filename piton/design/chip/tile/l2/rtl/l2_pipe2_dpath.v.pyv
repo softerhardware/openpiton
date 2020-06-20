@@ -216,6 +216,7 @@ begin
         sdid_S1 = msg_sdid_S1;
         lsid_S1 = msg_lsid_S1;
     end
+    $display("l2 pipe2 addr_S1 changed: %x", addr_S1);
 end
 
 always @ *
