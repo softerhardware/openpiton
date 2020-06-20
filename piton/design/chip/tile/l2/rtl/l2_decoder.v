@@ -83,6 +83,9 @@ begin
     msg_src_fbits = msg_header[`MSG_SRC_FBITS];
     msg_sdid = msg_header[`MSG_SDID];
     msg_lsid = msg_header[`MSG_LSID];
+    $display("l2_decoder msg_last_subline (index %d) changed: %x", `MSG_LAST_SUBLINE, msg_last_subline);
+    $display("l2_decoder addr changed: %x", msg_addr);
+    $display("l2_decoder msg_subline_id changed: %x", msg_subline_id);
 end
 
 endmodule
