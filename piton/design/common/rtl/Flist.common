@@ -5,3 +5,4 @@ async_fifo.v
 bram_1rw_wrapper.v
 bram_1r1w_wrapper.v
 synchronizer.v
+pico_reset.v

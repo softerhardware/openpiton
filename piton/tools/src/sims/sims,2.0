@@ -1649,6 +1649,17 @@ sub generic_sim_build
       $build_cmd = "vlib work; vlog " ;
     }
     if ($opt{viv_build}) {
+      if ($opt{flist_vhdl}) {
+        my $vhdl_build_cmd = "xvhdl --2008 -f flist_vhdl";
+
+        print "$prg: $vhdl_build_cmd\n";
+
+        if (! $opt{dryrun}) {
+          system ($vhdl_build_cmd) ;
+          die ("DIE. failed building model") if ($?) ;
+        }
+      }
+
       $build_cmd = "xvlog -sv " ;
       if ($opt{ariane}) {
         $build_cmd .= "-L uvm " ;
