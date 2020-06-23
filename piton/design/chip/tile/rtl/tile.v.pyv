@@ -1099,6 +1099,8 @@ if (TILE_TYPE == `AO486_TILE) begin : g_ao486_core
     wire                           request_readburst_do;
     wire                           transducer_ao486_request_readcode_done;
     wire [127:0]                   transducer_ao486_readcode_line;
+    wire [31:0]                    transducer_ao486_readcode_partial;
+    wire                           transducer_ao486_readcode_partial_done;
 
     pico_reset pico_reset(
         .gclk(clk_gated),
@@ -1154,17 +1156,22 @@ if (TILE_TYPE == `AO486_TILE) begin : g_ao486_core
         .avalon_io_waitrequest      (transducer_ao486_io_waitrequest),
 
         .eip                        (eip),
-        .state_transducer          (state_transducer),
+        .state_transducer           (state_transducer),
 
-        //New signals for bypassing Avalon
+        //New signals for bypassing Avalon (Outputs from core)
         .request_readcode_do        (request_readcode_do),
         .request_readcode_address   (request_readcode_address),
         .request_readline_do        (request_readline_do),
         .request_readline_address   (request_readline_address),
         .request_readburst_do       (request_readburst_do),
         .request_readburst_address  (request_readburst_address),
-        .request_readcode_done      (transducer_ao486_request_readcode_done),
-        .readcode_line              (transducer_ao486_readcode_line)
+        
+        //New signals for bypassing Avalon (Inputs to core)
+
+        .transducer_ao486_readcode_done         (transducer_ao486_request_readcode_done),
+        .transducer_ao486_readcode_line         (transducer_ao486_readcode_line),
+        .transducer_ao486_readcode_partial      (transducer_ao486_readcode_partial),
+        .transducer_ao486_readcode_partial_done (transducer_ao486_readcode_partial_done)
     );
 
     ao486_transducer_run1 ao486_transducer_run1(
@@ -1204,8 +1211,10 @@ if (TILE_TYPE == `AO486_TILE) begin : g_ao486_core
         .request_readburst_address                (request_readburst_address),
 
         //ao486 transducer -> ao486 core
+        .transducer_ao486_readcode_partial        (transducer_ao486_readcode_partial),
         .transducer_ao486_readcode_line           (transducer_ao486_readcode_line),
         .transducer_ao486_request_readcode_done   (transducer_ao486_request_readcode_done),
+        .transducer_ao486_readcode_partial_done   (transducer_ao486_readcode_partial_done),
         .ao486_int                                (ao486_int)        
     );
 
