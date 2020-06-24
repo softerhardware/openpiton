@@ -86,7 +86,9 @@ begin
     smc_miss_out = data_in[`L2_MSHR_SMC_MISS];
     recycled = data_in[`L2_MSHR_RECYCLED];
     inv_fwd_pending = data_in[`L2_MSHR_INV_FWD_PENDING];
+`ifdef XILINX_SIMULATOR
     $display("l2_mshr_decoder inv_fwd_pending changed: %x", inv_fwd_pending);
+`endif
 end
 
 endmodule

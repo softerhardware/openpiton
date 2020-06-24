@@ -401,7 +401,9 @@ begin
     begin
         msg_header_out = {{(2*`NOC_DATA_WIDTH){1'b0}},header_buf_mem_f[header_rd_ptr_f]}; 
     end
+`ifdef XILINX_SIMULATOR
     $display("l2_pipe2_buf_in msg_header_out changed: %x", msg_header_out);
+`endif
 end
 
 
