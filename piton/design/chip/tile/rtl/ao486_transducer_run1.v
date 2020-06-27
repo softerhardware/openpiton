@@ -39,6 +39,12 @@ module ao486_transducer_run1(
     output [3:0]   transducer_l15_amo_op,
     output         transducer_l15_nc,
     output [1:0]   transducer_l15_l1rplway,
+    output         transducer_l15_blockinitstore,
+    output         transducer_l15_blockstore,
+    output [32:0]  transducer_l15_csm_data,
+    output         transducer_l15_invalidate_cacheline,
+    output         transducer_l15_prefetch,
+    output         transducer_l15_threadid,
         
     //Inputs dealing with L1.5 and transducer (L1.5 -> transducer)
 
@@ -82,6 +88,14 @@ module ao486_transducer_run1(
     assign transducer_l15_amo_op = 4'd0;
     assign transducer_l15_nc = 0;
     assign transducer_l15_l1rplway = 2'd0;
+    
+//Tying off unused transducer_l15_ signals for ao486 to zero
+    assign transducer_l15_blockinitstore = 1'b0;
+    assign transducer_l15_blockstore = 1'b0;
+    assign transducer_l15_csm_data = 33'd0;
+    assign transducer_l15_invalidate_cacheline = 1'b0;
+    assign transducer_l15_prefetch = 1'b0;
+    assign transducer_l15_threadid = 1'b0;
 //..........................................................................
 
 //Parameters and reg variables
@@ -128,20 +142,20 @@ wire [2:0] state_wire;
 //Assign statements
 assign ao486_int = ao486_int_reg;
 assign transducer_l15_val = (~ao486_int_reg) ? 1'b0 : transducer_l15_val_reg;
-assign transducer_l15_address = (~ao486_int_reg) ? 1'b0 : {{8{transducer_l15_address_reg_ifill[31]}}, transducer_l15_address_reg_ifill};
-assign transducer_l15_rqtype = (~ao486_int_reg) ? 1'b0 : transducer_l15_rqtype_reg;
-assign transducer_l15_req_ack = (~ao486_int_reg) ? 1'b0 : transducer_l15_req_ack_reg;
+assign transducer_l15_address = (~ao486_int_reg) ? 40'd0 : {{8{transducer_l15_address_reg_ifill[31]}}, transducer_l15_address_reg_ifill};
+assign transducer_l15_rqtype = (~ao486_int_reg) ? 5'd0 : transducer_l15_rqtype_reg;
+assign transducer_l15_req_ack = transducer_l15_req_ack_reg;
 assign transducer_ao486_request_readcode_done = (~ao486_int_reg) ? 1'b0 : readcode_done_reg;
-assign transducer_ao486_readcode_partial = (~ao486_int_reg) ? 1'b0 : readcode_partial_reg;
-assign transducer_ao486_readcode_line = (~ao486_int_reg) ? 1'b0 : readcode_line_reg;
-assign state_wire = (~ao486_int_reg) ? 1'b0 : next_state;
-assign counter_ifill_partial = (~ao486_int_reg) ? 1'b0 : counter_state_ifill_partial;
+assign transducer_ao486_readcode_partial = (~ao486_int_reg) ? 32'd0 : readcode_partial_reg;
+assign transducer_ao486_readcode_line = (~ao486_int_reg) ? 128'd0 : readcode_line_reg;
+assign state_wire = (~ao486_int_reg) ? 3'd0 : next_state;
+assign counter_ifill_partial = (~ao486_int_reg) ? 2'd0 : counter_state_ifill_partial;
 assign transducer_ao486_readcode_partial_done = (~ao486_int_reg) ? 1'b0 : readcode_partial_done_reg;
-assign transducer_l15_size = (~ao486_int_reg) ? 1'b0 : req_size_read;
+assign transducer_l15_size = (~ao486_int_reg) ? 3'd0 : req_size_read;
 //..........................................................................
 
 //Always block to sequentially send _readcode_partial signals one clock pulse at a time
-always @(*) begin
+always @(posedge clk) begin
     if(continue_ifill_count) begin
         case (counter_ifill_partial) 
             2'b00: begin
@@ -179,7 +193,7 @@ end
 //..........................................................................
 
 //Always block for ifill _partial counter
-always @(*) begin
+always @(posedge clk) begin
     if(toggle_ifill_partial) begin
         counter_state_ifill_partial <= 2'b00;
         continue_ifill_count <= 1'b1;
@@ -205,10 +219,10 @@ end
 //Always block for toggle for sending _readcode_partial signals to core
 always @(*) begin
     if(request_readcode_done_reg & l15_transducer_returntype == `IFILL_RET) begin
-        toggle_ifill_partial <= 1'b1;
+        toggle_ifill_partial = 1'b1;
     end
     else begin
-        toggle_ifill_partial <= 1'b0;
+        toggle_ifill_partial = 1'b0;
     end
 end
 //..........................................................................
@@ -239,7 +253,7 @@ end
 //..........................................................................
 
 //Always block to convert big endian to little endian for ifill
-always @(*) begin
+always @(posedge clk) begin
     if(l15_transducer_returntype == `IFILL_RET & l15_transducer_val == 1'b1) begin
         returntype_reg <= `IFILL_RET;
         ifill_return_partial_0 <= {l15_transducer_data_2[39:32], l15_transducer_data_2[47:40], l15_transducer_data_2[55:48], l15_transducer_data_2[63:56]};
@@ -273,7 +287,7 @@ end
 //..........................................................................
 
 //Always block to send ifill request type to L1.5
-always @(*) begin
+always @(posedge clk) begin
     if(req_type == IFILL & (~ifill_response)) begin
         transducer_l15_rqtype_reg <= `IMISS_RQ;
     end
@@ -308,22 +322,36 @@ always @* begin
 end
 //..........................................................................
 
-//Always block to set transducer_l15_val and address to be sent to L1.5 for instructions
-always @(*) begin
+//Always block to set transducer_l15_val
+always @(posedge clk) begin
     if(transducer_l15_rqtype_reg == `IMISS_RQ & ~l15_transducer_header_ack & (state_wire != IFILL)) begin
         transducer_l15_val_reg <= 1'b1;
+    end
+    else if(l15_transducer_header_ack) begin
+        transducer_l15_val_reg <= 1'b0;  
+    end
+    else if(~rst_n) begin
+        transducer_l15_val_reg <= 1'b0;
+    end
+end
+//..........................................................................
+
+//Always block to set transducer_l15_val and address to be sent to L1.5 for instructions
+always @(posedge clk) begin
+    if(transducer_l15_rqtype_reg == `IMISS_RQ & ~l15_transducer_header_ack & (state_wire != IFILL)) begin
+        //transducer_l15_val_reg <= 1'b1;
         transducer_l15_address_reg_ifill <= {addr_reg[31:5], 5'd0};
         transducer_l15_val_next_reg <= 1'b0;
     end
     else if(l15_transducer_header_ack) begin
-        transducer_l15_val_reg <= transducer_l15_val_next_reg;  
+        //transducer_l15_val_reg <= transducer_l15_val_next_reg;  
         transducer_l15_address_reg_ifill <= transducer_l15_address_reg_ifill;
         next_state <= IFILL;
     end
     else if(~rst_n) begin
         next_state <= 3'd0;
         transducer_l15_address_reg_ifill <= 32'd0;
-        transducer_l15_val_reg <= 1'b0;
+        //transducer_l15_val_reg <= 1'b0;
         transducer_l15_val_next_reg <= 1'b0;
     end
     else if(l15_transducer_returntype == `IFILL_RET & l15_transducer_val) begin
@@ -333,7 +361,7 @@ end
 //..........................................................................
 
 //Always block to flop address received from core 
-always @(*) begin
+always @(posedge clk) begin
   if (~rst_n) begin
     addr_reg <= 32'd0;
     byteenable_reg <= 4'd0;
@@ -348,10 +376,10 @@ end
 //Always block to release reset into ao486 core
 always @ (posedge clk) begin
     if (~rst_n) begin
-        ao486_int_reg = 1'b0;
+        ao486_int_reg <= 1'b0;
     end
     else if (int_recv) begin
-        ao486_int_reg = 1'b1;
+        ao486_int_reg <= 1'b1;
     end
     /*else if (ao486_int_reg) begin
         ao486_int_reg <= 1'b0;

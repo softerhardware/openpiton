@@ -1189,6 +1189,12 @@ if (TILE_TYPE == `AO486_TILE) begin : g_ao486_core
         .transducer_l15_amo_op                    (transducer_l15_amo_op),
         .transducer_l15_nc                        (transducer_l15_nc),
         .transducer_l15_l1rplway                  (transducer_l15_l1rplway),
+        .transducer_l15_blockinitstore            (transducer_l15_blockinitstore),
+        .transducer_l15_blockstore                (transducer_l15_blockstore),
+        .transducer_l15_csm_data                  (transducer_l15_csm_data),
+        .transducer_l15_invalidate_cacheline      (transducer_l15_invalidate_cacheline),
+        .transducer_l15_prefetch                  (transducer_l15_prefetch),
+        .transducer_l15_threadid                  (transducer_l15_threadid),
 
         //L1.5 -> ao486 transducer
         .l15_transducer_ack                       (l15_transducer_ack),
