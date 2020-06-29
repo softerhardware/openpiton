@@ -1174,7 +1174,7 @@ if (TILE_TYPE == `AO486_TILE) begin : g_ao486_core
         .transducer_ao486_readcode_partial_done (transducer_ao486_readcode_partial_done)
     );
 
-    ao486_transducer_run1 ao486_transducer_run1(
+    ao486_l15_tri ao486_l15_tri(
         .clk                                      (clk),
         .rst_n                                    (rst_n),
 

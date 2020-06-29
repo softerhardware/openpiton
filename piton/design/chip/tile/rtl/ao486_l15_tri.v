@@ -23,7 +23,7 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-module ao486_transducer_run1(
+module ao486_l15_tri(
     input clk,
     input rst_n,
 
@@ -78,13 +78,8 @@ module ao486_transducer_run1(
 );
 
 //Tying off all outputs not being generated
-    //assign transducer_l15_rqtype = 5'd0;
-    //assign transducer_l15_address = 40'd0;
     assign transducer_l15_data = 64'd0;
     assign transducer_l15_data_next_entry = 64'd0;
-    //assign transducer_l15_req_ack = 0;
-    //assign transducer_l15_val = 0;
-    //assign transducer_l15_size = 3'd0;
     assign transducer_l15_amo_op = 4'd0;
     assign transducer_l15_nc = 0;
     assign transducer_l15_l1rplway = 2'd0;
@@ -141,20 +136,20 @@ wire [2:0] state_wire;
 
 //Assign statements
 assign ao486_int = ao486_int_reg;
-assign transducer_l15_val = (~ao486_int_reg) ? 1'b0 : transducer_l15_val_reg;
-assign transducer_l15_address = (~ao486_int_reg) ? 40'd0 : {{8{transducer_l15_address_reg_ifill[31]}}, transducer_l15_address_reg_ifill};
-assign transducer_l15_rqtype = (~ao486_int_reg) ? 5'd0 : transducer_l15_rqtype_reg;
+assign transducer_l15_val = transducer_l15_val_reg;
+assign transducer_l15_address = {{8{transducer_l15_address_reg_ifill[31]}}, transducer_l15_address_reg_ifill};
+assign transducer_l15_rqtype = transducer_l15_rqtype_reg;
 assign transducer_l15_req_ack = transducer_l15_req_ack_reg;
-assign transducer_ao486_request_readcode_done = (~ao486_int_reg) ? 1'b0 : readcode_done_reg;
-assign transducer_ao486_readcode_partial = (~ao486_int_reg) ? 32'd0 : readcode_partial_reg;
-assign transducer_ao486_readcode_line = (~ao486_int_reg) ? 128'd0 : readcode_line_reg;
-assign state_wire = (~ao486_int_reg) ? 3'd0 : next_state;
-assign counter_ifill_partial = (~ao486_int_reg) ? 2'd0 : counter_state_ifill_partial;
-assign transducer_ao486_readcode_partial_done = (~ao486_int_reg) ? 1'b0 : readcode_partial_done_reg;
-assign transducer_l15_size = (~ao486_int_reg) ? 3'd0 : req_size_read;
+assign transducer_ao486_request_readcode_done = readcode_done_reg;
+assign transducer_ao486_readcode_partial = readcode_partial_reg;
+assign transducer_ao486_readcode_line = readcode_line_reg;
+assign state_wire = next_state;
+assign counter_ifill_partial = counter_state_ifill_partial;
+assign transducer_ao486_readcode_partial_done = readcode_partial_done_reg;
+assign transducer_l15_size = req_size_read;
 //..........................................................................
 
-//Always block to sequentially send _readcode_partial signals one clock pulse at a time                 (not verified)
+//Always block to sequentially send _readcode_partial signals one clock pulse at a time                 (verified)
 always @(posedge clk) begin
     if(continue_ifill_count) begin
         case (counter_ifill_partial) 
@@ -192,7 +187,7 @@ always @(posedge clk) begin
 end
 //..........................................................................
 
-//Always block for ifill _partial counter                                                          (not verified)
+//Always block for ifill _partial counter                                                          (verified)
 always @(posedge clk) begin
     if(toggle_ifill_partial) begin
         counter_state_ifill_partial <= 2'b00;
@@ -216,7 +211,7 @@ always @(posedge clk) begin
 end
 //..........................................................................
 
-//Always block for toggle for sending _readcode_partial signals to core                              (Not verified)          
+//Always block for toggle for sending _readcode_partial signals to core                              (verified)          
 always @(*) begin
     if(request_readcode_done_reg & returntype_reg == `IFILL_RET) begin
         toggle_ifill_partial = 1'b1;
@@ -244,7 +239,7 @@ always @(*) begin
 end
 //..........................................................................
 
-//Always block to set request type and other transducer -> L1.5 signals to zero upon receiving response
+//Always block to set request type and other transducer -> L1.5 signals to zero upon receiving response      (not used right now)
 always @(*) begin
     if(l15_transducer_returntype == `IFILL_RET & l15_transducer_val) begin
         //ifill_response = 1'b1;
@@ -252,7 +247,7 @@ always @(*) begin
 end
 //..........................................................................
 
-//Always block to convert big endian to little endian for ifill                                                   (not verified)
+//Always block to convert big endian to little endian for ifill                                                   (verified)
 always @(posedge clk) begin
     if(l15_transducer_returntype == `IFILL_RET & l15_transducer_val == 1'b1) begin
         returntype_reg <= `IFILL_RET;
@@ -383,7 +378,7 @@ always @ (posedge clk) begin
 end
 //..........................................................................
 
-//always block to use reset signal for all signals to have a reset value to eliminate need for initial power-on requirement
+//always block to set state of TRI                                                                        (not used right now)  
 always @(posedge clk) begin
     if(~rst_n) begin
         state <= IDLE;
