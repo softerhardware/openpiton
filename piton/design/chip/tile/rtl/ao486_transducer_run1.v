@@ -55,7 +55,7 @@ module ao486_transducer_run1(
     input [63:0]   l15_transducer_data_1,
     input [63:0]   l15_transducer_data_2,
     input [63:0]   l15_transducer_data_3,
-    input          l15_transducer_header_ack,        
+    input          l15_transducer_header_ack,                         
     input [3:0]    l15_transducer_returntype,
     input          l15_transducer_val,
 
@@ -154,14 +154,14 @@ assign transducer_ao486_readcode_partial_done = (~ao486_int_reg) ? 1'b0 : readco
 assign transducer_l15_size = (~ao486_int_reg) ? 3'd0 : req_size_read;
 //..........................................................................
 
-//Always block to sequentially send _readcode_partial signals one clock pulse at a time
+//Always block to sequentially send _readcode_partial signals one clock pulse at a time                 (not verified)
 always @(posedge clk) begin
     if(continue_ifill_count) begin
         case (counter_ifill_partial) 
             2'b00: begin
                 readcode_partial_reg <= ifill_return_partial_0;
                 readcode_line_reg <= {96'd0, ifill_return_partial_0};
-                readcode_partial_done_reg <= 1'b0;
+                readcode_partial_done_reg <= 1'b1;
             end
             2'b01: begin
                 readcode_partial_reg <= ifill_return_partial_1;
@@ -192,7 +192,7 @@ always @(posedge clk) begin
 end
 //..........................................................................
 
-//Always block for ifill _partial counter
+//Always block for ifill _partial counter                                                          (not verified)
 always @(posedge clk) begin
     if(toggle_ifill_partial) begin
         counter_state_ifill_partial <= 2'b00;
@@ -216,9 +216,9 @@ always @(posedge clk) begin
 end
 //..........................................................................
 
-//Always block for toggle for sending _readcode_partial signals to core
+//Always block for toggle for sending _readcode_partial signals to core                              (Not verified)          
 always @(*) begin
-    if(request_readcode_done_reg & l15_transducer_returntype == `IFILL_RET) begin
+    if(request_readcode_done_reg & returntype_reg == `IFILL_RET) begin
         toggle_ifill_partial = 1'b1;
     end
     else begin
@@ -227,7 +227,7 @@ always @(*) begin
 end
 //..........................................................................
 
-//Always block to obtain request type from core and set flop_bus
+//Always block to obtain request type from core and set flop_bus                                                 (Verified)
 always @(*) begin
     if(request_readcode_do) begin
         flop_bus = 1'b1;
@@ -252,7 +252,7 @@ always @(*) begin
 end
 //..........................................................................
 
-//Always block to convert big endian to little endian for ifill
+//Always block to convert big endian to little endian for ifill                                                   (not verified)
 always @(posedge clk) begin
     if(l15_transducer_returntype == `IFILL_RET & l15_transducer_val == 1'b1) begin
         returntype_reg <= `IFILL_RET;
@@ -275,7 +275,7 @@ always @(posedge clk) begin
 end
 //..........................................................................
 
-//Always block setting transducer_l15_req_ack high indicating response received
+//Always block setting transducer_l15_req_ack high indicating response received                                     (Verified)
 always @(*) begin
     if(l15_transducer_val) begin
         transducer_l15_req_ack_reg = 1'b1;
@@ -286,12 +286,12 @@ always @(*) begin
 end
 //..........................................................................
 
-//Always block to send ifill request type to L1.5
+//Always block to send ifill request type to L1.5                                                                     (Verified)
 always @(posedge clk) begin
     if(req_type == IFILL & (~ifill_response)) begin
         transducer_l15_rqtype_reg <= `IMISS_RQ;
     end
-    else if(l15_transducer_returntype == `IFILL_RET & l15_transducer_val) begin
+    else if(l15_transducer_returntype == `IFILL_RET & l15_transducer_val) begin       //to set request type to zero after receiving response from L1.5 for an ifill
         transducer_l15_rqtype_reg <= 5'd0;
     end
     else if (~rst_n) begin
@@ -300,7 +300,7 @@ always @(posedge clk) begin
 end    
 //..........................................................................
 
-//Always block to set request size from TRI to L1.5
+//Always block to set request size from TRI to L1.5                                                                   (Verified)
 always @* begin
     case (byteenable_reg)
     4'b0001, 4'b0010, 4'b0100, 4'b1000: begin
@@ -322,7 +322,7 @@ always @* begin
 end
 //..........................................................................
 
-//Always block to set transducer_l15_val
+//Always block to set transducer_l15_val                                                                               (Verified)
 always @(posedge clk) begin
     if(transducer_l15_rqtype_reg == `IMISS_RQ & ~l15_transducer_header_ack & (state_wire != IFILL)) begin
         transducer_l15_val_reg <= 1'b1;
@@ -336,31 +336,27 @@ always @(posedge clk) begin
 end
 //..........................................................................
 
-//Always block to set transducer_l15_val and address to be sent to L1.5 for instructions
+//Always block to set transducer_l15_val and address to be sent to L1.5 for instructions                               (Verified)
 always @(posedge clk) begin
     if(transducer_l15_rqtype_reg == `IMISS_RQ & ~l15_transducer_header_ack & (state_wire != IFILL)) begin
-        //transducer_l15_val_reg <= 1'b1;
         transducer_l15_address_reg_ifill <= {addr_reg[31:5], 5'd0};
-        transducer_l15_val_next_reg <= 1'b0;
     end
     else if(l15_transducer_header_ack) begin
-        //transducer_l15_val_reg <= transducer_l15_val_next_reg;  
         transducer_l15_address_reg_ifill <= transducer_l15_address_reg_ifill;
         next_state <= IFILL;
     end
     else if(~rst_n) begin
         next_state <= 3'd0;
         transducer_l15_address_reg_ifill <= 32'd0;
-        //transducer_l15_val_reg <= 1'b0;
-        transducer_l15_val_next_reg <= 1'b0;
     end
-    else if(l15_transducer_returntype == `IFILL_RET & l15_transducer_val) begin
+    else if(l15_transducer_returntype == `IFILL_RET & l15_transducer_val) begin          //to set address to zero after receiving response from L1.5 for an ifill
         transducer_l15_address_reg_ifill <= 32'd0;
+        next_state <= 3'd0;
     end
 end
 //..........................................................................
 
-//Always block to flop address received from core 
+//Always block to flop address received from core                                                                      (Verified)
 always @(posedge clk) begin
   if (~rst_n) begin
     addr_reg <= 32'd0;
@@ -373,8 +369,8 @@ always @(posedge clk) begin
 end
 //..........................................................................
 
-//Always block to release reset into ao486 core
-always @ (posedge clk) begin
+//Always block to release reset into ao486 core                                                                        (Verified)
+always @ (posedge clk) begin                                 
     if (~rst_n) begin
         ao486_int_reg <= 1'b0;
     end
@@ -395,7 +391,7 @@ always @(posedge clk) begin
 end
 //..........................................................................
 
-//Always block to obtain interrupt from interrupt controller
+//Always block to obtain interrupt from interrupt controller                                                      (Verified)
 always @ * begin
    if (l15_transducer_val) begin
       case(l15_transducer_returntype)
