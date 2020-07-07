@@ -129,6 +129,13 @@ reg readcode_done_reg;
 reg readcode_partial_done_reg;
 reg [3:0] byteenable_reg;
 reg [2:0] req_size_read;
+reg double_access;
+reg [31:0] ifill_double_access_first_address;
+reg [31:0] ifill_double_access_second_address;
+reg [1:0] double_access_count;
+reg second_ifill_access_done;
+reg first_ifill_access_done;
+reg double_access_ifill_done;
 
 wire [1:0] counter_ifill_partial;
 wire [2:0] state_wire;
@@ -160,15 +167,15 @@ always @(posedge clk) begin
             end
             2'b01: begin
                 readcode_partial_reg <= ifill_return_partial_1;
-                readcode_line_reg <= {64'd0, ifill_return_partial_0, ifill_return_partial_1};
+                readcode_line_reg <= {64'd0, ifill_return_partial_1, ifill_return_partial_0};
             end
             2'b10: begin
                 readcode_partial_reg <= ifill_return_partial_2;
-                readcode_line_reg <= {32'd0, ifill_return_partial_0, ifill_return_partial_1, ifill_return_partial_2};
+                readcode_line_reg <= {32'd0, ifill_return_partial_2, ifill_return_partial_1, ifill_return_partial_0};
             end
             2'b11: begin 
                 readcode_partial_reg <= ifill_return_partial_3;
-                readcode_line_reg <= {ifill_return_partial_0, ifill_return_partial_1, ifill_return_partial_2, ifill_return_partial_3};
+                readcode_line_reg <= {ifill_return_partial_3, ifill_return_partial_2, ifill_return_partial_1, ifill_return_partial_0};
                 readcode_done_reg <= 1'b1;
                 readcode_partial_done_reg <= 1'b0;
             end
@@ -211,7 +218,7 @@ always @(posedge clk) begin
 end
 //..........................................................................
 
-//Always block for toggle for sending _readcode_partial signals to core                              (verified)          
+//Always block for toggle for sending _readcode_partial signals to core                          (has to be modified)          
 always @(*) begin
     if(request_readcode_done_reg & returntype_reg == `IFILL_RET) begin
         toggle_ifill_partial = 1'b1;
@@ -222,7 +229,7 @@ always @(*) begin
 end
 //..........................................................................
 
-//Always block to obtain request type from core and set flop_bus                                                 (Verified)
+//Always block to obtain request type from core and set flop_bus                                            (has to be modified)
 always @(*) begin
     if(request_readcode_do) begin
         flop_bus = 1'b1;
@@ -247,25 +254,82 @@ always @(*) begin
 end
 //..........................................................................
 
-//Always block to convert big endian to little endian for ifill                                                   (verified)
+//Always block to convert big endian to little endian for ifill                                             (has to be modified)
 always @(posedge clk) begin
-    if(l15_transducer_returntype == `IFILL_RET & l15_transducer_val == 1'b1) begin
-        returntype_reg <= `IFILL_RET;
-        ifill_return_partial_0 <= {l15_transducer_data_2[39:32], l15_transducer_data_2[47:40], l15_transducer_data_2[55:48], l15_transducer_data_2[63:56]};
-        ifill_return_partial_1 <= {l15_transducer_data_2[7:0], l15_transducer_data_2[15:8], l15_transducer_data_2[23:16], l15_transducer_data_2[31:24]};
-        ifill_return_partial_2 <= {l15_transducer_data_3[39:32], l15_transducer_data_3[47:40], l15_transducer_data_3[55:48], l15_transducer_data_3[63:56]};
-        ifill_return_partial_3 <= {l15_transducer_data_3[7:0], l15_transducer_data_3[15:8], l15_transducer_data_3[23:16], l15_transducer_data_3[31:24]};
-        request_readcode_done_reg <= 1'b1;
+    if(~double_access) begin
+        if(l15_transducer_returntype == `IFILL_RET & l15_transducer_val == 1'b1 & addr_reg[4:0] == 5'b10000) begin
+            returntype_reg <= `IFILL_RET;
+            ifill_return_partial_0 <= {l15_transducer_data_2[39:32], l15_transducer_data_2[47:40], l15_transducer_data_2[55:48], l15_transducer_data_2[63:56]};
+            ifill_return_partial_1 <= {l15_transducer_data_2[7:0], l15_transducer_data_2[15:8], l15_transducer_data_2[23:16], l15_transducer_data_2[31:24]};
+            ifill_return_partial_2 <= {l15_transducer_data_3[39:32], l15_transducer_data_3[47:40], l15_transducer_data_3[55:48], l15_transducer_data_3[63:56]};
+            ifill_return_partial_3 <= {l15_transducer_data_3[7:0], l15_transducer_data_3[15:8], l15_transducer_data_3[23:16], l15_transducer_data_3[31:24]};
+            request_readcode_done_reg <= 1'b1;
+        end
+        else if(l15_transducer_returntype == `IFILL_RET & l15_transducer_val == 1'b1 & addr_reg[4:0] == 5'd0) begin
+            returntype_reg <= `IFILL_RET;
+            ifill_return_partial_0 <= {l15_transducer_data_0[39:32], l15_transducer_data_0[47:40], l15_transducer_data_0[55:48], l15_transducer_data_0[63:56]};
+            ifill_return_partial_1 <= {l15_transducer_data_0[7:0], l15_transducer_data_0[15:8], l15_transducer_data_0[23:16], l15_transducer_data_0[31:24]};
+            ifill_return_partial_2 <= {l15_transducer_data_1[39:32], l15_transducer_data_1[47:40], l15_transducer_data_1[55:48], l15_transducer_data_3[63:56]};
+            ifill_return_partial_3 <= {l15_transducer_data_1[7:0], l15_transducer_data_1[15:8], l15_transducer_data_1[23:16], l15_transducer_data_1[31:24]};
+            request_readcode_done_reg <= 1'b1;
+        end
+        else if(l15_transducer_returntype == `IFILL_RET & l15_transducer_val == 1'b1 & addr_reg[3:0] == 4'b1000) begin
+            returntype_reg <= `IFILL_RET;
+            ifill_return_partial_0 <= {l15_transducer_data_1[39:32], l15_transducer_data_1[47:40], l15_transducer_data_1[55:48], l15_transducer_data_1[63:56]};
+            ifill_return_partial_1 <= {l15_transducer_data_1[7:0], l15_transducer_data_1[15:8], l15_transducer_data_1[23:16], l15_transducer_data_1[31:24]};
+            ifill_return_partial_2 <= {l15_transducer_data_2[39:32], l15_transducer_data_2[47:40], l15_transducer_data_2[55:48], l15_transducer_data_2[63:56]};
+            ifill_return_partial_3 <= {l15_transducer_data_2[7:0], l15_transducer_data_2[15:8], l15_transducer_data_2[23:16], l15_transducer_data_2[31:24]};
+            request_readcode_done_reg <= 1'b1;
+        end
+        /*else if(~rst_n) begin
+            ifill_return_partial_0 <= 32'd0;
+            ifill_return_partial_1 <= 32'd0;
+            ifill_return_partial_2 <= 32'd0;
+            ifill_return_partial_3 <= 32'd0;
+        end*/
+        else begin
+            request_readcode_done_reg <= 1'b0;
+            returntype_reg <= 1'b0;
+        end
+    end
+    else if(double_access) begin
+        if(l15_transducer_returntype == `IFILL_RET & l15_transducer_val == 1'b1 & (double_access_count == 2'd0)) begin
+            returntype_reg <= `IFILL_RET;
+            ifill_return_partial_0 <= {l15_transducer_data_3[39:32], l15_transducer_data_3[47:40], l15_transducer_data_3[55:48], l15_transducer_data_3[63:56]};
+            ifill_return_partial_1 <= {l15_transducer_data_3[7:0], l15_transducer_data_3[15:8], l15_transducer_data_3[23:16], l15_transducer_data_3[31:24]};
+            first_ifill_access_done <= 1'b1;
+            second_ifill_access_done <= 1'b0;
+            //request_readcode_done_reg <= 1'b1;
+        end
+        else if(l15_transducer_returntype == `IFILL_RET & l15_transducer_val == 1'b1 & (double_access_count == 2'd1)) begin
+            returntype_reg <= `IFILL_RET;
+            ifill_return_partial_2 <= {l15_transducer_data_0[39:32], l15_transducer_data_0[47:40], l15_transducer_data_0[55:48], l15_transducer_data_0[63:56]};
+            ifill_return_partial_3 <= {l15_transducer_data_0[7:0], l15_transducer_data_0[15:8], l15_transducer_data_0[23:16], l15_transducer_data_0[31:24]};
+            request_readcode_done_reg <= 1'b1;
+            second_ifill_access_done <= 1'b1;
+            first_ifill_access_done <= 1'b0;
+        end
+        /*else if(~rst_n) begin
+            ifill_return_partial_0 <= 32'd0;
+            ifill_return_partial_1 <= 32'd0;
+            ifill_return_partial_2 <= 32'd0;
+            ifill_return_partial_3 <= 32'd0;
+            first_ifill_access_done <= 1'b0;
+            second_ifill_access_done <= 1'b0;
+        end*/
+        else begin
+            request_readcode_done_reg <= 1'b0;
+            returntype_reg <= 1'b0;
+            second_ifill_access_done <= 1'b0;
+        end
     end
     else if(~rst_n) begin
         ifill_return_partial_0 <= 32'd0;
         ifill_return_partial_1 <= 32'd0;
         ifill_return_partial_2 <= 32'd0;
         ifill_return_partial_3 <= 32'd0;
-    end
-    else begin
-        request_readcode_done_reg <= 1'b0;
-        returntype_reg <= 1'b0;
+        first_ifill_access_done <= 1'b0;
+        second_ifill_access_done <= 1'b0;
     end
 end
 //..........................................................................
@@ -281,18 +345,142 @@ always @(*) begin
 end
 //..........................................................................
 
-//Always block to send ifill request type to L1.5                                                                     (Verified)
+//always block to finish double access ifill response
+always @(*) begin
+    if(l15_transducer_val & (double_access_count == 2'd1)) begin
+        double_access_ifill_done = 1'b1;
+    end
+    else begin
+        double_access_ifill_done = 1'b0;
+    end
+end
+//..........................................................................
+
+//Always block to send ifill request type to L1.5                                                           (Has to be modified)
 always @(posedge clk) begin
     if(req_type == IFILL & (~ifill_response)) begin
         transducer_l15_rqtype_reg <= `IMISS_RQ;
     end
-    else if(l15_transducer_returntype == `IFILL_RET & l15_transducer_val) begin       //to set request type to zero after receiving response from L1.5 for an ifill
+    else if(l15_transducer_returntype == `IFILL_RET & l15_transducer_val & (~double_access | double_access_ifill_done)) begin       //to set request type to zero after receiving response from L1.5 for an ifill
         transducer_l15_rqtype_reg <= 5'd0;
     end
     else if (~rst_n) begin
         transducer_l15_rqtype_reg <= 5'd0;
     end
 end    
+//..........................................................................
+
+//Always block to set transducer_l15_val                                                                               (Verified)
+always @(posedge clk) begin
+    if(transducer_l15_rqtype_reg == `IMISS_RQ & ~l15_transducer_header_ack & (state_wire != IFILL)) begin
+        transducer_l15_val_reg <= 1'b1;
+    end
+    else if(l15_transducer_header_ack) begin
+        transducer_l15_val_reg <= 1'b0;  
+    end
+    else if(~rst_n) begin
+        transducer_l15_val_reg <= 1'b0;
+    end
+end
+//..........................................................................
+
+//Always block to set transducer_l15_val and address to be sent to L1.5 for instructions                               (Modified)
+always @(posedge clk) begin
+    if(~double_access) begin       
+        if(transducer_l15_rqtype_reg == `IMISS_RQ & ~l15_transducer_header_ack & (state_wire != IFILL)) begin
+            transducer_l15_address_reg_ifill <= {addr_reg[31:5], 5'd0};
+        end
+        else if(l15_transducer_header_ack) begin
+            transducer_l15_address_reg_ifill <= transducer_l15_address_reg_ifill;
+            next_state <= IFILL;
+        end
+        else if(~rst_n) begin
+            next_state <= 3'd0;
+            transducer_l15_address_reg_ifill <= 32'd0;
+        end
+        else if(l15_transducer_returntype == `IFILL_RET & l15_transducer_val) begin          //to set address to zero after receiving response from L1.5 for an ifill
+            transducer_l15_address_reg_ifill <= 32'd0;
+            next_state <= 3'd0;
+        end
+    end
+    else if(double_access) begin
+        if(transducer_l15_rqtype_reg == `IMISS_RQ & ~l15_transducer_header_ack & (state_wire != IFILL) & (~first_ifill_access_done)) begin
+            transducer_l15_address_reg_ifill <= {ifill_double_access_first_address[31:5], 5'd0};
+            double_access_count <= 2'd0;
+        end
+        else if(l15_transducer_header_ack) begin
+            transducer_l15_address_reg_ifill <= transducer_l15_address_reg_ifill;
+            next_state <= IFILL;
+        end
+        else if(~rst_n) begin
+            next_state <= 3'd0;
+            double_access_count <= 2'd0;
+            transducer_l15_address_reg_ifill <= 32'd0;
+        end
+        else if(l15_transducer_returntype == `IFILL_RET & l15_transducer_val) begin          
+            if(~second_ifill_access_done) begin
+                transducer_l15_address_reg_ifill <= {ifill_double_access_second_address[31:5], 5'd0};
+                double_access_count <= 2'd1;
+                next_state <= 3'd0;
+            end
+            else if(second_ifill_access_done) begin
+                next_state <= 3'd0;
+                transducer_l15_address_reg_ifill <= 32'd0;
+                double_access_count <= 2'd2;
+            end
+        end
+    end        
+end
+//..........................................................................
+
+//Always block to flop address received from core                                                                      (Modified)
+always @(posedge clk) begin
+  if (~rst_n) begin
+    addr_reg <= 32'd0;
+    byteenable_reg <= 4'd0;
+    double_access <= 1'b0;
+    ifill_double_access_first_address <= 32'd0;
+    ifill_double_access_second_address <= 32'd0;
+  end 
+  else if (flop_bus) begin
+    if(request_readcode_address[4] & (| request_readcode_address[3:2])) begin
+        double_access <= 1'b1;
+        byteenable_reg <= 4'hF;
+        ifill_double_access_first_address <= {request_readcode_address[31:6], 1'b0, request_readcode_address[4:0]};
+        ifill_double_access_second_address <= {request_readcode_address[31:6], 1'b1, request_readcode_address[4:0]};
+    end
+    else begin
+        addr_reg <= request_readcode_address;
+        byteenable_reg <= 4'hF;
+        double_access <= 1'b0;
+    end
+  end
+  else if(l15_transducer_returntype == `IFILL_RET & l15_transducer_val == 1'b1 & (double_access_count == 2'd1)) begin
+      double_access <= 1'b0;
+  end
+end
+//..........................................................................
+
+//Always block to release reset into ao486 core                                                                        (Verified)
+always @ (posedge clk) begin                                 
+    if (~rst_n) begin
+        ao486_int_reg <= 1'b0;
+    end
+    else if (int_recv) begin
+        ao486_int_reg <= 1'b1;
+    end
+    else if (ao486_int_reg) begin
+        ao486_int_reg <= 1'b0;
+    end
+end
+//..........................................................................
+
+//always block to set state of TRI                                                                        (not used right now)  
+always @(posedge clk) begin
+    if(~rst_n) begin
+        state <= IDLE;
+    end
+end
 //..........................................................................
 
 //Always block to set request size from TRI to L1.5                                                                   (Verified)
@@ -314,75 +502,6 @@ always @* begin
         req_size_read = 3'd0;
     end
     endcase
-end
-//..........................................................................
-
-//Always block to set transducer_l15_val                                                                               (Verified)
-always @(posedge clk) begin
-    if(transducer_l15_rqtype_reg == `IMISS_RQ & ~l15_transducer_header_ack & (state_wire != IFILL)) begin
-        transducer_l15_val_reg <= 1'b1;
-    end
-    else if(l15_transducer_header_ack) begin
-        transducer_l15_val_reg <= 1'b0;  
-    end
-    else if(~rst_n) begin
-        transducer_l15_val_reg <= 1'b0;
-    end
-end
-//..........................................................................
-
-//Always block to set transducer_l15_val and address to be sent to L1.5 for instructions                               (Verified)
-always @(posedge clk) begin
-    if(transducer_l15_rqtype_reg == `IMISS_RQ & ~l15_transducer_header_ack & (state_wire != IFILL)) begin
-        transducer_l15_address_reg_ifill <= {addr_reg[31:5], 5'd0};
-    end
-    else if(l15_transducer_header_ack) begin
-        transducer_l15_address_reg_ifill <= transducer_l15_address_reg_ifill;
-        next_state <= IFILL;
-    end
-    else if(~rst_n) begin
-        next_state <= 3'd0;
-        transducer_l15_address_reg_ifill <= 32'd0;
-    end
-    else if(l15_transducer_returntype == `IFILL_RET & l15_transducer_val) begin          //to set address to zero after receiving response from L1.5 for an ifill
-        transducer_l15_address_reg_ifill <= 32'd0;
-        next_state <= 3'd0;
-    end
-end
-//..........................................................................
-
-//Always block to flop address received from core                                                                      (Verified)
-always @(posedge clk) begin
-  if (~rst_n) begin
-    addr_reg <= 32'd0;
-    byteenable_reg <= 4'd0;
-  end 
-  else if (flop_bus) begin
-    addr_reg <= request_readcode_address;
-    byteenable_reg <= 4'hF;
-  end
-end
-//..........................................................................
-
-//Always block to release reset into ao486 core                                                                        (Verified)
-always @ (posedge clk) begin                                 
-    if (~rst_n) begin
-        ao486_int_reg <= 1'b0;
-    end
-    else if (int_recv) begin
-        ao486_int_reg <= 1'b1;
-    end
-    /*else if (ao486_int_reg) begin
-        ao486_int_reg <= 1'b0;
-    end*/
-end
-//..........................................................................
-
-//always block to set state of TRI                                                                        (not used right now)  
-always @(posedge clk) begin
-    if(~rst_n) begin
-        state <= IDLE;
-    end
 end
 //..........................................................................
 
