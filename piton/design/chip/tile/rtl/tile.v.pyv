@@ -1091,16 +1091,20 @@ if (TILE_TYPE == `AO486_TILE) begin : g_ao486_core
     wire                           interrupt_done;
     
     //New signals for bypassing Avalon
-    wire [31:0]                    request_readcode_address;
-    wire                           request_readcode_do;
-    wire [31:0]                    request_readline_address;
-    wire                           request_readline_do;
-    wire [31:0]                    request_readburst_address;
-    wire                           request_readburst_do;
+    wire [31:0]                    ao486_transducer_ifill_req_readcode_address;
+    wire                           ao486_transducer_ifill_req_readcode_do;
+    wire [31:0]                    ao486_transducer_store_req_writeburst_address;
+    wire                           ao486_transducer_store_req_writeburst_do;
+    wire [1:0]                     ao486_transducer_store_req_writeburst_dword_length;
+    wire [55:0]                    ao486_transducer_store_req_writeburst_data;
+    wire [3:0]                     ao486_transducer_store_req_writeburst_length;
+    wire [31:0]                    ao486_transducer_load_req_readburst_address;
+    wire                           ao486_transducer_load_req_readburst_do;
     wire                           transducer_ao486_request_readcode_done;
     wire [127:0]                   transducer_ao486_readcode_line;
     wire [31:0]                    transducer_ao486_readcode_partial;
     wire                           transducer_ao486_readcode_partial_done;
+    wire                           transducer_ao486_writeburst_done;
 
     pico_reset pico_reset(
         .gclk(clk_gated),
@@ -1159,19 +1163,24 @@ if (TILE_TYPE == `AO486_TILE) begin : g_ao486_core
         .state_transducer           (state_transducer),
 
         //New signals for bypassing Avalon (Outputs from core)
-        .request_readcode_do        (request_readcode_do),
-        .request_readcode_address   (request_readcode_address),
-        .request_readline_do        (request_readline_do),
-        .request_readline_address   (request_readline_address),
-        .request_readburst_do       (request_readburst_do),
-        .request_readburst_address  (request_readburst_address),
+
+        .ifill_req_readcode_do             (ao486_transducer_ifill_req_readcode_do),
+        .ifill_req_readcode_address        (ao486_transducer_ifill_req_readcode_address),
+        .store_req_writeburst_do           (ao486_transducer_store_req_writeburst_do),
+        .store_req_writeburst_address      (ao486_transducer_store_req_writeburst_address),
+        .store_req_writeburst_dword_length (ao486_transducer_store_req_writeburst_dword_length),
+        .store_req_writeburst_data         (ao486_transducer_store_req_writeburst_data),
+        .store_req_writeburst_length       (ao486_transducer_store_req_writeburst_length),
+        .load_req_readburst_do             (ao486_transducer_load_req_readburst_do),
+        .load_req_readburst_address        (ao486_transducer_load_req_readburst_address),
         
         //New signals for bypassing Avalon (Inputs to core)
 
         .transducer_ao486_readcode_done         (transducer_ao486_request_readcode_done),
         .transducer_ao486_readcode_line         (transducer_ao486_readcode_line),
         .transducer_ao486_readcode_partial      (transducer_ao486_readcode_partial),
-        .transducer_ao486_readcode_partial_done (transducer_ao486_readcode_partial_done)
+        .transducer_ao486_readcode_partial_done (transducer_ao486_readcode_partial_done),
+        .transducer_ao486_writeburst_done       (transducer_ao486_writeburst_done)
     );
 
     ao486_l15_tri ao486_l15_tri(
@@ -1209,18 +1218,22 @@ if (TILE_TYPE == `AO486_TILE) begin : g_ao486_core
         .l15_transducer_val                       (l15_transducer_val),
 
         //ao486 core -> ao486 transducer
-        .request_readcode_do                      (request_readcode_do),
-        .request_readcode_address                 (request_readcode_address),
-        .request_readline_do                      (request_readline_do),
-        .request_readline_address                 (request_readline_address),
-        .request_readburst_do                     (request_readburst_do),
-        .request_readburst_address                (request_readburst_address),
+        .ao486_transducer_ifill_req_readcode_do             (ao486_transducer_ifill_req_readcode_do),
+        .ao486_transducer_ifill_req_readcode_address        (ao486_transducer_ifill_req_readcode_address),
+        .ao486_transducer_store_req_writeburst_do           (ao486_transducer_store_req_writeburst_do),
+        .ao486_transducer_store_req_writeburst_address      (ao486_transducer_store_req_writeburst_address),
+        .ao486_transducer_store_req_writeburst_dword_length (ao486_transducer_store_req_writeburst_dword_length),
+        .ao486_transducer_store_req_writeburst_data         (ao486_transducer_store_req_writeburst_data),
+        .ao486_transducer_store_req_writeburst_length       (ao486_transducer_store_req_writeburst_length),
+        .ao486_transducer_load_req_readburst_do             (ao486_transducer_load_req_readburst_do),
+        .ao486_transducer_load_req_readburst_address        (ao486_transducer_load_req_readburst_address),
 
         //ao486 transducer -> ao486 core
         .transducer_ao486_readcode_partial        (transducer_ao486_readcode_partial),
         .transducer_ao486_readcode_line           (transducer_ao486_readcode_line),
         .transducer_ao486_request_readcode_done   (transducer_ao486_request_readcode_done),
         .transducer_ao486_readcode_partial_done   (transducer_ao486_readcode_partial_done),
+        .transducer_ao486_writeburst_done         (transducer_ao486_writeburst_done),
         .ao486_int                                (ao486_int)        
     );
 

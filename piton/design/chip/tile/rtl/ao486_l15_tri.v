@@ -23,7 +23,7 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-module ao486_l15_tri(
+module ao486_l15_tri(   
     input clk,
     input rst_n,
 
@@ -61,12 +61,17 @@ module ao486_l15_tri(
 
     //Inputs dealing with transducer and core (core -> transducer)
 
-    input          request_readcode_do,
-    input [31:0]   request_readcode_address,
-    input          request_readline_do,
-    input [31:0]   request_readline_address,
-    input          request_readburst_do,
-    input [31:0]   request_readburst_address,
+    input          ao486_transducer_ifill_req_readcode_do,
+    input [31:0]   ao486_transducer_ifill_req_readcode_address,
+
+    input          ao486_transducer_store_req_writeburst_do,
+    input [31:0]   ao486_transducer_store_req_writeburst_address,
+    input [1:0]    ao486_transducer_store_req_writeburst_dword_length,
+    input [55:0]   ao486_transducer_store_req_writeburst_data,
+    input [3:0]    ao486_transducer_store_req_writeburst_length,
+
+    input          ao486_transducer_load_req_readburst_do,
+    input [31:0]   ao486_transducer_load_req_readburst_address,
 
     //Outpts from transducer to core
 
@@ -74,11 +79,14 @@ module ao486_l15_tri(
     output [127:0] transducer_ao486_readcode_line,
     output         transducer_ao486_request_readcode_done,
     output         transducer_ao486_readcode_partial_done,
+
+    output         transducer_ao486_writeburst_done,
+
     output         ao486_int
 );
 
 //Tying off all outputs not being generated
-    assign transducer_l15_data = 64'd0;
+    //assign transducer_l15_data = 64'd0;
     assign transducer_l15_data_next_entry = 64'd0;
     assign transducer_l15_amo_op = 4'd0;
     assign transducer_l15_nc = 0;
@@ -97,14 +105,16 @@ module ao486_l15_tri(
 localparam IDLE  = 3'b000;
 localparam NEW   = 3'b001;
 localparam BUSY  = 3'b010;
-localparam WRITE = 3'b100;
+localparam STORE = 3'b100;
 localparam READ  = 3'b011;
 localparam IFILL = 3'b101;
+localparam ALIGNED_STORE = 2'b0;
+localparam UNALIGNED_STORE = 2'b11;
 
-reg [2:0] state;                            //Current state of processor <-> OP interface
-reg [2:0] next_state;                       //Next state of processor <-> OP interface
-reg [2:0] req_type;                         //Meant for READ/WRITE requests 
-reg [31:0] addr_reg;                        //Reg to store address received from ao486 (request_readcode_address)
+reg [2:0] state_reg;                   //Current state of processor <-> OP interface
+reg [2:0] next_state;              //Next state of processor <-> OP interface
+reg [2:0] req_type;                //Meant for READ/WRITE requests 
+reg [31:0] addr_reg;               //Reg to store address received from ao486 (ao486_transducer_ifill_req_readcode_address)
 reg flop_bus;
 reg int_recv;
 reg ao486_int_reg;
@@ -115,10 +125,6 @@ reg transducer_l15_val_next_reg;
 reg transducer_l15_req_ack_reg;
 reg [3:0] returntype_reg;
 reg request_readcode_done_reg;
-reg [31:0] ifill_return_partial_0;
-reg [31:0] ifill_return_partial_1;
-reg [31:0] ifill_return_partial_2;
-reg [31:0] ifill_return_partial_3;
 reg [31:0] readcode_partial_reg;
 reg [127:0] readcode_line_reg;
 reg ifill_response;
@@ -140,6 +146,25 @@ reg [511:0] l15_transducer_data_vector_ifill;
 reg [7:0] ifill_index;
 reg [1:0] ifill_index_counter;
 reg reset_ifill_index_counter;
+reg ifill_response_received;
+reg interrupt_received;
+
+reg flop_bus_store;
+reg [31:0] addr_reg_store;
+reg [55:0] writeburst_data_reg;
+reg [2:0] writeburst_length_reg;
+reg new_store_req;
+reg [1:0] number_of_store_requests;
+reg [1:0] alignment_store;
+reg single_store;
+reg double_store;
+reg triple_store;
+reg [63:0] transducer_l15_data_reg;
+reg store_response_received;
+reg [39:0] transducer_l15_address_reg_store;
+reg [2:0] next_state_store;
+
+reg request_processing;
 
 wire [1:0] counter_ifill_partial;
 wire [2:0] state_wire;
@@ -148,7 +173,7 @@ wire [2:0] state_wire;
 //Assign statements
 assign ao486_int = ao486_int_reg;
 assign transducer_l15_val = transducer_l15_val_reg;
-assign transducer_l15_address = {{8{transducer_l15_address_reg_ifill[31]}}, transducer_l15_address_reg_ifill};
+assign transducer_l15_address = (state_reg == IFILL) ? {{8{transducer_l15_address_reg_ifill[31]}}, transducer_l15_address_reg_ifill} : transducer_l15_address_reg_store;
 assign transducer_l15_rqtype = transducer_l15_rqtype_reg;
 assign transducer_l15_req_ack = transducer_l15_req_ack_reg;
 assign transducer_ao486_request_readcode_done = readcode_done_reg;
@@ -158,6 +183,73 @@ assign state_wire = next_state;
 assign counter_ifill_partial = counter_state_ifill_partial;
 assign transducer_ao486_readcode_partial_done = readcode_partial_done_reg;
 assign transducer_l15_size = req_size_read;
+assign transducer_l15_data = transducer_l15_data_reg;
+
+//assign transducer_ao486_writeburst_done = 0;
+//..........................................................................
+
+//always block to decide number of store requests required to be sent to L1.5 
+always @* begin
+    if(new_store_req) begin
+        case (writeburst_length_reg)
+            3'b001: begin
+                number_of_store_requests = 2'b01;
+                alignment_store = ALIGNED_STORE;
+            end
+            3'b010: begin
+                if(~addr_reg_store[0]) begin
+                    alignment_store = ALIGNED_STORE;
+                    number_of_store_requests = 2'b01;
+                end
+                else if(addr_reg_store[0]) begin
+                    alignment_store = UNALIGNED_STORE;
+                    number_of_store_requests = 2'b10;
+                end
+            end
+            3'b011: begin
+                alignment_store = UNALIGNED_STORE;
+            end
+            3'b100: begin
+            end
+        endcase
+    end
+    else if(~rst_n) begin
+        number_of_store_requests = 2'b00;
+        alignment_store = 2'b00;
+    end
+end     
+//..........................................................................
+
+//always block to assign transducer -> L1.5 signals for different store requests
+always @(posedge clk) begin
+    if(number_of_store_requests == 2'b01) begin
+        single_store <= 1;
+        addr_reg_store <= addr_reg_store;
+        writeburst_data_reg <= writeburst_data_reg;
+        transducer_l15_data_reg <= {writeburst_data_reg[7:0], writeburst_data_reg[15:8], writeburst_data_reg[23:16], writeburst_data_reg[31:24],writeburst_data_reg[7:0], writeburst_data_reg[15:8], writeburst_data_reg[23:16], writeburst_data_reg[31:24]};
+    end
+    else if(~rst_n) begin
+        transducer_l15_data_reg <= 0;
+        single_store <= 0;
+    end
+end
+//..........................................................................
+
+//always block to set address for store requests
+always @(posedge clk) begin
+    if(transducer_l15_rqtype_reg == `STORE_RQ & ~l15_transducer_header_ack) begin
+        transducer_l15_address_reg_store <= {8'b0, addr_reg_store};
+    end
+    else if(l15_transducer_header_ack) begin
+        transducer_l15_address_reg_store <= transducer_l15_address_reg_store;
+    end
+    else if(~rst_n) begin
+        transducer_l15_address_reg_store <= 0;
+    end
+    else if(l15_transducer_returntype == `ST_ACK & l15_transducer_val) begin
+       transducer_l15_address_reg_store <= 0;
+    end
+end
 //..........................................................................
 
 //always block to flop readcode_line_reg signal                                               (verified)
@@ -243,11 +335,35 @@ always @(*) begin
 end
 //..........................................................................
 
+//always block to set flop_bus_store for store request
+always @* begin
+    if(ao486_transducer_store_req_writeburst_do) begin
+        flop_bus_store = 1'b1;
+    end
+    else begin
+        flop_bus_store = 0;
+    end
+end
+//..........................................................................
+
+//always block to set req_type
+always @* begin
+    if(ao486_transducer_ifill_req_readcode_do) begin
+        req_type = IFILL;
+    end
+    else if(ao486_transducer_store_req_writeburst_do) begin
+        req_type = STORE;
+    end
+    else if(~rst_n) begin
+        req_type = 3'd0;
+    end
+end
+//..........................................................................
+
 //Always block to obtain request type from core and set flop_bus                                            (verified)
 always @(*) begin
-    if(request_readcode_do) begin
+    if(ao486_transducer_ifill_req_readcode_do) begin
         flop_bus = 1'b1;
-        req_type = IFILL;
         ifill_response = 1'b0;
     end
     else if(l15_transducer_returntype == `IFILL_RET & l15_transducer_val) begin  
@@ -255,7 +371,6 @@ always @(*) begin
     end
     else begin
         flop_bus = 1'b0;    
-        req_type = 3'd0;
     end
 end
 //..........................................................................
@@ -352,16 +467,62 @@ always @(*) begin
 end
 //..........................................................................
 
+//always block to set which request is being processed by TRI
+always @(*) begin
+    if(req_type == IFILL & (~ifill_response) & (store_response_received | interrupt_received)/* & ~request_processing*/) begin
+        state_reg = IFILL;
+    end
+    else if(l15_transducer_returntype == `IFILL_RET & l15_transducer_val & (~double_access | double_access_ifill_done)) begin
+        state_reg = IDLE;
+    end
+    else if(req_type == STORE & ifill_response_received/* & ~request_processing*/) begin
+        state_reg = STORE;
+    end
+    else if(l15_transducer_returntype == `ST_ACK & l15_transducer_val) begin
+        state_reg = IDLE;
+    end
+    else if(~rst_n) begin
+        state_reg = IDLE;
+    end
+end
+//..........................................................................
+
+//always block to check if a request is being processed before transferring new request to L1.5
+always @(posedge clk) begin
+    if(ifill_response_received | store_response_received) begin
+        request_processing <= 0;
+    end
+    else if(~ifill_response_received | ~store_response_received) begin
+        request_processing <= 1;
+    end
+    else if(~rst_n) begin
+        request_processing <= 0;
+    end
+end
+//..........................................................................
+
 //Always block to send ifill request type to L1.5                                                           (verified)
 always @(posedge clk) begin
-    if(req_type == IFILL & (~ifill_response)) begin
+    if(req_type == IFILL & (~ifill_response) & state_reg == IFILL) begin
         transducer_l15_rqtype_reg <= `IMISS_RQ;
+        ifill_response_received <= 0;
     end
     else if(l15_transducer_returntype == `IFILL_RET & l15_transducer_val & (~double_access | double_access_ifill_done)) begin       //to set request type to zero after receiving response from L1.5 for an ifill
         transducer_l15_rqtype_reg <= 5'd0;
+        ifill_response_received <= 1;
+    end
+    else if(req_type == STORE & state_reg == STORE) begin
+        transducer_l15_rqtype_reg <= `STORE_RQ;
+        store_response_received <= 0;
+    end
+    else if(l15_transducer_returntype == `ST_ACK & l15_transducer_val) begin
+        transducer_l15_rqtype_reg <= 5'd0;
+        store_response_received <= 1;
     end
     else if (~rst_n) begin
         transducer_l15_rqtype_reg <= 5'd0;
+        ifill_response_received <= 0;
+        store_response_received <= 0;
     end
 end    
 //..........................................................................
@@ -374,13 +535,30 @@ always @(posedge clk) begin
     else if(l15_transducer_header_ack) begin
         transducer_l15_val_reg <= 1'b0;  
     end
+    else if(state_reg == STORE & transducer_l15_rqtype_reg == `STORE_RQ & ~l15_transducer_header_ack & (next_state_store != STORE)) begin
+        transducer_l15_val_reg <= 1'b1;
+    end
     else if(~rst_n) begin
         transducer_l15_val_reg <= 1'b0;
     end
 end
 //..........................................................................
 
-//Always block to set transducer_l15_val and address to be sent to L1.5 for instructions                               (verified)
+//always block to keep transducer_l15_val low once request is sent
+always @(posedge clk) begin
+    if(~rst_n) begin
+        next_state_store <= 3'b0;
+    end
+    else if(l15_transducer_header_ack & transducer_l15_rqtype_reg == `STORE_RQ) begin
+        next_state_store <= STORE;  
+    end
+    else if(l15_transducer_returntype == `ST_ACK & l15_transducer_val) begin
+        next_state_store <= 3'b0;
+    end
+end
+//..........................................................................
+
+//Always block to set address to be sent to L1.5 for instructions                               (verified)
 always @(posedge clk) begin
     if(~double_access) begin       
         if(transducer_l15_rqtype_reg == `IMISS_RQ & ~l15_transducer_header_ack & (state_wire != IFILL)) begin
@@ -426,7 +604,43 @@ always @(posedge clk) begin
                 double_access_count <= 2'd2;
             end
         end
-    end        
+    end       
+end
+//..........................................................................
+
+//always block to flop address for store request
+always @(posedge clk) begin
+    if(~rst_n) begin
+        addr_reg_store <= 32'd0;
+        writeburst_data_reg <= 56'd0;
+        writeburst_length_reg <= 3'd0;
+        new_store_req <= 0;
+    end
+    else if(flop_bus_store) begin
+        addr_reg_store <= ao486_transducer_store_req_writeburst_address;
+        writeburst_data_reg <= ao486_transducer_store_req_writeburst_data;
+        writeburst_length_reg <= ao486_transducer_store_req_writeburst_length[2:0];
+        new_store_req <= 1'b1;
+    end
+end
+//..........................................................................
+
+//always block to set byteenable_reg; to be used in case statements for transducer_l15_size
+always @(posedge clk) begin
+    if(~rst_n) begin
+        byteenable_reg <= 4'd0;
+    end
+    else if(state_reg == IFILL) begin
+        byteenable_reg <= 4'hF;
+    end
+    else if(state_reg == STORE) begin
+        if(writeburst_length_reg == 3'b001 & number_of_store_requests == 1) begin
+            byteenable_reg <= 4'b0001;
+        end
+        else if(number_of_store_requests == 2'b10 & alignment_store == ALIGNED_STORE) begin
+            byteenable_reg <= 4'b0011;
+        end
+    end
 end
 //..........................................................................
 
@@ -434,41 +648,24 @@ end
 always @(posedge clk) begin
   if (~rst_n) begin
     addr_reg <= 32'd0;
-    byteenable_reg <= 4'd0;
     double_access <= 1'b0;
     ifill_double_access_first_address <= 32'd0;
     ifill_double_access_second_address <= 32'd0;
   end 
   else if (flop_bus) begin
-    if(request_readcode_address[4] & (| request_readcode_address[3:2])) begin
+    if(ao486_transducer_ifill_req_readcode_address[4] & (| ao486_transducer_ifill_req_readcode_address[3:2])) begin
         double_access <= 1'b1;
-        byteenable_reg <= 4'hF;
-        ifill_double_access_first_address <= {request_readcode_address[31:6], 1'b0, request_readcode_address[4:0]};
-        ifill_double_access_second_address <= {request_readcode_address[31:6], 1'b1, request_readcode_address[4:0]};
+        ifill_double_access_first_address <= {ao486_transducer_ifill_req_readcode_address[31:6], 1'b0, ao486_transducer_ifill_req_readcode_address[4:0]};
+        ifill_double_access_second_address <= {ao486_transducer_ifill_req_readcode_address[31:6], 1'b1, ao486_transducer_ifill_req_readcode_address[4:0]};
     end
     else begin
-        addr_reg <= request_readcode_address;
-        byteenable_reg <= 4'hF;
+        addr_reg <= ao486_transducer_ifill_req_readcode_address;
         double_access <= 1'b0;
     end
   end
   else if(l15_transducer_returntype == `IFILL_RET & l15_transducer_val == 1'b1 & (double_access_count == 2'd1)) begin
       double_access <= 1'b0;
   end
-end
-//..........................................................................
-
-//Always block to release reset into ao486 core                                                                        (Verified)
-always @ (posedge clk) begin                                 
-    if (~rst_n) begin
-        ao486_int_reg <= 1'b0;
-    end
-    else if (int_recv) begin
-        ao486_int_reg <= 1'b1;
-    end
-    else if (ao486_int_reg) begin
-        ao486_int_reg <= 1'b0;
-    end
 end
 //..........................................................................
 
@@ -493,6 +690,33 @@ always @* begin
     endcase
 end
 //..........................................................................
+
+
+//Always block to release reset into ao486 core                                                                        (Verified)
+always @ (posedge clk) begin                                 
+    if (~rst_n) begin
+        ao486_int_reg <= 1'b0;
+    end
+    else if (int_recv) begin
+        ao486_int_reg <= 1'b1;
+    end
+    else if (ao486_int_reg) begin
+        ao486_int_reg <= 1'b0;
+    end
+end
+//..........................................................................
+
+always @(posedge clk) begin
+    if(ao486_transducer_store_req_writeburst_do) begin
+        interrupt_received <= 1'b0;
+    end
+    else if(l15_transducer_val & l15_transducer_returntype == `INT_RET) begin
+        interrupt_received <= 1'b1;
+    end
+    else if(~rst_n) begin
+        interrupt_received <= 1'b0;
+    end
+end
 
 //Always block to obtain interrupt from interrupt controller                                                      (Verified)
 always @ * begin
