@@ -163,6 +163,7 @@ reg [63:0] transducer_l15_data_reg;
 reg store_response_received;
 reg [39:0] transducer_l15_address_reg_store;
 reg [2:0] next_state_store;
+reg writeburst_done_reg;
 
 reg request_processing;
 
@@ -173,7 +174,7 @@ wire [2:0] state_wire;
 //Assign statements
 assign ao486_int = ao486_int_reg;
 assign transducer_l15_val = transducer_l15_val_reg;
-assign transducer_l15_address = (state_reg == IFILL) ? {{8{transducer_l15_address_reg_ifill[31]}}, transducer_l15_address_reg_ifill} : transducer_l15_address_reg_store;
+assign transducer_l15_address = (state_reg == IFILL) ? {{8{transducer_l15_address_reg_ifill[31]}}, transducer_l15_address_reg_ifill} : (state_reg == STORE) ? transducer_l15_address_reg_store : 40'b0;
 assign transducer_l15_rqtype = transducer_l15_rqtype_reg;
 assign transducer_l15_req_ack = transducer_l15_req_ack_reg;
 assign transducer_ao486_request_readcode_done = readcode_done_reg;
@@ -185,7 +186,7 @@ assign transducer_ao486_readcode_partial_done = readcode_partial_done_reg;
 assign transducer_l15_size = req_size_read;
 assign transducer_l15_data = transducer_l15_data_reg;
 
-//assign transducer_ao486_writeburst_done = 0;
+assign transducer_ao486_writeburst_done = writeburst_done_reg;
 //..........................................................................
 
 //always block to decide number of store requests required to be sent to L1.5 
@@ -231,6 +232,19 @@ always @(posedge clk) begin
     else if(~rst_n) begin
         transducer_l15_data_reg <= 0;
         single_store <= 0;
+    end
+end
+//..........................................................................
+
+//always block to set writeburst_done signal upon receiving store acknowledgement from L1.5
+always @(posedge clk) begin
+    if(number_of_store_requests == 2'b01) begin
+        if(l15_transducer_returntype == `ST_ACK & l15_transducer_val) begin
+            writeburst_done_reg <= 1;
+        end
+        else begin
+            writeburst_done_reg <= 0;
+        end
     end
 end
 //..........................................................................
@@ -564,7 +578,7 @@ always @(posedge clk) begin
         if(transducer_l15_rqtype_reg == `IMISS_RQ & ~l15_transducer_header_ack & (state_wire != IFILL)) begin
             transducer_l15_address_reg_ifill <= {addr_reg[31:5], 5'd0};
         end
-        else if(l15_transducer_header_ack) begin
+        else if(l15_transducer_header_ack & state_reg == IFILL) begin
             transducer_l15_address_reg_ifill <= transducer_l15_address_reg_ifill;
             next_state <= IFILL;
         end
@@ -691,7 +705,6 @@ always @* begin
 end
 //..........................................................................
 
-
 //Always block to release reset into ao486 core                                                                        (Verified)
 always @ (posedge clk) begin                                 
     if (~rst_n) begin
@@ -706,6 +719,7 @@ always @ (posedge clk) begin
 end
 //..........................................................................
 
+//always block to trigger first ifill request-response
 always @(posedge clk) begin
     if(ao486_transducer_store_req_writeburst_do) begin
         interrupt_received <= 1'b0;
@@ -717,6 +731,7 @@ always @(posedge clk) begin
         interrupt_received <= 1'b0;
     end
 end
+//..........................................................................
 
 //Always block to obtain interrupt from interrupt controller                                                      (Verified)
 always @ * begin
