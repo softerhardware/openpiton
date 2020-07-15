@@ -86,7 +86,6 @@ module ao486_l15_tri(
 );
 
 //Tying off all outputs not being generated
-    //assign transducer_l15_data = 64'd0;
     assign transducer_l15_data_next_entry = 64'd0;
     assign transducer_l15_amo_op = 4'd0;
     assign transducer_l15_nc = 0;
@@ -207,10 +206,13 @@ always @* begin
                     number_of_store_requests = 2'b10;
                 end
             end
-            3'b011: begin
+            3'b011: begin                          //Modify 3'b011 and 3'b100 cases according to addr and make separate cases
                 alignment_store = UNALIGNED_STORE;
+                //number_of_store_requests = 2'b10;
             end
             3'b100: begin
+                alignment_store = ALIGNED_STORE;
+                number_of_store_requests = 2'b01;
             end
         endcase
     end
@@ -223,11 +225,20 @@ end
 
 //always block to assign transducer -> L1.5 signals for different store requests
 always @(posedge clk) begin
-    if(number_of_store_requests == 2'b01) begin
+    if(number_of_store_requests == 2'b01 & transducer_l15_rqtype_reg == `STORE_RQ & ~l15_transducer_header_ack) begin
         single_store <= 1;
-        addr_reg_store <= addr_reg_store;
-        writeburst_data_reg <= writeburst_data_reg;
-        transducer_l15_data_reg <= {writeburst_data_reg[7:0], writeburst_data_reg[15:8], writeburst_data_reg[23:16], writeburst_data_reg[31:24],writeburst_data_reg[7:0], writeburst_data_reg[15:8], writeburst_data_reg[23:16], writeburst_data_reg[31:24]};
+        if(writeburst_length_reg == 3'b100) begin
+            transducer_l15_data_reg <= {writeburst_data_reg[7:0], writeburst_data_reg[15:8], writeburst_data_reg[23:16], writeburst_data_reg[31:24],writeburst_data_reg[7:0], writeburst_data_reg[15:8], writeburst_data_reg[23:16], writeburst_data_reg[31:24]};
+        end
+        else if(writeburst_length_reg == 3'b010) begin
+            transducer_l15_data_reg <= {writeburst_data_reg[7:0], writeburst_data_reg[15:8], writeburst_data_reg[7:0], writeburst_data_reg[15:8], writeburst_data_reg[7:0], writeburst_data_reg[15:8], writeburst_data_reg[7:0], writeburst_data_reg[15:8]};
+        end
+        else if(writeburst_length_reg == 3'b001) begin
+            transducer_l15_data_reg <= {writeburst_data_reg[7:0], writeburst_data_reg[7:0], writeburst_data_reg[7:0], writeburst_data_reg[7:0], writeburst_data_reg[7:0], writeburst_data_reg[7:0], writeburst_data_reg[7:0], writeburst_data_reg[7:0]};
+        end
+    end
+    else if(l15_transducer_returntype == `ST_ACK & l15_transducer_val) begin
+        transducer_l15_data_reg <= 0;
     end
     else if(~rst_n) begin
         transducer_l15_data_reg <= 0;
@@ -245,6 +256,9 @@ always @(posedge clk) begin
         else begin
             writeburst_done_reg <= 0;
         end
+    end
+    else if(~rst_n) begin
+        writeburst_done_reg <= 0;
     end
 end
 //..........................................................................
@@ -483,13 +497,13 @@ end
 
 //always block to set which request is being processed by TRI
 always @(*) begin
-    if(req_type == IFILL & (~ifill_response) & (store_response_received | interrupt_received)/* & ~request_processing*/) begin
+    if(req_type == IFILL & (~ifill_response) & (store_response_received | interrupt_received)) begin
         state_reg = IFILL;
     end
     else if(l15_transducer_returntype == `IFILL_RET & l15_transducer_val & (~double_access | double_access_ifill_done)) begin
         state_reg = IDLE;
     end
-    else if(req_type == STORE & ifill_response_received/* & ~request_processing*/) begin
+    else if(req_type == STORE & ifill_response_received & ~l15_transducer_val & new_store_req == 1) begin
         state_reg = STORE;
     end
     else if(l15_transducer_returntype == `ST_ACK & l15_transducer_val) begin
@@ -636,6 +650,12 @@ always @(posedge clk) begin
         writeburst_length_reg <= ao486_transducer_store_req_writeburst_length[2:0];
         new_store_req <= 1'b1;
     end
+    else if(l15_transducer_returntype == `ST_ACK & l15_transducer_val) begin
+        new_store_req <= 0;
+        if(number_of_store_requests == 2'b01) begin
+            addr_reg_store <= 0;
+        end
+    end
 end
 //..........................................................................
 
@@ -651,8 +671,11 @@ always @(posedge clk) begin
         if(writeburst_length_reg == 3'b001 & number_of_store_requests == 1) begin
             byteenable_reg <= 4'b0001;
         end
-        else if(number_of_store_requests == 2'b10 & alignment_store == ALIGNED_STORE) begin
+        else if(number_of_store_requests == 2'b01 & alignment_store == ALIGNED_STORE & writeburst_length_reg == 3'b010) begin
             byteenable_reg <= 4'b0011;
+        end
+        else if(number_of_store_requests == 2'b01 & alignment_store == ALIGNED_STORE & writeburst_length_reg == 3'b100) begin
+            byteenable_reg <= 4'b1111;
         end
     end
 end
