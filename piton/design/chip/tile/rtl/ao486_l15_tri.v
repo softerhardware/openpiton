@@ -93,7 +93,6 @@ module ao486_l15_tri(
     assign transducer_l15_data_next_entry = 64'd0;
     assign transducer_l15_amo_op = 4'd0;
     assign transducer_l15_l1rplway = 2'd0;
-    assign transducer_ao486_readburst_done = 0;
     assign transducer_ao486_readburst_data = 0;
     
 //Tying off unused transducer_l15_ signals for ao486 to zero
@@ -178,8 +177,21 @@ reg first_store_ack;
 reg second_store_ack;
 reg third_store_ack;
 reg third_store_header;
+reg [2:0] req_type_store;
 
-reg request_processing;
+reg flop_bus_load;
+reg [31:0] addr_reg_load;
+reg [3:0] readburst_length_reg;
+reg new_load_req;
+reg load_response_received;
+reg [2:0] next_state_load;
+reg readburst_done_reg;
+reg [2:0] req_type_load;
+reg [39:0] transducer_l15_address_reg_load;
+reg [1:0] number_of_load_requests;
+reg alignment_load;
+reg single_load;
+
 reg transducer_l15_nc_reg;
 reg l15_transducer_ack_received;
 
@@ -190,7 +202,7 @@ wire [2:0] state_wire;
 //Assign statements
 assign ao486_int = ao486_int_reg;
 assign transducer_l15_val = transducer_l15_val_reg;
-assign transducer_l15_address = (state_reg == IFILL) ? {{8{transducer_l15_address_reg_ifill[31]}}, transducer_l15_address_reg_ifill} : (state_reg == STORE) ? transducer_l15_address_reg_store : 40'b0;
+assign transducer_l15_address = (state_reg == IFILL) ? {{8{transducer_l15_address_reg_ifill[31]}}, transducer_l15_address_reg_ifill} : (state_reg == STORE) ? transducer_l15_address_reg_store : (state_reg == LOAD) ? transducer_l15_address_reg_load : 40'b0;
 assign transducer_l15_rqtype = transducer_l15_rqtype_reg;
 assign transducer_l15_req_ack = transducer_l15_req_ack_reg;
 assign transducer_ao486_request_readcode_done = readcode_done_reg;
@@ -204,6 +216,43 @@ assign transducer_l15_data = transducer_l15_data_reg;
 assign transducer_l15_nc = transducer_l15_nc_reg;
 
 assign transducer_ao486_writeburst_done = writeburst_done_reg;
+
+assign transducer_ao486_readburst_done = readburst_done_reg;
+//..........................................................................
+
+//always block to decide number of load requests to be sent to L1.5 for each request received from core
+always @(posedge clk) begin
+    if(new_load_req) begin
+        case (readburst_length_reg)
+            4'b0001: begin
+                number_of_load_requests <= 2'b01;
+                alignment_load <= 1;
+            end
+            4'b0010: begin
+                if(~addr_reg_load[0]) begin
+                    number_of_load_requests <= 2'b01;
+                    alignment_load <= 1;
+                end
+            end
+            4'b0100: begin
+                if(addr_reg_load[1:0] == 2'b0) begin
+                    number_of_load_requests <= 2'b01;
+                    alignment_load <= 1;
+                end
+            end
+            4'b1000: begin
+                if(addr_reg_load[2:0] == 3'b0) begin
+                    number_of_load_requests <= 2'b01;
+                    alignment_load <= 1;
+                end
+            end
+        endcase
+    end
+    else if(~rst_n) begin
+        number_of_load_requests <= 0;
+        alignment_load <= 0;
+    end
+end
 //..........................................................................
 
 //always block to decide number of store requests required to be sent to L1.5 
@@ -244,7 +293,7 @@ always @(posedge clk) begin
                 end
             end
             3'b100: begin
-                if(addr_reg_store[1:0] == 0) begin
+                if(addr_reg_store[1:0] == 2'b0) begin
                     alignment_store <= ALIGNED_STORE;
                     number_of_store_requests <= 2'b01;
                 end
@@ -326,6 +375,22 @@ always @(*) begin
 end
 //..........................................................................
 
+//always block to set readburst_done signal upon receiving load response from L1.5
+always @(posedge clk) begin
+    if(number_of_load_requests == 2'b01) begin
+        if(l15_transducer_returntype == `LOAD_RET & l15_transducer_val) begin
+            readburst_done_reg <= 1;                        
+        end
+        else begin
+            readburst_done_reg <= 0;
+        end
+    end
+    else if(~rst_n) begin
+        readburst_done_reg <= 0;
+    end
+end
+//..........................................................................
+
 //always block to set writeburst_done signal upon receiving store acknowledgement from L1.5
 always @(posedge clk) begin
     if(number_of_store_requests == 2'b01) begin
@@ -387,16 +452,30 @@ end
 
 //always block to set _nc signal
 always @(posedge clk) begin
-    if(state_reg == STORE & l15_transducer_ack) begin
+    if((state_reg == STORE & l15_transducer_ack) | (state_reg == LOAD & l15_transducer_ack)) begin
         transducer_l15_nc_reg <= 0;
     end
-    else if(transducer_l15_rqtype_reg == `STORE_RQ & state_reg == STORE & ~l15_transducer_ack & ~l15_transducer_ack_received) begin
+    else if((transducer_l15_rqtype_reg == `STORE_RQ & state_reg == STORE & ~l15_transducer_ack & ~l15_transducer_ack_received) | (transducer_l15_rqtype_reg == `LOAD_RQ & state_reg == LOAD & ~l15_transducer_ack & ~l15_transducer_ack_received)) begin
         transducer_l15_nc_reg <= 1;
     end
     else if(~rst_n) begin
         transducer_l15_nc_reg <= 0;
     end
 end
+//..........................................................................
+
+//always block to assign transducer -> L1.5 signals for different load requests
+always @* begin
+    if(number_of_load_requests == 2'b01 & transducer_l15_rqtype_reg == `LOAD_RQ) begin
+        transducer_l15_address_reg_load <= {8'b0, addr_reg_load};
+    end
+    else if(l15_transducer_returntype == `LOAD_RET & l15_transducer_val) begin
+        transducer_l15_address_reg_load <= 0;
+    end
+    else if(~rst_n) begin
+        transducer_l15_address_reg_load <= 0;
+    end
+end      
 //..........................................................................
 
 //always block to set address for store requests
@@ -544,6 +623,17 @@ always @(*) begin
 end
 //..........................................................................
 
+//always block to set flop_bus_load for load request
+always @* begin
+    if(ao486_transducer_load_req_readburst_do) begin
+        flop_bus_load = 1'b1;
+    end
+    else begin
+        flop_bus_load = 0;
+    end
+end
+//..........................................................................
+
 //always block to set flop_bus_store for store request
 always @* begin
     if(ao486_transducer_store_req_writeburst_do) begin
@@ -560,11 +650,25 @@ always @* begin
     if(ao486_transducer_ifill_req_readcode_do) begin
         req_type = IFILL;
     end
-    else if(ao486_transducer_store_req_writeburst_do) begin
-        req_type = STORE;
+    else if(l15_transducer_returntype == `IFILL_RET & l15_transducer_val & (~double_access | double_access_ifill_done)) begin
+        req_type = 3'b0;
+    end
+    if(ao486_transducer_store_req_writeburst_do) begin
+        req_type_store = STORE;
+    end
+    else if(l15_transducer_returntype == `ST_ACK & l15_transducer_val) begin
+        req_type_store = 3'b0;
+    end
+    if(ao486_transducer_load_req_readburst_do) begin
+        req_type_load = LOAD;
+    end
+    else if(l15_transducer_returntype == `LOAD_RET & l15_transducer_val) begin
+        req_type_load = 3'b0;
     end
     else if(~rst_n) begin
         req_type = 3'd0;
+        req_type_load = 3'b0;
+        req_type_store = 3'b0;
     end
 end
 //..........................................................................
@@ -678,34 +782,26 @@ end
 
 //always block to set which request is being processed by TRI
 always @(*) begin
-    if(req_type == IFILL & (~ifill_response) & (store_response_received | interrupt_received)) begin
+    if(req_type == IFILL & (~ifill_response) & ((store_response_received & load_response_received) | interrupt_received)) begin
         state_reg = IFILL;
     end
     else if(l15_transducer_returntype == `IFILL_RET & l15_transducer_val & (~double_access | double_access_ifill_done)) begin
         state_reg = IDLE;
     end
-    else if(req_type == STORE & ifill_response_received & ~l15_transducer_val & new_store_req == 1) begin
+    else if(req_type_store == STORE & ifill_response_received & load_response_received & ~l15_transducer_val & new_store_req == 1) begin
         state_reg = STORE;
     end
     else if(l15_transducer_returntype == `ST_ACK & l15_transducer_val) begin
         state_reg = IDLE;
     end
-    else if(~rst_n) begin
+    else if(req_type_load == LOAD & new_load_req == 1 & ifill_response_received & store_response_received) begin
+        state_reg = LOAD;
+    end
+    else if(l15_transducer_returntype == `LOAD_RET & l15_transducer_val) begin
         state_reg = IDLE;
     end
-end
-//..........................................................................
-
-//always block to check if a request is being processed before transferring new request to L1.5
-always @(posedge clk) begin
-    if(ifill_response_received | store_response_received) begin
-        request_processing <= 0;
-    end
-    else if(~ifill_response_received | ~store_response_received) begin
-        request_processing <= 1;
-    end
     else if(~rst_n) begin
-        request_processing <= 0;
+        state_reg = IDLE;
     end
 end
 //..........................................................................
@@ -720,7 +816,7 @@ always @(posedge clk) begin
         transducer_l15_rqtype_reg <= 5'd0;
         ifill_response_received <= 1;
     end
-    else if(req_type == STORE & state_reg == STORE) begin
+    else if(req_type_store == STORE & state_reg == STORE) begin
         transducer_l15_rqtype_reg <= `STORE_RQ;
         store_response_received <= 0;
     end
@@ -728,15 +824,24 @@ always @(posedge clk) begin
         transducer_l15_rqtype_reg <= 5'd0;
         store_response_received <= 1;
     end
+    else if(req_type_load == LOAD & state_reg == LOAD) begin
+        transducer_l15_rqtype_reg <= `LOAD_RQ;
+        load_response_received <= 0;
+    end
+    else if(l15_transducer_returntype == `LOAD_RET & l15_transducer_val) begin
+        transducer_l15_rqtype_reg <= 0;
+        load_response_received <= 1;
+    end
     else if (~rst_n) begin
         transducer_l15_rqtype_reg <= 5'd0;
         ifill_response_received <= 0;
         store_response_received <= 0;
+        load_response_received <= 1;
     end
 end    
 //..........................................................................
 
-//Always block to set transducer_l15_val                                                                               (Verified)
+//Always block to set transducer_l15_val                                                                          (Verified)
 always @(posedge clk) begin
     if(transducer_l15_rqtype_reg == `IMISS_RQ & ~l15_transducer_header_ack & (state_wire != IFILL)) begin
         transducer_l15_val_reg <= 1'b1;
@@ -747,13 +852,30 @@ always @(posedge clk) begin
     else if(state_reg == STORE & transducer_l15_rqtype_reg == `STORE_RQ & ~l15_transducer_header_ack & (next_state_store != STORE)) begin
         transducer_l15_val_reg <= 1'b1;
     end
+    else if(state_reg == LOAD & transducer_l15_rqtype_reg == `LOAD_RQ & ~l15_transducer_header_ack & (next_state_load != LOAD)) begin
+        transducer_l15_val_reg <= 1'b1;
+    end
     else if(~rst_n) begin
         transducer_l15_val_reg <= 1'b0;
     end
 end
 //..........................................................................
 
-//always block to keep transducer_l15_val low once request is sent
+//always block to keep transducer_l15_val low once load request is sent
+always @(posedge clk) begin
+    if(~rst_n) begin
+        next_state_load <= 3'b0;
+    end
+    else if(l15_transducer_header_ack & transducer_l15_rqtype_reg == `LOAD_RQ) begin
+        next_state_load <= LOAD;  
+    end
+    else if(l15_transducer_returntype == `LOAD_RET & l15_transducer_val) begin
+        next_state_load <= 3'b0;
+    end
+end
+//..........................................................................
+
+//always block to keep transducer_l15_val low once store request is sent
 always @(posedge clk) begin
     if(~rst_n) begin
         next_state_store <= 3'b0;
@@ -817,6 +939,25 @@ always @(posedge clk) begin
 end
 //..........................................................................
 
+//always block to flop address and length for load request
+always @(posedge clk) begin
+    if(~rst_n) begin
+        addr_reg_load <= 32'b0;
+        readburst_length_reg <= 4'b0;
+        new_load_req <= 0;
+    end
+    else if(flop_bus_load) begin
+        addr_reg_load <= ao486_transducer_load_req_readburst_address;
+        readburst_length_reg <= ao486_transducer_load_req_readburst_byte_length;
+        new_load_req <= 1;
+    end
+    else if(l15_transducer_returntype == `LOAD_RET & l15_transducer_val) begin
+        new_load_req <= 0;
+        addr_reg_load <= 32'b0;
+    end    
+end
+//..........................................................................
+
 //always block to flop address for store request
 always @(posedge clk) begin
     if(~rst_n) begin
@@ -849,7 +990,7 @@ always @(posedge clk) begin
         byteenable_reg <= 4'hF;
     end
     else if(state_reg == STORE) begin
-        if(writeburst_length_reg == 3'b001 & number_of_store_requests == 1) begin
+        if(writeburst_length_reg == 3'b001) begin
             byteenable_reg <= 4'b0001;
         end
         else if(number_of_store_requests == 2'b01 & alignment_store == ALIGNED_STORE & writeburst_length_reg == 3'b010) begin
@@ -857,6 +998,19 @@ always @(posedge clk) begin
         end
         else if(number_of_store_requests == 2'b01 & alignment_store == ALIGNED_STORE & writeburst_length_reg == 3'b100) begin
             byteenable_reg <= 4'b1111;
+        end
+    end
+    else if(state_reg == LOAD) begin
+        if(readburst_length_reg == 4'b0001) begin
+            byteenable_reg <= 4'b0001;
+        end
+        else if(number_of_load_requests == 2'b01 & alignment_load) begin
+            if(readburst_length_reg == 4'b0010) begin
+                byteenable_reg <= 4'b0011;
+            end
+            else if(readburst_length_reg == 4'b0100) begin
+                byteenable_reg <= 4'b1111;
+            end                                                             //add case for 8B load request
         end
     end
 end
