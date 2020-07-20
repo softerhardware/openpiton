@@ -118,6 +118,8 @@
     `define PITON_CHIPSET_DIFF_CLK
 `elsif VCU118_BOARD
     `define PITON_CHIPSET_DIFF_CLK
+`elsif XUPP3R_BOARD
+    `define PITON_CHIPSET_DIFF_CLK
 `elsif GENESYS2_BOARD
     `define PITON_CHIPSET_DIFF_CLK
 `elsif PITON_BOARD
@@ -134,6 +136,15 @@
     `define PITON_FPGA_RST_ACT_HIGH
 `endif
 
+`ifdef XUPP3R_BOARD
+    `undef PITON_FPGA_SD_BOOT
+    `undef PITONSYS_SPI
+`elsif F1_BOARD
+    `undef PITON_FPGA_SD_BOOT
+    `undef PITONSYS_SPI
+    `define PITONSYS_AXI4_MEM
+`endif
+
 // If PITON_FPGA_SD_BOOT is set we should always include SPI
 `ifdef PITON_FPGA_SD_BOOT
     `define PITONSYS_SPI
@@ -144,11 +155,8 @@
     `define PITONSYS_UART
 `endif // endif PITONSYS_UART_BOOT
 
-// Set Non-UART boot if a non-UART boot is specified
-`ifdef PITON_FPGA_BRAM_TEST
-    `define PITONSYS_NON_UART_BOOT
-`endif // endif PITON_FPGA_BRAM_TEST
-
-`ifdef PITON_FPGA_SD_BOOT
-    `define PITONSYS_NON_UART_BOOT
-`endif // endif PITON_FPGA_SD_BOOT
+`ifdef VCU118_BOARD
+    `define PITONSYS_DDR4
+`elsif XUPP3R_BOARD
+    `define PITONSYS_DDR4
+`endif

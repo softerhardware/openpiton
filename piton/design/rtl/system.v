@@ -32,6 +32,9 @@
 
 `include "define.tmp.h"
 `include "piton_system.vh"
+`ifdef PITONSYS_AXI4_MEM
+`include "noc_axi4_bridge_define.vh"
+`endif
 
 // Macros used in this file:
 //  PITON_FPGA_SYNTH            set to remove any RTL that is ASIC specific,
@@ -105,6 +108,7 @@ module system(
 `endif // endif PITON_PASSTHRU_CLKS_GEN
 `endif // endif PITON_SYS_INC_PASSTHRU
 
+`ifndef F1_BOARD
 `ifdef PITON_CHIPSET_CLKS_GEN
 `ifdef PITON_CHIPSET_DIFF_CLK
     input                                       chipset_clk_osc_p,
@@ -113,11 +117,11 @@ module system(
     input                                       chipset_clk_osc,
 `endif // endif PITON_CHIPSET_DIFF_CLK
 
-// 250MHz diff input ref clock for DDR4 memory controller
-`ifdef VCU118_BOARD
+// 250MHz(VCU118) or 100 MHz(XUPP3R) diff input ref clock for DDR4 memory controller
+`ifdef PITONSYS_DDR4
     input                                       mc_clk_p,
     input                                       mc_clk_n,
-`endif // VCU118_BOARD
+`endif // PITONSYS_DDR4
 
 `else // ifndef PITON_CHIPSET_CLKS_GEN
     input                                       chipset_clk,
@@ -134,6 +138,9 @@ module system(
     input                                       chipset_passthru_clk_n,
 `endif // endif PITONSYS_INC_PASSTHRU
 `endif // endif PITON_CHIPSET_CLKS_GEN
+`else //F1_BOARD
+    input sys_clk,
+`endif
 
     input                                       sys_rst_n,
 
@@ -172,16 +179,20 @@ module system(
 `ifndef VC707_BOARD
 `ifndef VCU118_BOARD
 `ifndef NEXYSVIDEO_BOARD
+`ifndef XUPP3R_BOARD
+`ifndef F1_BOARD
   input                                         tck_i,
   input                                         tms_i,
   input                                         trst_ni,
   input                                         td_i,
   output                                        td_o,
-`endif
-`endif
-`endif
-`endif
-`endif
+`endif//F1_BOARD
+`endif//XUPP3R_BOARD
+`endif //NEXYSVIDEO_BOARD
+`endif //VCU118_BOARD
+`endif  //VC707_BOARD
+`endif //PITON_ARIANE
+`endif //PITON_FPGA_SYNTH
 
     // Asynchronous FIFOs enable
     // for off-chip link (core<->io_clk)
@@ -194,12 +205,13 @@ module system(
     // DRAM and I/O interfaces
 `ifndef PITONSYS_NO_MC
 `ifdef PITON_FPGA_MC_DDR3
+`ifndef F1_BOARD
     // Generalized interface for any FPGA board we support.
     // Not all signals will be used for all FPGA boards (see constraints)
-    `ifdef VCU118_BOARD
+    `ifdef PITONSYS_DDR4
     output                                      ddr_act_n,
     output [`DDR3_BG_WIDTH-1:0]                 ddr_bg,
-    `else // VCU118_BOARD
+    `else // PITONSYS_DDR4
     output                                      ddr_cas_n,
     output                                      ddr_ras_n,
     output                                      ddr_we_n,
@@ -217,12 +229,75 @@ module system(
     `ifndef NEXYSVIDEO_BOARD
         output [`DDR3_CS_WIDTH-1:0]             ddr_cs_n,
     `endif // endif NEXYSVIDEO_BOARD
-    `ifdef VCU118_BOARD
-    inout [`DDR3_DM_WIDTH-1:0]                  ddr_dm,
+    `ifdef PITONSYS_DDR4
+    `ifdef XUPP3R_BOARD
+    output                                      ddr_parity,
     `else
+    inout [`DDR3_DM_WIDTH-1:0]                  ddr_dm,
+    `endif // XUPP3R_BOARD
+    `else // PITONSYS_DDR4
     output [`DDR3_DM_WIDTH-1:0]                 ddr_dm,
-    `endif
-    output                                      ddr_odt,
+    `endif // PITONSYS_DDR4
+    output [`DDR3_ODT_WIDTH-1:0]                ddr_odt,
+`else //ifndef F1_BOARD 
+    input                                        mc_clk,
+    // AXI Write Address Channel Signals
+    output wire [`AXI4_ID_WIDTH     -1:0]    m_axi_awid,
+    output wire [`AXI4_ADDR_WIDTH   -1:0]    m_axi_awaddr,
+    output wire [`AXI4_LEN_WIDTH    -1:0]    m_axi_awlen,
+    output wire [`AXI4_SIZE_WIDTH   -1:0]    m_axi_awsize,
+    output wire [`AXI4_BURST_WIDTH  -1:0]    m_axi_awburst,
+    output wire                                  m_axi_awlock,
+    output wire [`AXI4_CACHE_WIDTH  -1:0]    m_axi_awcache,
+    output wire [`AXI4_PROT_WIDTH   -1:0]    m_axi_awprot,
+    output wire [`AXI4_QOS_WIDTH    -1:0]    m_axi_awqos,
+    output wire [`AXI4_REGION_WIDTH -1:0]    m_axi_awregion,
+    output wire [`AXI4_USER_WIDTH   -1:0]    m_axi_awuser,
+    output wire                                  m_axi_awvalid,
+    input  wire                                  m_axi_awready,
+
+    // AXI Write Data Channel Signals
+    output wire  [`AXI4_ID_WIDTH     -1:0]    m_axi_wid,
+    output wire  [`AXI4_DATA_WIDTH   -1:0]    m_axi_wdata,
+    output wire  [`AXI4_STRB_WIDTH   -1:0]    m_axi_wstrb,
+    output wire                                   m_axi_wlast,
+    output wire  [`AXI4_USER_WIDTH   -1:0]    m_axi_wuser,
+    output wire                                   m_axi_wvalid,
+    input  wire                                   m_axi_wready,
+
+    // AXI Read Address Channel Signals
+    output wire  [`AXI4_ID_WIDTH     -1:0]    m_axi_arid,
+    output wire  [`AXI4_ADDR_WIDTH   -1:0]    m_axi_araddr,
+    output wire  [`AXI4_LEN_WIDTH    -1:0]    m_axi_arlen,
+    output wire  [`AXI4_SIZE_WIDTH   -1:0]    m_axi_arsize,
+    output wire  [`AXI4_BURST_WIDTH  -1:0]    m_axi_arburst,
+    output wire                                   m_axi_arlock,
+    output wire  [`AXI4_CACHE_WIDTH  -1:0]    m_axi_arcache,
+    output wire  [`AXI4_PROT_WIDTH   -1:0]    m_axi_arprot,
+    output wire  [`AXI4_QOS_WIDTH    -1:0]    m_axi_arqos,
+    output wire  [`AXI4_REGION_WIDTH -1:0]    m_axi_arregion,
+    output wire  [`AXI4_USER_WIDTH   -1:0]    m_axi_aruser,
+    output wire                                   m_axi_arvalid,
+    input  wire                                   m_axi_arready,
+
+    // AXI Read Data Channel Signals
+    input  wire  [`AXI4_ID_WIDTH     -1:0]    m_axi_rid,
+    input  wire  [`AXI4_DATA_WIDTH   -1:0]    m_axi_rdata,
+    input  wire  [`AXI4_RESP_WIDTH   -1:0]    m_axi_rresp,
+    input  wire                                   m_axi_rlast,
+    input  wire  [`AXI4_USER_WIDTH   -1:0]    m_axi_ruser,
+    input  wire                                   m_axi_rvalid,
+    output wire                                   m_axi_rready,
+
+    // AXI Write Response Channel Signals
+    input  wire  [`AXI4_ID_WIDTH     -1:0]    m_axi_bid,
+    input  wire  [`AXI4_RESP_WIDTH   -1:0]    m_axi_bresp,
+    input  wire  [`AXI4_USER_WIDTH   -1:0]    m_axi_buser,
+    input  wire                                   m_axi_bvalid,
+    output wire                                   m_axi_bready,
+
+    input  wire                                   ddr_ready,
+`endif // endif F1_BOARD
 `endif // endif PITON_FPGA_MC_DDR3
 `endif // endif PITONSYS_NO_MC
 
@@ -309,11 +384,17 @@ module system(
 `ifdef VCU118_BOARD
     // we only have 4 gpio dip switches on this board
     input  [3:0]                                sw,
+`elsif XUPP3R_BOARD
+    // no switches :(
 `else
     input  [7:0]                                sw,
 `endif
-    output [7:0]                                leds
 
+`ifdef XUPP3R_BOARD
+    output [3:0]                                leds
+`else 
+    output [7:0]                                leds
+`endif
 );
 
 ///////////////////////
@@ -421,19 +502,22 @@ wire [2:0]          passthru_chipset_credit_back_n;
 `ifdef PITONSYS_UART_BOOT
 wire                test_start;
 `endif
+`ifdef PITONSYS_UART_RESET
+wire                uart_rst_out_n;
+`endif
 
 `ifdef PITON_ARIANE
 // Debug
 wire                     ndmreset;    // non-debug module reset
 wire                     dmactive;    // debug module is active
-wire  [`NUM_TILES-1:0]   debug_req;   // async debug request
-wire  [`NUM_TILES-1:0]   unavailable; // communicate whether the hart is unavailable (e.g.: power down)
+wire  [`PITON_NUM_TILES-1:0]   debug_req;   // async debug request
+wire  [`PITON_NUM_TILES-1:0]   unavailable; // communicate whether the hart is unavailable (e.g.: power down)
 // CLINT
 wire                     rtc;         // Real-time clock in (usually 32.768 kHz)
-wire  [`NUM_TILES-1:0]   timer_irq;   // Timer interrupts
-wire  [`NUM_TILES-1:0]   ipi;         // software interrupt (a.k.a inter-process-interrupt)
+wire  [`PITON_NUM_TILES-1:0]   timer_irq;   // Timer interrupts
+wire  [`PITON_NUM_TILES-1:0]   ipi;         // software interrupt (a.k.a inter-process-interrupt)
 // PLIC
-wire  [`NUM_TILES*2-1:0] irq;         // level sensitive IR lines, mip & sip (async)
+wire  [`PITON_NUM_TILES*2-1:0] irq;         // level sensitive IR lines, mip & sip (async)
 
 `endif
 
@@ -447,17 +531,17 @@ wire  [31:0]                  eip;
 
  // no RTC at the moment, have to derive it from the system clock
  // divide by 128
-reg [5:0] rtc_div;
+reg [6:0] rtc_div;
 
 always @(posedge core_ref_clk or negedge chip_rst_n) begin : p_rtc_div
   if(~chip_rst_n) begin
-    rtc_div <= 6'h0;
+    rtc_div <= 7'h0;
   end else begin
-    rtc_div <= rtc_div + 6'h1;
+    rtc_div <= rtc_div + 7'h1;
   end
 end
 
-assign rtc = rtc_div[5];
+assign rtc = rtc_div[6];
 
 `endif
 
@@ -488,8 +572,11 @@ always @ *
 begin
     chip_rst_n = sys_rst_n_rect & passthru_chip_rst_n;
 `ifdef PITONSYS_UART_BOOT
-    chip_rst_n = sys_rst_n_rect & passthru_chip_rst_n & test_start;
-`endif  // PITONSYS_UART_BOOT
+    chip_rst_n = chip_rst_n & test_start;
+`endif
+`ifdef PITONSYS_UART_RESET
+    chip_rst_n = chip_rst_n & uart_rst_out_n;
+`endif
 
 `ifdef PITON_NO_JTAG
     jtag_rst_n_full = passthru_jtag_rst_n;
@@ -830,6 +917,10 @@ passthru passthru(
 chipset chipset(
     // Only need oscillator clock if
     // chipset is generating its own clocks
+`ifdef F1_BOARD
+    .sys_clk(sys_clk),
+`else 
+
 `ifdef PITON_CHIPSET_CLKS_GEN
 `ifdef PITON_CHIPSET_DIFF_CLK
     .clk_osc_p(chipset_clk_osc_p),
@@ -839,10 +930,10 @@ chipset chipset(
 `endif // endif PITON_CHIPSET_DIFF_CLK
 
 // 250MHz diff input ref clock for DDR4 memory controller
-`ifdef VCU118_BOARD
+`ifdef PITONSYS_DDR4
     .mc_clk_p(mc_clk_p),
     .mc_clk_n(mc_clk_n),
-`endif // VCU118_BOARD
+`endif // PITONSYS_DDR4
 
 `else // ifndef PITON_CHIPSET_CLKS_GEN
     .chipset_clk(chipset_clk),
@@ -855,6 +946,7 @@ chipset chipset(
     .sd_sys_clk(sd_sys_clk),
 `endif // endif PITONSYS_SPI
 `endif // endif PITON_CHIPSET_CLKS_GEN
+`endif // ifdef F1_BOARD
 
 `ifdef PITON_CLKS_CHIPSET
     // Need to generate these clocks if specified
@@ -943,14 +1035,15 @@ chipset chipset(
     // DRAM and I/O interfaces
 `ifndef PITONSYS_NO_MC
 `ifdef PITON_FPGA_MC_DDR3
-`ifdef VCU118_BOARD
+`ifndef F1_BOARD
+`ifdef PITONSYS_DDR4
     .ddr_act_n(ddr_act_n),
     .ddr_bg(ddr_bg),
-`else // VCU118_BOARD
+`else // PITONSYS_DDR4
     .ddr_cas_n(ddr_cas_n),
     .ddr_ras_n(ddr_ras_n),
     .ddr_we_n(ddr_we_n),
-`endif
+`endif // PITONSYS_DDR4
     .ddr_addr(ddr_addr),
     .ddr_ba(ddr_ba),
     .ddr_ck_n(ddr_ck_n),
@@ -963,9 +1056,72 @@ chipset chipset(
 `ifndef NEXYSVIDEO_BOARD
     .ddr_cs_n(ddr_cs_n),
 `endif // endif NEXYSVIDEO_BOARD
+`ifdef XUPP3R_BOARD
+    .ddr_parity(ddr_parity),
+`else
     .ddr_dm(ddr_dm),
+`endif
     .ddr_odt(ddr_odt),
-`endif // endif PITON_FPGA_MC_DDR3
+`else //ifndef F1_BOARD
+    .mc_clk(mc_clk),
+    // AXI Write Address Channel Signals
+    .m_axi_awid(m_axi_awid),
+    .m_axi_awaddr(m_axi_awaddr),
+    .m_axi_awlen(m_axi_awlen),
+    .m_axi_awsize(m_axi_awsize),
+    .m_axi_awburst(m_axi_awburst),
+    .m_axi_awlock(m_axi_awlock),
+    .m_axi_awcache(m_axi_awcache),
+    .m_axi_awprot(m_axi_awprot),
+    .m_axi_awqos(m_axi_awqos),
+    .m_axi_awregion(m_axi_awregion),
+    .m_axi_awuser(m_axi_awuser),
+    .m_axi_awvalid(m_axi_awvalid),
+    .m_axi_awready(m_axi_awready),
+
+    // AXI Write Data Channel Signals
+    .m_axi_wid(m_axi_wid),
+    .m_axi_wdata(m_axi_wdata),
+    .m_axi_wstrb(m_axi_wstrb),
+    .m_axi_wlast(m_axi_wlast),
+    .m_axi_wuser(m_axi_wuser),
+    .m_axi_wvalid(m_axi_wvalid),
+    .m_axi_wready(m_axi_wready),
+
+    // AXI Read Address Channel Signals
+    .m_axi_arid(m_axi_arid),
+    .m_axi_araddr(m_axi_araddr),
+    .m_axi_arlen(m_axi_arlen),
+    .m_axi_arsize(m_axi_arsize),
+    .m_axi_arburst(m_axi_arburst),
+    .m_axi_arlock(m_axi_arlock),
+    .m_axi_arcache(m_axi_arcache),
+    .m_axi_arprot(m_axi_arprot),
+    .m_axi_arqos(m_axi_arqos),
+    .m_axi_arregion(m_axi_arregion),
+    .m_axi_aruser(m_axi_aruser),
+    .m_axi_arvalid(m_axi_arvalid),
+    .m_axi_arready(m_axi_arready),
+
+    // AXI Read Data Channel Signals
+    .m_axi_rid(m_axi_rid),
+    .m_axi_rdata(m_axi_rdata),
+    .m_axi_rresp(m_axi_rresp),
+    .m_axi_rlast(m_axi_rlast),
+    .m_axi_ruser(m_axi_ruser),
+    .m_axi_rvalid(m_axi_rvalid),
+    .m_axi_rready(m_axi_rready),
+
+    // AXI Write Response Channel Signals
+    .m_axi_bid(m_axi_bid),
+    .m_axi_bresp(m_axi_bresp),
+    .m_axi_buser(m_axi_buser),
+    .m_axi_bvalid(m_axi_bvalid),
+    .m_axi_bready(m_axi_bready),
+
+    .ddr_ready(ddr_ready),
+`endif // ifndef F1_BOARD
+`endif // PITON_FPGA_MC_DDR3
 `endif // endif PITONSYS_NO_MC
 
 `ifdef PITONSYS_IOCTRL
@@ -973,10 +1129,11 @@ chipset chipset(
     .uart_tx(uart_tx),
     .uart_rx(uart_rx),
 `ifdef PITONSYS_UART_BOOT
-`ifdef PITONSYS_NON_UART_BOOT
     .test_start(test_start),
-`endif // endif PITONSYS_NON_UART_BOOT
 `endif // endif PITONSYS_UART_BOOT
+`ifdef PITONSYS_UART_RESET
+    .uart_rst_out_n(uart_rst_out_n),
+`endif
 `endif // endif PITONSYS_UART
 
 `ifdef PITONSYS_SPI
@@ -1000,6 +1157,7 @@ chipset chipset(
         .net_phy_rst_n      (net_phy_rst_n),
         .net_phy_mdio_io    (net_phy_mdio_io),
         .net_phy_mdc        (net_phy_mdc),
+
     `endif // PITON_FPGA_ETHERNETLITE
 `endif // endif PITONSYS_IOCTRL
 
@@ -1035,7 +1193,9 @@ chipset chipset(
     .btnc(btnc),
 `endif
 
+`ifndef XUPP3R_BOARD
     .sw(sw),
+`endif
     .leds(leds)
 
 `ifdef PITON_ARIANE

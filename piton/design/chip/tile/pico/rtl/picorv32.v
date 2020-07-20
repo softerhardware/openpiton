@@ -23,6 +23,7 @@
 // `define DEBUGREGS
 // `define DEBUGASM
 // `define DEBUG
+`include "l15.tmp.h"
 
 `ifdef DEBUG
   `define debug(debug_command) debug_command
@@ -1547,7 +1548,9 @@ module picorv32 #(
 			end
 			cpu_state <= cpu_state_fetch;
 		end else
+   `ifndef _VCP //MPS2538
 		(* parallel_case, full_case *)
+   `endif
 		case (cpu_state)
 			cpu_state_trap: begin
 				trap <= 1;

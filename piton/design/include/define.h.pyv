@@ -54,9 +54,9 @@
 import pyhplib
 from pyhplib import *
 
-print "`define NUM_TILES %d" % NUM_TILES;
-print "`define X_TILES %d"   % X_TILES;
-print "`define Y_TILES %d"   % Y_TILES;
+print("`define PITON_NUM_TILES %d" % PITON_NUM_TILES)
+print("`define PITON_X_TILES %d"   % PITON_X_TILES)
+print("`define PITON_Y_TILES %d"   % PITON_Y_TILES)
 %>
 
 // NoC interface
@@ -132,8 +132,9 @@ print "`define Y_TILES %d"   % Y_TILES;
 `define MSG_CACHE_TYPE_          11
 `define MSG_SUBLINE_VECTOR_      15:12
 `define MSG_OPTIONS_2_           15:0
-`define MSG_ADDR_HI_             55
-`define MSG_ADDR_                55:16
+`define MSG_ADDR_LO_             16
+`define MSG_ADDR_HI_             (`MSG_ADDR_LO_ + `PHY_ADDR_WIDTH - 1)
+`define MSG_ADDR_                (`MSG_ADDR_HI_):(`MSG_ADDR_LO_)
 
 // HEADER 3
 `define MSG_LSID_                19:14 // 147-128:142-128
@@ -488,10 +489,10 @@ print "`define Y_TILES %d"   % Y_TILES;
 `define HOME_ID_ADDR_POS_LOW        `HOME_ID_WIDTH+5 : 6
 `define HOME_ID_ADDR_POS_MIDDLE     `HOME_ID_WIDTH+13 : 14
 `define HOME_ID_ADDR_POS_HIGH       `HOME_ID_WIDTH+23 : 24
-`define HOME_ID_X_POS_WIDTH         3
-`define HOME_ID_X_POS               2:0
-`define HOME_ID_Y_POS_WIDTH         3
-`define HOME_ID_Y_POS               5:3
+//`define HOME_ID_X_POS_WIDTH         3
+//`define HOME_ID_X_POS               2:0
+//`define HOME_ID_Y_POS_WIDTH         3
+//`define HOME_ID_Y_POS               5:3
 
 // Packet format for home id
 `define PACKET_HOME_ID_WIDTH        (`NOC_CHIPID_WIDTH+`NOC_X_WIDTH+`NOC_Y_WIDTH)

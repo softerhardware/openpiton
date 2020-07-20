@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 # Copyright (c) 2015 Princeton University
 # All rights reserved.
 #
@@ -48,66 +48,84 @@ MAP_MODULE_NAME = "storage_addr_trans.v"
 NOC_PAYLOAD_WIDTH = 512
 STORAGE_BLOCK_BIT_WIDTH         =   {   "ddr":  {   "vc707":512,
                                                     "vcu118":512,
+                                                    "xupp3r":512,
                                                     "nexys4ddr":128,
                                                     "genesys2":256,
-                                                    "nexysVideo":128
+                                                    "nexysVideo":128,
+                                                    "f1":512
                                                 },
                                         "bram": {   "vc707":512,
                                                     "vcu118":512,
+                                                    "xupp3r":512,
                                                     "nexys4ddr":512,
                                                     "genesys2":512,
                                                     "nexysVideo":512,
-                                                    "piton_board":512
+                                                    "piton_board":512,
+                                                    "f1":512
                                                 },
                                         "dmw":  {   "vc707":512,
                                                     "vcu118":512,
+                                                    "xupp3r":512,
                                                     "nexys4ddr":512,
                                                     "genesys2":512,
                                                     "nexysVideo":512,
-                                                    "piton_board":512
+                                                    "piton_board":512,
+                                                    "f1":512
                                                 }
                                     }
 
 STORAGE_ADDRESSABLE_BIT_WIDTH   =   {   "ddr":  {   "vc707":64,
                                                     "vcu118":64,
+                                                    "xupp3r":64,
                                                     "nexys4ddr":16,
                                                     "genesys2":32,
-                                                    "nexysVideo":16
+                                                    "nexysVideo":16,
+                                                    "f1":64
                                                 },
                                         "bram": {   "vc707":512,
                                                     "vcu118":512,
+                                                    "xupp3r":512,
                                                     "nexys4ddr":512,
                                                     "genesys2":512,
                                                     "nexysVideo":512,
-                                                    "piton_board":512
+                                                    "piton_board":512,
+                                                    "f1":512
                                                 },
                                         "dmw": {    "vc707":512,
                                                     "vcu118":512,
+                                                    "xupp3r":512,
                                                     "nexys4ddr":512,
                                                     "genesys2":512,
                                                     "nexysVideo":512,
-                                                    "piton_board":512
+                                                    "piton_board":512,
+                                                    "f1":512
                                                 }
                                     }
 
 STORAGE_BIT_SIZE                =   {   "ddr":  {   "vc707":8*2**30,
                                                     "vcu118":2*8*2**30,
+                                                    "xupp3r":32*8*2**30,
                                                     "nexys4ddr":8*128*2**20,
                                                     "genesys2":8*2**30,
-                                                    "nexysVideo":8*512*2**20
+                                                    "nexysVideo":8*512*2**20,
+                                                    "f1":8*4*2**30
                                                 },
                                         "bram": {   "vc707":16384*512,
                                                     "vcu118":16384*512,
+                                                    "xupp3r":16384*512,
                                                     "nexys4ddr":16384*512,
                                                     "genesys2":16384*512,
                                                     "nexysVideo":16384*512,
-                                                    "piton_board":256*512
+                                                    "piton_board":256*512,
+                                                    "f1":256*512
                                                 },
                                         "dmw":  {   "vc707":8*2**30,
                                                     "vcu118":2*8*2**30,
+                                                    "xupp3r":32*8*2**30,
                                                     "nexys4ddr":8*128*2**20,
                                                     "genesys2":8*2**30,
-                                                    "nexysVideo":8*512*2**20
+                                                    "nexysVideo":8*512*2**20,
+                                                    "f1":8*4*2**30
                                                 }
                                     }
 DW_BIT_SIZE     = 64
@@ -195,14 +213,14 @@ def isTranslatorOK(addr_data_map, flog, ariane):
                 if cnt == 0:
                     trans_sections.append((int(m.group(1), 16), int(m.group(2), 16)))
             else:
-                if cnt > 0:
+                if cnt >= 0:
                     trans_sections.append((int(m.group(1), 16), int(m.group(2), 16)))
             cnt+=1
 
     f.close()
 
     uart_base = 0xfff0c2c000
-    for addr in addr_data_map.keys():
+    for addr in list(addr_data_map.keys()):
         # Skip UART address mapped in hboot.s
         if uart_base <= addr < (uart_base + 2**12):
             continue
@@ -212,8 +230,8 @@ def isTranslatorOK(addr_data_map, flog, ariane):
                 addr_mapped = True
                 break
         if not addr_mapped:
-            print >> flog, "ERROR: Address %s is not mapped in %s" % (hex(addr), map_loc)
-            print >> sys.stderr, "ERROR: Address %s is not mapped in %s" % (hex(addr), map_loc)
+            print("ERROR: Address %s is not mapped in %s" % (hex(addr), map_loc), file=flog)
+            print("ERROR: Address %s is not mapped in %s" % (hex(addr), map_loc), file=sys.stderr)
             return False
 
     return True
@@ -230,7 +248,7 @@ def getTestList(fname, flog, ustr_files=False):
         if m != None:
             tname = m.group(1)
             test_list.append(tname)
-            print tname
+            print(tname)
     f.close()
     return test_list
 
@@ -266,7 +284,7 @@ def runMidas(tname, uart_div_latch, flog, midas_args=None, coreType="sparc", pre
         cmd += " -precompiled"
 
     rv = subprocess.call(shlex.split(cmd), stdout=flog, stderr=flog)
-    print cmd
+    print(cmd)
     return rv
 
 
@@ -297,7 +315,7 @@ def waitSlurmJobs(job_ids) :
             wc_proc = subprocess.Popen(["wc", "-l"], stdin=squeue_proc.stdout, \
                                        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             out, err = wc_proc.communicate()
-            if out == "1\n" or out == "0\n":
+            if out == b'1\n' or out == b'0\n':
                 remove_jobs.append(job)
 
         # Remove finished jobs from list we are waiting on

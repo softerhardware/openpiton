@@ -32,41 +32,42 @@ MAX_TILE = 64;
 MAX_X = 8;
 MAX_Y = 8;
 
-X_TILES = int(os.environ.get('PTON_X_TILES', '-1'))
+PITON_X_TILES = int(os.environ.get('PITON_X_TILES', '-1'))
 #print "//x_tiles:", num_tiles
 
-Y_TILES = int(os.environ.get('PTON_Y_TILES', '-1'))
+PITON_Y_TILES = int(os.environ.get('PITON_Y_TILES', '-1'))
 #print "//y_tiles:", num_tiles
 
-NUM_TILES = int(os.environ.get('PTON_NUM_TILES', '-1'))
+PITON_NUM_TILES = int(os.environ.get('PITON_NUM_TILES', '-1'))
 #print "//num_tiles:", num_tiles
 
-NETWORK_CONFIG = (os.environ.get("PTON_NETWORK_CONFIG", "2dmesh_config"))
+PITON_NETWORK_CONFIG = (os.environ.get("PITON_NETWORK_CONFIG", "2dmesh_config"))
 
-if X_TILES == -1:
-    print "//x_tiles not defined!"
-    X_TILES = MAX_X
+if PITON_X_TILES == -1:
+    #print("//x_tiles not defined!")
+    PITON_X_TILES = MAX_X
 
-if Y_TILES == -1:
-    print "//y_tiles not defined!"
-    Y_TILES = MAX_Y
+if PITON_Y_TILES == -1:
+    #print("//y_tiles not defined!")
+    PITON_Y_TILES = MAX_Y
 
-if NUM_TILES == -1:
-    print "//num_tile not defined!"
-    if X_TILES != -1 and Y_TILES != -1:
-        NUM_TILES = X_TILES*Y_TILES
+if PITON_NUM_TILES == -1:
+    #print("//num_tile not defined!")
+    if PITON_X_TILES != -1 and PITON_Y_TILES != -1:
+        PITON_NUM_TILES = PITON_X_TILES*PITON_Y_TILES
     else:
-        NUM_TILES = MAX_TILE
+        PITON_NUM_TILES = MAX_TILE
 
+PITON_OST1     = int(os.environ.get('PITON_OST1', '0'))
 PITON_ARIANE   = int(os.environ.get('PITON_ARIANE', '0'))
 PITON_PICO     = int(os.environ.get('PITON_PICO', '0'))
 PITON_PICO_HET = int(os.environ.get('PITON_PICO_HET', '0'))
 PITON_AO486    = int(os.environ.get('PITON_AO486', '0'))
 
 if PITON_ARIANE or PITON_PICO or PITON_AO486:
-    NUM_THREADS = NUM_TILES
+    NUM_THREADS = PITON_NUM_TILES
 else:
-    NUM_THREADS = 2 * NUM_TILES
+    NUM_THREADS = 2 * PITON_NUM_TILES
 
 # cache configurations
 CONFIG_L15_SIZE = int(os.environ.get('CONFIG_L15_SIZE', '8192'))
@@ -139,12 +140,12 @@ DEVICES_XML_FILENAME = os.path.join(os.getenv("PROTOSYN_RUNTIME_DESIGN_PATH", ""
                                     os.getenv("PROTOSYN_RUNTIME_BOARD", ""),
                                     fileName)
 
-print "// " + DEVICES_XML_FILENAME
+print("// " + DEVICES_XML_FILENAME)
 
 def Replicate(text):
     newtext = ''
-    for i in range(NUM_TILES):
-        t = text.replace("0", `i`);
+    for i in range(PITON_NUM_TILES):
+        t = text.replace("0", repr(i));
         newtext += t + '\n';
     return newtext;
 
@@ -152,7 +153,7 @@ def Replicate(text):
 #def ReplicateRE(text):
 #    regex = " ([^\.:]+)0"
 #    newtext = ''
-#    for i in range(NUM_TILES):
+#    for i in range(PITON_NUM_TILES):
 #        t = re.sub(regex, " \1" + `i`, text)
 #        newtext += t + '\n';
 #    return newtext;
@@ -160,10 +161,10 @@ def Replicate(text):
 def ReplicatePattern(text, patterns):
   regex = " ([^\.:]+)0"
   newtext = ''
-  for i in range(NUM_TILES):
+  for i in range(PITON_NUM_TILES):
     t = text
     for p in patterns:
-      replacement = p[:-1] + `i`;
+      replacement = p[:-1] + repr(i);
       t = t.replace(p, replacement);
     newtext += t + '\n';
   return newtext;
@@ -172,52 +173,52 @@ def ReplicatePattern(text, patterns):
 def ReplicatePattern1(text, patterns):
   regex = " ([^\.:]+)1"
   newtext = ''
-  for i in range(NUM_TILES):
+  for i in range(PITON_NUM_TILES):
     t = text
     for p in patterns:
-      replacement = p[:-1] + `i`;
+      replacement = p[:-1] + repr(i);
       t = t.replace(p, replacement);
     newtext += t + '\n';
   return newtext;
 
 
 def GenMux(inputs, sels, output, num):
-  print "always @ *"
-  print "begin"
-  print "%s = 0;" % output
+  print("always @ *")
+  print("begin")
+  print("%s = 0;" % output)
   for i in range (num):
     if (i == 0):
-      print "if (%s)" % (sels.replace("__WAY", `i`))
+      print("if (%s)" % (sels.replace("__WAY", repr(i))))
     else:
-      print "else if (%s)" % (sels.replace("__WAY", `i`))
-    print "   %s = %s;" % (output, inputs.replace("__WAY", `i`))
-  print "end"
+      print("else if (%s)" % (sels.replace("__WAY", repr(i))))
+    print("   %s = %s;" % (output, inputs.replace("__WAY", repr(i))))
+  print("end")
 
 def GenOr(inputs, sels, output, num):
-  print "always @ *"
-  print "begin"
-  print "%s = 0;" % output
+  print("always @ *")
+  print("begin")
+  print("%s = 0;" % output)
   for i in range (num):
-    print "if (%s)" % (sels.replace("__WAY", `i`))
-    print "   %s = %s | %s;" % (output, output, inputs.replace("__WAY", `i`))
-  print "end"
+    print("if (%s)" % (sels.replace("__WAY", repr(i))))
+    print("   %s = %s | %s;" % (output, output, inputs.replace("__WAY", repr(i))))
+  print("end")
 
 def GenEncoder(sels, output, num):
-  print "%s = 0;" % output
+  print("%s = 0;" % output)
   for i in range (num):
     if (i == 0):
-      print "if (%s)" % (sels.replace("__WAY", `i`))
+      print("if (%s)" % (sels.replace("__WAY", repr(i))))
     else:
-      print "else if (%s)" % (sels.replace("__WAY", `i`))
-    print "   %s = %d;" % (output, i)
+      print("else if (%s)" % (sels.replace("__WAY", repr(i))))
+    print("   %s = %d;" % (output, i))
 
 def GenInversedMux(inputs, sels, output, num):
   for i in range (num):
     if (i == 0):
-      print "if (%s)" % (sels.replace("__WAY", `i`))
+      print("if (%s)" % (sels.replace("__WAY", repr(i))))
     else:
-      print "else if (%s)" % (sels.replace("__WAY", `i`))
-    print "   %s = %s;" % (output.replace("__WAY", `i`), inputs.replace("__WAY", `i`))
+      print("else if (%s)" % (sels.replace("__WAY", repr(i))))
+    print("   %s = %s;" % (output.replace("__WAY", repr(i)), inputs.replace("__WAY", repr(i))))
 
 
 # <%
@@ -228,32 +229,32 @@ def GenInversedMux(inputs, sels, output, num):
 
 def GenFor(inputs, num, low=0):
   for i in range(low, num):
-    print inputs.replace("__WAY", `i`)
+    print(inputs.replace("__WAY", repr(i)))
 
 def GenPriorityEncoder(inputs, out, num):
-  print "always @ *"
-  print "begin"
-  print "%s = 0;" % out
+  print("always @ *")
+  print("begin")
+  print("%s = 0;" % out)
   for i in range (num):
     if i == 0:
-      print "if (%s[%d])" % (inputs, i)
+      print("if (%s[%d])" % (inputs, i))
     else:
-      print "else if (%s[%d])" % (inputs, i)
-    print "   %s = %d;" % (out, i)
-  print "end"
+      print("else if (%s[%d])" % (inputs, i))
+    print("   %s = %d;" % (out, i))
+  print("end")
 
 
 def GenPriorityDecoder(inputs, out, num):
-  print "always @ *"
-  print "begin"
-  print "%s = 0;" % out
+  print("always @ *")
+  print("begin")
+  print("%s = 0;" % out)
   for i in range (num):
     if i == 0:
-      print "if (%s == %d)" % (inputs, i)
+      print("if (%s == %d)" % (inputs, i))
     else:
-      print "else if (%s == %d)" % (inputs, i)
-    print "   %s[%d] = 1'b1;" % (out, i)
-  print "end"
+      print("else if (%s == %d)" % (inputs, i))
+    print("   %s[%d] = 1'b1;" % (out, i))
+  print("end")
 
 def ReadDevicesXMLFile():
   devicesInfo = []
@@ -263,13 +264,14 @@ def ReadDevicesXMLFile():
   tree = ET.parse(DEVICES_XML_FILENAME)
   devices = tree.getroot()
 
-
+  cur_portnum = 0
   for i in range(0, len(devices)):
     # go through each field of device
     base = 0
     length = 0
     name = ""
     noc2_in = False
+    virtual = False
     stream_accessible = False
     for j in range(0, len(devices[i])):
       tag = devices[i][j].tag
@@ -282,19 +284,27 @@ def ReadDevicesXMLFile():
         name = text
       elif tag == "noc2in":
         noc2_in = True
+      elif tag == "virtual":
+        virtual = True
       elif tag == "stream_accessible":
         stream_accessible = True
 
-    if name == "chip":
-        devicesInfo.insert(0, {"name": name, "base": base, "length": length, "noc2_in": noc2_in, "stream_accessible":stream_accessible})
+    if not virtual:
+      portnum = cur_portnum
+      cur_portnum += 1
     else:
-        devicesInfo.append({"name": name, "base": base, "length": length, "noc2_in": noc2_in, "stream_accessible":stream_accessible})
+      portnum = -1
+
+    if name == "chip":
+        devicesInfo.insert(0, {"name": name, "portnum": portnum, "base": base, "length": length, "noc2_in": noc2_in, "virtual": virtual, "stream_accessible":stream_accessible})
+    else:
+        devicesInfo.append({"name": name, "portnum": portnum, "base": base, "length": length, "noc2_in": noc2_in, "virtual": virtual, "stream_accessible":stream_accessible})
 
   return devicesInfo
 
 def GenBramFPGA(depth, width):
     depth_log2 = math.log(depth,2);
-    print """
+    print("""
       module inferred_bram_%dx%d (clk, ena, wea, addra, dina, enb, addrb, doutb);
         input clk;
         input ena;
@@ -318,4 +328,4 @@ def GenBramFPGA(depth, width):
           end
         end
       endmodule
-    """ % (depth, width, depth_log2, width, depth_log2, width, width, depth, width)
+    """ % (depth, width, depth_log2, width, depth_log2, width, width, depth, width))
