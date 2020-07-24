@@ -43,7 +43,12 @@
 
 `define MEM_ADDR_WIDTH      64
 
-module fake_mem_ctrl(
+module fake_mem_ctrl #(
+`ifdef PITON_SIM_MEMORY
+    parameter [63:0] MEM_BASE   = 64'h0000000080000000,
+    parameter [63:0] SIZE_BYTES = 64'h0000000040000000
+`endif
+) (
 
     input wire clk,
     input wire rst_n,
@@ -72,6 +77,15 @@ reg [`MSG_LENGTH_WIDTH-1:0] buf_in_counter_f;
 reg [`MSG_LENGTH_WIDTH-1:0] buf_in_counter_next;
 reg [3:0] buf_in_wr_ptr_f;
 reg [3:0] buf_in_wr_ptr_next;
+
+`ifdef PITON_SIM_MEMORY
+reg         sim_memory_write;
+reg [511:0] sim_memory_wr_data;
+reg [63:0]  sim_memory_wr_addr;
+reg [63:0]  sim_memory_rd_addr;
+reg [511:0] sim_memory [SIZE_BYTES/(64*8)-1:0];
+// reg [SIZE_BYTES-1:0] sim_memory;
+`endif
 
 always @ *
 begin
@@ -243,6 +257,7 @@ begin
 end
 
 
+`ifndef PITON_SIM_MEMORY
 always @ *
 begin
     // initialize to get rid of msim warnings
@@ -563,6 +578,95 @@ begin
         endcase
     end
 end
+
+`else // ifndef PITON_SIM_MEMORY
+
+always @ *
+begin
+    mem_temp = `NOC_DATA_WIDTH'h0;
+    sim_memory_write = 1'b0;
+    sim_memory_rd_addr = 64'b0;
+    if (mem_valid_in)
+    begin
+        case (msg_type)
+        `MSG_TYPE_LOAD_MEM:
+        begin
+            sim_memory_rd_addr = {{(`MEM_ADDR_WIDTH-`PHY_ADDR_WIDTH){1'b0}}, msg_addr[`L2_TAG],msg_addr[`L2_TAG_INDEX],6'b000000} - MEM_BASE;
+            $display("fake_mem_ctrl.v: true read addr: %h", sim_memory_rd_addr);
+            msg_send_data[0] = sim_memory[sim_memory_rd_addr[63:6]][9'b000000000+:64];
+            msg_send_data[1] = sim_memory[sim_memory_rd_addr[63:6]][9'b001000000+:64];
+            msg_send_data[2] = sim_memory[sim_memory_rd_addr[63:6]][9'b010000000+:64];
+            msg_send_data[3] = sim_memory[sim_memory_rd_addr[63:6]][9'b011000000+:64];
+            msg_send_data[4] = sim_memory[sim_memory_rd_addr[63:6]][9'b100000000+:64];
+            msg_send_data[5] = sim_memory[sim_memory_rd_addr[63:6]][9'b101000000+:64];
+            msg_send_data[6] = sim_memory[sim_memory_rd_addr[63:6]][9'b110000000+:64];
+            msg_send_data[7] = sim_memory[sim_memory_rd_addr[63:6]][9'b111000000+:64];
+`ifndef MINIMAL_MONITORING
+            $display("MemRead: %h : %h", {{(`MEM_ADDR_WIDTH-`PHY_ADDR_WIDTH){1'b0}}, msg_addr[`L2_TAG],msg_addr[`L2_TAG_INDEX],6'b000000}, msg_send_data[0]);
+            $display("MemRead: %h : %h", {{(`MEM_ADDR_WIDTH-`PHY_ADDR_WIDTH){1'b0}}, msg_addr[`L2_TAG],msg_addr[`L2_TAG_INDEX],6'b001000}, msg_send_data[1]);
+            $display("MemRead: %h : %h", {{(`MEM_ADDR_WIDTH-`PHY_ADDR_WIDTH){1'b0}}, msg_addr[`L2_TAG],msg_addr[`L2_TAG_INDEX],6'b010000}, msg_send_data[2]);
+            $display("MemRead: %h : %h", {{(`MEM_ADDR_WIDTH-`PHY_ADDR_WIDTH){1'b0}}, msg_addr[`L2_TAG],msg_addr[`L2_TAG_INDEX],6'b011000}, msg_send_data[3]);
+            $display("MemRead: %h : %h", {{(`MEM_ADDR_WIDTH-`PHY_ADDR_WIDTH){1'b0}}, msg_addr[`L2_TAG],msg_addr[`L2_TAG_INDEX],6'b100000}, msg_send_data[4]);
+            $display("MemRead: %h : %h", {{(`MEM_ADDR_WIDTH-`PHY_ADDR_WIDTH){1'b0}}, msg_addr[`L2_TAG],msg_addr[`L2_TAG_INDEX],6'b101000}, msg_send_data[5]);
+            $display("MemRead: %h : %h", {{(`MEM_ADDR_WIDTH-`PHY_ADDR_WIDTH){1'b0}}, msg_addr[`L2_TAG],msg_addr[`L2_TAG_INDEX],6'b110000}, msg_send_data[6]);
+            $display("MemRead: %h : %h", {{(`MEM_ADDR_WIDTH-`PHY_ADDR_WIDTH){1'b0}}, msg_addr[`L2_TAG],msg_addr[`L2_TAG_INDEX],6'b111000}, msg_send_data[7]);
+`endif
+            msg_send_type = `MSG_TYPE_LOAD_MEM_ACK;
+            msg_send_length = 8'd8;
+        end
+        `MSG_TYPE_STORE_MEM:
+        begin
+            sim_memory_write = 1'b1;
+            sim_memory_wr_addr = {{(`MEM_ADDR_WIDTH-`PHY_ADDR_WIDTH){1'b0}}, msg_addr[`L2_TAG],msg_addr[`L2_TAG_INDEX],6'b000000} - MEM_BASE;
+            $display("fake_mem_ctrl.v: true write addr: %h", sim_memory_wr_addr);
+            sim_memory_wr_data = {buf_in_mem_f[10], buf_in_mem_f[9], buf_in_mem_f[8], buf_in_mem_f[7], buf_in_mem_f[6], buf_in_mem_f[5], buf_in_mem_f[4], buf_in_mem_f[3]};
+`ifndef MINIMAL_MONITORING
+            $display("MemWrite: %h : %h", {{(`MEM_ADDR_WIDTH-`PHY_ADDR_WIDTH){1'b0}}, msg_addr[`L2_TAG],msg_addr[`L2_TAG_INDEX],6'b000000}, buf_in_mem_f[3]);
+            $display("MemWrite: %h : %h", {{(`MEM_ADDR_WIDTH-`PHY_ADDR_WIDTH){1'b0}}, msg_addr[`L2_TAG],msg_addr[`L2_TAG_INDEX],6'b001000}, buf_in_mem_f[4]);
+            $display("MemWrite: %h : %h", {{(`MEM_ADDR_WIDTH-`PHY_ADDR_WIDTH){1'b0}}, msg_addr[`L2_TAG],msg_addr[`L2_TAG_INDEX],6'b010000}, buf_in_mem_f[5]);
+            $display("MemWrite: %h : %h", {{(`MEM_ADDR_WIDTH-`PHY_ADDR_WIDTH){1'b0}}, msg_addr[`L2_TAG],msg_addr[`L2_TAG_INDEX],6'b011000}, buf_in_mem_f[6]);
+            $display("MemWrite: %h : %h", {{(`MEM_ADDR_WIDTH-`PHY_ADDR_WIDTH){1'b0}}, msg_addr[`L2_TAG],msg_addr[`L2_TAG_INDEX],6'b100000}, buf_in_mem_f[7]);
+            $display("MemWrite: %h : %h", {{(`MEM_ADDR_WIDTH-`PHY_ADDR_WIDTH){1'b0}}, msg_addr[`L2_TAG],msg_addr[`L2_TAG_INDEX],6'b101000}, buf_in_mem_f[8]);
+            $display("MemWrite: %h : %h", {{(`MEM_ADDR_WIDTH-`PHY_ADDR_WIDTH){1'b0}}, msg_addr[`L2_TAG],msg_addr[`L2_TAG_INDEX],6'b110000}, buf_in_mem_f[9]);
+            $display("MemWrite: %h : %h", {{(`MEM_ADDR_WIDTH-`PHY_ADDR_WIDTH){1'b0}}, msg_addr[`L2_TAG],msg_addr[`L2_TAG_INDEX],6'b111000}, buf_in_mem_f[10]);
+`endif
+            msg_send_type = `MSG_TYPE_STORE_MEM_ACK;
+            msg_send_length = 8'd0;
+        end
+        default:
+        begin
+            msg_send_type = `MSG_TYPE_ERROR;
+            msg_send_length = 8'd0;
+        end
+        endcase
+    end
+end
+
+//generate for (int i = 0; i < (SIZE_BYTES/64; i = i + 1) begin : gen_sim_memory
+//always @(posedge clk) begin
+//    //if (~rst_n) begin
+//    //    sim_memory[i] <= 512'b0;
+//    //end else
+//    if (sim_memory_write & (sim_memory_wr_addr[63:6] == i) begin
+//        sim_memory[i] <= sim_memory_wr_data;
+//    end
+//end
+//end
+
+always @(posedge clk) begin
+    if (sim_memory_write) begin
+        sim_memory[sim_memory_wr_addr[63:6]] <= sim_memory_wr_data;
+    end
+end
+
+initial begin
+    for (integer i = 0; i < SIZE_BYTES/(64*8); i = i + 1) begin
+        sim_memory[i] = 512'b0;
+    end
+    $readmemh("sim_memory.memh", sim_memory);
+end
+
+`endif // ifndef PITON_SIM_MEMORY
 
 l2_encoder encoder(
     .msg_dst_chipid             (msg_src_chipid),
