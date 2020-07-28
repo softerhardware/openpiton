@@ -56,12 +56,20 @@
         <length>0xd4000</length>
         <noc2in/>
         <stream_accessible/>
+        <interrupt>
+            <id>0x1</id>
+            <trigger>level</trigger>
+        </interrupt>
     </port>
 <!--
     <port>
         <name>net</name>
         <base>0xfff0d00000</base>
         <length>0x100000</length>
+        <interrupt>
+            <id>0x2</id>
+            <trigger>edge</trigger>
+        </interrupt>
     </port>
     -->
 </devices>

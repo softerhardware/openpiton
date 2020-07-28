@@ -876,9 +876,69 @@ fake_mem_ctrl fake_mem_ctrl(
 
 `endif // endif PITONSYS_NO_MC
 
+<%
+num_interrupts = 0
+largest_id = -1
+for i in range(len(devices)):
+    if (devices[i]["gen_interrupt"]):
+        num_interrupts += 1
+        int_id = int(devices[i]["interrupt_id"])
+        largest_id = int_id if int_id > largest_id else largest_id
 
-wire net_interrupt;
-wire uart_interrupt;
+if num_interrupts > 0 and largest_id > 0:
+    interrupt_info = [{}]*(largest_id+1)
+    
+    for i in range(len(devices)):
+        if (devices[i]["gen_interrupt"]):
+            int_id = int(devices[i]["interrupt_id"])
+            interrupt_info[int_id] = {"source": devices[i]["name"],
+                                      "trigger": devices[i]["interrupt_trigger"]}
+    
+    sys.stderr.write("%s" % str(interrupt_info))
+
+    for i in range(largest_id+1):
+        if interrupt_info[i]:
+            print("wire %s_interrupt;" % interrupt_info[i]["source"])
+    
+    if PITON_ARIANE:
+        print("""
+wire [%d:0] irq_sources, irq_le;""" % (largest_id-1))
+
+        irq_le_str = """
+// 0:level 1:edge
+// Eth is edge, Uart is level
+assign irq_le      = {"""
+
+        irq_sources_str = """
+assign irq_sources = {"""
+
+        for i in reversed(range(1,largest_id+1)):
+            if interrupt_info[i]:
+                irq_le_str += "1'b1" if interrupt_info[i]["trigger"] == "edge" else "1'b0"
+                irq_sources_str += ("%s_interrupt" % interrupt_info[i]["source"])
+            else:
+                irq_le_str += "1'b0"
+                irq_sources_str += "1'b0"
+                
+            if i != 1:
+                irq_le_str += ", "
+                irq_sources_str += ", "
+        
+        irq_le_str += "};"
+        irq_sources_str += "};"
+
+        print(irq_le_str)
+        print(irq_sources_str)
+
+else:
+    # No interrupts defined
+    if PITON_ARIANE:
+        print("""
+wire irq_sources, irq_le;
+assign irq_le = 1'b0;
+assign irq_sources = 1'b0;""")
+
+%>
 
 `ifdef PITONSYS_IOCTRL
 
@@ -1104,12 +1164,6 @@ fake_uart fake_uart (
 /////////////////////////////
 
 `ifdef PITON_ARIANE
-
-    wire [1:0] irq_sources, irq_le;
-    // 0:level 1:edge
-    // Eth is edge, Uart is level
-    assign irq_le      = {1'b1, 1'b0};
-    assign irq_sources = {net_interrupt, uart_interrupt};
 
     // this is for selecting the right bootrom (1: baremetal, 0: linux)
     wire ariane_boot_sel;

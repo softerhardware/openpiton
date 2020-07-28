@@ -263,6 +263,7 @@ def ReadDevicesXMLFile():
   tree = ET.parse(DEVICES_XML_FILENAME)
   devices = tree.getroot()
 
+  num_interrupts = 0
   cur_portnum = 0
   for i in range(0, len(devices)):
     # go through each field of device
@@ -272,6 +273,9 @@ def ReadDevicesXMLFile():
     noc2_in = False
     virtual = False
     stream_accessible = False
+    gen_interrupt = False
+    interrupt_trigger = "level"
+    interrupt_id = 0
     for j in range(0, len(devices[i])):
       tag = devices[i][j].tag
       text = devices[i][j].text
@@ -287,6 +291,16 @@ def ReadDevicesXMLFile():
         virtual = True
       elif tag == "stream_accessible":
         stream_accessible = True
+      elif tag == "interrupt":
+        num_interrupts += 1
+        gen_interrupt = True
+        for k in range(0, len(devices[i][j])):
+          int_tag = devices[i][j][k].tag
+          int_text = devices[i][j][k].text
+          if int_tag == "trigger":
+            interrupt_trigger = int_text
+          elif int_tag == "id":
+            interrupt_id = int(int_text, 0)
 
     if not virtual:
       portnum = cur_portnum
@@ -295,10 +309,10 @@ def ReadDevicesXMLFile():
       portnum = -1
 
     if name == "chip":
-        devicesInfo.insert(0, {"name": name, "portnum": portnum, "base": base, "length": length, "noc2_in": noc2_in, "virtual": virtual, "stream_accessible":stream_accessible})
+        devicesInfo.insert(0, {"name": name, "portnum": portnum, "base": base, "length": length, "noc2_in": noc2_in, "virtual": virtual, "stream_accessible":stream_accessible, "gen_interrupt": gen_interrupt, "interrupt_trigger": interrupt_trigger, "interrupt_id": interrupt_id})
     else:
-        devicesInfo.append({"name": name, "portnum": portnum, "base": base, "length": length, "noc2_in": noc2_in, "virtual": virtual, "stream_accessible":stream_accessible})
-
+        devicesInfo.append({"name": name, "portnum": portnum, "base": base, "length": length, "noc2_in": noc2_in, "virtual": virtual, "stream_accessible":stream_accessible, "gen_interrupt": gen_interrupt, "interrupt_trigger": interrupt_trigger, "interrupt_id": interrupt_id})
+  print("// num_interrupts: %d" % num_interrupts)
   return devicesInfo
 
 def GenBramFPGA(depth, width):

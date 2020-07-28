@@ -201,9 +201,8 @@ def gen_riscv_dts(devices, nCpus, cpuFreq, timeBaseFreq, periphFreq, dtsPath, ti
     # TODO: this needs to be extended
     # get the number of interrupt sources
     numIrqs = 0
-    devWithIrq = ["uart", "net"];
     for i in range(len(devices)):
-        if devices[i]["name"] in devWithIrq:
+        if devices[i]["gen_interrupt"]:
             numIrqs += 1
 
 
@@ -263,6 +262,7 @@ def gen_riscv_dts(devices, nCpus, cpuFreq, timeBaseFreq, periphFreq, dtsPath, ti
         if devices[i]["name"] == "uart":
             addrBase = devices[i]["base"]
             addrLen  = devices[i]["length"]
+            interrupt_id = devices[i]["interrupt_id"]
             tmpStr += '''
         uart@%08x {
             compatible = "ns16550";
@@ -273,13 +273,14 @@ def gen_riscv_dts(devices, nCpus, cpuFreq, timeBaseFreq, periphFreq, dtsPath, ti
             interrupts = <%d>;
             reg-shift = <0>; // regs are spaced on 8 bit boundary (modified from Xilinx UART16550 to be ns16550 compatible)
         };
-            ''' % (addrBase, _reg_fmt(addrBase, addrLen, 2, 2), periphFreq, ioDeviceNr)
+            ''' % (addrBase, _reg_fmt(addrBase, addrLen, 2, 2), periphFreq, interrupt_id)
             ioDeviceNr+=1
 
         # Ethernet
         if devices[i]["name"] == "net":
             addrBase = devices[i]["base"]
             addrLen  = devices[i]["length"]
+            interrupt_id = devices[i]["interrupt_id"]
             tmpStr += '''
         eth: ethernet@%08x {
             compatible = "xlnx,xps-ethernetlite-1.00.a";
@@ -307,7 +308,7 @@ def gen_riscv_dts(devices, nCpus, cpuFreq, timeBaseFreq, periphFreq, dtsPath, ti
                 };
             };
         };
-            ''' % (addrBase, _reg_fmt(addrBase, addrLen, 2, 2), ioDeviceNr)
+            ''' % (addrBase, _reg_fmt(addrBase, addrLen, 2, 2), interrupt_id)
             ioDeviceNr+=1
 
         # eth: lowrisc-eth@%08x {

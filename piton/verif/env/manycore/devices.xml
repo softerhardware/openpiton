@@ -48,5 +48,9 @@
         <!-- Just give it all the space up to the network device? -->
         <length>0xd4000</length>
         <noc2in/>
+        <interrupt>
+            <id>0x1</id>
+            <trigger>level</trigger>
+        </interrupt>
     </port>
 </devices>
