@@ -338,6 +338,9 @@ GetOptions (\%opt,
             'ariane!',
             'pico!',
             'pico_het!',
+            'sparcv9!',
+            'rv32!',
+            'rv64!',
             'regress!',
             'regress_id=s',
             'report!',
@@ -1278,13 +1281,13 @@ sub pre_build
     print "compiling DTS and bootroms for Ariane...\n";
     !system("cd $ENV{ARIANE_ROOT}/openpiton/bootrom/baremetal && make clean && make all && cd - > /dev/null") or
       die (" Error compiling DTS for ariane.");
-    !system("cd $ENV{ARIANE_ROOT}/openpiton/bootrom/linux && make clean && make all MAX_HARTS=$ENV{PTON_NUM_TILES} && cd - > /dev/null") or
+    !system("cd $ENV{ARIANE_ROOT}/openpiton/bootrom/linux && make clean && make all MAX_HARTS=$ENV{PITON_NUM_TILES} && cd - > /dev/null") or
       die (" Error compiling DTS for ariane.");
     print "done\n";
     # currently we have two sources (hardcoded in chipset_impl): UART and Ethernet
     my $num_sources = 2;
     # 2 targets per core (M/S mode)
-    my $num_targets = 2 * $ENV{PTON_NUM_TILES};
+    my $num_targets = 2 * $ENV{PITON_NUM_TILES};
     print "generating PLIC for Ariane with $num_targets targets and $num_sources sources...\n";
     !system("cd $ENV{ARIANE_ROOT}/src/rv_plic/rtl && ./gen_plic_addrmap.py -t $num_targets -s $num_sources > plic_regmap.sv") or
       die (" Error generating PLIC for Ariane.");
@@ -1391,8 +1394,8 @@ sub generic_sim_build
           push (@{$opt{config_rtl}}, "IBM_SRAM_LSU_ICACHE_MODEL_CHECKER") ;
       }
 
-      push (@{$opt{vcs_build_args}}, "+define+COPROCESSOR_ON") if ($opt{dmbr}) ;
-      push (@{$opt{vcs_build_args}}, "+define+DMBR_CHECKER") if ($opt{dmbr_checker}) ;
+      push (@{$opt{config_rtl}}, "COPROCESSOR_ON") if ($opt{dmbr}) ;
+      push (@{$opt{config_rtl}}, "DMBR_CHECKER") if ($opt{dmbr_checker}) ;
     }
     if ($opt{ncv_build}) {
       # build ncelab and ncsim executable files if not present
@@ -1549,6 +1552,7 @@ sub generic_sim_build
       $build_cmd .= "--top-module cmp_top " ;
       $build_cmd .= "-Wno-fatal " ;
       $build_cmd .= "-Wno-BLKANDNBLK " ;
+      $build_cmd .= "-Wno-TIMESCALEMOD " ;
       $build_cmd .= "-DPITON_DPI " ;
       $build_cmd .= "--unroll-count 256 " ;
       $build_cmd .= "-CFLAGS -DVERILATOR " ;
@@ -2347,7 +2351,7 @@ sub assemble_diag
       # only recompile if necessary
       if (!$opt{precompiled}) {
         print "$prg: assembling 64bit riscv diag (RV64IMAC)\n" ;
-        my $defs = "-DPITON_NUMTILES=$ENV{PTON_NUM_TILES} ";
+        my $defs = "-DPITON_NUMTILES=$ENV{PITON_NUM_TILES} ";
         if ($opt{uart_dmw}) {
           $defs .= " -DPITONSTREAM ";
         }
@@ -2742,6 +2746,20 @@ sub parse_args
     else { die ("DIE. Unprocessed argument: $x") ; }
   }
 
+  # Set ISA to choose compilation flow based on ISA
+  if ($opt{ost1}) {
+    $opt{sparcv9} = 1 ;
+    print "$prg: Building/running for sparcv9\n" ;
+  }
+  if ($opt{pico}) {
+    $opt{rv32} = 1 ;
+    print "$prg: Building/running for rv32\n" ;
+  }
+  if ($opt{ariane}) {
+    $opt{rv64} = 1 ;
+    print "$prg: Building/running for rv64\n" ;
+  }
+
   # in case a precompiled riscv binary for ariane is directly specified
   if ($opt{precompiled} and ($opt{rv32} | $opt{rv64})) {
     if (!($opt{asm_diag_name} =~ /\.riscv/)) {
@@ -2792,27 +2810,13 @@ sub parse_args
   # set up network_config defines
   if ($opt{network_config}) {
     if (($opt{network_config} eq "xbar_config") or ($opt{network_config} eq "2dmesh_config")) {
-      $ENV{PTON_NETWORK_CONFIG}=$opt{network_config};
+      $ENV{PITON_NETWORK_CONFIG}=$opt{network_config};
     } else {
       die ("DIE. network_config can only be xbar_config or 2dmesh_config");
     }
   } else {
     print "$prg: network_config not specified, assuming 2dmesh configuration\n";
-    $ENV{PTON_NETWORK_CONFIG}="2d_mesh";
-  }
-
-  # Set ISA to choose compilation flow based on ISA
-  if ($opt{ost1}) {
-    $opt{sparcv9} = 1 ;
-    print "$prg: Building/running for sparcv9\n" ;
-  }
-  if ($opt{pico}) {
-    $opt{rv32} = 1 ;
-    print "$prg: Building/running for rv32\n" ;
-  }
-  if ($opt{ariane}) {
-    $opt{rv64} = 1 ;
-    print "$prg: Building/running for rv64\n" ;
+    $ENV{PITON_NETWORK_CONFIG}="2d_mesh";
   }
   if ($opt{anycore}) {
     $opt{rv64} = 1 ;
@@ -2834,11 +2838,6 @@ sub parse_args
   push (@{$opt{config_rtl}}, "SIM")  if ($opt{anycore});
   push (@{$opt{vcs_build_args}}, "-sverilog")  if ($opt{anycore});
   push (@{$opt{ncv_build_args}}, "-sverilog")  if ($opt{anycore});
-
-  if ($opt{pico} or $opt{pico_het} or $opt{ariane} or $opt{anycore}) {
-    push (@{$opt{config_rtl}}, "NO_MRA_VAL") ;
-    push (@{$opt{config_rtl}}, "NO_SLAM_RANDOM") ;
-  }
 
   my $pton_x_tiles="";
   my $pton_y_tiles="";
@@ -2877,19 +2876,19 @@ sub parse_args
     }
   }
 
-  $ENV{PTON_X_TILES}=$pton_x_tiles;
-  $ENV{PTON_Y_TILES}=$pton_y_tiles;
-  $ENV{PTON_NUM_TILES}=$pton_num_tiles;
+  $ENV{PITON_X_TILES}=$pton_x_tiles;
+  $ENV{PITON_Y_TILES}=$pton_y_tiles;
+  $ENV{PITON_NUM_TILES}=$pton_num_tiles;
   if($opt{dynamic_csm}) {
-    $ENV{PTON_DYNAMIC_CSM}=$opt{dynamic_csm};
+    $ENV{PITON_DYNAMIC_CSM}=$opt{dynamic_csm};
     push (@{$opt{midas_args}}, "-DDYNAMIC_CSM=$opt{dynamic_csm}");
   } else {
-    $ENV{PTON_DYNAMIC_CSM}=0;
+    $ENV{PITON_DYNAMIC_CSM}=0;
   }
 
-  push (@{$opt{midas_args}}, "-DPTON_X_TILES=$pton_x_tiles");
-  push (@{$opt{midas_args}}, "-DPTON_Y_TILES=$pton_y_tiles");
-  push (@{$opt{midas_args}}, "-DPTON_NUM_TILES=$pton_num_tiles");
+  push (@{$opt{midas_args}}, "-DPITON_X_TILES=$pton_x_tiles");
+  push (@{$opt{midas_args}}, "-DPITON_Y_TILES=$pton_y_tiles");
+  push (@{$opt{midas_args}}, "-DPITON_NUM_TILES=$pton_num_tiles");
 
   # Alexey: set default value for UART_DIV_LATCH define
   if (index("@{$opt{midas_args}}", "UART_DIV_LATCH") == -1) {
@@ -2918,9 +2917,9 @@ sub parse_args
   push (@{$opt{config_rtl}}, "ORAM_ON") if ($opt{oram}) ;
   push (@{$opt{sim_run_args}}, "+oram") if ($opt{oram}) ;
 
-  if ($opt{msm_build} or $opt{icv_build} or $opt{vlt_build}) {
-      push(@{$opt{config_rtl}}, "NO_SLAM_RANDOM") ;
-      push(@{$opt{config_rtl}}, "NO_MRA_VAL") ;
+  if ($opt{vcs_build} or $opt{ncv_build} or $opt{riv_build}) {
+      push(@{$opt{config_rtl}}, "OST1_PLI_SLAM_RANDOM") ;
+      push(@{$opt{config_rtl}}, "OST1_PLI_MRA_VAL") ;
   }
 
 }
