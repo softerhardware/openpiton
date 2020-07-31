@@ -2332,17 +2332,17 @@ sub assemble_diag
         if ($opt{ariane}) {
           $ENV{RV64_MABI} = "lp64d" ;
         }
-        if ($opt{ariane}) {
+        if ($opt{anycore}) {
           $ENV{RV64_MABI} = "lp64" ;
         }
       } else {
         $ENV{RV64_MABI} = $opt{rv64_mabi} ;
       }
       if ($opt{ariane}) {
-        $ENV{RV32_CORE} = "ariane" ;
+        $ENV{RV64_CORE} = "ariane" ;
       }
       if ($opt{anycore}) {
-        $ENV{RV32_CORE} = "rv64" ;
+        $ENV{RV64_CORE} = "rv64" ;
       }
       # only recompile if necessary
       if (!$opt{precompiled}) {
