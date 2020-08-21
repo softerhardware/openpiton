@@ -178,7 +178,7 @@ wire [`L15_NOC1_REQTYPE_WIDTH-1:0] csm_noc1encoder_req_type;
 wire [`L15_CSM_NUM_TICKETS_LOG2-1:0] csm_noc1encoder_req_mshrid;
 wire [`PHY_ADDR_WIDTH-1:0] csm_noc1encoder_req_address;
 wire csm_noc1encoder_req_non_cacheable;
-wire  [`PCX_SIZE_WIDTH-1:0] csm_noc1encoder_req_size;
+wire  [`PCX_SIZE_FIELD_WIDTH-1:0] csm_noc1encoder_req_size;
 
 l15_csm l15_csm(
     .clk(clk),

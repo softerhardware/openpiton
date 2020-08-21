@@ -70,8 +70,8 @@ module l15_pipeline(
     input wire pcxdecoder_l15_val,
     input wire [`L15_PADDR_MASK] pcxdecoder_l15_address,
     input wire [`TLB_CSM_WIDTH-1:0] pcxdecoder_l15_csm_data,
-    input wire [`L15_UNPARAM_63_0] pcxdecoder_l15_data,
-    input wire [`L15_UNPARAM_63_0] pcxdecoder_l15_data_next_entry,
+    input wire [63:0] pcxdecoder_l15_data,
+    input wire [63:0] pcxdecoder_l15_data_next_entry,
     input wire pcxdecoder_l15_invalidate_cacheline,
     // noc2
     input wire noc2decoder_l15_val,
@@ -83,11 +83,11 @@ module l15_pipeline(
     input wire noc2decoder_l15_f4b, // tcov: not used by L2, is passed directly from L2 to the core
     input wire [`MSG_TYPE_WIDTH-1:0] noc2decoder_l15_reqtype, // tcov: message type length is dictated by packet format
     input wire [`L15_MESI_STATE_WIDTH-1:0] noc2decoder_l15_ack_state,
-    input wire [`L15_UNPARAM_3_0] noc2decoder_l15_fwd_subcacheline_vector,
-    input wire [`L15_UNPARAM_63_0] noc2decoder_l15_data_0,
-    input wire [`L15_UNPARAM_63_0] noc2decoder_l15_data_1,
-    input wire [`L15_UNPARAM_63_0] noc2decoder_l15_data_2,
-    input wire [`L15_UNPARAM_63_0] noc2decoder_l15_data_3,
+    input wire [`MSG_SUBLINE_VECTOR_WIDTH-1:0] noc2decoder_l15_fwd_subcacheline_vector,
+    input wire [63:0] noc2decoder_l15_data_0,
+    input wire [63:0] noc2decoder_l15_data_1,
+    input wire [63:0] noc2decoder_l15_data_2,
+    input wire [63:0] noc2decoder_l15_data_3,
     input wire [`L15_PADDR_MASK] noc2decoder_l15_address,
     input wire [`PACKET_HOME_ID_WIDTH-1:0] noc2decoder_l15_src_homeid,
     input wire [`L15_CSM_NUM_TICKETS_LOG2-1:0] noc2decoder_l15_csm_mshrid,
@@ -99,7 +99,7 @@ module l15_pipeline(
     input wire noc3encoder_l15_req_ack,
 
     // input from config registers to pipeline
-    input wire [`L15_UNPARAM_63_0] config_l15_read_res_data_s3,
+    input wire [63:0] config_l15_read_res_data_s3,
 
     // MEMORY BLOCK OUTPUTS
     // data tag
@@ -113,27 +113,27 @@ module l15_pipeline(
     output reg l15_dcache_val_s2,
     output reg l15_dcache_rw_s2,
     output reg [(`L15_CACHE_INDEX_WIDTH+`L15_WAY_WIDTH)-1:0] l15_dcache_index_s2,
-    output reg [`L15_UNPARAM_127_0] l15_dcache_write_data_s2,
-    output reg [`L15_UNPARAM_127_0] l15_dcache_write_mask_s2,
-    input wire [`L15_UNPARAM_127_0] dcache_l15_dout_s3,
+    output reg [`L15_LINE_SIZE-1:0] l15_dcache_write_data_s2,
+    output reg [`L15_LINE_SIZE-1:0] l15_dcache_write_mask_s2,
+    input wire [`L15_LINE_SIZE-1:0] dcache_l15_dout_s3,
 
     // mesi
     output reg l15_mesi_read_val_s1,
     output reg [`L15_CACHE_INDEX_WIDTH-1:0] l15_mesi_read_index_s1,
-    input wire [`L15_UNPARAM_7_0] mesi_l15_dout_s2,
+    input wire [`L15_MESI_ARRAY_WIDTH-1:0] mesi_l15_dout_s2,
     output reg l15_mesi_write_val_s2,
     output reg [`L15_CACHE_INDEX_WIDTH-1:0] l15_mesi_write_index_s2,
-    output reg [`L15_UNPARAM_7_0] l15_mesi_write_mask_s2,
-    output reg [`L15_UNPARAM_7_0] l15_mesi_write_data_s2,
+    output reg [`L15_MESI_ARRAY_WIDTH-1:0] l15_mesi_write_mask_s2,
+    output reg [`L15_MESI_ARRAY_WIDTH-1:0] l15_mesi_write_data_s2,
 
     // lrsc_flag
     output reg l15_lrsc_flag_read_val_s1,
     output reg [`L15_CACHE_INDEX_WIDTH-1:0] l15_lrsc_flag_read_index_s1,
-    input wire [`L15_UNPARAM_3_0] lrsc_flag_l15_dout_s2,
+    input wire [`L15_WAY_COUNT-1:0] lrsc_flag_l15_dout_s2,
     output reg l15_lrsc_flag_write_val_s2,
     output reg [`L15_CACHE_INDEX_WIDTH-1:0] l15_lrsc_flag_write_index_s2,
-    output reg [`L15_UNPARAM_3_0] l15_lrsc_flag_write_mask_s2,
-    output reg [`L15_UNPARAM_3_0] l15_lrsc_flag_write_data_s2,
+    output reg [`L15_WAY_COUNT-1:0] l15_lrsc_flag_write_mask_s2,
+    output reg [`L15_WAY_COUNT-1:0] l15_lrsc_flag_write_data_s2,
 
     // lruarray
     output reg l15_lruarray_read_val_s1,
@@ -165,8 +165,8 @@ module l15_pipeline(
     output reg pipe_mshr_writereq_val_s1,
     output reg [`L15_MSHR_WRITE_TYPE_WIDTH-1:0] pipe_mshr_writereq_op_s1,   // tcov: one bit not used for encoding
     output reg [`L15_PADDR_MASK] pipe_mshr_writereq_address_s1,
-    output reg [`L15_UNPARAM_127_0] pipe_mshr_writereq_write_buffer_data_s1,
-    output reg [`L15_UNPARAM_15_0] pipe_mshr_writereq_write_buffer_byte_mask_s1,
+    output reg [`L15_LINE_SIZE-1:0] pipe_mshr_writereq_write_buffer_data_s1,
+    output reg [`L15_WRITE_BYTE_MASK_WIDTH-1:0] pipe_mshr_writereq_write_buffer_byte_mask_s1,
     output reg [`L15_CONTROL_WIDTH-1:0] pipe_mshr_writereq_control_s1,
     output reg [`L15_MSHR_ID_WIDTH-1:0] pipe_mshr_writereq_mshrid_s1,
     output reg [`L15_THREADID_MASK] pipe_mshr_writereq_threadid_s1,
@@ -185,8 +185,8 @@ module l15_pipeline(
     //s2 (loading store buffer)
     output reg pipe_mshr_write_buffer_rd_en_s2,
     output reg [`L15_THREADID_MASK] pipe_mshr_threadid_s2,
-    input wire [`L15_UNPARAM_127_0] mshr_pipe_write_buffer_s2,
-    input wire [`L15_UNPARAM_15_0] mshr_pipe_write_buffer_byte_mask_s2,
+    input wire [`L15_LINE_SIZE-1:0] mshr_pipe_write_buffer_s2,
+    input wire [`L15_WRITE_BYTE_MASK_WIDTH-1:0] mshr_pipe_write_buffer_byte_mask_s2,
     //s3 (deallocation or updating write states)
     output reg pipe_mshr_val_s3,
     output reg [`L15_MSHR_WRITE_TYPE_WIDTH-1:0] pipe_mshr_op_s3,
@@ -198,7 +198,7 @@ module l15_pipeline(
     // PCX,CPX,NOC
     // cpx
     output reg l15_cpxencoder_val,
-    output reg [`L15_UNPARAM_3_0] l15_cpxencoder_returntype,
+    output reg [`CPX_RESTYPE_WIDTH-1:0] l15_cpxencoder_returntype,
     output reg l15_cpxencoder_l2miss,
     output reg [`CPX_ERROR_CODE_WIDTH-1:0] l15_cpxencoder_error,  // tcov: to core but not utilized
     output reg l15_cpxencoder_noncacheable,
@@ -206,10 +206,10 @@ module l15_pipeline(
     output reg [`L15_THREADID_MASK] l15_cpxencoder_threadid,
     output reg l15_cpxencoder_prefetch,
     output reg l15_cpxencoder_f4b,
-    output reg [`L15_UNPARAM_63_0] l15_cpxencoder_data_0,
-    output reg [`L15_UNPARAM_63_0] l15_cpxencoder_data_1,
-    output reg [`L15_UNPARAM_63_0] l15_cpxencoder_data_2,
-    output reg [`L15_UNPARAM_63_0] l15_cpxencoder_data_3,
+    output reg [63:0] l15_cpxencoder_data_0,
+    output reg [63:0] l15_cpxencoder_data_1,
+    output reg [63:0] l15_cpxencoder_data_2,
+    output reg [63:0] l15_cpxencoder_data_3,
     output reg l15_cpxencoder_inval_icache_all_way,
     output reg l15_cpxencoder_inval_dcache_all_way,         // tcov: to core but not utilized, inval individually
     output reg [15:4] l15_cpxencoder_inval_address_15_4,
@@ -226,25 +226,25 @@ module l15_pipeline(
     output reg [`L15_MSHR_ID_WIDTH-1:0] l15_noc1buffer_req_mshrid,
     output reg [`L15_PADDR_MASK] l15_noc1buffer_req_address,
     output reg l15_noc1buffer_req_non_cacheable,
-    output reg [`L15_UNPARAM_2_0] l15_noc1buffer_req_size,
+    output reg [`PCX_SIZE_FIELD_WIDTH-1:0] l15_noc1buffer_req_size,
     output reg l15_noc1buffer_req_prefetch,
     output reg [`TLB_CSM_WIDTH-1:0] l15_noc1buffer_req_csm_data,
-    output reg [`L15_UNPARAM_63_0] l15_noc1buffer_req_data_0,
-    output reg [`L15_UNPARAM_63_0] l15_noc1buffer_req_data_1,
+    output reg [63:0] l15_noc1buffer_req_data_0,
+    output reg [63:0] l15_noc1buffer_req_data_1,
     // output reg l15_noc1buffer_req_blkstore,
     // output reg l15_noc1buffer_req_blkinitstore,
     // noc3
     output reg l15_noc3encoder_req_val,
     output reg [`L15_NOC3_REQTYPE_WIDTH-1:0] l15_noc3encoder_req_type,
-    output reg [`L15_UNPARAM_63_0] l15_noc3encoder_req_data_0,
-    output reg [`L15_UNPARAM_63_0] l15_noc3encoder_req_data_1,
+    output reg [63:0] l15_noc3encoder_req_data_0,
+    output reg [63:0] l15_noc3encoder_req_data_1,
     output reg [`L15_MSHR_ID_WIDTH-1:0] l15_noc3encoder_req_mshrid,
     output reg [`L15_SEQUENCE_ID_WIDTH-1:0] l15_noc3encoder_req_sequenceid,
     output reg [`L15_THREADID_MASK] l15_noc3encoder_req_threadid,
     output reg [`L15_PADDR_MASK] l15_noc3encoder_req_address,
     output reg l15_noc3encoder_req_with_data,
     output reg l15_noc3encoder_req_was_inval,
-    output reg [`L15_UNPARAM_3_0] l15_noc3encoder_req_fwdack_vector,
+    output reg [`MSG_SUBLINE_VECTOR_WIDTH-1:0] l15_noc3encoder_req_fwdack_vector,
     output reg [`PACKET_HOME_ID_WIDTH-1:0] l15_noc3encoder_req_homeid,
     // ack to inputs
     output reg l15_pcxdecoder_ack,
@@ -259,10 +259,10 @@ module l15_pipeline(
     output reg [`L15_CSM_NUM_TICKETS_LOG2-1:0] l15_csm_req_ticket_s2,
     // output reg [`HOME_ID_WIDTH-1:0] l15_csm_clump_tile_count_s2,
     output reg  l15_csm_req_type_s2,     //0 for load, 1 for store
-    output reg [`L15_UNPARAM_127_0] l15_csm_req_data_s2, // remember to duplicate this in l15
+    output reg [`L15_LINE_SIZE-1:0] l15_csm_req_data_s2, // remember to duplicate this in l15
     output reg [`TLB_CSM_WIDTH-1:0] l15_csm_req_pcx_data_s2, // remember to duplicate this in l15
     input wire csm_l15_res_val_s3,
-    input wire [`L15_UNPARAM_63_0] csm_l15_res_data_s3,
+    input wire [63:0] csm_l15_res_data_s3,
 
     // homeid info to noc1buffer
     output reg [`L15_CSM_NUM_TICKETS_LOG2-1:0] l15_noc1buffer_req_csm_ticket,
@@ -272,7 +272,7 @@ module l15_pipeline(
     // output to config registers to pipeline
     output reg l15_config_req_val_s2,
     output reg l15_config_req_rw_s2,
-    output reg [`L15_UNPARAM_63_0] l15_config_write_req_data_s2,
+    output reg [63:0] l15_config_write_req_data_s2,
     output reg [`CONFIG_REG_ADDRESS_MASK] l15_config_req_address_s2
     );
 
@@ -337,7 +337,7 @@ reg [`L15_PADDR_MASK] predecode_address_plus0_s1;
 reg [`L15_PADDR_MASK] predecode_address_plus1_s1;
 reg [`L15_PADDR_MASK] predecode_address_plus2_s1;
 reg [`L15_PADDR_MASK] predecode_address_plus3_s1;
-reg [`L15_UNPARAM_2_0] predecode_size_s1;
+reg [`PCX_SIZE_FIELD_WIDTH-1:0] predecode_size_s1;
 reg [`L15_THREADID_MASK] predecode_threadid_s1;
 reg [`L15_WAY_MASK] predecode_l1_replacement_way_s1;
 reg predecode_non_cacheable_s1;
@@ -358,7 +358,7 @@ reg predecode_noc2_inval_s1;
 reg predecode_val_s1;
 reg [`L15_PREDECODE_SOURCE_WIDTH-1:0] predecode_source_s1;
 reg predecode_interrupt_broadcast_s1;
-reg [`L15_UNPARAM_3_0] predecode_fwd_subcacheline_vector_s1;
+reg [`MSG_SUBLINE_VECTOR_WIDTH-1:0] predecode_fwd_subcacheline_vector_s1;
 
 always @ *
 begin
@@ -498,20 +498,20 @@ begin
             predecode_dcache_noc2_store_sm_s1 = mshr_st_state_array[predecode_threadid_s1] == `L15_MESI_TRANSITION_STATE_SM;
 
 
-            predecode_address_plus0_s1 = {noc2decoder_l15_address[39:6], 2'b00, noc2decoder_l15_address[`L15_UNPARAM_3_0]};
-            predecode_address_plus1_s1 = {noc2decoder_l15_address[39:6], 2'b01, noc2decoder_l15_address[`L15_UNPARAM_3_0]};
-            predecode_address_plus2_s1 = {noc2decoder_l15_address[39:6], 2'b10, noc2decoder_l15_address[`L15_UNPARAM_3_0]};
-            predecode_address_plus3_s1 = {noc2decoder_l15_address[39:6], 2'b11, noc2decoder_l15_address[`L15_UNPARAM_3_0]};
+            predecode_address_plus0_s1 = {noc2decoder_l15_address[39:6], 2'b00, noc2decoder_l15_address[3:0]};
+            predecode_address_plus1_s1 = {noc2decoder_l15_address[39:6], 2'b01, noc2decoder_l15_address[3:0]};
+            predecode_address_plus2_s1 = {noc2decoder_l15_address[39:6], 2'b10, noc2decoder_l15_address[3:0]};
+            predecode_address_plus3_s1 = {noc2decoder_l15_address[39:6], 2'b11, noc2decoder_l15_address[3:0]};
 
             if (noc2decoder_l15_icache_type)
                 predecode_is_last_inval_s1 = ((fetch_state_s1 == `L15_FETCH_STATE_ICACHE_INVAL_2) && (predecode_fwd_subcacheline_vector_s1[3:2] == 2'b11)) ||
-                                             ((fetch_state_s1 == `L15_FETCH_STATE_NORMAL) && (predecode_fwd_subcacheline_vector_s1[`L15_UNPARAM_3_0] == 4'b0011));
+                                             ((fetch_state_s1 == `L15_FETCH_STATE_NORMAL) && (predecode_fwd_subcacheline_vector_s1 == 4'b0011));
                 // predecode_is_last_inval_s1 = ((fetch_state_s1 == `L15_FETCH_STATE_ICACHE_INVAL_2));
             else
                 predecode_is_last_inval_s1 = ((fetch_state_s1 == `L15_FETCH_STATE_INVAL_4) && (predecode_fwd_subcacheline_vector_s1[3])) ||
                                              ((fetch_state_s1 == `L15_FETCH_STATE_INVAL_3) && (predecode_fwd_subcacheline_vector_s1[3:2] == 2'b01)) ||
                                              ((fetch_state_s1 == `L15_FETCH_STATE_INVAL_2) && (predecode_fwd_subcacheline_vector_s1[3:1] == 3'b001)) ||
-                                             ((fetch_state_s1 == `L15_FETCH_STATE_NORMAL) && (predecode_fwd_subcacheline_vector_s1[`L15_UNPARAM_3_0] == 4'b0001));
+                                             ((fetch_state_s1 == `L15_FETCH_STATE_NORMAL) && (predecode_fwd_subcacheline_vector_s1 == 4'b0001));
 
             // predecode_icache_do_inval_s1 = ((fetch_state_s1 == `L15_FETCH_STATE_ICACHE_INVAL_2) && predecode_fwd_subcacheline_vector_s1[3:2] == 2'b11) ||
             //                                 ((fetch_state_s1 == `L15_FETCH_STATE_NORMAL) && predecode_fwd_subcacheline_vector_s1[`L15_UNPARAM_1_0] == 2'b11);
@@ -1937,12 +1937,12 @@ begin
     // note: the complicated sequence of calculation below is to determine
     //  creditman_noc1_avail <= creditman_noc1_reserve
     //  a simple expression (creditman_noc1_avail <= creditman_noc1_reserve) might not have the most efficient implementation
-    stall_tmp_operand1 = {1'b1, creditman_noc1_avail[`L15_UNPARAM_3_0]};
-    stall_tmp_operand2 = {1'b0, creditman_noc1_reserve[`L15_UNPARAM_3_0]};
+    stall_tmp_operand1 = {1'b1, creditman_noc1_avail};
+    stall_tmp_operand2 = {1'b0, creditman_noc1_reserve};
     stall_tmp_result = stall_tmp_operand1 - stall_tmp_operand2;
 
-    stall_noc1_command_buffer_1_unavail_s1 = (stall_tmp_result[`L15_UNPARAM_3_0] == 4'b0) || stall_tmp_result[4] == 1'b0;
-    stall_noc1_command_buffer_2_unavail_s1 = stall_noc1_command_buffer_1_unavail_s1 || (stall_tmp_result[`L15_UNPARAM_3_0] == 4'b1);
+    stall_noc1_command_buffer_1_unavail_s1 = (stall_tmp_result == 4'b0) || stall_tmp_result[4] == 1'b0;
+    stall_noc1_command_buffer_2_unavail_s1 = stall_noc1_command_buffer_1_unavail_s1 || (stall_tmp_result == 4'b1);
 
     stall_noc1_command_buffer_unavail_s1 = (decoder_creditman_noc1_needed == 2'd1 && stall_noc1_command_buffer_1_unavail_s1)
                                         || (decoder_creditman_noc1_needed == 2'd2 && stall_noc1_command_buffer_2_unavail_s1);
@@ -1974,7 +1974,7 @@ reg dtag_rw_s1;
 reg [`L15_CACHE_INDEX_WIDTH-1:0] dtag_index_s1;
 reg [`L15_WAY_WIDTH-1:0] dtag_write_way_s1;
 reg [`L15_CACHE_TAG_RAW_WIDTH-1:0] dtag_write_tag_s1;
-reg [`L15_UNPARAM_3_0] dtag_write_way_mask;
+reg [`L15_WAY_COUNT-1:0] dtag_write_way_mask;
 
 always @ *
 begin
@@ -2099,13 +2099,13 @@ reg [`L15_PADDR_MASK] s1_mshr_write_address_s1;
 reg [`L15_CONTROL_WIDTH-1:0] s1_mshr_write_control_s1;
 reg [`L15_MSHR_ID_WIDTH-1:0] s1_mshr_write_mshrid_s1;
 reg [`L15_THREADID_MASK] s1_mshr_write_threadid_s1;
-reg [`L15_UNPARAM_15_0] unshifted_write_mask_s1;
-reg [`L15_UNPARAM_15_0] write_mask_s1;
-reg [`L15_UNPARAM_15_0] write_mask_1B_s1;
-reg [`L15_UNPARAM_15_0] write_mask_2B_s1;
-reg [`L15_UNPARAM_15_0] write_mask_4B_s1;
-reg [`L15_UNPARAM_15_0] write_mask_8B_s1;
-reg [`L15_UNPARAM_15_0] write_mask_16B_s1;
+reg [`L15_WRITE_BYTE_MASK_WIDTH-1:0] unshifted_write_mask_s1;
+reg [`L15_WRITE_BYTE_MASK_WIDTH-1:0] write_mask_s1;
+reg [`L15_WRITE_BYTE_MASK_WIDTH-1:0] write_mask_1B_s1;
+reg [`L15_WRITE_BYTE_MASK_WIDTH-1:0] write_mask_2B_s1;
+reg [`L15_WRITE_BYTE_MASK_WIDTH-1:0] write_mask_4B_s1;
+reg [`L15_WRITE_BYTE_MASK_WIDTH-1:0] write_mask_8B_s1;
+reg [`L15_WRITE_BYTE_MASK_WIDTH-1:0] write_mask_16B_s1;
 // reg odd_extended_word_s1;
 always @ *
 begin
@@ -2184,8 +2184,8 @@ begin
     pipe_mshr_writereq_op_s1[`L15_MSHR_WRITE_TYPE_WIDTH-1:0] = s1_mshr_write_type_s1[`L15_MSHR_WRITE_TYPE_WIDTH-1:0];
     pipe_mshr_writereq_address_s1[`L15_PADDR_MASK] = s1_mshr_write_address_s1[`L15_PADDR_MASK];
     pipe_mshr_writereq_control_s1[`L15_CONTROL_WIDTH-1:0] = s1_mshr_write_control_s1[`L15_CONTROL_WIDTH-1:0];
-    pipe_mshr_writereq_write_buffer_data_s1[`L15_UNPARAM_127_0] = {pcxdecoder_l15_data, pcxdecoder_l15_data};
-    pipe_mshr_writereq_write_buffer_byte_mask_s1[`L15_UNPARAM_15_0] = write_mask_s1[`L15_UNPARAM_15_0];
+    pipe_mshr_writereq_write_buffer_data_s1[`L15_LINE_SIZE-1:0] = {pcxdecoder_l15_data, pcxdecoder_l15_data};
+    pipe_mshr_writereq_write_buffer_byte_mask_s1 = write_mask_s1;
     pipe_mshr_writereq_mshrid_s1[`L15_MSHR_ID_WIDTH-1:0] = s1_mshr_write_mshrid_s1[`L15_MSHR_ID_WIDTH-1:0];
     pipe_mshr_writereq_threadid_s1 = s1_mshr_write_threadid_s1;
 end
@@ -2455,7 +2455,7 @@ reg [`L15_MESI_STATE_WIDTH-1:0] mesi_state_way0_s2;
 reg [`L15_MESI_STATE_WIDTH-1:0] mesi_state_way1_s2;
 reg [`L15_MESI_STATE_WIDTH-1:0] mesi_state_way2_s2;
 reg [`L15_MESI_STATE_WIDTH-1:0] mesi_state_way3_s2;
-reg [`L15_UNPARAM_7_0] mesi_read_data_s2;
+reg [`L15_MESI_ARRAY_WIDTH-1:0] mesi_read_data_s2;
 reg tagcheck_way0_equals;
 reg tagcheck_way1_equals;
 reg tagcheck_way2_equals;
@@ -2655,11 +2655,11 @@ reg dcache_val_s2;
 reg dcache_rw_s2;
 reg [`L15_CACHE_INDEX_MASK] dcache_index_s2;
 reg [`L15_WAY_WIDTH-1:0] dcache_way_s2;
-reg [`L15_UNPARAM_127_0] dcache_mshr_write_mask_s2;
-reg [`L15_UNPARAM_127_0] dcache_write_merge_mshr_noc2_s2;
+reg [`L15_LINE_SIZE-1:0] dcache_mshr_write_mask_s2;
+reg [`L15_LINE_SIZE-1:0] dcache_write_merge_mshr_noc2_s2;
 reg [`L15_DCACHE_SOURCE_WIDTH-1:0] dcache_source_s2;
-reg [`L15_UNPARAM_127_0] dcache_write_mask_s2;
-reg [`L15_UNPARAM_127_0] dcache_write_data_s2;
+reg [`L15_LINE_SIZE-1:0] dcache_write_mask_s2;
+reg [`L15_LINE_SIZE-1:0] dcache_write_data_s2;
 // diag accesses
 reg [`L15_CACHE_INDEX_MASK] dcache_diag_index_s2;
 reg [`L15_WAY_WIDTH-1:0] dcache_diag_way_s2;
@@ -2790,39 +2790,39 @@ begin
     };
 
 
-    dcache_write_merge_mshr_noc2_s2[`L15_UNPARAM_127_0] =
-                    {(~dcache_mshr_write_mask_s2[127:64] & noc2decoder_l15_data_0[`L15_UNPARAM_63_0]),
-                    (~dcache_mshr_write_mask_s2[`L15_UNPARAM_63_0] & noc2decoder_l15_data_1[`L15_UNPARAM_63_0])}
-                        | (dcache_mshr_write_mask_s2[`L15_UNPARAM_127_0] & mshr_pipe_write_buffer_s2[`L15_UNPARAM_127_0]);
+    dcache_write_merge_mshr_noc2_s2[`L15_LINE_SIZE-1:0] =
+                    {(~dcache_mshr_write_mask_s2[127:64] & noc2decoder_l15_data_0[63:0]),
+                    (~dcache_mshr_write_mask_s2[63:0] & noc2decoder_l15_data_1[63:0])}
+                        | (dcache_mshr_write_mask_s2[`L15_LINE_SIZE-1:0] & mshr_pipe_write_buffer_s2[`L15_LINE_SIZE-1:0]);
 
     case (dcache_source_s2)
         `L15_DCACHE_SOURCE_MSHR:
         begin
-            dcache_write_mask_s2[`L15_UNPARAM_127_0] = dcache_mshr_write_mask_s2[`L15_UNPARAM_127_0];
-            dcache_write_data_s2[`L15_UNPARAM_127_0] = mshr_pipe_write_buffer_s2[`L15_UNPARAM_127_0];
+            dcache_write_mask_s2 = dcache_mshr_write_mask_s2;
+            dcache_write_data_s2 = mshr_pipe_write_buffer_s2;
         end
         `L15_DCACHE_SOURCE_NOC2:
         begin
-            dcache_write_mask_s2[`L15_UNPARAM_127_0] = {128{1'b1}};
-            dcache_write_data_s2[`L15_UNPARAM_127_0] = {noc2decoder_l15_data_0[`L15_UNPARAM_63_0], noc2decoder_l15_data_1[`L15_UNPARAM_63_0]};
+            dcache_write_mask_s2 = {`L15_LINE_SIZE{1'b1}};
+            dcache_write_data_s2 = {noc2decoder_l15_data_0[63:0], noc2decoder_l15_data_1[63:0]};
         end
         `L15_DCACHE_SOURCE_NOC2_AND_MSHR:
         begin
-            dcache_write_mask_s2[`L15_UNPARAM_127_0] = {128{1'b1}};
-            dcache_write_data_s2[`L15_UNPARAM_127_0] = dcache_write_merge_mshr_noc2_s2[`L15_UNPARAM_127_0];
+            dcache_write_mask_s2 = {`L15_LINE_SIZE{1'b1}};
+            dcache_write_data_s2 = dcache_write_merge_mshr_noc2_s2;
         end
         `L15_DCACHE_SOURCE_PCX_DIAG:
         begin
-            dcache_write_mask_s2[`L15_UNPARAM_127_0] = dcache_diag_offset_s2 == 1'b0 ? {{64{1'b1}},64'b0} : {64'b0,{64{1'b1}}};
-            dcache_write_data_s2[`L15_UNPARAM_127_0] = {pcxdecoder_l15_data[`L15_UNPARAM_63_0],pcxdecoder_l15_data[`L15_UNPARAM_63_0]};
+            dcache_write_mask_s2 = dcache_diag_offset_s2 == 1'b0 ? {{64{1'b1}},64'b0} : {64'b0,{64{1'b1}}};
+            dcache_write_data_s2 = {pcxdecoder_l15_data[63:0],pcxdecoder_l15_data[63:0]};
         end
     endcase
 
     l15_dcache_val_s2 = dcache_val_s2 && val_s2 && !stall_s2;
     l15_dcache_rw_s2 = dcache_rw_s2;
     l15_dcache_index_s2 = {dcache_index_s2, dcache_way_s2};
-    l15_dcache_write_mask_s2[`L15_UNPARAM_127_0] = dcache_write_mask_s2;
-    l15_dcache_write_data_s2[`L15_UNPARAM_127_0] = dcache_write_data_s2;
+    l15_dcache_write_mask_s2 = dcache_write_mask_s2;
+    l15_dcache_write_data_s2 = dcache_write_data_s2;
 
 
     // extra data for CSM homeid table
@@ -2914,11 +2914,11 @@ begin
     // trin todo: why stall_s2 is needed
     l15_mesi_write_val_s2 = mesi_write_val_s2 && val_s2 && !stall_s2;
     l15_mesi_write_index_s2[`L15_CACHE_INDEX_MASK] = mesi_write_index_s2;
-    l15_mesi_write_mask_s2[`L15_UNPARAM_7_0] =  (mesi_write_way_s2 == 0) ? 8'b00_00_00_11 :
+    l15_mesi_write_mask_s2 =  (mesi_write_way_s2 == 0) ? 8'b00_00_00_11 :
                             (mesi_write_way_s2 == 1) ? 8'b00_00_11_00 :
                             (mesi_write_way_s2 == 2) ? 8'b00_11_00_00 :
                                                     8'b11_00_00_00 ;
-    l15_mesi_write_data_s2[`L15_UNPARAM_7_0] = {4{mesi_write_state_s2}};
+    l15_mesi_write_data_s2 = {4{mesi_write_state_s2}};
 end
 
 
@@ -2927,7 +2927,7 @@ end
 ////////////////////////
 reg lrsc_flag_write_val_s2;
 reg [`L15_CACHE_INDEX_MASK] lrsc_flag_write_index_s2;
-reg [`L15_UNPARAM_1_0] lrsc_flag_write_way_s2;
+reg [`L15_WAY_WIDTH-1:0] lrsc_flag_write_way_s2;
 reg lrsc_flag_write_state_s2;
 always @ *
 begin
@@ -2969,11 +2969,8 @@ begin
     // trin todo: why stall_s2 is needed
     l15_lrsc_flag_write_val_s2 = lrsc_flag_write_val_s2 && val_s2 && !stall_s2;
     l15_lrsc_flag_write_index_s2[`L15_CACHE_INDEX_MASK] = lrsc_flag_write_index_s2;
-    l15_lrsc_flag_write_mask_s2[`L15_UNPARAM_3_0] =  (lrsc_flag_write_way_s2 == 0) ? 4'b0001 :
-                            (lrsc_flag_write_way_s2 == 1) ? 4'b0010 :
-                            (lrsc_flag_write_way_s2 == 2) ? 4'b0100 :
-                                                    4'b1000 ;
-    l15_lrsc_flag_write_data_s2[`L15_UNPARAM_3_0] = {4{lrsc_flag_write_state_s2}};
+    l15_lrsc_flag_write_mask_s2[`L15_WAY_COUNT-1:0] = `L15_WAY_COUNT'b1 << lrsc_flag_write_way_s2;
+    l15_lrsc_flag_write_data_s2[`L15_WAY_COUNT-1:0] = {`L15_WAY_COUNT{lrsc_flag_write_state_s2}};
 end
 
 ////////////////////////////
@@ -2997,7 +2994,7 @@ reg [`L15_CSM_NUM_TICKETS_LOG2-1:0] csm_ticket_s2;
 //     end
 // end
 
-reg [`L15_UNPARAM_127_0] csm_fill_data;
+reg [`L15_LINE_SIZE-1:0] csm_fill_data;
 reg csm_req_val_s2;
 reg csm_req_type_s2;
 reg csm_req_lru_address_s2;
@@ -3043,7 +3040,7 @@ begin
         begin
             csm_req_val_s2 = 1'b1;
             csm_req_type_s2 = 1'b1;
-            csm_fill_data = {noc2decoder_l15_data_1[`L15_UNPARAM_63_0], noc2decoder_l15_data_0[`L15_UNPARAM_63_0]};
+            csm_fill_data = {noc2decoder_l15_data_1[63:0], noc2decoder_l15_data_0[63:0]};
             //the req ticket is embedded in the mshrid of the refill msg
             l15_csm_req_ticket_s2 = noc2decoder_l15_csm_mshrid[`L15_CSM_NUM_TICKETS_LOG2-1:0];
         end
@@ -3051,7 +3048,7 @@ begin
         begin
             csm_req_val_s2 = 1'b1;
             csm_req_type_s2 = 1'b1;
-            csm_fill_data = {pcxdecoder_l15_data[`L15_UNPARAM_63_0],pcxdecoder_l15_data[`L15_UNPARAM_63_0]};
+            csm_fill_data = {pcxdecoder_l15_data[63:0],pcxdecoder_l15_data[63:0]};
             // l15_csm_req_ticket_s2 = csm_ticket_s2;
             csm_address_s2 = address_s2;
         end
@@ -3094,7 +3091,7 @@ begin
     l15_csm_req_type_s2 = csm_req_type_s2;
     // l15_csm_stall_s2 = stall_s2;
     // l15_csm_clump_tile_count_s2 = 1'b0; // adsfasdf
-    l15_csm_req_data_s2 = csm_fill_data[`L15_UNPARAM_127_0];
+    l15_csm_req_data_s2 = csm_fill_data[`L15_LINE_SIZE-1:0];
     l15_csm_req_pcx_data_s2 = csm_pcx_data_s2;
 end
 
@@ -3128,7 +3125,7 @@ end
 
 reg config_req_val_s2;
 reg config_req_rw_s2;
-reg [`L15_UNPARAM_63_0] config_write_req_data_s2;
+reg [63:0] config_write_req_data_s2;
 reg [`L15_PADDR_MASK] config_req_address_s2;
 
 always @ *
@@ -3149,7 +3146,7 @@ begin
             config_req_val_s2 = 1'b1;
             config_req_rw_s2 = 1'b1;
             config_req_address_s2 = address_s2;
-            config_write_req_data_s2[`L15_UNPARAM_63_0] = pcxdecoder_l15_data[`L15_UNPARAM_63_0];
+            config_write_req_data_s2 = pcxdecoder_l15_data;
         end
     endcase
 
@@ -3337,14 +3334,11 @@ begin
     // stbuf_l1waymap_val_s3 = stbuf_way_wmt_data_s3[2];
 end
 
-reg [`L15_UNPARAM_3_0] tagcheck_way_mask_s3;
+reg [`L15_WAY_COUNT-1:0] tagcheck_way_mask_s3;
 always @ *
 begin
     // expanding some signals
-    tagcheck_way_mask_s3[`L15_UNPARAM_3_0] = tagcheck_way_s3 == 2'd0 ? 4'b0001 :
-                                                  2'd1 ? 4'b0010 :
-                                                  2'd2 ? 4'b0100 :
-                                                        4'b1000 ;
+    tagcheck_way_mask_s3 = `L15_WAY_COUNT'b1 << tagcheck_way_s3;
 
     tagcheck_state_me_s3 = tagcheck_state_s3 == `L15_MESI_STATE_M || tagcheck_state_s3 == `L15_MESI_STATE_E;
     tagcheck_state_mes_s3 = tagcheck_state_s3 == `L15_MESI_STATE_M || tagcheck_state_s3 == `L15_MESI_STATE_E
@@ -3531,9 +3525,9 @@ end
 // correctness should be the same
 reg [`L15_LRUARRAY_MASK] lruarray_write_data_s3;
 reg lruarray_write_val_s3;
-reg [`L15_UNPARAM_3_0] lruarray_lru_mask_s3;
-reg [`L15_UNPARAM_3_0] lruarray_tagcheck_mask_s3;
-reg [`L15_UNPARAM_3_0] lruarray_flush_mask_s3;
+reg [`L15_WAY_COUNT-1:0] lruarray_lru_mask_s3;
+reg [`L15_WAY_COUNT-1:0] lruarray_tagcheck_mask_s3;
+reg [`L15_WAY_COUNT-1:0] lruarray_flush_mask_s3;
 reg [`L15_CACHE_INDEX_WIDTH-1:0] lruarray_write_index_s3;
 always @ *
 begin
@@ -3547,51 +3541,51 @@ begin
         `L15_LRU_UPDATE_ACCESS_BITS_IF_TAGCHECK_WAY_IS_MES:
         begin
             lruarray_write_val_s3 = tagcheck_state_mes_s3;
-            if ((lru_data_s3[`L15_UNPARAM_3_0] | lruarray_tagcheck_mask_s3) == 4'b1111)
-                lruarray_write_data_s3[`L15_UNPARAM_3_0] = 4'b0000;
+            if ((lru_data_s3[`L15_LRUARRAY_USED_MASK] | lruarray_tagcheck_mask_s3) == 4'b1111)
+                lruarray_write_data_s3[`L15_LRUARRAY_USED_MASK] = 4'b0000;
             else
-                lruarray_write_data_s3[`L15_UNPARAM_3_0] = lru_data_s3[`L15_UNPARAM_3_0] | lruarray_tagcheck_mask_s3;
-            lruarray_write_data_s3[5:4] = lru_data_s3[5:4]; // retain old round robin
+                lruarray_write_data_s3[`L15_LRUARRAY_USED_MASK] = lru_data_s3[`L15_LRUARRAY_USED_MASK] | lruarray_tagcheck_mask_s3;
+            lruarray_write_data_s3[`L15_LRUARRAY_RR_MASK] = lru_data_s3[`L15_LRUARRAY_RR_MASK]; // retain old round robin
         end
         `L15_LRU_UPDATE_ACCESS_BITS_IF_TAGCHECK_WAY_LRSC_SET:
         begin
             lruarray_write_val_s3 = tagcheck_lrsc_flag_s3;
-            if ((lru_data_s3[`L15_UNPARAM_3_0] | lruarray_tagcheck_mask_s3) == 4'b1111)
-                lruarray_write_data_s3[`L15_UNPARAM_3_0] = 4'b0000;
+            if ((lru_data_s3[`L15_LRUARRAY_USED_MASK] | lruarray_tagcheck_mask_s3) == 4'b1111)
+                lruarray_write_data_s3[`L15_LRUARRAY_USED_MASK] = 4'b0000;
             else
-                lruarray_write_data_s3[`L15_UNPARAM_3_0] = lru_data_s3[`L15_UNPARAM_3_0] | lruarray_tagcheck_mask_s3;
-            lruarray_write_data_s3[5:4] = lru_data_s3[5:4]; // retain old round robin
+                lruarray_write_data_s3[`L15_LRUARRAY_USED_MASK] = lru_data_s3[`L15_LRUARRAY_USED_MASK] | lruarray_tagcheck_mask_s3;
+            lruarray_write_data_s3[`L15_LRUARRAY_RR_MASK] = lru_data_s3[`L15_LRUARRAY_RR_MASK]; // retain old round robin
         end
         `L15_LRU_EVICTION:
         begin
             // lruarray_write_val_s3 = 1'b1; // might be an error to change here
-            // lruarray_write_data_s3[`L15_UNPARAM_3_0] = lru_data_s3[`L15_UNPARAM_3_0] & ~lruarray_lru_mask_s3;
+            // lruarray_write_data_s3[`L15_LRUARRAY_USED_MASK] = lru_data_s3[`L15_LRUARRAY_USED_MASK] & ~lruarray_lru_mask_s3;
             //    // retain old access bits and remove the evicted bit
-            // lruarray_write_data_s3[5:4] = lru_data_s3[5:4] + 2'b1;
+            // lruarray_write_data_s3[`L15_LRUARRAY_RR_MASK] = lru_data_s3[`L15_LRUARRAY_RR_MASK] + 2'b1;
         end
         `L15_LRU_REPLACEMENT:
         begin
             // lruarray_write_val_s3 = 1'b0; // no change for now, only turn on access bit on the second access
-            // lruarray_write_data_s3[`L15_UNPARAM_3_0] = lru_data_s3[`L15_UNPARAM_3_0] & ~lruarray_lru_mask_s3;
+            // lruarray_write_data_s3[`L15_LRUARRAY_USED_MASK] = lru_data_s3[`L15_LRUARRAY_USED_MASK] & ~lruarray_lru_mask_s3;
             //    // retain old access bits and remove the evicted bit
-            // lruarray_write_data_s3[5:4] = lru_data_s3[5:4] + 2'b1;
+            // lruarray_write_data_s3[`L15_LRUARRAY_RR_MASK] = lru_data_s3[`L15_LRUARRAY_RR_MASK] + 2'b1;
             lruarray_write_val_s3 = 1'b1; // no change for now, only turn on access bit on the second access
-            lruarray_write_data_s3[`L15_UNPARAM_3_0] = lru_data_s3[`L15_UNPARAM_3_0] | lruarray_lru_mask_s3;
-            lruarray_write_data_s3[5:4] = lru_data_s3[5:4] + 2'b1;
+            lruarray_write_data_s3[`L15_LRUARRAY_USED_MASK] = lru_data_s3[`L15_LRUARRAY_USED_MASK] | lruarray_lru_mask_s3;
+            lruarray_write_data_s3[`L15_LRUARRAY_RR_MASK] = lru_data_s3[`L15_LRUARRAY_RR_MASK] + 2'b1;
         end
         `L15_LRU_INVALIDATE_IF_TAGCHECK_WAY_IS_MES:
         begin
             lruarray_write_val_s3 = tagcheck_state_mes_s3;
-            lruarray_write_data_s3[`L15_UNPARAM_3_0] = lru_data_s3[`L15_UNPARAM_3_0] & ~lruarray_tagcheck_mask_s3;
+            lruarray_write_data_s3[`L15_LRUARRAY_USED_MASK] = lru_data_s3[`L15_LRUARRAY_USED_MASK] & ~lruarray_tagcheck_mask_s3;
                 // retain old access bits and remove the evicted bit
-            lruarray_write_data_s3[5:4] = lru_data_s3[5:4];
+            lruarray_write_data_s3[`L15_LRUARRAY_RR_MASK] = lru_data_s3[`L15_LRUARRAY_RR_MASK];
         end
         `L15_LRU_INVALIDATE_IF_FLUSH_WAY_IS_MES:
         begin
             lruarray_write_val_s3 = flush_state_mes_s3;
-            lruarray_write_data_s3[`L15_UNPARAM_3_0] = lru_data_s3[`L15_UNPARAM_3_0] & ~lruarray_flush_mask_s3;
+            lruarray_write_data_s3[`L15_LRUARRAY_USED_MASK] = lru_data_s3[`L15_LRUARRAY_USED_MASK] & ~lruarray_flush_mask_s3;
                 // retain old access bits and remove the evicted bit
-            lruarray_write_data_s3[5:4] = lru_data_s3[5:4];
+            lruarray_write_data_s3[`L15_LRUARRAY_RR_MASK] = lru_data_s3[`L15_LRUARRAY_RR_MASK];
         end
     endcase
     lruarray_write_index_s3 = cache_index_s3;
@@ -4025,7 +4019,7 @@ begin
         end
     endcase
 
-    l15_cpxencoder_returntype[`L15_UNPARAM_3_0] = cpx_type_s3; //default
+    l15_cpxencoder_returntype[`CPX_RESTYPE_WIDTH-1:0] = cpx_type_s3; //default
     l15_cpxencoder_val = val_s3 && cpx_req_val_s3 && !cpxencoder_req_staled_s3;
 
     l15_cpxencoder_l2miss = 0;
@@ -4065,40 +4059,40 @@ begin
         l15_cpxencoder_blockinitstore = blockstore_s3 || blockstoreinit_s3;
     end
 
-    l15_cpxencoder_data_0[`L15_UNPARAM_63_0] = 0;
-    l15_cpxencoder_data_1[`L15_UNPARAM_63_0] = 0;
-    l15_cpxencoder_data_2[`L15_UNPARAM_63_0] = 0;
-    l15_cpxencoder_data_3[`L15_UNPARAM_63_0] = 0;
+    l15_cpxencoder_data_0[63:0] = 0;
+    l15_cpxencoder_data_1[63:0] = 0;
+    l15_cpxencoder_data_2[63:0] = 0;
+    l15_cpxencoder_data_3[63:0] = 0;
     case (cpx_data_source_s3)
         `L15_CPX_SOURCE_LRSC_FLAG:
         begin
-            l15_cpxencoder_data_0[`L15_UNPARAM_63_0] = ((size_s3 == `MSG_DATA_SIZE_4B) ?
+            l15_cpxencoder_data_0 = ((size_s3 == `MSG_DATA_SIZE_4B) ?
                 {7'b0,(~tagcheck_lrsc_flag_s3),24'b0, 7'b0,(~tagcheck_lrsc_flag_s3),24'b0} :
                 {7'b0,(~tagcheck_lrsc_flag_s3),56'b0});
-            l15_cpxencoder_data_1[`L15_UNPARAM_63_0] = ((size_s3 == `MSG_DATA_SIZE_4B) ?
+            l15_cpxencoder_data_1 = ((size_s3 == `MSG_DATA_SIZE_4B) ?
                 {7'b0,(~tagcheck_lrsc_flag_s3),24'b0, 7'b0,(~tagcheck_lrsc_flag_s3),24'b0} :
                 {7'b0,(~tagcheck_lrsc_flag_s3),56'b0}); // write 0 on success
         end
         `L15_CPX_SOURCE_DCACHE:
         begin
-            l15_cpxencoder_data_0[`L15_UNPARAM_63_0] = dcache_l15_dout_s3[127:64];
-            l15_cpxencoder_data_1[`L15_UNPARAM_63_0] = dcache_l15_dout_s3[`L15_UNPARAM_63_0];
+            l15_cpxencoder_data_0 = dcache_l15_dout_s3[127:64];
+            l15_cpxencoder_data_1 = dcache_l15_dout_s3[63:0];
         end
         `L15_CPX_SOURCE_NOC2_BUFFER:
         begin
-            l15_cpxencoder_data_0[`L15_UNPARAM_63_0] = noc2decoder_l15_data_0[`L15_UNPARAM_63_0];
-            l15_cpxencoder_data_1[`L15_UNPARAM_63_0] = noc2decoder_l15_data_1[`L15_UNPARAM_63_0];
-            l15_cpxencoder_data_2[`L15_UNPARAM_63_0] = noc2decoder_l15_data_2[`L15_UNPARAM_63_0];
-            l15_cpxencoder_data_3[`L15_UNPARAM_63_0] = noc2decoder_l15_data_3[`L15_UNPARAM_63_0];
+            l15_cpxencoder_data_0 = noc2decoder_l15_data_0;
+            l15_cpxencoder_data_1 = noc2decoder_l15_data_1;
+            l15_cpxencoder_data_2 = noc2decoder_l15_data_2;
+            l15_cpxencoder_data_3 = noc2decoder_l15_data_3;
         end
         `L15_CPX_SOURCE_CONFIG_REGS:
         begin
-            l15_cpxencoder_data_0[`L15_UNPARAM_63_0] = config_l15_read_res_data_s3[`L15_UNPARAM_63_0];
+            l15_cpxencoder_data_0 = config_l15_read_res_data_s3;
         end
         `L15_CPX_SOURCE_CSM:
         begin
-            l15_cpxencoder_data_0[`L15_UNPARAM_63_0] = csm_l15_res_data_s3[`L15_UNPARAM_63_0];
-            l15_cpxencoder_data_1[`L15_UNPARAM_63_0] = csm_l15_res_data_s3[`L15_UNPARAM_63_0];
+            l15_cpxencoder_data_0 = csm_l15_res_data_s3;
+            l15_cpxencoder_data_1 = csm_l15_res_data_s3;
         end
     endcase
 end
@@ -4307,18 +4301,18 @@ begin
     // l15_noc1buffer_req_blkstore = 0; // not using block stores
     // l15_noc1buffer_req_blkinitstore = 0; // not using block stores
 
-    l15_noc1buffer_req_data_0[`L15_UNPARAM_63_0] = 0;
-    l15_noc1buffer_req_data_1[`L15_UNPARAM_63_0] = 0;
+    l15_noc1buffer_req_data_0 = 64'b0;
+    l15_noc1buffer_req_data_1 = 64'b0;
     case (noc1_data_source_s3)
         `L15_NOC1_SOURCE_PCX_64B:
         begin
-            l15_noc1buffer_req_data_0[`L15_UNPARAM_63_0] = pcxdecoder_l15_data[`L15_UNPARAM_63_0];
-            // l15_noc1buffer_req_data_1[`L15_UNPARAM_63_0] = 64'b0;
+            l15_noc1buffer_req_data_0 = pcxdecoder_l15_data;
+            // l15_noc1buffer_req_data_1 = 64'b0;
         end
         `L15_NOC1_SOURCE_PCX_128B:
         begin
-            l15_noc1buffer_req_data_0[`L15_UNPARAM_63_0] = pcxdecoder_l15_data[`L15_UNPARAM_63_0];
-            l15_noc1buffer_req_data_1[`L15_UNPARAM_63_0] = pcxdecoder_l15_data_next_entry[`L15_UNPARAM_63_0];
+            l15_noc1buffer_req_data_0 = pcxdecoder_l15_data;
+            l15_noc1buffer_req_data_1 = pcxdecoder_l15_data_next_entry;
         end
     endcase
 
@@ -4436,7 +4430,7 @@ begin
     l15_noc3encoder_req_val = noc3_req_val_s3 && !noc3encoder_req_staled_s3;
     l15_noc3encoder_req_type = noc3_type_s3;
     l15_noc3encoder_req_data_0 = dcache_l15_dout_s3[127:64];
-    l15_noc3encoder_req_data_1 = dcache_l15_dout_s3[`L15_UNPARAM_63_0];
+    l15_noc3encoder_req_data_1 = dcache_l15_dout_s3[63:0];
     l15_noc3encoder_req_mshrid = mshrid_s3;
     l15_noc3encoder_req_sequenceid = cache_index_s3[1:0]; // simply use the lowest 2 bit of the array index
     l15_noc3encoder_req_threadid = threadid_s3[`L15_THREADID_MASK];

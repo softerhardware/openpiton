@@ -84,7 +84,7 @@ module l15_csm(
    output wire [`L15_CSM_NUM_TICKETS_LOG2-1:0] csm_noc1encoder_req_mshrid,
    output wire [`PHY_ADDR_WIDTH-1:0] csm_noc1encoder_req_address,
    output wire csm_noc1encoder_req_non_cacheable,
-   output wire  [`PCX_SIZE_WIDTH-1:0] csm_noc1encoder_req_size
+   output wire  [`MSG_DATA_SIZE_WIDTH-1:0] csm_noc1encoder_req_size
 
 );
 

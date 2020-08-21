@@ -56,7 +56,7 @@ module noc1encoder(
    input wire [`L15_THREADID_MASK] noc1buffer_noc1encoder_req_threadid,
    input wire [39:0] noc1buffer_noc1encoder_req_address,
    input wire noc1buffer_noc1encoder_req_non_cacheable,
-   input wire [`PCX_SIZE_WIDTH-1:0] noc1buffer_noc1encoder_req_size,
+   input wire [`PCX_SIZE_FIELD_WIDTH-1:0] noc1buffer_noc1encoder_req_size,
    input wire noc1buffer_noc1encoder_req_prefetch,
    // input wire noc1buffer_noc1encoder_req_blkstore,
    // input wire noc1buffer_noc1encoder_req_blkinitstore,
@@ -87,7 +87,7 @@ module noc1encoder(
    input wire [`L15_CSM_NUM_TICKETS_LOG2-1:0] csm_noc1encoder_req_mshrid,
    input wire [`PHY_ADDR_WIDTH-1:0] csm_noc1encoder_req_address,
    input wire csm_noc1encoder_req_non_cacheable,
-   input wire  [`PCX_SIZE_WIDTH-1:0] csm_noc1encoder_req_size,
+   input wire  [`PCX_SIZE_FIELD_WIDTH-1:0] csm_noc1encoder_req_size,
    output reg noc1encoder_csm_req_ack
 );
 // The flit sending out this cycle
@@ -138,7 +138,7 @@ reg [63:0] req_data0;
 reg [63:0] req_data1;
 reg [39:0] req_address;
 reg [`MSG_MSHRID_WIDTH-1:0] req_mshrid;
-reg [`PCX_SIZE_WIDTH-1:0] req_size;
+reg [`PCX_SIZE_FIELD_WIDTH-1:0] req_size;
 reg [`NOC_X_WIDTH-1:0] req_dest_l2_xpos;
 reg [`NOC_Y_WIDTH-1:0] req_dest_l2_ypos;
 reg [`NOC_CHIPID_WIDTH-1:0] req_dest_chipid;

@@ -100,7 +100,7 @@ begin
    pcxdecoder_l15_invalidate_cacheline = message[111];
    pcxdecoder_l15_blockinitstore = message[109];
    pcxdecoder_l15_l1rplway = message[`PCX_WY_HI:`PCX_WY_LO];
-   pcxdecoder_l15_size_pcx_standard = message[`PCX_SZ_HI:`PCX_SZ_LO];
+   pcxdecoder_l15_size_pcx_standard = message[`PCX_SIZE_FIELD_HI:`PCX_SIZE_FIELD_LO];
    pcxdecoder_l15_address = message[`PCX_AD_HI:`PCX_AD_LO]; // 40b
    pcxdecoder_l15_data = message[`PCX_DA_HI:`PCX_DA_LO];
    pcxdecoder_l15_data_next_entry = pcxbuf_pcxdecoder_data_buf1[`PCX_DA_HI:`PCX_DA_LO];
