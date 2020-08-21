@@ -2461,130 +2461,78 @@ end
 
 
 // tag check logics
-reg [`L15_CACHE_TAG_RAW_WIDTH-1:0] dtag_tag_way0_s2;
-reg [`L15_CACHE_TAG_RAW_WIDTH-1:0] dtag_tag_way1_s2;
-reg [`L15_CACHE_TAG_RAW_WIDTH-1:0] dtag_tag_way2_s2;
-reg [`L15_CACHE_TAG_RAW_WIDTH-1:0] dtag_tag_way3_s2;
-reg [`L15_MESI_STATE_WIDTH-1:0] mesi_state_way0_s2;
-reg [`L15_MESI_STATE_WIDTH-1:0] mesi_state_way1_s2;
-reg [`L15_MESI_STATE_WIDTH-1:0] mesi_state_way2_s2;
-reg [`L15_MESI_STATE_WIDTH-1:0] mesi_state_way3_s2;
-reg [`L15_MESI_ARRAY_WIDTH-1:0] mesi_read_data_s2;
-reg tagcheck_way0_equals;
-reg tagcheck_way1_equals;
-reg tagcheck_way2_equals;
-reg tagcheck_way3_equals;
+// reg [`L15_CACHE_TAG_RAW_WIDTH-1:0] dtag_tag_way0_s2;
+// reg [`L15_CACHE_TAG_RAW_WIDTH-1:0] dtag_tag_way1_s2;
+// reg [`L15_CACHE_TAG_RAW_WIDTH-1:0] dtag_tag_way2_s2;
+// reg [`L15_CACHE_TAG_RAW_WIDTH-1:0] dtag_tag_way3_s2;
+// reg [`L15_MESI_STATE_WIDTH-1:0] mesi_state_way0_s2;
+// reg [`L15_MESI_STATE_WIDTH-1:0] mesi_state_way1_s2;
+// reg [`L15_MESI_STATE_WIDTH-1:0] mesi_state_way2_s2;
+// reg [`L15_MESI_STATE_WIDTH-1:0] mesi_state_way3_s2;
+// reg [`L15_MESI_ARRAY_WIDTH-1:0] mesi_read_data_s2;
+// reg tagcheck_way0_equals;
+// reg tagcheck_way1_equals;
+// reg tagcheck_way2_equals;
+// reg tagcheck_way3_equals;
 
 reg [`L15_MESI_STATE_WIDTH-1:0] tagcheck_state_s2;
-reg tagcheck_state_me_s2;
-reg tagcheck_state_mes_s2;
-reg tagcheck_state_s_s2;
-reg tagcheck_state_m_s2;
-reg tagcheck_state_e_s2;
 reg [`L15_WAY_WIDTH-1:0] tagcheck_way_s2;
 // reg [`L15_UNPARAM_3_0] tagcheck_way_mask_s2;
-reg tagcheck_val_s2;
-reg tagcheck_lrsc_flag_s2;
+// reg tagcheck_val_s2;
+wire tagcheck_lrsc_flag_s2 = tagcheck_way;
 
-reg [`L15_MESI_STATE_WIDTH-1:0] lru_state_s2;
-reg lru_state_m_s2;
-reg lru_state_mes_s2;
-reg [`L15_CACHE_TAG_WIDTH-1:0] lru_way_tag_s2;
-reg [`L15_PADDR_MASK] lru_way_address_s2;
+wire [`L15_CACHE_TAG_WIDTH-1:0] lru_way_tag_s2 = dtag_l15_dout_s2 >> (lru_way_s2*`L15_CACHE_TAG_RAW_WIDTH);
+wire [`L15_MESI_STATE_WIDTH-1:0] lru_state_s2 = mesi_l15_dout_s2 >> (lru_way_s2*`L15_MESI_STATE_WIDTH);
+wire [`L15_PADDR_MASK] lru_way_address_s2 = {lru_way_tag_s2, address_s2[`L15_IDX_HI:`L15_IDX_LOW], 4'b0};
 
-reg [`L15_MESI_STATE_WIDTH-1:0] flush_state_s2;
-reg flush_state_m_s2;
-reg flush_state_me_s2;
-reg flush_state_mes_s2;
-reg [`L15_WAY_WIDTH-1:0] flush_way_s2;
-// reg [`L15_UNPARAM_3_0] flush_way_mask_s2;
-reg [`L15_CACHE_TAG_WIDTH-1:0] flush_way_tag_s2;
-reg [`L15_PADDR_MASK] flush_way_address_s2;
+wire [`L15_WAY_WIDTH-1:0] flush_way_s2 = address_s2[25:24];
+wire [`L15_MESI_STATE_WIDTH-1:0] flush_state_s2 = mesi_l15_dout_s2 >> (flush_way_s2*`L15_MESI_STATE_WIDTH);
+wire [`L15_CACHE_TAG_WIDTH-1:0] flush_way_tag_s2 = dtag_l15_dout_s2 >> (flush_way_s2*`L15_CACHE_TAG_RAW_WIDTH);
+wire [`L15_PADDR_MASK] flush_way_address_s2 = {flush_way_tag_s2, address_s2[`L15_IDX_HI:`L15_IDX_LOW], 4'b0};
+
+// expanding some useful signals
+wire tagcheck_state_me_s2 = tagcheck_state_s2 == `L15_MESI_STATE_M || tagcheck_state_s2 == `L15_MESI_STATE_E;
+wire tagcheck_state_mes_s2 = tagcheck_state_me_s2 || tagcheck_state_s2 == `L15_MESI_STATE_S;
+wire tagcheck_state_s_s2 = tagcheck_state_s2 == `L15_MESI_STATE_S;
+wire tagcheck_state_m_s2 = tagcheck_state_s2 == `L15_MESI_STATE_M;
+wire tagcheck_state_e_s2 = tagcheck_state_s2 == `L15_MESI_STATE_E;
+
+wire lru_state_m_s2 = lru_state_s2 == `L15_MESI_STATE_M;
+wire lru_state_mes_s2 = lru_state_m_s2 || lru_state_s2 == `L15_MESI_STATE_E || lru_state_s2 == `L15_MESI_STATE_S;
+
+wire flush_state_m_s2 = flush_state_s2 == `L15_MESI_STATE_M;
+wire flush_state_me_s2 = flush_state_m_s2 || flush_state_s2 == `L15_MESI_STATE_E;
+wire flush_state_mes_s2 = flush_state_me_s2 || flush_state_s2 == `L15_MESI_STATE_S;
+
+<%
+    for i in range(CONFIG_L15_ASSOCIATIVITY):
+        print("wire [`L15_CACHE_TAG_RAW_WIDTH-1:0] dtag_tag_way{0}_s2 = dtag_l15_dout_s2[{0}*`L15_CACHE_TAG_RAW_WIDTH +: `L15_CACHE_TAG_RAW_WIDTH];".format(i))
+        print("wire [`L15_MESI_STATE_WIDTH-1:0] mesi_state_way{0}_s2 = mesi_l15_dout_s2[{0}*`L15_MESI_STATE_WIDTH +: `L15_MESI_STATE_WIDTH];".format(i))
+        # print("wire tagcheck_way{0}_equals = (address_cache_tag_s2[`L15_CACHE_TAG_WIDTH-1:0] == dtag_tag_way{0}_s2[`L15_CACHE_TAG_WIDTH-1:0]);".format(i))
+%>
+
 always @ *
 begin
-    // note: dtag has 33b per tag entry way, but we are only using 29b
-    dtag_tag_way0_s2 = dtag_l15_dout_s2[0*`L15_CACHE_TAG_RAW_WIDTH +: `L15_CACHE_TAG_RAW_WIDTH];
-    dtag_tag_way1_s2 = dtag_l15_dout_s2[1*`L15_CACHE_TAG_RAW_WIDTH +: `L15_CACHE_TAG_RAW_WIDTH];
-    dtag_tag_way2_s2 = dtag_l15_dout_s2[2*`L15_CACHE_TAG_RAW_WIDTH +: `L15_CACHE_TAG_RAW_WIDTH];
-    dtag_tag_way3_s2 = dtag_l15_dout_s2[3*`L15_CACHE_TAG_RAW_WIDTH +: `L15_CACHE_TAG_RAW_WIDTH];
-    mesi_state_way0_s2 = mesi_l15_dout_s2[1:0];
-    mesi_state_way1_s2 = mesi_l15_dout_s2[3:2];
-    mesi_state_way2_s2 = mesi_l15_dout_s2[5:4];
-    mesi_state_way3_s2 = mesi_l15_dout_s2[7:6];
-    mesi_read_data_s2 = mesi_l15_dout_s2;
+    //tagcheck_lrsc_flag_s2 = (tagcheck_val_s2 == 1'b0) ? 1'b0 :
+    //                            (tagcheck_way_s2 == 2'd0) ? lrsc_flag_l15_dout_s2[0] :
+    //                            (tagcheck_way_s2 == 2'd1) ? lrsc_flag_l15_dout_s2[1] :
+    //                            (tagcheck_way_s2 == 2'd2) ? lrsc_flag_l15_dout_s2[2] :
+    //                                                        lrsc_flag_l15_dout_s2[3] ;
 
-    // for lru way check
-    lru_state_s2 =   (lru_way_s2 == 0) ? mesi_state_way0_s2 :
-                        (lru_way_s2 == 1) ? mesi_state_way1_s2 :
-                        (lru_way_s2 == 2) ? mesi_state_way2_s2 :
-                                                mesi_state_way3_s2;
-    lru_way_tag_s2[`L15_CACHE_TAG_WIDTH-1:0] =
-                        (lru_way_s2 == 0) ? dtag_tag_way0_s2[`L15_CACHE_TAG_WIDTH-1:0] :
-                        (lru_way_s2 == 1) ? dtag_tag_way1_s2[`L15_CACHE_TAG_WIDTH-1:0] :
-                        (lru_way_s2 == 2) ? dtag_tag_way2_s2[`L15_CACHE_TAG_WIDTH-1:0] :
-                                                dtag_tag_way3_s2[`L15_CACHE_TAG_WIDTH-1:0];
-    lru_way_address_s2 = {lru_way_tag_s2, address_s2[`L15_IDX_HI:`L15_IDX_LOW], 4'b0};
-
-
-    // DTAG COMPARISON
-    // only compare L15_CACHE_TAG_WIDTH (29b), not full raw tag
-    tagcheck_way0_equals = (address_cache_tag_s2[`L15_CACHE_TAG_WIDTH-1:0] == dtag_tag_way0_s2[`L15_CACHE_TAG_WIDTH-1:0]);
-    tagcheck_way1_equals = (address_cache_tag_s2[`L15_CACHE_TAG_WIDTH-1:0] == dtag_tag_way1_s2[`L15_CACHE_TAG_WIDTH-1:0]);
-    tagcheck_way2_equals = (address_cache_tag_s2[`L15_CACHE_TAG_WIDTH-1:0] == dtag_tag_way2_s2[`L15_CACHE_TAG_WIDTH-1:0]);
-    tagcheck_way3_equals = (address_cache_tag_s2[`L15_CACHE_TAG_WIDTH-1:0] == dtag_tag_way3_s2[`L15_CACHE_TAG_WIDTH-1:0]);
-
-    {tagcheck_val_s2, tagcheck_way_s2} = tagcheck_way0_equals && (mesi_state_way0_s2 != `L15_MESI_STATE_I) ? {1'b1, 2'd0} :
-                                                    tagcheck_way1_equals && (mesi_state_way1_s2 != `L15_MESI_STATE_I) ?  {1'b1, 2'd1} :
-                                                    tagcheck_way2_equals && (mesi_state_way2_s2 != `L15_MESI_STATE_I) ?  {1'b1, 2'd2} :
-                                                    tagcheck_way3_equals && (mesi_state_way3_s2 != `L15_MESI_STATE_I) ?  {1'b1, 2'd3} : 3'b0;
-
-    // tagcheck_way_mask_s2[`L15_UNPARAM_3_0] = tagcheck_way_s2 == 2'd0 ? 4'b0001 :
-    //                                                               2'd1 ? 4'b0010 :
-    //                                                               2'd2 ? 4'b0100 :
-    //                                                                         4'b1000 ;
-
-    tagcheck_lrsc_flag_s2 = (tagcheck_val_s2 == 1'b0) ? 1'b0 :
-                                (tagcheck_way_s2 == 2'd0) ? lrsc_flag_l15_dout_s2[0] :
-                                (tagcheck_way_s2 == 2'd1) ? lrsc_flag_l15_dout_s2[1] :
-                                (tagcheck_way_s2 == 2'd2) ? lrsc_flag_l15_dout_s2[2] :
-                                                            lrsc_flag_l15_dout_s2[3] ;
-
-    tagcheck_state_s2 = (tagcheck_val_s2 == 1'b0) ? `L15_MESI_STATE_I :
-                                (tagcheck_way_s2 == 2'd0) ? mesi_state_way0_s2 :
-                                (tagcheck_way_s2 == 2'd1) ? mesi_state_way1_s2 :
-                                (tagcheck_way_s2 == 2'd2) ? mesi_state_way2_s2 :
-                                                                     mesi_state_way3_s2 ;
-
-    flush_way_s2 = address_s2[25:24];
-    flush_state_s2 =  (flush_way_s2 == 2'd0) ? mesi_state_way0_s2 :
-                            (flush_way_s2 == 2'd1) ? mesi_state_way1_s2 :
-                            (flush_way_s2 == 2'd2) ? mesi_state_way2_s2 :
-                                                             mesi_state_way3_s2 ;
-
-    flush_way_tag_s2[`L15_CACHE_TAG_WIDTH-1:0] =
-                        (flush_way_s2 == 0) ? dtag_tag_way0_s2[`L15_CACHE_TAG_WIDTH-1:0] :
-                        (flush_way_s2 == 1) ? dtag_tag_way1_s2[`L15_CACHE_TAG_WIDTH-1:0] :
-                        (flush_way_s2 == 2) ? dtag_tag_way2_s2[`L15_CACHE_TAG_WIDTH-1:0] :
-                                                        dtag_tag_way3_s2[`L15_CACHE_TAG_WIDTH-1:0];
-
-    flush_way_address_s2 = {flush_way_tag_s2, address_s2[`L15_IDX_HI:`L15_IDX_LOW], 4'b0};
-
-    // expanding some signals
-    tagcheck_state_me_s2 = tagcheck_state_s2 == `L15_MESI_STATE_M || tagcheck_state_s2 == `L15_MESI_STATE_E;
-    tagcheck_state_mes_s2 = tagcheck_state_s2 == `L15_MESI_STATE_M || tagcheck_state_s2 == `L15_MESI_STATE_E
-                                                        || tagcheck_state_s2 == `L15_MESI_STATE_S;
-    tagcheck_state_s_s2 = tagcheck_state_s2 == `L15_MESI_STATE_S;
-    tagcheck_state_m_s2 = tagcheck_state_s2 == `L15_MESI_STATE_M;
-    tagcheck_state_e_s2 = tagcheck_state_s2 == `L15_MESI_STATE_E;
-
-    lru_state_m_s2 = lru_state_s2 == `L15_MESI_STATE_M;
-    lru_state_mes_s2 = lru_state_s2 == `L15_MESI_STATE_M || lru_state_s2 == `L15_MESI_STATE_E
-                                                        || lru_state_s2 == `L15_MESI_STATE_S;
-
-    flush_state_m_s2 = flush_state_s2 == `L15_MESI_STATE_M;
-    flush_state_me_s2 = flush_state_s2 == `L15_MESI_STATE_M || flush_state_s2 == `L15_MESI_STATE_E;
-    flush_state_mes_s2 = flush_state_s2 == `L15_MESI_STATE_M || flush_state_s2 == `L15_MESI_STATE_E
-                                                        || flush_state_s2 == `L15_MESI_STATE_S;
+    tagcheck_lrsc_flag_s2 = 1'b0;
+    tagcheck_state_s2 = `L15_MESI_STATE_I;
+    tagcheck_way_s2 = {`L15_WAY_WIDTH{1'bx}};
+    <%
+        for i in range(CONFIG_L15_ASSOCIATIVITY):
+            if (i > 0):
+                print("else")
+            print('''if (address_cache_tag_s2[`L15_CACHE_TAG_WIDTH-1:0] == dtag_tag_way{0}_s2[`L15_CACHE_TAG_WIDTH-1:0]
+                            && mesi_state_way{0}_s2 != `L15_MESI_STATE_I) begin
+                        tagcheck_way_s2 = {0};
+                        tagcheck_state_s2 = mesi_state_way{0}_s2;
+                        tagcheck_lrsc_flag_s2 = lrsc_flag_l15_dout_s2[{0}];
+                    end'''.format(i))
+    %>
 end
 
 
