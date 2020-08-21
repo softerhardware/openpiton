@@ -180,7 +180,7 @@ module l15_pipeline(
     input wire [(`L15_NUM_MSHRID_PER_THREAD*`L15_NUM_THREADS)-1:0] mshr_pipe_vals_s1,
     input wire [(`L15_PADDR_WIDTH*`L15_NUM_THREADS)-1:0] mshr_pipe_ld_address,
     input wire [(`L15_PADDR_WIDTH*`L15_NUM_THREADS)-1:0] mshr_pipe_st_address,
-    input wire [(2*`L15_NUM_THREADS)-1:0] mshr_pipe_st_way_s1,
+    input wire [(`L15_WAY_WIDTH*`L15_NUM_THREADS)-1:0] mshr_pipe_st_way_s1,
     input wire [(`L15_MESI_TRANS_STATE_WIDTH*`L15_NUM_THREADS)-1:0] mshr_pipe_st_state_s1,
     //s2 (loading store buffer)
     output reg pipe_mshr_write_buffer_rd_en_s2,
@@ -193,14 +193,14 @@ module l15_pipeline(
     output reg [`L15_MSHR_ID_WIDTH-1:0] pipe_mshr_mshrid_s3,
     output reg [`L15_THREADID_MASK] pipe_mshr_threadid_s3,
     output reg [`L15_MESI_TRANS_STATE_WIDTH-1:0] pipe_mshr_write_update_state_s3,
-    output reg [`L15_UNPARAM_1_0] pipe_mshr_write_update_way_s3,
+    output reg [`L15_WAY_WIDTH-1:0] pipe_mshr_write_update_way_s3,
 
     // PCX,CPX,NOC
     // cpx
     output reg l15_cpxencoder_val,
     output reg [`L15_UNPARAM_3_0] l15_cpxencoder_returntype,
     output reg l15_cpxencoder_l2miss,
-    output reg [`L15_UNPARAM_1_0] l15_cpxencoder_error,  // tcov: to core but not utilized
+    output reg [`CPX_ERROR_CODE_WIDTH-1:0] l15_cpxencoder_error,  // tcov: to core but not utilized
     output reg l15_cpxencoder_noncacheable,
     output reg l15_cpxencoder_atomic,
     output reg [`L15_THREADID_MASK] l15_cpxencoder_threadid,
@@ -214,11 +214,11 @@ module l15_pipeline(
     output reg l15_cpxencoder_inval_dcache_all_way,         // tcov: to core but not utilized, inval individually
     output reg [15:4] l15_cpxencoder_inval_address_15_4,
     output reg l15_cpxencoder_cross_invalidate,             // tcov: to core but not utilized
-    output reg [`L15_UNPARAM_1_0] l15_cpxencoder_cross_invalidate_way,   // tcov: to core but not utilized
+    output reg [`L1_WAY_WIDTH-1:0] l15_cpxencoder_cross_invalidate_way,   // tcov: to core but not utilized
     output reg l15_cpxencoder_inval_dcache_inval,
     output reg l15_cpxencoder_inval_icache_inval,           // tcov: to core but not utilized, instead inval all way
     output reg l15_cpxencoder_blockinitstore,
-    output reg [`L15_UNPARAM_1_0] l15_cpxencoder_inval_way,
+    output reg [`L1_WAY_WIDTH-1:0] l15_cpxencoder_inval_way,
     // noc1
     output reg l15_noc1buffer_req_val,
     output reg [`L15_NOC1_REQTYPE_WIDTH-1:0] l15_noc1buffer_req_type,
@@ -239,7 +239,7 @@ module l15_pipeline(
     output reg [`L15_UNPARAM_63_0] l15_noc3encoder_req_data_0,
     output reg [`L15_UNPARAM_63_0] l15_noc3encoder_req_data_1,
     output reg [`L15_MSHR_ID_WIDTH-1:0] l15_noc3encoder_req_mshrid,
-    output reg [`L15_UNPARAM_1_0] l15_noc3encoder_req_sequenceid,
+    output reg [`L15_SEQUENCE_ID_WIDTH-1:0] l15_noc3encoder_req_sequenceid,
     output reg [`L15_THREADID_MASK] l15_noc3encoder_req_threadid,
     output reg [`L15_PADDR_MASK] l15_noc3encoder_req_address,
     output reg l15_noc3encoder_req_with_data,
@@ -407,13 +407,13 @@ begin
     mshr_st_state_array[0] = mshr_pipe_st_state_s1[`L15_MESI_TRANS_STATE_WIDTH*1 - 1 -: `L15_MESI_TRANS_STATE_WIDTH];
     mshr_st_address_array[0] = mshr_pipe_st_address[`L15_PADDR_WIDTH*1 - 1 -: `L15_PADDR_WIDTH];
     mshr_ld_address_array[0] = mshr_pipe_ld_address[`L15_PADDR_WIDTH*1 - 1 -: `L15_PADDR_WIDTH];
-    mshr_st_way_array[0] = mshr_pipe_st_way_s1[2*1 - 1 -: 2];
+    mshr_st_way_array[0] = mshr_pipe_st_way_s1[`L15_WAY_WIDTH*1 - 1 -: 2];
 
     mshr_val_array[1] = mshr_pipe_vals_s1[`L15_NUM_MSHRID_PER_THREAD*2 - 1 -: `L15_NUM_MSHRID_PER_THREAD];
     mshr_st_state_array[1] = mshr_pipe_st_state_s1[`L15_MESI_TRANS_STATE_WIDTH*2 - 1 -: `L15_MESI_TRANS_STATE_WIDTH];
     mshr_st_address_array[1] = mshr_pipe_st_address[`L15_PADDR_WIDTH*2 - 1 -: `L15_PADDR_WIDTH];
     mshr_ld_address_array[1] = mshr_pipe_ld_address[`L15_PADDR_WIDTH*2 - 1 -: `L15_PADDR_WIDTH];
-    mshr_st_way_array[1] = mshr_pipe_st_way_s1[2*2 - 1 -: 2];
+    mshr_st_way_array[1] = mshr_pipe_st_way_s1[`L15_WAY_WIDTH*2 - 1 -: 2];
 end
 
 // match pcx address to special accesses
@@ -860,12 +860,12 @@ end
 // creditman depends on predecode (and stall signal)
 // its dependencies are: none
 
-reg [`L15_UNPARAM_3_0] creditman_noc1_avail;
-reg [`L15_UNPARAM_3_0] creditman_noc1_data_avail;
-reg [`L15_UNPARAM_3_0] creditman_noc1_avail_next;
-reg [`L15_UNPARAM_3_0] creditman_noc1_data_avail_next;
-reg [`L15_UNPARAM_3_0] creditman_noc1_reserve;
-reg [`L15_UNPARAM_3_0] creditman_noc1_reserve_next;
+reg [`NOC1_BUFFER_MAX_SLOT_WIDTH-1:0] creditman_noc1_avail;
+reg [`NOC1_BUFFER_MAX_SLOT_WIDTH-1:0] creditman_noc1_data_avail;
+reg [`NOC1_BUFFER_MAX_SLOT_WIDTH-1:0] creditman_noc1_avail_next;
+reg [`NOC1_BUFFER_MAX_SLOT_WIDTH-1:0] creditman_noc1_data_avail_next;
+reg [`NOC1_BUFFER_MAX_SLOT_WIDTH-1:0] creditman_noc1_reserve;
+reg [`NOC1_BUFFER_MAX_SLOT_WIDTH-1:0] creditman_noc1_reserve_next;
 
 always @ (posedge clk)
 begin
@@ -928,7 +928,7 @@ reg creditman_noc1_data_down2;
 
 reg decoder_creditman_req_8B_s1;
 reg decoder_creditman_req_16B_s1;
-reg [`L15_UNPARAM_1_0] decoder_creditman_noc1_needed;
+reg [`NOC1_BUFFER_REQUEST_WIDTH-1:0] decoder_creditman_noc1_needed;
 reg decoder_creditman_noc1_unreserve_s1;
 
 always @ *
@@ -1972,7 +1972,7 @@ end
 reg dtag_val_s1;
 reg dtag_rw_s1;
 reg [`L15_CACHE_INDEX_WIDTH-1:0] dtag_index_s1;
-reg [`L15_WAY_MASK] dtag_write_way_s1;
+reg [`L15_WAY_WIDTH-1:0] dtag_write_way_s1;
 reg [`L15_CACHE_TAG_RAW_WIDTH-1:0] dtag_write_tag_s1;
 reg [`L15_UNPARAM_3_0] dtag_write_way_mask;
 
@@ -2351,7 +2351,7 @@ begin
     end
 end
 
-reg [`L15_UNPARAM_1_0] way_mshr_st_s2;
+reg [`L15_WAY_WIDTH-1:0] way_mshr_st_s2;
 reg [`L15_CACHE_TAG_WIDTH-1:0] address_cache_tag_s2;
 always @ *
 begin
@@ -2461,28 +2461,28 @@ reg tagcheck_way1_equals;
 reg tagcheck_way2_equals;
 reg tagcheck_way3_equals;
 
-reg [`L15_UNPARAM_1_0] tagcheck_state_s2;
+reg [`L15_MESI_STATE_WIDTH-1:0] tagcheck_state_s2;
 reg tagcheck_state_me_s2;
 reg tagcheck_state_mes_s2;
 reg tagcheck_state_s_s2;
 reg tagcheck_state_m_s2;
 reg tagcheck_state_e_s2;
-reg [`L15_UNPARAM_1_0] tagcheck_way_s2;
+reg [`L15_WAY_WIDTH-1:0] tagcheck_way_s2;
 // reg [`L15_UNPARAM_3_0] tagcheck_way_mask_s2;
 reg tagcheck_val_s2;
 reg tagcheck_lrsc_flag_s2;
 
-reg [`L15_UNPARAM_1_0] lru_state_s2;
+reg [`L15_MESI_STATE_WIDTH-1:0] lru_state_s2;
 reg lru_state_m_s2;
 reg lru_state_mes_s2;
 reg [`L15_CACHE_TAG_WIDTH-1:0] lru_way_tag_s2;
 reg [`L15_PADDR_MASK] lru_way_address_s2;
 
-reg [`L15_UNPARAM_1_0] flush_state_s2;
+reg [`L15_MESI_STATE_WIDTH-1:0] flush_state_s2;
 reg flush_state_m_s2;
 reg flush_state_me_s2;
 reg flush_state_mes_s2;
-reg [`L15_UNPARAM_1_0] flush_way_s2;
+reg [`L15_WAY_WIDTH-1:0] flush_way_s2;
 // reg [`L15_UNPARAM_3_0] flush_way_mask_s2;
 reg [`L15_CACHE_TAG_WIDTH-1:0] flush_way_tag_s2;
 reg [`L15_PADDR_MASK] flush_way_address_s2;
@@ -2493,7 +2493,7 @@ begin
     dtag_tag_way1_s2 = dtag_l15_dout_s2[1*`L15_CACHE_TAG_RAW_WIDTH +: `L15_CACHE_TAG_RAW_WIDTH];
     dtag_tag_way2_s2 = dtag_l15_dout_s2[2*`L15_CACHE_TAG_RAW_WIDTH +: `L15_CACHE_TAG_RAW_WIDTH];
     dtag_tag_way3_s2 = dtag_l15_dout_s2[3*`L15_CACHE_TAG_RAW_WIDTH +: `L15_CACHE_TAG_RAW_WIDTH];
-    mesi_state_way0_s2 = mesi_l15_dout_s2[`L15_UNPARAM_1_0];
+    mesi_state_way0_s2 = mesi_l15_dout_s2[1:0];
     mesi_state_way1_s2 = mesi_l15_dout_s2[3:2];
     mesi_state_way2_s2 = mesi_l15_dout_s2[5:4];
     mesi_state_way3_s2 = mesi_l15_dout_s2[7:6];
@@ -2654,7 +2654,7 @@ end
 reg dcache_val_s2;
 reg dcache_rw_s2;
 reg [`L15_CACHE_INDEX_MASK] dcache_index_s2;
-reg [`L15_UNPARAM_1_0] dcache_way_s2;
+reg [`L15_WAY_WIDTH-1:0] dcache_way_s2;
 reg [`L15_UNPARAM_127_0] dcache_mshr_write_mask_s2;
 reg [`L15_UNPARAM_127_0] dcache_write_merge_mshr_noc2_s2;
 reg [`L15_DCACHE_SOURCE_WIDTH-1:0] dcache_source_s2;
@@ -2662,9 +2662,9 @@ reg [`L15_UNPARAM_127_0] dcache_write_mask_s2;
 reg [`L15_UNPARAM_127_0] dcache_write_data_s2;
 // diag accesses
 reg [`L15_CACHE_INDEX_MASK] dcache_diag_index_s2;
-reg [`L15_UNPARAM_1_0] dcache_diag_way_s2;
+reg [`L15_WAY_WIDTH-1:0] dcache_diag_way_s2;
 reg [0:0] dcache_diag_offset_s2;
-reg [`L15_UNPARAM_1_0] lru_way_s3_bypassed;
+reg [`L15_WAY_WIDTH-1:0] lru_way_s3_bypassed;
 
 
 always @ *
@@ -2858,8 +2858,8 @@ end
 ////////////////////////
 reg mesi_write_val_s2;
 reg [`L15_CACHE_INDEX_MASK] mesi_write_index_s2;
-reg [`L15_UNPARAM_1_0] mesi_write_way_s2;
-reg [`L15_UNPARAM_1_0] mesi_write_state_s2;
+reg [`L15_WAY_WIDTH-1:0] mesi_write_way_s2;
+reg [`L15_MESI_STATE_WIDTH-1:0] mesi_write_state_s2;
 always @ *
 begin
     mesi_write_val_s2 = 0;
@@ -3301,7 +3301,7 @@ reg [`L15_THREADID_MASK] stbuf_compare_threadid_s3;
 reg [`L15_THREADID_MASK] stbuf_compare_lru_threadid_s3;
 reg stbuf_compare_match_val_s3;
 reg stbuf_compare_lru_match_val_s3;
-reg [`L15_UNPARAM_1_0] stbuf_way_s3; // wmt todo: move calculation to s2
+reg [`L15_WAY_WIDTH-1:0] stbuf_way_s3; // wmt todo: move calculation to s2
 
 // STORE BUFFER STUFF
 always @ *
@@ -3539,14 +3539,8 @@ always @ *
 begin
     lruarray_write_data_s3 = 0;
     lruarray_write_val_s3 = 0;
-    lruarray_lru_mask_s3 = lru_way_s3[`L15_UNPARAM_1_0] == 2'd0 ? 4'b0001 :
-                                  lru_way_s3[`L15_UNPARAM_1_0] == 2'd1 ? 4'b0010 :
-                                  lru_way_s3[`L15_UNPARAM_1_0] == 2'd2 ? 4'b0100 :
-                                                                     4'b1000 ;
-    lruarray_flush_mask_s3 =   flush_way_s3[`L15_UNPARAM_1_0] == 2'd0 ? 4'b0001 :
-                                        flush_way_s3[`L15_UNPARAM_1_0] == 2'd1 ? 4'b0010 :
-                                        flush_way_s3[`L15_UNPARAM_1_0] == 2'd2 ? 4'b0100 :
-                                                                            4'b1000 ;
+    lruarray_lru_mask_s3 = 4'b1 << lru_way_s3;
+    lruarray_flush_mask_s3 = 4'b1 << flush_way_s3;
     lruarray_tagcheck_mask_s3 = tagcheck_way_mask_s3;
 
     case (lruarray_write_op_s3)
@@ -3799,7 +3793,7 @@ reg s3_mshr_val_s3;
 reg [`L15_MSHR_WRITE_TYPE_WIDTH-1:0] s3_mshr_write_type_s3;
 reg [`L15_MESI_TRANS_STATE_WIDTH-1:0] s3_mshr_update_state_s3;
 reg [`L15_MSHR_ID_WIDTH-1:0] s3_mshr_write_mshrid_s3;
-reg [`L15_UNPARAM_1_0] s3_mshr_update_way_s3;
+reg [`L15_WAY_WIDTH-1:0] s3_mshr_update_way_s3;
 reg [`L15_THREADID_MASK] s3_mshr_write_threadid_s3;
 
 always @ *
@@ -3877,7 +3871,7 @@ reg cpx_req_val_s3;
 reg [`CPX_RESTYPE_WIDTH-1:0] cpx_type_s3;
 reg cpx_invalidate_l1_s3;
 // reg cpx_dcache_inval_all_s3;
-reg [`L15_UNPARAM_1_0] cpx_inval_way_s3;
+reg [`L1WAY_WIDTH-1:0] cpx_inval_way_s3;
 reg [`L15_CPX_SOURCE_WIDTH-1:0] cpx_data_source_s3;
 reg cpx_atomic_bit_s3;
 reg cpx_icache_inval_s3;
@@ -4035,7 +4029,7 @@ begin
     l15_cpxencoder_val = val_s3 && cpx_req_val_s3 && !cpxencoder_req_staled_s3;
 
     l15_cpxencoder_l2miss = 0;
-    l15_cpxencoder_error[`L15_UNPARAM_1_0] = 0;
+    l15_cpxencoder_error = `CPX_ERROR_CODE_WIDTH'b0;
     l15_cpxencoder_noncacheable = 0;
     l15_cpxencoder_threadid = 0;
     l15_cpxencoder_prefetch = 0;
@@ -4045,15 +4039,15 @@ begin
     l15_cpxencoder_inval_dcache_all_way = 0;
     l15_cpxencoder_inval_address_15_4[15:4] = 0;
     l15_cpxencoder_cross_invalidate = 0;
-    l15_cpxencoder_cross_invalidate_way[`L15_UNPARAM_1_0] = 0;
+    l15_cpxencoder_cross_invalidate_way = `L1_WAY_WIDTH'b0;
     l15_cpxencoder_inval_dcache_inval = 0;
     l15_cpxencoder_inval_icache_inval = 0;
-    l15_cpxencoder_inval_way[`L15_UNPARAM_1_0] = 0;
+    l15_cpxencoder_inval_way = `L1_WAY_WIDTH'b0;
     l15_cpxencoder_blockinitstore = 0;
     if (cpx_operation_s3 != `L15_CPX_GEN_INTERRUPT)
     begin
         l15_cpxencoder_l2miss = l2_miss_s3;
-        l15_cpxencoder_error[`L15_UNPARAM_1_0] = 2'b00; // no error feed back from L2 or L1 for now
+        l15_cpxencoder_error[`CPX_ERROR_CODE_WIDTH-1:0] = `CPX_ERROR_CODE_WIDTH'b00; // no error feed back from L2 or L1 for now
         l15_cpxencoder_noncacheable = non_cacheable_s3;
         l15_cpxencoder_threadid = threadid_s3;
         l15_cpxencoder_prefetch = prefetch_s3;
@@ -4063,11 +4057,11 @@ begin
         // l15_cpxencoder_inval_dcache_all_way = cpx_dcache_inval_all_s3;
         l15_cpxencoder_inval_address_15_4[15:4] = address_s3[15:4];
         l15_cpxencoder_cross_invalidate = 0; // Don't think we will be cross invalidating
-        l15_cpxencoder_cross_invalidate_way[`L15_UNPARAM_1_0] = 2'b0;
+        l15_cpxencoder_cross_invalidate_way = L1_WAY_WIDTH'b0;
         l15_cpxencoder_inval_dcache_inval = cpx_invalidate_l1_s3; // default
         // l15_cpxencoder_inval_icache_inval = cpx_icache_inval_s3; // default
         l15_cpxencoder_inval_icache_inval = 0; // default
-        l15_cpxencoder_inval_way[`L15_UNPARAM_1_0] = cpx_inval_way_s3[`L15_UNPARAM_1_0];
+        l15_cpxencoder_inval_way = cpx_inval_way_s3;
         l15_cpxencoder_blockinitstore = blockstore_s3 || blockstoreinit_s3;
     end
 
@@ -4444,7 +4438,7 @@ begin
     l15_noc3encoder_req_data_0 = dcache_l15_dout_s3[127:64];
     l15_noc3encoder_req_data_1 = dcache_l15_dout_s3[`L15_UNPARAM_63_0];
     l15_noc3encoder_req_mshrid = mshrid_s3;
-    l15_noc3encoder_req_sequenceid = cache_index_s3[`L15_UNPARAM_1_0];
+    l15_noc3encoder_req_sequenceid = cache_index_s3[1:0]; // simply use the lowest 2 bit of the array index
     l15_noc3encoder_req_threadid = threadid_s3[`L15_THREADID_MASK];
     l15_noc3encoder_req_address[`L15_PADDR_MASK] = noc3_address_s3[`L15_PADDR_MASK];
     l15_noc3encoder_req_with_data = noc3_with_data_s3;

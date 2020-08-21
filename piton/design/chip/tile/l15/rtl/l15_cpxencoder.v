@@ -49,9 +49,9 @@ module l15_cpxencoder(
     input wire          rst_n,
 
     input wire          l15_cpxencoder_val,
-    input wire [3:0]    l15_cpxencoder_returntype,
+    input wire [`CPX_RESTYPE_WIDTH-1:0]    l15_cpxencoder_returntype,
     input wire          l15_cpxencoder_l2miss,
-    input wire [1:0]    l15_cpxencoder_error,
+    input wire [`CPX_ERROR_CODE_WIDTH1:0]    l15_cpxencoder_error,
     input wire          l15_cpxencoder_noncacheable,
     input wire          l15_cpxencoder_atomic,
     input wire [`L15_THREADID_MASK]    l15_cpxencoder_threadid,
@@ -65,10 +65,10 @@ module l15_cpxencoder(
     input wire          l15_cpxencoder_inval_dcache_all_way,
     input wire [15:4]   l15_cpxencoder_inval_address_15_4,
     input wire          l15_cpxencoder_cross_invalidate,
-    input wire [1:0]    l15_cpxencoder_cross_invalidate_way,
+    input wire [`L1_WAY_WIDTH-1:0]    l15_cpxencoder_cross_invalidate_way,
     input wire          l15_cpxencoder_inval_dcache_inval,
     input wire          l15_cpxencoder_inval_icache_inval,
-    input wire [1:0]    l15_cpxencoder_inval_way,
+    input wire [`L1_WAY_WIDTH-1:0]    l15_cpxencoder_inval_way,
     input wire          l15_cpxencoder_blockinitstore,
 
     output reg uncore_spc_data_ready,
@@ -123,11 +123,11 @@ begin
         begin
             // load
             out[139] = l15_cpxencoder_l2miss;
-            out[138:137] = l15_cpxencoder_error;
+            out[`CPX_ERROR_CODE_MASK] = l15_cpxencoder_error;
             out[136] = l15_cpxencoder_noncacheable;
             out[135:134] = l15_cpxencoder_threadid;
             out[133] = l15_cpxencoder_cross_invalidate;
-            out[132:131] = l15_cpxencoder_cross_invalidate_way;
+            out[`CPX_CROSS_INVAL_MASK] = l15_cpxencoder_cross_invalidate_way;
             // bit 130 is 1'b0
             out[129] = l15_cpxencoder_atomic;
             out[128] = l15_cpxencoder_prefetch;
@@ -140,11 +140,11 @@ begin
                 `STATE_NORMAL:
                 begin
                     out[139] = l15_cpxencoder_l2miss;
-                    out[138:137] = l15_cpxencoder_error;
+                    out[`CPX_ERROR_CODE_MASK] = l15_cpxencoder_error;
                     out[136] = l15_cpxencoder_noncacheable;
                     out[135:134] = l15_cpxencoder_threadid;
                     out[133] = l15_cpxencoder_cross_invalidate;
-                    out[132:131] = l15_cpxencoder_cross_invalidate_way;
+                    out[`CPX_CROSS_INVAL_MASK] = l15_cpxencoder_cross_invalidate_way;
                     out[130] = l15_cpxencoder_f4b;
                     out[129] = 1'b0;
                     out[128] = 1'b0;
@@ -154,11 +154,11 @@ begin
                 `STATE_SECONDHALF:
                 begin
                     // no l2 miss
-                    out[138:137] = l15_cpxencoder_error;
+                    out[`CPX_ERROR_CODE_MASK] = l15_cpxencoder_error;
                     out[136] = l15_cpxencoder_noncacheable;
                     out[135:134] = l15_cpxencoder_threadid;
                     out[133] = l15_cpxencoder_cross_invalidate;
-                    out[132:131] = l15_cpxencoder_cross_invalidate_way;
+                    out[`CPX_CROSS_INVAL_MASK] = l15_cpxencoder_cross_invalidate_way;
                     out[130] = 1'b0;
                     out[129] = 1'b1;
                     out[128] = 1'b0;
@@ -233,11 +233,11 @@ begin
                     // load return first
                     out[143:140] = `LOAD_RET;
                     out[139] = l15_cpxencoder_l2miss;
-                    out[138:137] = l15_cpxencoder_error;
+                    out[`CPX_ERROR_CODE_MASK] = l15_cpxencoder_error;
                     out[136] = l15_cpxencoder_noncacheable;
                     out[135:134] = l15_cpxencoder_threadid;
                     out[133] = l15_cpxencoder_cross_invalidate;
-                    out[132:131] = l15_cpxencoder_cross_invalidate_way;
+                    out[`CPX_CROSS_INVAL_MASK] = l15_cpxencoder_cross_invalidate_way;
                     // bit 130 is 1'b0
                     out[129] = l15_cpxencoder_atomic;
                     out[128] = l15_cpxencoder_prefetch;
@@ -267,7 +267,7 @@ begin
 
         `ERR_RET:
         begin
-            out[138:137] = l15_cpxencoder_error;
+            out[`CPX_ERROR_CODE_MASK] = l15_cpxencoder_error;
             out[135] = 1'b0;
             out[134] = 1'b0;
         end

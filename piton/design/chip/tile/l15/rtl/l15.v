@@ -87,10 +87,10 @@ module l15 (
     output                                  l15_transducer_inval_dcache_all_way,
     output [15:4]                           l15_transducer_inval_address_15_4,
     output                                  l15_transducer_cross_invalidate,
-    output [1:0]                            l15_transducer_cross_invalidate_way,
+    output [`L1_WAY_WIDTH-1:0]              l15_transducer_cross_invalidate_way,
     output                                  l15_transducer_inval_dcache_inval,
     output                                  l15_transducer_inval_icache_inval,
-    output [1:0]                            l15_transducer_inval_way,
+    output [`L1_WAY_WIDTH-1:0]              l15_transducer_inval_way,
     output                                  l15_transducer_blockinitstore,
 
     input                                   transducer_l15_req_ack,
@@ -347,7 +347,7 @@ wire [`L15_NOC3_REQTYPE_WIDTH-1:0] l15_noc3encoder_req_type;
 wire [63:0] l15_noc3encoder_req_data_0;
 wire [63:0] l15_noc3encoder_req_data_1;
 wire [`L15_MSHR_ID_WIDTH-1:0] l15_noc3encoder_req_mshrid;
-wire [1:0] l15_noc3encoder_req_sequenceid;
+wire [`L15_SEQUENCE_ID_WIDTH-1:0] l15_noc3encoder_req_sequenceid;
 wire [`L15_THREADID_MASK] l15_noc3encoder_req_threadid;
 wire [`L15_PADDR_HI:0] l15_noc3encoder_req_address;
 wire l15_noc3encoder_req_with_data;

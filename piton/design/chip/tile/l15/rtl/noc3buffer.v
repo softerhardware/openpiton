@@ -53,7 +53,7 @@ module noc3buffer(
     input wire [63:0] l15_noc3encoder_req_data_1,
     input wire [`L15_MSHR_ID_WIDTH-1:0] l15_noc3encoder_req_mshrid,
     input wire [`L15_THREADID_MASK] l15_noc3encoder_req_threadid,
-    input wire [1:0] l15_noc3encoder_req_sequenceid,
+    input wire [`L15_SEQUENCE_ID_WIDTH-1:0] l15_noc3encoder_req_sequenceid,
     input wire [39:0] l15_noc3encoder_req_address,
     input wire l15_noc3encoder_req_with_data,
     input wire l15_noc3encoder_req_was_inval,
@@ -89,7 +89,7 @@ reg [63:0] l15_noc3encoder_req_data_0_buf;
 reg [63:0] l15_noc3encoder_req_data_1_buf;
 reg [`L15_MSHR_ID_WIDTH-1:0] l15_noc3encoder_req_mshrid_buf;
 reg [1:0] l15_noc3encoder_req_threadid_buf;
-reg [1:0] l15_noc3encoder_req_sequenceid_buf;
+reg [`L15_SEQUENCE_ID_WIDTH-1:0] l15_noc3encoder_req_sequenceid_buf;
 reg [39:0] l15_noc3encoder_req_address_buf;
 reg l15_noc3encoder_req_with_data_buf;
 reg l15_noc3encoder_req_was_inval_buf;
