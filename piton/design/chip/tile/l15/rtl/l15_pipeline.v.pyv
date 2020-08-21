@@ -832,6 +832,8 @@ begin
 
 
     // TAG CHECKING
+    // trinn: expand tag checking to account for more threads
+    // more config on bits
     predecode_partial_tag_s1[19:4] = pcxdecoder_l15_address[19:4]; // compare partial tag to save energy & timing
     predecode_tagcheck_matched_t0ld_s1 = mshr_val_array[0][`L15_MSHR_ID_LD] 
                                         && (predecode_partial_tag_s1[19:4] == mshr_ld_address_array[0][19:4]);
@@ -1974,7 +1976,7 @@ reg dtag_rw_s1;
 reg [`L15_CACHE_INDEX_WIDTH-1:0] dtag_index_s1;
 reg [`L15_WAY_WIDTH-1:0] dtag_write_way_s1;
 reg [`L15_CACHE_TAG_RAW_WIDTH-1:0] dtag_write_tag_s1;
-reg [`L15_WAY_COUNT-1:0] dtag_write_way_mask;
+// reg [`L15_WAY_COUNT-1:0] dtag_write_way_mask;
 
 always @ *
 begin
@@ -1982,8 +1984,8 @@ begin
     dtag_rw_s1 = 0;
     dtag_index_s1 = 0;
     dtag_write_way_s1 = 0;
-    dtag_write_tag_s1[`L15_CACHE_TAG_RAW_WIDTH-1:0]  = 0;
-    dtag_write_way_mask = 0;
+    dtag_write_tag_s1 = `L15_CACHE_TAG_RAW_WIDTH'b0;
+    // dtag_write_way_mask = 0;
     case (decoder_dtag_operation_s1)
         `L15_DTAG_OP_READ:
         begin
@@ -1998,25 +2000,36 @@ begin
             dtag_index_s1 = predecode_cache_index_s1;
             dtag_write_way_s1 = lru_way_s2; // previous instruction (eviction) is guaranteed to be in s2
             // pad the address to the raw tag space required
-            dtag_write_tag_s1[`L15_CACHE_TAG_RAW_WIDTH-1:0]  = {{`L15_CACHE_TAG_RAW_WIDTH-`L15_CACHE_TAG_WIDTH{1'b0}},predecode_dtag_write_data_s1[`L15_CACHE_TAG_WIDTH-1:0]} ;
+            dtag_write_tag_s1 = {{`L15_CACHE_TAG_RAW_WIDTH-`L15_CACHE_TAG_WIDTH{1'b0}},predecode_dtag_write_data_s1[`L15_CACHE_TAG_WIDTH-1:0]} ;
         end
     endcase
 
-    dtag_write_way_mask = (dtag_write_way_s1 == 2'b00) ? 4'b0_0_0_1 :
-                            (dtag_write_way_s1 == 2'b01) ? 4'b0_0_1_0 :
-                            (dtag_write_way_s1 == 2'b10) ? 4'b0_1_0_0 :
-                                                        4'b1_0_0_0 ;
+    // dtag_write_way_mask = (dtag_write_way_s1 == 2'b00) ? 4'b0_0_0_1 :
+    //                         (dtag_write_way_s1 == 2'b01) ? 4'b0_0_1_0 :
+    //                         (dtag_write_way_s1 == 2'b10) ? 4'b0_1_0_0 :
+    //                                                     4'b1_0_0_0 ;
+    // dtag_write_way_mask = `L15_WAY_COUNT'b1 << dtag_write_way_s1;
+    // dtag_write_way_mask = `L15_WAY_COUNT*`L15_CACHE_TAG_RAW_WIDTH'b(`L15_WAY_COUNT'b1) << dtag_write_way_s1;
+    l15_dtag_write_mask_s1 = {`L15_CACHE_TAG_RAW_WIDTH{1'b1}};
+    l15_dtag_write_mask_s1 = l15_dtag_write_mask_s1 << (dtag_write_way_s1*`L15_CACHE_TAG_RAW_WIDTH);
 
     // INPUT/OUTPUT TO DTAG
     l15_dtag_val_s1 = dtag_val_s1 && !stall_s1;
     l15_dtag_rw_s1 = dtag_rw_s1;
     l15_dtag_index_s1[`L15_CACHE_INDEX_WIDTH-1:0] = dtag_index_s1;
-    l15_dtag_write_data_s1[`L15_CACHE_TAG_RAW_WIDTH*4-1:0] = {4{dtag_write_tag_s1[`L15_CACHE_TAG_RAW_WIDTH-1:0]}} ;
-    l15_dtag_write_mask_s1[`L15_CACHE_TAG_RAW_WIDTH*4-1:0] =
-                                                                    {{`L15_CACHE_TAG_RAW_WIDTH{dtag_write_way_mask[3]}},
-                                                                     {`L15_CACHE_TAG_RAW_WIDTH{dtag_write_way_mask[2]}},
-                                                                     {`L15_CACHE_TAG_RAW_WIDTH{dtag_write_way_mask[1]}},
-                                                                     {`L15_CACHE_TAG_RAW_WIDTH{dtag_write_way_mask[0]}}};
+    l15_dtag_write_data_s1 = {`L15_WAY_COUNT{dtag_write_tag_s1[`L15_CACHE_TAG_RAW_WIDTH-1:0]}} ;
+    //l15_dtag_write_mask_s1[`L15_CACHE_TAG_RAW_WIDTH*4-1:0] =
+    //                                                                {{`L15_CACHE_TAG_RAW_WIDTH{dtag_write_way_mask[3]}},
+    //                                                                 {`L15_CACHE_TAG_RAW_WIDTH{dtag_write_way_mask[2]}},
+    //                                                                 {`L15_CACHE_TAG_RAW_WIDTH{dtag_write_way_mask[1]}},
+    //                                                                 {`L15_CACHE_TAG_RAW_WIDTH{dtag_write_way_mask[0]}}};
+    // expand bit mask
+    // l15_dtag_write_mask_s1 = {
+    //      for i in reversed(range(L15_WAY_COUNT)):
+    //         print "{`L15_CACHE_TAG_RAW_WIDTH{dtag_write_way_mask[{}]}}".format(i)
+    //         if i != 0:
+    //             print ","
+    // };
 end
 
 ////////////////////////////
@@ -2074,6 +2087,7 @@ begin
     // mux betweeen new mshrid and noc2 returned mshrid
 
     // write
+    // trinnn: change to mask
     mshr_control_bits_write_s1 = 0;
     mshr_control_bits_write_s1 [`L15_CONTROL_SIZE_3B -: 3] = predecode_size_s1;
     mshr_control_bits_write_s1 [`L15_CONTROL_THREADID -: `L15_THREADID_WIDTH] = predecode_threadid_s1;
