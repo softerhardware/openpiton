@@ -2257,13 +2257,13 @@ s2floplist = [
     ('mshrid','`L15_MSHR_ID_WIDTH'),
     ('address','`L15_PADDR_WIDTH'),
     ('non_cacheable','1'),
-    ('size','3'),
+    ('size','`MSG_DATA_SIZE_WIDTH'),
     ('prefetch','1'),
-    ('l1_replacement_way','2'),
+    ('l1_replacement_way','`L1_WAY_WIDTH'),
     ('l2_miss','1'),
     ('f4b','1'),
     ('predecode_noc2_inval', '1'),
-    ('predecode_fwd_subcacheline_vector', '4'),
+    ('predecode_fwd_subcacheline_vector', '`MSG_SUBLINE_VECTOR_WIDTH'),
     ('lrsc_flag_write_op','`L15_LRSC_FLAG_WRITE_OP_WIDTH'),
     ('blockstore', '1'),
     ('blockstoreinit', '1'),
@@ -2299,14 +2299,14 @@ s2floplist_no_rtl_csm = [
     ('mshrid','`L15_MSHR_ID_WIDTH'),
     ('address','`L15_PADDR_WIDTH'),
     ('non_cacheable','1'),
-    ('size','3'),
+    ('size','`MSG_DATA_SIZE_WIDTH'),
     ('prefetch','1'),
-    ('l1_replacement_way','2'),
+    ('l1_replacement_way','`L1_WAY_WIDTH'),
     ('l2_miss','1'),
     ('f4b','1'),
     ('lrsc_flag_write_op','`L15_LRSC_FLAG_WRITE_OP_WIDTH'),
     ('predecode_noc2_inval', '1'),
-    ('predecode_fwd_subcacheline_vector', '4'),
+    ('predecode_fwd_subcacheline_vector', '`MSG_SUBLINE_VECTOR_WIDTH'),
     ('blockstore', '1'),
     ('blockstoreinit', '1'),
     ('predecode_reqtype', '`L15_REQTYPE_WIDTH'),
@@ -2854,11 +2854,12 @@ begin
     // trin todo: why stall_s2 is needed
     l15_mesi_write_val_s2 = mesi_write_val_s2 && val_s2 && !stall_s2;
     l15_mesi_write_index_s2 = mesi_write_index_s2;
-    l15_mesi_write_mask_s2 =  (mesi_write_way_s2 == 0) ? 8'b00_00_00_11 :
-                            (mesi_write_way_s2 == 1) ? 8'b00_00_11_00 :
-                            (mesi_write_way_s2 == 2) ? 8'b00_11_00_00 :
-                                                    8'b11_00_00_00 ;
-    l15_mesi_write_data_s2 = {4{mesi_write_state_s2}};
+    //l15_mesi_write_mask_s2 =  (mesi_write_way_s2 == 0) ? 8'b00_00_00_11 :
+    //                        (mesi_write_way_s2 == 1) ? 8'b00_00_11_00 :
+    //                        (mesi_write_way_s2 == 2) ? 8'b00_11_00_00 :
+    //                                                8'b11_00_00_00 ;
+    l15_mesi_write_mask_s2 = {`L15_MESI_STATE_WIDTH{1'b1}} << (mesi_write_way_s2*`L15_MESI_STATE_WIDTH);
+    l15_mesi_write_data_s2 = {`L15_MESI_STATE_WIDTH{mesi_write_state_s2}};
 end
 
 
@@ -3103,20 +3104,20 @@ end
 // propagated variables (flops) from S2
 <%
 s3floplist = [
-    ('tagcheck_way','2'),
-    ('tagcheck_state','2'),
+    ('tagcheck_way','`L15_MESI_STATE_WIDTH'),
+    ('tagcheck_state','`L15_MESI_STATE_WIDTH'),
     ('tagcheck_lrsc_flag','1'),
-    ('flush_way','2'),
-    ('flush_state','2'),
-    ('lru_way','2'),
-    ('lru_state','2'),
+    ('flush_way','`L15_MESI_STATE_WIDTH'),
+    ('flush_state','`L15_MESI_STATE_WIDTH'),
+    ('lru_way','`L15_MESI_STATE_WIDTH'),
+    ('lru_state','`L15_MESI_STATE_WIDTH'),
     ('mshrid','`L15_MSHR_ID_WIDTH'),
     ('address','`L15_PADDR_WIDTH'),
     ('threadid','`L15_THREADID_WIDTH'),
     ('non_cacheable','1'),
-    ('size','3'),
+    ('size','`MSG_DATA_SIZE_WIDTH'),
     ('prefetch','1'),
-    ('l1_replacement_way','2'),
+    ('l1_replacement_way','`L1_WAY_WIDTH'),
     ('l2_miss','1'),
     ('f4b','1'),
     ('blockstore', '1'),
@@ -3124,7 +3125,7 @@ s3floplist = [
     ('noc2_src_homeid','`PACKET_HOME_ID_WIDTH'),
     ('lruarray_write_op','`L15_LRUARRAY_WRITE_OP_WIDTH'),
     ('predecode_noc2_inval', '1'),
-    ('predecode_fwd_subcacheline_vector', '4'),
+    ('predecode_fwd_subcacheline_vector', '`MSG_SUBLINE_VECTOR_WIDTH'),
     ('predecode_reqtype', '`L15_REQTYPE_WIDTH'),
     #('wmt_read_operation','`L15_WMT_READ_OP_WIDTH'),
     ('wmt_write_op','`L15_WMT_WRITE_OP_WIDTH'),
@@ -3473,16 +3474,16 @@ always @ *
 begin
     lruarray_write_data_s3 = 0;
     lruarray_write_val_s3 = 0;
-    lruarray_lru_mask_s3 = 4'b1 << lru_way_s3;
-    lruarray_flush_mask_s3 = 4'b1 << flush_way_s3;
+    lruarray_lru_mask_s3 = `L15_WAY_COUNT'b1 << lru_way_s3;
+    lruarray_flush_mask_s3 = `L15_WAY_COUNT'b1 << flush_way_s3;
     lruarray_tagcheck_mask_s3 = tagcheck_way_mask_s3;
 
     case (lruarray_write_op_s3)
         `L15_LRU_UPDATE_ACCESS_BITS_IF_TAGCHECK_WAY_IS_MES:
         begin
             lruarray_write_val_s3 = tagcheck_state_mes_s3;
-            if ((lru_data_s3[`L15_LRUARRAY_USED_MASK] | lruarray_tagcheck_mask_s3) == 4'b1111)
-                lruarray_write_data_s3[`L15_LRUARRAY_USED_MASK] = 4'b0000;
+            if (&(lru_data_s3[`L15_LRUARRAY_USED_MASK] | lruarray_tagcheck_mask_s3))
+                lruarray_write_data_s3[`L15_LRUARRAY_USED_MASK] = `L15_WAY_COUNT'b0;
             else
                 lruarray_write_data_s3[`L15_LRUARRAY_USED_MASK] = lru_data_s3[`L15_LRUARRAY_USED_MASK] | lruarray_tagcheck_mask_s3;
             lruarray_write_data_s3[`L15_LRUARRAY_RR_MASK] = lru_data_s3[`L15_LRUARRAY_RR_MASK]; // retain old round robin
@@ -3490,8 +3491,8 @@ begin
         `L15_LRU_UPDATE_ACCESS_BITS_IF_TAGCHECK_WAY_LRSC_SET:
         begin
             lruarray_write_val_s3 = tagcheck_lrsc_flag_s3;
-            if ((lru_data_s3[`L15_LRUARRAY_USED_MASK] | lruarray_tagcheck_mask_s3) == 4'b1111)
-                lruarray_write_data_s3[`L15_LRUARRAY_USED_MASK] = 4'b0000;
+            if (&(lru_data_s3[`L15_LRUARRAY_USED_MASK] | lruarray_tagcheck_mask_s3))
+                lruarray_write_data_s3[`L15_LRUARRAY_USED_MASK] = `L15_WAY_COUNT'b0;
             else
                 lruarray_write_data_s3[`L15_LRUARRAY_USED_MASK] = lru_data_s3[`L15_LRUARRAY_USED_MASK] | lruarray_tagcheck_mask_s3;
             lruarray_write_data_s3[`L15_LRUARRAY_RR_MASK] = lru_data_s3[`L15_LRUARRAY_RR_MASK]; // retain old round robin
@@ -3501,7 +3502,7 @@ begin
             // lruarray_write_val_s3 = 1'b1; // might be an error to change here
             // lruarray_write_data_s3[`L15_LRUARRAY_USED_MASK] = lru_data_s3[`L15_LRUARRAY_USED_MASK] & ~lruarray_lru_mask_s3;
             //    // retain old access bits and remove the evicted bit
-            // lruarray_write_data_s3[`L15_LRUARRAY_RR_MASK] = lru_data_s3[`L15_LRUARRAY_RR_MASK] + 2'b1;
+            // lruarray_write_data_s3[`L15_LRUARRAY_RR_MASK] = lru_data_s3[`L15_LRUARRAY_RR_MASK] + `L15_LRUARRAY_WIDTH'b1;
         end
         `L15_LRU_REPLACEMENT:
         begin
@@ -3511,7 +3512,7 @@ begin
             // lruarray_write_data_s3[`L15_LRUARRAY_RR_MASK] = lru_data_s3[`L15_LRUARRAY_RR_MASK] + 2'b1;
             lruarray_write_val_s3 = 1'b1; // no change for now, only turn on access bit on the second access
             lruarray_write_data_s3[`L15_LRUARRAY_USED_MASK] = lru_data_s3[`L15_LRUARRAY_USED_MASK] | lruarray_lru_mask_s3;
-            lruarray_write_data_s3[`L15_LRUARRAY_RR_MASK] = lru_data_s3[`L15_LRUARRAY_RR_MASK] + 2'b1;
+            lruarray_write_data_s3[`L15_LRUARRAY_RR_MASK] = lru_data_s3[`L15_LRUARRAY_RR_MASK] + `L15_LRUARRAY_WIDTH'b1;
         end
         `L15_LRU_INVALIDATE_IF_TAGCHECK_WAY_IS_MES:
         begin
@@ -3532,7 +3533,7 @@ begin
 
     l15_lruarray_write_val_s3 = lruarray_write_val_s3 && val_s3;
     l15_lruarray_write_data_s3 = lruarray_write_data_s3;
-    l15_lruarray_write_mask_s3 = 6'b111111;
+    l15_lruarray_write_mask_s3 = {`L15_LRUARRAY_WIDTH{1'b1}};
     // l15_lruarray_write_mask_s3 = 6'b0;
     l15_lruarray_write_index_s3 = lruarray_write_index_s3;
 end
