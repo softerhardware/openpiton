@@ -66,7 +66,7 @@ module l15_pipeline(
     input wire pcxdecoder_l15_prefetch,
     input wire pcxdecoder_l15_blockstore,
     input wire pcxdecoder_l15_blockinitstore,
-    input wire [`L15_WAY_MASK] pcxdecoder_l15_l1rplway,
+    input wire [`L15_WAY_WIDTH-1:0] pcxdecoder_l15_l1rplway,
     input wire pcxdecoder_l15_val,
     input wire [`L15_PADDR_MASK] pcxdecoder_l15_address,
     input wire [`TLB_CSM_WIDTH-1:0] pcxdecoder_l15_csm_data,
@@ -298,13 +298,13 @@ reg [`L15_FETCH_STATE_WIDTH-1:0] fetch_state_s1;
 reg [`L15_FETCH_STATE_WIDTH-1:0] fetch_state_next_s1;
 
 // addresses from s2&s3, used to calculate stall_s1
-reg [`L15_CACHE_INDEX_MASK] cache_index_s2;
+reg [`L15_CACHE_INDEX_WIDTH-1:0] cache_index_s2;
 reg [`L1D_ADDRESS_WIDTH-1:0] cache_index_l1d_s2;
-reg [`L15_CACHE_INDEX_MASK] cache_index_s3;
+reg [`L15_CACHE_INDEX_WIDTH-1:0] cache_index_s3;
 reg [`L1D_ADDRESS_WIDTH-1:0] cache_index_l1d_s3;
 
 // bought early, borrowed to calculate dtag way...
-reg [`L15_WAY_MASK] lru_way_s2;
+reg [`L15_WAY_WIDTH-1:0] lru_way_s2;
 
 // PCX/NOC2 acks aggregator
 always @ *
@@ -327,7 +327,7 @@ end
 //////////////////////////
 // depends on nothing
 reg [`L15_CACHE_TAG_WIDTH-1:0] predecode_dtag_write_data_s1;
-reg [`L15_CACHE_INDEX_MASK] predecode_cache_index_s1;
+reg [`L15_CACHE_INDEX_WIDTH-1:0] predecode_cache_index_s1;
 // reg [`L15_PADDR_MASK] predecode_mshr_address_s1;
 reg [`L15_CONTROL_WIDTH-1:0] predecode_mshr_read_control_s1;
 reg [`PACKET_HOME_ID_WIDTH-1:0] predecode_mshr_read_homeid_s1;
@@ -339,7 +339,7 @@ reg [`L15_PADDR_MASK] predecode_address_plus2_s1;
 reg [`L15_PADDR_MASK] predecode_address_plus3_s1;
 reg [`PCX_SIZE_FIELD_WIDTH-1:0] predecode_size_s1;
 reg [`L15_THREADID_MASK] predecode_threadid_s1;
-reg [`L15_WAY_MASK] predecode_l1_replacement_way_s1;
+reg [`L15_WAY_WIDTH-1:0] predecode_l1_replacement_way_s1;
 reg predecode_non_cacheable_s1;
 reg predecode_is_last_inval_s1;
 // reg predecode_icache_do_inval_s1;
@@ -392,7 +392,7 @@ reg [`L15_MESI_TRANS_STATE_WIDTH-1:0] mshr_st_state_array [`L15_THREAD_ARRAY_MAS
 `endif
 reg [`L15_PADDR_MASK] mshr_st_address_array [`L15_THREAD_ARRAY_MASK];
 reg [`L15_PADDR_MASK] mshr_ld_address_array [`L15_THREAD_ARRAY_MASK];
-reg [`L15_WAY_MASK] mshr_st_way_array [`L15_THREAD_ARRAY_MASK];
+reg [`L15_WAY_WIDTH-1:0] mshr_st_way_array [`L15_THREAD_ARRAY_MASK];
 always @ *
 begin
     pipe_mshr_readreq_mshrid_s1 = noc2decoder_l15_mshrid;
@@ -2631,7 +2631,7 @@ end
 //////////////////////////////
 reg dcache_val_s2;
 reg dcache_rw_s2;
-reg [`L15_CACHE_INDEX_MASK] dcache_index_s2;
+reg [`L15_CACHE_INDEX_WIDTH-1:0] dcache_index_s2;
 reg [`L15_WAY_WIDTH-1:0] dcache_way_s2;
 reg [`L15_CACHELINE_WIDTH-1:0] dcache_mshr_write_mask_s2;
 reg [`L15_CACHELINE_WIDTH-1:0] dcache_write_merge_mshr_noc2_s2;
@@ -2639,7 +2639,7 @@ reg [`L15_DCACHE_SOURCE_WIDTH-1:0] dcache_source_s2;
 reg [`L15_CACHELINE_WIDTH-1:0] dcache_write_mask_s2;
 reg [`L15_CACHELINE_WIDTH-1:0] dcache_write_data_s2;
 // diag accesses
-reg [`L15_CACHE_INDEX_MASK] dcache_diag_index_s2;
+reg [`L15_CACHE_INDEX_WIDTH-1:0] dcache_diag_index_s2;
 reg [`L15_WAY_WIDTH-1:0] dcache_diag_way_s2;
 reg [0:0] dcache_diag_offset_s2;
 reg [`L15_WAY_WIDTH-1:0] lru_way_s3_bypassed;
@@ -2835,7 +2835,7 @@ end
 // MESI write control
 ////////////////////////
 reg mesi_write_val_s2;
-reg [`L15_CACHE_INDEX_MASK] mesi_write_index_s2;
+reg [`L15_CACHE_INDEX_WIDTH-1:0] mesi_write_index_s2;
 reg [`L15_WAY_WIDTH-1:0] mesi_write_way_s2;
 reg [`L15_MESI_STATE_WIDTH-1:0] mesi_write_state_s2;
 always @ *
@@ -2891,7 +2891,7 @@ begin
     // bugfix (stall signal needs to be here)
     // trin todo: why stall_s2 is needed
     l15_mesi_write_val_s2 = mesi_write_val_s2 && val_s2 && !stall_s2;
-    l15_mesi_write_index_s2[`L15_CACHE_INDEX_MASK] = mesi_write_index_s2;
+    l15_mesi_write_index_s2 = mesi_write_index_s2;
     l15_mesi_write_mask_s2 =  (mesi_write_way_s2 == 0) ? 8'b00_00_00_11 :
                             (mesi_write_way_s2 == 1) ? 8'b00_00_11_00 :
                             (mesi_write_way_s2 == 2) ? 8'b00_11_00_00 :
@@ -2904,7 +2904,7 @@ end
 // LRSC flag write control
 ////////////////////////
 reg lrsc_flag_write_val_s2;
-reg [`L15_CACHE_INDEX_MASK] lrsc_flag_write_index_s2;
+reg [`L15_CACHE_INDEX_WIDTH-1:0] lrsc_flag_write_index_s2;
 reg [`L15_WAY_WIDTH-1:0] lrsc_flag_write_way_s2;
 reg lrsc_flag_write_state_s2;
 always @ *
@@ -2946,7 +2946,7 @@ begin
     // bugfix (stall signal needs to be here)
     // trin todo: why stall_s2 is needed
     l15_lrsc_flag_write_val_s2 = lrsc_flag_write_val_s2 && val_s2 && !stall_s2;
-    l15_lrsc_flag_write_index_s2[`L15_CACHE_INDEX_MASK] = lrsc_flag_write_index_s2;
+    l15_lrsc_flag_write_index_s2 = lrsc_flag_write_index_s2;
     l15_lrsc_flag_write_mask_s2[`L15_WAY_COUNT-1:0] = `L15_WAY_COUNT'b1 << lrsc_flag_write_way_s2;
     l15_lrsc_flag_write_data_s2[`L15_WAY_COUNT-1:0] = {`L15_WAY_COUNT{lrsc_flag_write_state_s2}};
 end
@@ -3421,7 +3421,7 @@ end
 //      stbuf_way_s3
 // LOCAL VARIABLES
 reg [`L15_WMT_DATA_MASK] wmt_compare_data_s3;
-reg [`L15_WAY_MASK] wmt_compare_way_s3;
+reg [`L15_WAY_WIDTH-1:0] wmt_compare_way_s3;
 // OUTPUTS
 reg [`L15_WMT_ENTRY_MASK] wmt_data_s3 [0:`L1D_WAY_COUNT-1];
 reg [`L1D_WAY_COUNT-1:0] wmt_compare_mask_s3;
@@ -3591,7 +3591,7 @@ reg wmt_write_inval_val_s3;
 reg wmt_write_update_val_s3;
 reg wmt_write_dedup_l1way_val_s3;
 
-reg [`L15_WAY_MASK] wmt_write_update_way_s3;
+reg [`L15_WAY_WIDTH-1:0] wmt_write_update_way_s3;
 // reg [`L1D_WAY_MASK] wmt_write_inval_way_s3;
 // reg [`L15_UNPARAM_2_0] wmt_write_dedup_l1way_s3;
 
