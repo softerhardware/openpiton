@@ -2889,7 +2889,7 @@ begin
     //                        (mesi_write_way_s2 == 2) ? 8'b00_11_00_00 :
     //                                                8'b11_00_00_00 ;
     l15_mesi_write_mask_s2 = {`L15_MESI_STATE_WIDTH{1'b1}} << (mesi_write_way_s2*`L15_MESI_STATE_WIDTH);
-    l15_mesi_write_data_s2 = {`L15_MESI_STATE_WIDTH{mesi_write_state_s2}};
+    l15_mesi_write_data_s2 = {`L15_WAY_COUNT{mesi_write_state_s2}};
 end
 
 
