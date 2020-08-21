@@ -62,7 +62,7 @@ module l15_pipeline(
     input wire pcxdecoder_l15_nc,
     input wire [`PCX_SIZE_FIELD_WIDTH-1:0] pcxdecoder_l15_size,
     // input wire pcxdecoder_l15_invalall,         // unused input from core
-    input wire [`L15_THREADID_MASK] pcxdecoder_l15_threadid,
+    input wire [`L15_THREADID_WIDTH-1:0] pcxdecoder_l15_threadid,
     input wire pcxdecoder_l15_prefetch,
     input wire pcxdecoder_l15_blockstore,
     input wire pcxdecoder_l15_blockinitstore,
@@ -76,7 +76,7 @@ module l15_pipeline(
     // noc2
     input wire noc2decoder_l15_val,
     input wire [`L15_MSHR_ID_WIDTH-1:0] noc2decoder_l15_mshrid,
-    input wire [`L15_THREADID_MASK] noc2decoder_l15_threadid,
+    input wire [`L15_THREADID_WIDTH-1:0] noc2decoder_l15_threadid,
     input wire noc2decoder_l15_hmc_fill,
     input wire noc2decoder_l15_l2miss,
     input wire noc2decoder_l15_icache_type,
@@ -169,9 +169,9 @@ module l15_pipeline(
     output reg [`L15_WRITE_BYTE_MASK_WIDTH-1:0] pipe_mshr_writereq_write_buffer_byte_mask_s1,
     output reg [`L15_CONTROL_WIDTH-1:0] pipe_mshr_writereq_control_s1,
     output reg [`L15_MSHR_ID_WIDTH-1:0] pipe_mshr_writereq_mshrid_s1,
-    output reg [`L15_THREADID_MASK] pipe_mshr_writereq_threadid_s1,
+    output reg [`L15_THREADID_WIDTH-1:0] pipe_mshr_writereq_threadid_s1,
     // s1 (reading mshr)
-    output reg [`L15_THREADID_MASK] pipe_mshr_readreq_threadid_s1,
+    output reg [`L15_THREADID_WIDTH-1:0] pipe_mshr_readreq_threadid_s1,
     output reg [`L15_MSHR_ID_WIDTH-1:0] pipe_mshr_readreq_mshrid_s1,
     input wire [`L15_CONTROL_WIDTH-1:0] mshr_pipe_readres_control_s1,
     input wire [`PACKET_HOME_ID_WIDTH-1:0] mshr_pipe_readres_homeid_s1,
@@ -184,14 +184,14 @@ module l15_pipeline(
     input wire [(`L15_MESI_TRANS_STATE_WIDTH*`L15_NUM_THREADS)-1:0] mshr_pipe_st_state_s1,
     //s2 (loading store buffer)
     output reg pipe_mshr_write_buffer_rd_en_s2,
-    output reg [`L15_THREADID_MASK] pipe_mshr_threadid_s2,
+    output reg [`L15_THREADID_WIDTH-1:0] pipe_mshr_threadid_s2,
     input wire [`L15_CACHELINE_WIDTH-1:0] mshr_pipe_write_buffer_s2,
     input wire [`L15_WRITE_BYTE_MASK_WIDTH-1:0] mshr_pipe_write_buffer_byte_mask_s2,
     //s3 (deallocation or updating write states)
     output reg pipe_mshr_val_s3,
     output reg [`L15_MSHR_WRITE_TYPE_WIDTH-1:0] pipe_mshr_op_s3,
     output reg [`L15_MSHR_ID_WIDTH-1:0] pipe_mshr_mshrid_s3,
-    output reg [`L15_THREADID_MASK] pipe_mshr_threadid_s3,
+    output reg [`L15_THREADID_WIDTH-1:0] pipe_mshr_threadid_s3,
     output reg [`L15_MESI_TRANS_STATE_WIDTH-1:0] pipe_mshr_write_update_state_s3,
     output reg [`L15_WAY_WIDTH-1:0] pipe_mshr_write_update_way_s3,
 
@@ -203,7 +203,7 @@ module l15_pipeline(
     output reg [`CPX_ERROR_CODE_WIDTH-1:0] l15_cpxencoder_error,  // tcov: to core but not utilized
     output reg l15_cpxencoder_noncacheable,
     output reg l15_cpxencoder_atomic,
-    output reg [`L15_THREADID_MASK] l15_cpxencoder_threadid,
+    output reg [`L15_THREADID_WIDTH-1:0] l15_cpxencoder_threadid,
     output reg l15_cpxencoder_prefetch,
     output reg l15_cpxencoder_f4b,
     output reg [63:0] l15_cpxencoder_data_0,
@@ -222,7 +222,7 @@ module l15_pipeline(
     // noc1
     output reg l15_noc1buffer_req_val,
     output reg [`L15_NOC1_REQTYPE_WIDTH-1:0] l15_noc1buffer_req_type,
-    output reg [`L15_THREADID_MASK] l15_noc1buffer_req_threadid,
+    output reg [`L15_THREADID_WIDTH-1:0] l15_noc1buffer_req_threadid,
     output reg [`L15_MSHR_ID_WIDTH-1:0] l15_noc1buffer_req_mshrid,
     output reg [`L15_PADDR_WIDTH-1:0] l15_noc1buffer_req_address,
     output reg l15_noc1buffer_req_non_cacheable,
@@ -240,7 +240,7 @@ module l15_pipeline(
     output reg [63:0] l15_noc3encoder_req_data_1,
     output reg [`L15_MSHR_ID_WIDTH-1:0] l15_noc3encoder_req_mshrid,
     output reg [`L15_SEQUENCE_ID_WIDTH-1:0] l15_noc3encoder_req_sequenceid,
-    output reg [`L15_THREADID_MASK] l15_noc3encoder_req_threadid,
+    output reg [`L15_THREADID_WIDTH-1:0] l15_noc3encoder_req_threadid,
     output reg [`L15_PADDR_WIDTH-1:0] l15_noc3encoder_req_address,
     output reg l15_noc3encoder_req_with_data,
     output reg l15_noc3encoder_req_was_inval,
@@ -338,7 +338,7 @@ reg [`L15_PADDR_WIDTH-1:0] predecode_address_plus1_s1;
 reg [`L15_PADDR_WIDTH-1:0] predecode_address_plus2_s1;
 reg [`L15_PADDR_WIDTH-1:0] predecode_address_plus3_s1;
 reg [`PCX_SIZE_FIELD_WIDTH-1:0] predecode_size_s1;
-reg [`L15_THREADID_MASK] predecode_threadid_s1;
+reg [`L15_THREADID_WIDTH-1:0] predecode_threadid_s1;
 reg [`L1_WAY_WIDTH-1:0] predecode_l1_replacement_way_s1;
 reg predecode_non_cacheable_s1;
 reg predecode_is_last_inval_s1;
@@ -384,15 +384,15 @@ end
 
 // retrieve mshr info from mshr module
 // and expanding signals
-reg [`L15_NUM_MSHRID_PER_THREAD-1:0] mshr_val_array [`L15_THREAD_ARRAY_MASK];
+reg [`L15_NUM_MSHRID_PER_THREAD-1:0] mshr_val_array [`L15_NUM_THREADS-1:0];
 `ifdef PITON_ASIC_RTL
-reg [`L15_MESI_TRANS_STATE_WIDTH:0] mshr_st_state_array [`L15_THREAD_ARRAY_MASK];
+reg [`L15_MESI_TRANS_STATE_WIDTH:0] mshr_st_state_array [`L15_NUM_THREADS-1:0];
 `else
-reg [`L15_MESI_TRANS_STATE_WIDTH-1:0] mshr_st_state_array [`L15_THREAD_ARRAY_MASK];
+reg [`L15_MESI_TRANS_STATE_WIDTH-1:0] mshr_st_state_array [`L15_NUM_THREADS-1:0];
 `endif
-reg [`L15_PADDR_WIDTH-1:0] mshr_st_address_array [`L15_THREAD_ARRAY_MASK];
-reg [`L15_PADDR_WIDTH-1:0] mshr_ld_address_array [`L15_THREAD_ARRAY_MASK];
-reg [`L15_WAY_WIDTH-1:0] mshr_st_way_array [`L15_THREAD_ARRAY_MASK];
+reg [`L15_PADDR_WIDTH-1:0] mshr_st_address_array [`L15_NUM_THREADS-1:0];
+reg [`L15_PADDR_WIDTH-1:0] mshr_ld_address_array [`L15_NUM_THREADS-1:0];
+reg [`L15_WAY_WIDTH-1:0] mshr_st_way_array [`L15_NUM_THREADS-1:0];
 always @ *
 begin
     pipe_mshr_readreq_mshrid_s1 = noc2decoder_l15_mshrid;
@@ -403,17 +403,27 @@ begin
     predecode_mshr_read_homeid_s1 = mshr_pipe_readres_homeid_s1;
 
     // mshr_val_array
-    mshr_val_array[0] = mshr_pipe_vals_s1[`L15_NUM_MSHRID_PER_THREAD*1 - 1 -: `L15_NUM_MSHRID_PER_THREAD];
-    mshr_st_state_array[0] = mshr_pipe_st_state_s1[`L15_MESI_TRANS_STATE_WIDTH*1 - 1 -: `L15_MESI_TRANS_STATE_WIDTH];
-    mshr_st_address_array[0] = mshr_pipe_st_address[`L15_PADDR_WIDTH*1 - 1 -: `L15_PADDR_WIDTH];
-    mshr_ld_address_array[0] = mshr_pipe_ld_address[`L15_PADDR_WIDTH*1 - 1 -: `L15_PADDR_WIDTH];
-    mshr_st_way_array[0] = mshr_pipe_st_way_s1[`L15_WAY_WIDTH*1 - 1 -: `L15_WAY_WIDTH];
+    // mshr_val_array[0] = mshr_pipe_vals_s1[`L15_NUM_MSHRID_PER_THREAD*1 - 1 -: `L15_NUM_MSHRID_PER_THREAD];
+    // mshr_st_state_array[0] = mshr_pipe_st_state_s1[`L15_MESI_TRANS_STATE_WIDTH*1 - 1 -: `L15_MESI_TRANS_STATE_WIDTH];
+    // mshr_st_address_array[0] = mshr_pipe_st_address[`L15_PADDR_WIDTH*1 - 1 -: `L15_PADDR_WIDTH];
+    // mshr_ld_address_array[0] = mshr_pipe_ld_address[`L15_PADDR_WIDTH*1 - 1 -: `L15_PADDR_WIDTH];
+    // mshr_st_way_array[0] = mshr_pipe_st_way_s1[`L15_WAY_WIDTH*1 - 1 -: `L15_WAY_WIDTH];
 
-    mshr_val_array[1] = mshr_pipe_vals_s1[`L15_NUM_MSHRID_PER_THREAD*2 - 1 -: `L15_NUM_MSHRID_PER_THREAD];
-    mshr_st_state_array[1] = mshr_pipe_st_state_s1[`L15_MESI_TRANS_STATE_WIDTH*2 - 1 -: `L15_MESI_TRANS_STATE_WIDTH];
-    mshr_st_address_array[1] = mshr_pipe_st_address[`L15_PADDR_WIDTH*2 - 1 -: `L15_PADDR_WIDTH];
-    mshr_ld_address_array[1] = mshr_pipe_ld_address[`L15_PADDR_WIDTH*2 - 1 -: `L15_PADDR_WIDTH];
-    mshr_st_way_array[1] = mshr_pipe_st_way_s1[`L15_WAY_WIDTH*2 - 1 -: `L15_WAY_WIDTH];
+    // mshr_val_array[1] = mshr_pipe_vals_s1[`L15_NUM_MSHRID_PER_THREAD*2 - 1 -: `L15_NUM_MSHRID_PER_THREAD];
+    // mshr_st_state_array[1] = mshr_pipe_st_state_s1[`L15_MESI_TRANS_STATE_WIDTH*2 - 1 -: `L15_MESI_TRANS_STATE_WIDTH];
+    // mshr_st_address_array[1] = mshr_pipe_st_address[`L15_PADDR_WIDTH*2 - 1 -: `L15_PADDR_WIDTH];
+    // mshr_ld_address_array[1] = mshr_pipe_ld_address[`L15_PADDR_WIDTH*2 - 1 -: `L15_PADDR_WIDTH];
+    // mshr_st_way_array[1] = mshr_pipe_st_way_s1[`L15_WAY_WIDTH*2 - 1 -: `L15_WAY_WIDTH];
+<%
+    for i in range (CONFIG_L15_THREADS):
+        print("""
+    mshr_val_array[{0}] = mshr_pipe_vals_s1[`L15_NUM_MSHRID_PER_THREAD*{1} - 1 -: `L15_NUM_MSHRID_PER_THREAD];
+    mshr_st_state_array[{0}] = mshr_pipe_st_state_s1[`L15_MESI_TRANS_STATE_WIDTH*{1} - 1 -: `L15_MESI_TRANS_STATE_WIDTH];
+    mshr_st_address_array[{0}] = mshr_pipe_st_address[`L15_PADDR_WIDTH*{1} - 1 -: `L15_PADDR_WIDTH];
+    mshr_ld_address_array[{0}] = mshr_pipe_ld_address[`L15_PADDR_WIDTH*{1} - 1 -: `L15_PADDR_WIDTH];
+    mshr_st_way_array[{0}] = mshr_pipe_st_way_s1[`L15_WAY_WIDTH*{1} - 1 -: `L15_WAY_WIDTH];
+    """.format(i, i+1))
+%>
 end
 
 // match pcx address to special accesses
@@ -434,15 +444,17 @@ begin
 end
 
 // decode requests to predecode signals
-reg predecode_tagcheck_matched_t0ld_s1;
-reg predecode_tagcheck_matched_t0st_s1;
-reg predecode_tagcheck_matched_t1ld_s1;
-reg predecode_tagcheck_matched_t1st_s1;
+// reg predecode_tagcheck_matched_t0ld_s1;
+// reg predecode_tagcheck_matched_t0st_s1;
+// reg predecode_tagcheck_matched_t1ld_s1;
+// reg predecode_tagcheck_matched_t1st_s1;
+reg [`L15_NUM_THREADS-1:0] predecode_tagcheck_matched_tNld_s1;
+reg [`L15_NUM_THREADS-1:0] predecode_tagcheck_matched_tNst_s1;
 reg predecode_int_vec_dis_s1;
 reg predecode_tagcheck_matched_s1;
 reg [19:4] predecode_partial_tag_s1;
 reg predecode_hit_stbuf_s1;
-reg [`L15_THREADID_MASK] predecode_hit_stbuf_threadid_s1;
+reg [`L15_THREADID_WIDTH-1:0] predecode_hit_stbuf_threadid_s1;
 
 wire [`L15_PADDR_WIDTH-1:0] constant_int_vec_dis_address = `L15_INT_VEC_DIS;
 
@@ -480,7 +492,7 @@ begin
             // // predecode_address_s1 = predecode_mshr_address_s1;
             // predecode_size_s1 = predecode_mshr_read_control_s1[`L15_CONTROL_SIZE_3B -: 3];
             // // predecode_threadid_s1 = predecode_mshr_read_control_s1[`L15_CONTROL_THREADID -: `L15_THREADID_WIDTH];
-            // predecode_threadid_s1[`L15_THREADID_MASK] = noc2decoder_l15_threadid[`L15_THREADID_MASK];
+            // predecode_threadid_s1[`L15_THREADID_WIDTH-1:0] = noc2decoder_l15_threadid[`L15_THREADID_WIDTH-1:0];
             // predecode_l1_replacement_way_s1 = predecode_mshr_read_control_s1[`L15_CONTROL_L1_REPLACEMENT_WAY_2B -: 2];
             // predecode_non_cacheable_s1 = predecode_mshr_read_control_s1[`L15_CONTROL_NC_1B -: 1];
             // // 4.16.14: disable blockstores
@@ -666,7 +678,7 @@ begin
         begin
             predecode_address_s1 = pcxdecoder_l15_address;
             predecode_size_s1 = pcxdecoder_l15_size;
-            predecode_threadid_s1[`L15_THREADID_MASK] = pcxdecoder_l15_threadid[`L15_THREADID_MASK];
+            predecode_threadid_s1[`L15_THREADID_WIDTH-1:0] = pcxdecoder_l15_threadid[`L15_THREADID_WIDTH-1:0];
             predecode_l1_replacement_way_s1 = pcxdecoder_l15_l1rplway;
             predecode_non_cacheable_s1 = pcxdecoder_l15_nc;
             predecode_blockstore_bit_s1 = pcxdecoder_l15_blockstore;
@@ -849,23 +861,44 @@ begin
     // trinn: expand tag checking to account for more threads
     // more config on bits
     predecode_partial_tag_s1[19:4] = pcxdecoder_l15_address[19:4]; // compare partial tag to save energy & timing
-    predecode_tagcheck_matched_t0ld_s1 = mshr_val_array[0][`L15_MSHR_ID_LD] 
-                                        && (predecode_partial_tag_s1[19:4] == mshr_ld_address_array[0][19:4]);
-    predecode_tagcheck_matched_t1ld_s1 = mshr_val_array[1][`L15_MSHR_ID_LD] 
-                                        && (predecode_partial_tag_s1[19:4] == mshr_ld_address_array[1][19:4]);
-    predecode_tagcheck_matched_t0st_s1 = mshr_val_array[0][`L15_MSHR_ID_ST] 
-                                        && (pcxdecoder_l15_address[39:4] == mshr_st_address_array[0][39:4]);
-    predecode_tagcheck_matched_t1st_s1 = mshr_val_array[1][`L15_MSHR_ID_ST] 
-                                        && (pcxdecoder_l15_address[39:4] == mshr_st_address_array[1][39:4]);
+    // predecode_tagcheck_matched_t0ld_s1 = mshr_val_array[0][`L15_MSHR_ID_LD] 
+    //                                     && (predecode_partial_tag_s1[19:4] == mshr_ld_address_array[0][19:4]);
+    // predecode_tagcheck_matched_t1ld_s1 = mshr_val_array[1][`L15_MSHR_ID_LD] 
+    //                                     && (predecode_partial_tag_s1[19:4] == mshr_ld_address_array[1][19:4]);
+    // predecode_tagcheck_matched_t0st_s1 = mshr_val_array[0][`L15_MSHR_ID_ST] 
+    //                                     && (pcxdecoder_l15_address[39:4] == mshr_st_address_array[0][39:4]);
+    // predecode_tagcheck_matched_t1st_s1 = mshr_val_array[1][`L15_MSHR_ID_ST] 
+    //                                     && (pcxdecoder_l15_address[39:4] == mshr_st_address_array[1][39:4]);
 
-    predecode_tagcheck_matched_s1 = predecode_tagcheck_matched_t0ld_s1 || predecode_tagcheck_matched_t1ld_s1
-                                    || predecode_tagcheck_matched_t0st_s1 || predecode_tagcheck_matched_t1st_s1;
+<%
+    for i in range(CONFIG_L15_THREADS):
+        print("""
+    predecode_tagcheck_matched_tNld_s1[{0}] = mshr_val_array[{0}][`L15_MSHR_ID_LD] 
+                                        && (predecode_partial_tag_s1[19:4] == mshr_ld_address_array[{0}][19:4]);
+    predecode_tagcheck_matched_tNst_s1[{0}] = mshr_val_array[{0}][`L15_MSHR_ID_ST] 
+                                        && (pcxdecoder_l15_address[39:4] == mshr_st_address_array[{0}][39:4]);
+    """.format(i))
+%>
+
+    // predecode_tagcheck_matched_s1 = predecode_tagcheck_matched_t0ld_s1 || predecode_tagcheck_matched_t1ld_s1
+    //                                 || predecode_tagcheck_matched_t0st_s1 || predecode_tagcheck_matched_t1st_s1;
+    predecode_tagcheck_matched_s1 = | predecode_tagcheck_matched_tNld_s1;
 
 
     // misc
-    predecode_hit_stbuf_s1 = predecode_tagcheck_matched_t0st_s1 || predecode_tagcheck_matched_t1st_s1;
-    predecode_hit_stbuf_threadid_s1 = predecode_tagcheck_matched_t1st_s1 ? 1'b1 : 1'b0;
+    // predecode_hit_stbuf_s1 = predecode_tagcheck_matched_t0st_s1 || predecode_tagcheck_matched_t1st_s1;
+    predecode_hit_stbuf_s1 = | predecode_tagcheck_matched_tNst_s1;
+    // predecode_hit_stbuf_threadid_s1 = predecode_tagcheck_matched_t1st_s1 ? 1'b1 : 1'b0;
     // note: only work with 2 threads for now; need to change the algo of mshr if need to increase the num of threads
+    case (1'b1)
+<%
+    for i in range(CONFIG_L15_THREADS):
+        print ("""
+        predecode_tagcheck_matched_tNst_s1[{0}]: begin
+            predecode_hit_stbuf_threadid_s1 = {0};
+        end""".format(i))
+%>
+    endcase
 end
 
 //////////////////////////
@@ -2140,7 +2173,7 @@ reg [`L15_MSHR_WRITE_TYPE_WIDTH-1:0] s1_mshr_write_type_s1;
 reg [`L15_PADDR_WIDTH-1:0] s1_mshr_write_address_s1;
 reg [`L15_CONTROL_WIDTH-1:0] s1_mshr_write_control_s1;
 reg [`L15_MSHR_ID_WIDTH-1:0] s1_mshr_write_mshrid_s1;
-reg [`L15_THREADID_MASK] s1_mshr_write_threadid_s1;
+reg [`L15_THREADID_WIDTH-1:0] s1_mshr_write_threadid_s1;
 reg [`L15_WRITE_BYTE_MASK_WIDTH-1:0] unshifted_write_mask_s1;
 reg [`L15_WRITE_BYTE_MASK_WIDTH-1:0] write_mask_s1;
 reg [`L15_WRITE_BYTE_MASK_WIDTH-1:0] write_mask_1B_s1;
@@ -2169,7 +2202,7 @@ begin
             s1_mshr_write_address_s1 = pcxdecoder_l15_address;
             s1_mshr_write_control_s1 = mshr_control_bits_write_s1;
             s1_mshr_write_mshrid_s1 = decoder_mshr_allocation_type_s1;
-            s1_mshr_write_threadid_s1[`L15_THREADID_MASK] = predecode_threadid_s1[`L15_THREADID_MASK];
+            s1_mshr_write_threadid_s1[`L15_THREADID_WIDTH-1:0] = predecode_threadid_s1[`L15_THREADID_WIDTH-1:0];
         end
         `L15_S1_MSHR_OP_UPDATE_WRITECACHE:
         begin
@@ -3262,11 +3295,11 @@ end
 // reg stbuf_l1waymap_val_s3;
 
 
-reg [`L15_THREAD_ARRAY_MASK] stbuf_compare_address_match_s3;
-reg [`L15_THREAD_ARRAY_MASK] stbuf_compare_match_s3;
-reg [`L15_THREAD_ARRAY_MASK] stbuf_compare_lru_match_s3;
-reg [`L15_THREADID_MASK] stbuf_compare_threadid_s3;
-reg [`L15_THREADID_MASK] stbuf_compare_lru_threadid_s3;
+reg [`L15_NUM_THREADS-1:0] stbuf_compare_address_match_s3;
+reg [`L15_NUM_THREADS-1:0] stbuf_compare_match_s3;
+reg [`L15_NUM_THREADS-1:0] stbuf_compare_lru_match_s3;
+reg [`L15_THREADID_WIDTH-1:0] stbuf_compare_threadid_s3;
+reg [`L15_THREADID_WIDTH-1:0] stbuf_compare_lru_threadid_s3;
 reg stbuf_compare_match_val_s3;
 reg stbuf_compare_lru_match_val_s3;
 reg [`L15_WAY_WIDTH-1:0] stbuf_way_s3; // wmt todo: move calculation to s2
@@ -3759,7 +3792,7 @@ reg [`L15_MSHR_WRITE_TYPE_WIDTH-1:0] s3_mshr_write_type_s3;
 reg [`L15_MESI_TRANS_STATE_WIDTH-1:0] s3_mshr_update_state_s3;
 reg [`L15_MSHR_ID_WIDTH-1:0] s3_mshr_write_mshrid_s3;
 reg [`L15_WAY_WIDTH-1:0] s3_mshr_update_way_s3;
-reg [`L15_THREADID_MASK] s3_mshr_write_threadid_s3;
+reg [`L15_THREADID_WIDTH-1:0] s3_mshr_write_threadid_s3;
 
 always @ *
 begin
@@ -3768,7 +3801,7 @@ begin
     s3_mshr_write_mshrid_s3 = 0;
     s3_mshr_update_state_s3 = 0;
     s3_mshr_update_way_s3 = 0;
-    s3_mshr_write_threadid_s3[`L15_THREADID_MASK] = threadid_s3[`L15_THREADID_MASK];
+    s3_mshr_write_threadid_s3[`L15_THREADID_WIDTH-1:0] = threadid_s3[`L15_THREADID_WIDTH-1:0];
 
     case (s3_mshr_operation_s3)
         `L15_S3_MSHR_OP_DEALLOCATION:
@@ -3800,7 +3833,7 @@ begin
             // s3_mshr_write_mshrid_s3 = tagcheck_matched_st1_s3 ? 4'd8 : 4'd9; // doesn't matter to update states
             s3_mshr_update_state_s3 = `L15_MESI_TRANSITION_STATE_IM;
             // s3_mshr_update_way_s3 = tagcheck_way_s3;
-            s3_mshr_write_threadid_s3[`L15_THREADID_MASK] = stbuf_compare_threadid_s3[`L15_THREADID_MASK];
+            s3_mshr_write_threadid_s3[`L15_THREADID_WIDTH-1:0] = stbuf_compare_threadid_s3[`L15_THREADID_WIDTH-1:0];
         end
         `L15_S3_MSHR_OP_UPDATE_ST_MSHR_IM_IF_INDEX_LRU_WAY_MATCHES:
         begin
@@ -3808,7 +3841,7 @@ begin
             s3_mshr_write_type_s3 = `L15_MSHR_WRITE_TYPE_UPDATE_ST_STATE;
             // s3_mshr_write_mshrid_s3 = lru_eviction_matched_st1_s3 ? 4'd8 : 4'd9; // doesn't matter to update states
             s3_mshr_update_state_s3 = `L15_MESI_TRANSITION_STATE_IM;
-            s3_mshr_write_threadid_s3[`L15_THREADID_MASK] = stbuf_compare_lru_threadid_s3[`L15_THREADID_MASK];
+            s3_mshr_write_threadid_s3[`L15_THREADID_WIDTH-1:0] = stbuf_compare_lru_threadid_s3[`L15_THREADID_WIDTH-1:0];
             // s3_mshr_update_way_s3 = lru_way_s3;
         end
         `L15_S3_MSHR_OP_UPDATE_ST_MSHR_WAIT_ACK:
@@ -3817,7 +3850,7 @@ begin
             s3_mshr_write_type_s3 = `L15_MSHR_WRITE_TYPE_UPDATE_ST_STATE;
             // s3_mshr_write_mshrid_s3 = lru_eviction_matched_st1_s3 ? 4'd8 : 4'd9; // doesn't matter to update states
             s3_mshr_update_state_s3 = `L15_MESI_TRANSITION_STATE_WAIT_ACK;
-            // s3_mshr_write_threadid_s3[`L15_THREADID_MASK] = stbuf_compare_lru_threadid_s3[`L15_T
+            // s3_mshr_write_threadid_s3[`L15_THREADID_WIDTH-1:0] = stbuf_compare_lru_threadid_s3[`L15_T
             // s3_mshr_update_way_s3 = lru_way_s3;
         end
     endcase
@@ -3826,7 +3859,7 @@ begin
     pipe_mshr_val_s3 = s3_mshr_val_s3;
     pipe_mshr_op_s3 = s3_mshr_write_type_s3;
     pipe_mshr_mshrid_s3 = s3_mshr_write_mshrid_s3;
-    pipe_mshr_threadid_s3[`L15_THREADID_MASK] = s3_mshr_write_threadid_s3[`L15_THREADID_MASK];
+    pipe_mshr_threadid_s3[`L15_THREADID_WIDTH-1:0] = s3_mshr_write_threadid_s3[`L15_THREADID_WIDTH-1:0];
     pipe_mshr_write_update_state_s3 = s3_mshr_update_state_s3;
     pipe_mshr_write_update_way_s3 = s3_mshr_update_way_s3;
 end
@@ -4404,7 +4437,7 @@ begin
     l15_noc3encoder_req_data_1 = dcache_l15_dout_s3[63:0];
     l15_noc3encoder_req_mshrid = mshrid_s3;
     l15_noc3encoder_req_sequenceid = cache_index_s3[1:0]; // simply use the lowest 2 bit of the array index
-    l15_noc3encoder_req_threadid = threadid_s3[`L15_THREADID_MASK];
+    l15_noc3encoder_req_threadid = threadid_s3[`L15_THREADID_WIDTH-1:0];
     l15_noc3encoder_req_address[`L15_PADDR_WIDTH-1:0] = noc3_address_s3[`L15_PADDR_WIDTH-1:0];
     l15_noc3encoder_req_with_data = noc3_with_data_s3;
     l15_noc3encoder_req_was_inval = predecode_noc2_inval_s3;

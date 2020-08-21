@@ -2700,6 +2700,7 @@ sub parse_args
     "config_l15_associativity",
     "config_l2_size",
     "config_l2_associativity",
+    "config_l15_threads",
     );
 
   foreach my $config (@configurables) {

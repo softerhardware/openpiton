@@ -59,7 +59,7 @@ module noc2decoder(
 
     output reg noc2decoder_l15_val,
     output reg [`L15_MSHR_ID_WIDTH-1:0] noc2decoder_l15_mshrid,
-    output reg [`L15_THREADID_MASK] noc2decoder_l15_threadid,
+    output reg [`L15_THREADID_WIDTH-1:0] noc2decoder_l15_threadid,
     output reg noc2decoder_l15_hmc_fill,
     output reg noc2decoder_l15_l2miss,
     output reg noc2decoder_l15_icache_type,

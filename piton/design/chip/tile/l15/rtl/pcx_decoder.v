@@ -55,7 +55,7 @@ module pcx_decoder(
    output reg [`L15_AMO_OP_WIDTH-1:0]  pcxdecoder_l15_amo_op,
    output reg        pcxdecoder_l15_nc,
    output reg [`PCX_SIZE_FIELD_WIDTH-1:0]  pcxdecoder_l15_size,
-   output reg [`L15_THREADID_MASK]  pcxdecoder_l15_threadid,
+   output reg [`L15_THREADID_WIDTH-1:0]  pcxdecoder_l15_threadid,
    output reg        pcxdecoder_l15_prefetch,
    output reg        pcxdecoder_l15_invalidate_cacheline,
    output reg        pcxdecoder_l15_blockstore,

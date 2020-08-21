@@ -85,6 +85,7 @@ CONFIG_L2_ASSOCIATIVITY = int(os.environ.get('CONFIG_L2_ASSOCIATIVITY', '4'))
 # constants, not configurable
 L15_LINE_SIZE = 16
 L2_LINE_SIZE = 64
+CONFIG_L15_THREADS = int(os.environ.get('CONFIG_L15_THREADS', '2'))
 
 #########################################################
 # BRAM configurations
