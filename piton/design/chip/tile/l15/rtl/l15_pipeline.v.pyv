@@ -113,9 +113,9 @@ module l15_pipeline(
     output reg l15_dcache_val_s2,
     output reg l15_dcache_rw_s2,
     output reg [(`L15_CACHE_INDEX_WIDTH+`L15_WAY_WIDTH)-1:0] l15_dcache_index_s2,
-    output reg [`L15_LINE_SIZE-1:0] l15_dcache_write_data_s2,
-    output reg [`L15_LINE_SIZE-1:0] l15_dcache_write_mask_s2,
-    input wire [`L15_LINE_SIZE-1:0] dcache_l15_dout_s3,
+    output reg [`L15_CACHELINE_WIDTH-1:0] l15_dcache_write_data_s2,
+    output reg [`L15_CACHELINE_WIDTH-1:0] l15_dcache_write_mask_s2,
+    input wire [`L15_CACHELINE_WIDTH-1:0] dcache_l15_dout_s3,
 
     // mesi
     output reg l15_mesi_read_val_s1,
@@ -165,7 +165,7 @@ module l15_pipeline(
     output reg pipe_mshr_writereq_val_s1,
     output reg [`L15_MSHR_WRITE_TYPE_WIDTH-1:0] pipe_mshr_writereq_op_s1,   // tcov: one bit not used for encoding
     output reg [`L15_PADDR_MASK] pipe_mshr_writereq_address_s1,
-    output reg [`L15_LINE_SIZE-1:0] pipe_mshr_writereq_write_buffer_data_s1,
+    output reg [`L15_CACHELINE_WIDTH-1:0] pipe_mshr_writereq_write_buffer_data_s1,
     output reg [`L15_WRITE_BYTE_MASK_WIDTH-1:0] pipe_mshr_writereq_write_buffer_byte_mask_s1,
     output reg [`L15_CONTROL_WIDTH-1:0] pipe_mshr_writereq_control_s1,
     output reg [`L15_MSHR_ID_WIDTH-1:0] pipe_mshr_writereq_mshrid_s1,
@@ -185,7 +185,7 @@ module l15_pipeline(
     //s2 (loading store buffer)
     output reg pipe_mshr_write_buffer_rd_en_s2,
     output reg [`L15_THREADID_MASK] pipe_mshr_threadid_s2,
-    input wire [`L15_LINE_SIZE-1:0] mshr_pipe_write_buffer_s2,
+    input wire [`L15_CACHELINE_WIDTH-1:0] mshr_pipe_write_buffer_s2,
     input wire [`L15_WRITE_BYTE_MASK_WIDTH-1:0] mshr_pipe_write_buffer_byte_mask_s2,
     //s3 (deallocation or updating write states)
     output reg pipe_mshr_val_s3,
@@ -259,7 +259,7 @@ module l15_pipeline(
     output reg [`L15_CSM_NUM_TICKETS_LOG2-1:0] l15_csm_req_ticket_s2,
     // output reg [`HOME_ID_WIDTH-1:0] l15_csm_clump_tile_count_s2,
     output reg  l15_csm_req_type_s2,     //0 for load, 1 for store
-    output reg [`L15_LINE_SIZE-1:0] l15_csm_req_data_s2, // remember to duplicate this in l15
+    output reg [`L15_CACHELINE_WIDTH-1:0] l15_csm_req_data_s2, // remember to duplicate this in l15
     output reg [`TLB_CSM_WIDTH-1:0] l15_csm_req_pcx_data_s2, // remember to duplicate this in l15
     input wire csm_l15_res_val_s3,
     input wire [63:0] csm_l15_res_data_s3,
@@ -2184,7 +2184,7 @@ begin
     pipe_mshr_writereq_op_s1[`L15_MSHR_WRITE_TYPE_WIDTH-1:0] = s1_mshr_write_type_s1[`L15_MSHR_WRITE_TYPE_WIDTH-1:0];
     pipe_mshr_writereq_address_s1[`L15_PADDR_MASK] = s1_mshr_write_address_s1[`L15_PADDR_MASK];
     pipe_mshr_writereq_control_s1[`L15_CONTROL_WIDTH-1:0] = s1_mshr_write_control_s1[`L15_CONTROL_WIDTH-1:0];
-    pipe_mshr_writereq_write_buffer_data_s1[`L15_LINE_SIZE-1:0] = {pcxdecoder_l15_data, pcxdecoder_l15_data};
+    pipe_mshr_writereq_write_buffer_data_s1[`L15_CACHELINE_WIDTH-1:0] = {pcxdecoder_l15_data, pcxdecoder_l15_data};
     pipe_mshr_writereq_write_buffer_byte_mask_s1 = write_mask_s1;
     pipe_mshr_writereq_mshrid_s1[`L15_MSHR_ID_WIDTH-1:0] = s1_mshr_write_mshrid_s1[`L15_MSHR_ID_WIDTH-1:0];
     pipe_mshr_writereq_threadid_s1 = s1_mshr_write_threadid_s1;
@@ -2577,51 +2577,29 @@ end
 //////////////////////
 // LRU logic
 //////////////////////
-reg [`L15_WAY_ARRAY_MASK] lru_used_bits_s2;
-reg [`L15_WAY_MASK] lru_round_robin_turn_s2;
-// reg [`L15_WAY_MASK] lru_way_s2; // moved earlier for
+wire [`L15_WAY_COUNT-1:0] lru_used_bits_s2 = lruarray_l15_dout_s2[`L15_LRUARRAY_USED_MASK];
+wire [`L15_WAY_WIDTH-1:0] lru_round_robin_turn_s2 = lruarray_l15_dout_s2[`L15_LRUARRAY_RR_MASK];
 always @ *
 begin
-    lru_used_bits_s2[`L15_WAY_ARRAY_MASK] = lruarray_l15_dout_s2[`L15_LRUARRAY_USED_MASK];
-    lru_round_robin_turn_s2[`L15_WAY_MASK] = lruarray_l15_dout_s2[`L15_LRUARRAY_RR_MASK];
-    lru_way_s2 = 0;
+    lru_way_s2 = 1'bx;
     if (&lru_used_bits_s2 == 1'b1)
     begin
         // if all were used
-        lru_way_s2[`L15_WAY_MASK] = lru_round_robin_turn_s2;
+        lru_way_s2 = lru_round_robin_turn_s2;
     end
     else
     begin
-        case (lru_round_robin_turn_s2)
-            `L15_WAYID_WAY0:
-            begin
-                lru_way_s2[`L15_WAY_MASK] = (lru_used_bits_s2[`L15_WAY_ARRAY_WAY0_MASK] == 1'b0) ? `L15_WAYID_WAY0 :
-                                            (lru_used_bits_s2[`L15_WAY_ARRAY_WAY1_MASK] == 1'b0) ? `L15_WAYID_WAY1 :
-                                            (lru_used_bits_s2[`L15_WAY_ARRAY_WAY2_MASK] == 1'b0) ? `L15_WAYID_WAY2 :
-                                                                      `L15_WAYID_WAY3 ;
-            end
-            `L15_WAYID_WAY1:
-            begin
-                lru_way_s2[`L15_WAY_MASK] = (lru_used_bits_s2[`L15_WAY_ARRAY_WAY1_MASK] == 1'b0) ? `L15_WAYID_WAY1 :
-                                            (lru_used_bits_s2[`L15_WAY_ARRAY_WAY2_MASK] == 1'b0) ? `L15_WAYID_WAY2 :
-                                            (lru_used_bits_s2[`L15_WAY_ARRAY_WAY3_MASK] == 1'b0) ? `L15_WAYID_WAY3 :
-                                                                      `L15_WAYID_WAY0 ;
-            end
-            `L15_WAYID_WAY2:
-            begin
-                lru_way_s2[`L15_WAY_MASK] = (lru_used_bits_s2[`L15_WAY_ARRAY_WAY2_MASK] == 1'b0) ? `L15_WAYID_WAY2 :
-                                            (lru_used_bits_s2[`L15_WAY_ARRAY_WAY3_MASK] == 1'b0) ? `L15_WAYID_WAY3 :
-                                            (lru_used_bits_s2[`L15_WAY_ARRAY_WAY0_MASK] == 1'b0) ? `L15_WAYID_WAY0 :
-                                                                      `L15_WAYID_WAY1 ;
-            end
-            `L15_WAYID_WAY3:
-            begin
-                lru_way_s2[`L15_WAY_MASK] = (lru_used_bits_s2[`L15_WAY_ARRAY_WAY3_MASK] == 1'b0) ? `L15_WAYID_WAY3 :
-                                            (lru_used_bits_s2[`L15_WAY_ARRAY_WAY0_MASK] == 1'b0) ? `L15_WAYID_WAY0 :
-                                            (lru_used_bits_s2[`L15_WAY_ARRAY_WAY1_MASK] == 1'b0) ? `L15_WAYID_WAY1 :
-                                                                      `L15_WAYID_WAY2 ;
-            end
-        endcase
+        lru_way_s2 = lru_round_robin_turn_s2;
+        if (lru_used_bits_s2[lru_round_robin_turn_s2] == 0)
+            lru_way_s2 = lru_round_robin_turn_s2;
+        <%
+            for i in range(1, CONFIG_L15_ASSOCIATIVITY):
+                print('''
+                    else if (lru_used_bits_s2[lru_round_robin_turn_s2 + `L15_WAY_WIDTH'd{0}] == 0)
+                         lru_way_s2 = lru_round_robin_turn_s2 + {0};
+                    '''.format(i)
+                    )
+        %>
     end
 end
 
@@ -2655,11 +2633,11 @@ reg dcache_val_s2;
 reg dcache_rw_s2;
 reg [`L15_CACHE_INDEX_MASK] dcache_index_s2;
 reg [`L15_WAY_WIDTH-1:0] dcache_way_s2;
-reg [`L15_LINE_SIZE-1:0] dcache_mshr_write_mask_s2;
-reg [`L15_LINE_SIZE-1:0] dcache_write_merge_mshr_noc2_s2;
+reg [`L15_CACHELINE_WIDTH-1:0] dcache_mshr_write_mask_s2;
+reg [`L15_CACHELINE_WIDTH-1:0] dcache_write_merge_mshr_noc2_s2;
 reg [`L15_DCACHE_SOURCE_WIDTH-1:0] dcache_source_s2;
-reg [`L15_LINE_SIZE-1:0] dcache_write_mask_s2;
-reg [`L15_LINE_SIZE-1:0] dcache_write_data_s2;
+reg [`L15_CACHELINE_WIDTH-1:0] dcache_write_mask_s2;
+reg [`L15_CACHELINE_WIDTH-1:0] dcache_write_data_s2;
 // diag accesses
 reg [`L15_CACHE_INDEX_MASK] dcache_diag_index_s2;
 reg [`L15_WAY_WIDTH-1:0] dcache_diag_way_s2;
@@ -2790,10 +2768,10 @@ begin
     };
 
 
-    dcache_write_merge_mshr_noc2_s2[`L15_LINE_SIZE-1:0] =
+    dcache_write_merge_mshr_noc2_s2[`L15_CACHELINE_WIDTH-1:0] =
                     {(~dcache_mshr_write_mask_s2[127:64] & noc2decoder_l15_data_0[63:0]),
                     (~dcache_mshr_write_mask_s2[63:0] & noc2decoder_l15_data_1[63:0])}
-                        | (dcache_mshr_write_mask_s2[`L15_LINE_SIZE-1:0] & mshr_pipe_write_buffer_s2[`L15_LINE_SIZE-1:0]);
+                        | (dcache_mshr_write_mask_s2[`L15_CACHELINE_WIDTH-1:0] & mshr_pipe_write_buffer_s2[`L15_CACHELINE_WIDTH-1:0]);
 
     case (dcache_source_s2)
         `L15_DCACHE_SOURCE_MSHR:
@@ -2803,12 +2781,12 @@ begin
         end
         `L15_DCACHE_SOURCE_NOC2:
         begin
-            dcache_write_mask_s2 = {`L15_LINE_SIZE{1'b1}};
+            dcache_write_mask_s2 = {`L15_CACHELINE_WIDTH{1'b1}};
             dcache_write_data_s2 = {noc2decoder_l15_data_0[63:0], noc2decoder_l15_data_1[63:0]};
         end
         `L15_DCACHE_SOURCE_NOC2_AND_MSHR:
         begin
-            dcache_write_mask_s2 = {`L15_LINE_SIZE{1'b1}};
+            dcache_write_mask_s2 = {`L15_CACHELINE_WIDTH{1'b1}};
             dcache_write_data_s2 = dcache_write_merge_mshr_noc2_s2;
         end
         `L15_DCACHE_SOURCE_PCX_DIAG:
