@@ -68,7 +68,7 @@ module l15_pipeline(
     input wire pcxdecoder_l15_blockinitstore,
     input wire [`L15_WAY_WIDTH-1:0] pcxdecoder_l15_l1rplway,
     input wire pcxdecoder_l15_val,
-    input wire [`L15_PADDR_MASK] pcxdecoder_l15_address,
+    input wire [`L15_PADDR_WIDTH-1:0] pcxdecoder_l15_address,
     input wire [`TLB_CSM_WIDTH-1:0] pcxdecoder_l15_csm_data,
     input wire [63:0] pcxdecoder_l15_data,
     input wire [63:0] pcxdecoder_l15_data_next_entry,
@@ -88,7 +88,7 @@ module l15_pipeline(
     input wire [63:0] noc2decoder_l15_data_1,
     input wire [63:0] noc2decoder_l15_data_2,
     input wire [63:0] noc2decoder_l15_data_3,
-    input wire [`L15_PADDR_MASK] noc2decoder_l15_address,
+    input wire [`L15_PADDR_WIDTH-1:0] noc2decoder_l15_address,
     input wire [`PACKET_HOME_ID_WIDTH-1:0] noc2decoder_l15_src_homeid,
     input wire [`L15_CSM_NUM_TICKETS_LOG2-1:0] noc2decoder_l15_csm_mshrid,
     // ack from output
@@ -106,9 +106,9 @@ module l15_pipeline(
     output reg l15_dtag_val_s1,
     output reg l15_dtag_rw_s1,
     output reg [`L15_CACHE_INDEX_WIDTH-1:0] l15_dtag_index_s1,
-    output reg [`L15_CACHE_TAG_RAW_WIDTH*4-1:0] l15_dtag_write_data_s1,
-    output reg [`L15_CACHE_TAG_RAW_WIDTH*4-1:0] l15_dtag_write_mask_s1,
-    input wire [`L15_CACHE_TAG_RAW_WIDTH*4-1:0] dtag_l15_dout_s2,
+    output reg [`L15_CACHE_TAG_RAW_WIDTH*`L15_WAY_COUNT-1:0] l15_dtag_write_data_s1,
+    output reg [`L15_CACHE_TAG_RAW_WIDTH*`L15_WAY_COUNT-1:0] l15_dtag_write_mask_s1,
+    input wire [`L15_CACHE_TAG_RAW_WIDTH*`L15_WAY_COUNT-1:0] dtag_l15_dout_s2,
     // dcache
     output reg l15_dcache_val_s2,
     output reg l15_dcache_rw_s2,
@@ -138,11 +138,11 @@ module l15_pipeline(
     // lruarray
     output reg l15_lruarray_read_val_s1,
     output reg [`L15_CACHE_INDEX_WIDTH-1:0] l15_lruarray_read_index_s1,
-    input wire [`L15_LRUARRAY_MASK] lruarray_l15_dout_s2,
+    input wire [`L15_LRUARRAY_WIDTH-1:0] lruarray_l15_dout_s2,
     output reg l15_lruarray_write_val_s3,
     output reg [`L15_CACHE_INDEX_WIDTH-1:0] l15_lruarray_write_index_s3,
-    output reg [`L15_LRUARRAY_MASK] l15_lruarray_write_mask_s3,    // tcov: writemask is designed to always be 1's
-    output reg [`L15_LRUARRAY_MASK] l15_lruarray_write_data_s3,
+    output reg [`L15_LRUARRAY_WIDTH-1:0] l15_lruarray_write_mask_s3,    // tcov: writemask is designed to always be 1's
+    output reg [`L15_LRUARRAY_WIDTH-1:0] l15_lruarray_write_data_s3,
 
     // hmt
     `ifndef NO_RTL_CSM
@@ -164,7 +164,7 @@ module l15_pipeline(
     //s1 (allocating)
     output reg pipe_mshr_writereq_val_s1,
     output reg [`L15_MSHR_WRITE_TYPE_WIDTH-1:0] pipe_mshr_writereq_op_s1,   // tcov: one bit not used for encoding
-    output reg [`L15_PADDR_MASK] pipe_mshr_writereq_address_s1,
+    output reg [`L15_PADDR_WIDTH-1:0] pipe_mshr_writereq_address_s1,
     output reg [`L15_CACHELINE_WIDTH-1:0] pipe_mshr_writereq_write_buffer_data_s1,
     output reg [`L15_WRITE_BYTE_MASK_WIDTH-1:0] pipe_mshr_writereq_write_buffer_byte_mask_s1,
     output reg [`L15_CONTROL_WIDTH-1:0] pipe_mshr_writereq_control_s1,
@@ -224,7 +224,7 @@ module l15_pipeline(
     output reg [`L15_NOC1_REQTYPE_WIDTH-1:0] l15_noc1buffer_req_type,
     output reg [`L15_THREADID_MASK] l15_noc1buffer_req_threadid,
     output reg [`L15_MSHR_ID_WIDTH-1:0] l15_noc1buffer_req_mshrid,
-    output reg [`L15_PADDR_MASK] l15_noc1buffer_req_address,
+    output reg [`L15_PADDR_WIDTH-1:0] l15_noc1buffer_req_address,
     output reg l15_noc1buffer_req_non_cacheable,
     output reg [`PCX_SIZE_FIELD_WIDTH-1:0] l15_noc1buffer_req_size,
     output reg l15_noc1buffer_req_prefetch,
@@ -241,7 +241,7 @@ module l15_pipeline(
     output reg [`L15_MSHR_ID_WIDTH-1:0] l15_noc3encoder_req_mshrid,
     output reg [`L15_SEQUENCE_ID_WIDTH-1:0] l15_noc3encoder_req_sequenceid,
     output reg [`L15_THREADID_MASK] l15_noc3encoder_req_threadid,
-    output reg [`L15_PADDR_MASK] l15_noc3encoder_req_address,
+    output reg [`L15_PADDR_WIDTH-1:0] l15_noc3encoder_req_address,
     output reg l15_noc3encoder_req_with_data,
     output reg l15_noc3encoder_req_was_inval,
     output reg [`MSG_SUBLINE_VECTOR_WIDTH-1:0] l15_noc3encoder_req_fwdack_vector,
@@ -328,18 +328,18 @@ end
 // depends on nothing
 reg [`L15_CACHE_TAG_WIDTH-1:0] predecode_dtag_write_data_s1;
 reg [`L15_CACHE_INDEX_WIDTH-1:0] predecode_cache_index_s1;
-// reg [`L15_PADDR_MASK] predecode_mshr_address_s1;
+// reg [`L15_PADDR_WIDTH-1:0] predecode_mshr_address_s1;
 reg [`L15_CONTROL_WIDTH-1:0] predecode_mshr_read_control_s1;
 reg [`PACKET_HOME_ID_WIDTH-1:0] predecode_mshr_read_homeid_s1;
 reg [`L15_REQTYPE_WIDTH-1:0] predecode_reqtype_s1;
-reg [`L15_PADDR_MASK] predecode_address_s1;
-reg [`L15_PADDR_MASK] predecode_address_plus0_s1;
-reg [`L15_PADDR_MASK] predecode_address_plus1_s1;
-reg [`L15_PADDR_MASK] predecode_address_plus2_s1;
-reg [`L15_PADDR_MASK] predecode_address_plus3_s1;
+reg [`L15_PADDR_WIDTH-1:0] predecode_address_s1;
+reg [`L15_PADDR_WIDTH-1:0] predecode_address_plus0_s1;
+reg [`L15_PADDR_WIDTH-1:0] predecode_address_plus1_s1;
+reg [`L15_PADDR_WIDTH-1:0] predecode_address_plus2_s1;
+reg [`L15_PADDR_WIDTH-1:0] predecode_address_plus3_s1;
 reg [`PCX_SIZE_FIELD_WIDTH-1:0] predecode_size_s1;
 reg [`L15_THREADID_MASK] predecode_threadid_s1;
-reg [`L15_WAY_WIDTH-1:0] predecode_l1_replacement_way_s1;
+reg [`L1_WAY_WIDTH-1:0] predecode_l1_replacement_way_s1;
 reg predecode_non_cacheable_s1;
 reg predecode_is_last_inval_s1;
 // reg predecode_icache_do_inval_s1;
@@ -390,8 +390,8 @@ reg [`L15_MESI_TRANS_STATE_WIDTH:0] mshr_st_state_array [`L15_THREAD_ARRAY_MASK]
 `else
 reg [`L15_MESI_TRANS_STATE_WIDTH-1:0] mshr_st_state_array [`L15_THREAD_ARRAY_MASK];
 `endif
-reg [`L15_PADDR_MASK] mshr_st_address_array [`L15_THREAD_ARRAY_MASK];
-reg [`L15_PADDR_MASK] mshr_ld_address_array [`L15_THREAD_ARRAY_MASK];
+reg [`L15_PADDR_WIDTH-1:0] mshr_st_address_array [`L15_THREAD_ARRAY_MASK];
+reg [`L15_PADDR_WIDTH-1:0] mshr_ld_address_array [`L15_THREAD_ARRAY_MASK];
 reg [`L15_WAY_WIDTH-1:0] mshr_st_way_array [`L15_THREAD_ARRAY_MASK];
 always @ *
 begin
@@ -407,13 +407,13 @@ begin
     mshr_st_state_array[0] = mshr_pipe_st_state_s1[`L15_MESI_TRANS_STATE_WIDTH*1 - 1 -: `L15_MESI_TRANS_STATE_WIDTH];
     mshr_st_address_array[0] = mshr_pipe_st_address[`L15_PADDR_WIDTH*1 - 1 -: `L15_PADDR_WIDTH];
     mshr_ld_address_array[0] = mshr_pipe_ld_address[`L15_PADDR_WIDTH*1 - 1 -: `L15_PADDR_WIDTH];
-    mshr_st_way_array[0] = mshr_pipe_st_way_s1[`L15_WAY_WIDTH*1 - 1 -: 2];
+    mshr_st_way_array[0] = mshr_pipe_st_way_s1[`L15_WAY_WIDTH*1 - 1 -: `L15_WAY_WIDTH];
 
     mshr_val_array[1] = mshr_pipe_vals_s1[`L15_NUM_MSHRID_PER_THREAD*2 - 1 -: `L15_NUM_MSHRID_PER_THREAD];
     mshr_st_state_array[1] = mshr_pipe_st_state_s1[`L15_MESI_TRANS_STATE_WIDTH*2 - 1 -: `L15_MESI_TRANS_STATE_WIDTH];
     mshr_st_address_array[1] = mshr_pipe_st_address[`L15_PADDR_WIDTH*2 - 1 -: `L15_PADDR_WIDTH];
     mshr_ld_address_array[1] = mshr_pipe_ld_address[`L15_PADDR_WIDTH*2 - 1 -: `L15_PADDR_WIDTH];
-    mshr_st_way_array[1] = mshr_pipe_st_way_s1[`L15_WAY_WIDTH*2 - 1 -: 2];
+    mshr_st_way_array[1] = mshr_pipe_st_way_s1[`L15_WAY_WIDTH*2 - 1 -: `L15_WAY_WIDTH];
 end
 
 // match pcx address to special accesses
@@ -444,7 +444,7 @@ reg [19:4] predecode_partial_tag_s1;
 reg predecode_hit_stbuf_s1;
 reg [`L15_THREADID_MASK] predecode_hit_stbuf_threadid_s1;
 
-wire [`L15_PADDR_MASK] constant_int_vec_dis_address = `L15_INT_VEC_DIS;
+wire [`L15_PADDR_WIDTH-1:0] constant_int_vec_dis_address = `L15_INT_VEC_DIS;
 
 always @ *
 begin
@@ -2137,7 +2137,7 @@ wire [`L15_MSHR_BITS_WIDTH-1:0] mshr_control_bits_write_s1 =
 // is FLOPs
 reg s1_mshr_write_val_s1;
 reg [`L15_MSHR_WRITE_TYPE_WIDTH-1:0] s1_mshr_write_type_s1;
-reg [`L15_PADDR_MASK] s1_mshr_write_address_s1;
+reg [`L15_PADDR_WIDTH-1:0] s1_mshr_write_address_s1;
 reg [`L15_CONTROL_WIDTH-1:0] s1_mshr_write_control_s1;
 reg [`L15_MSHR_ID_WIDTH-1:0] s1_mshr_write_mshrid_s1;
 reg [`L15_THREADID_MASK] s1_mshr_write_threadid_s1;
@@ -2224,7 +2224,7 @@ begin
     // s1 write
     pipe_mshr_writereq_val_s1 = s1_mshr_write_val_s1 && !stall_s1 && val_s1;
     pipe_mshr_writereq_op_s1[`L15_MSHR_WRITE_TYPE_WIDTH-1:0] = s1_mshr_write_type_s1[`L15_MSHR_WRITE_TYPE_WIDTH-1:0];
-    pipe_mshr_writereq_address_s1[`L15_PADDR_MASK] = s1_mshr_write_address_s1[`L15_PADDR_MASK];
+    pipe_mshr_writereq_address_s1[`L15_PADDR_WIDTH-1:0] = s1_mshr_write_address_s1[`L15_PADDR_WIDTH-1:0];
     pipe_mshr_writereq_control_s1[`L15_CONTROL_WIDTH-1:0] = s1_mshr_write_control_s1[`L15_CONTROL_WIDTH-1:0];
     pipe_mshr_writereq_write_buffer_data_s1[`L15_CACHELINE_WIDTH-1:0] = {pcxdecoder_l15_data, pcxdecoder_l15_data};
     pipe_mshr_writereq_write_buffer_byte_mask_s1 = write_mask_s1;
@@ -2511,12 +2511,14 @@ wire tagcheck_lrsc_flag_s2 = tagcheck_way;
 
 wire [`L15_CACHE_TAG_WIDTH-1:0] lru_way_tag_s2 = dtag_l15_dout_s2 >> (lru_way_s2*`L15_CACHE_TAG_RAW_WIDTH);
 wire [`L15_MESI_STATE_WIDTH-1:0] lru_state_s2 = mesi_l15_dout_s2 >> (lru_way_s2*`L15_MESI_STATE_WIDTH);
-wire [`L15_PADDR_MASK] lru_way_address_s2 = {lru_way_tag_s2, address_s2[`L15_IDX_HI:`L15_IDX_LOW], 4'b0};
+wire [`L15_PADDR_WIDTH-1:0] lru_way_address_s2 = {lru_way_tag_s2, address_s2[`L15_IDX_HI:`L15_IDX_LOW], 4'b0};
 
-wire [`L15_WAY_WIDTH-1:0] flush_way_s2 = address_s2[25:24];
+// trinnn: double check this addressing scheme
+// wire [`L15_WAY_WIDTH-1:0] flush_way_s2 = address_s2[25:24]; // original
+wire [`L15_WAY_WIDTH-1:0] flush_way_s2 = address_s2[24+:`L15_WAY_WIDTH];
 wire [`L15_MESI_STATE_WIDTH-1:0] flush_state_s2 = mesi_l15_dout_s2 >> (flush_way_s2*`L15_MESI_STATE_WIDTH);
 wire [`L15_CACHE_TAG_WIDTH-1:0] flush_way_tag_s2 = dtag_l15_dout_s2 >> (flush_way_s2*`L15_CACHE_TAG_RAW_WIDTH);
-wire [`L15_PADDR_MASK] flush_way_address_s2 = {flush_way_tag_s2, address_s2[`L15_IDX_HI:`L15_IDX_LOW], 4'b0};
+wire [`L15_PADDR_WIDTH-1:0] flush_way_address_s2 = {flush_way_tag_s2, address_s2[`L15_IDX_HI:`L15_IDX_LOW], 4'b0};
 
 // expanding some useful signals
 wire tagcheck_state_me_s2 = tagcheck_state_s2 == `L15_MESI_STATE_M || tagcheck_state_s2 == `L15_MESI_STATE_E;
@@ -2967,7 +2969,7 @@ reg [`L15_LINE_SIZE-1:0] csm_fill_data;
 reg csm_req_val_s2;
 reg csm_req_type_s2;
 reg csm_req_lru_address_s2;
-reg [`L15_PADDR_MASK] csm_address_s2;
+reg [`L15_PADDR_WIDTH-1:0] csm_address_s2;
 always @ *
 begin
     // csm_ticket_s2_next = csm_ticket_s2 + 1;
@@ -3095,7 +3097,7 @@ end
 reg config_req_val_s2;
 reg config_req_rw_s2;
 reg [63:0] config_write_req_data_s2;
-reg [`L15_PADDR_MASK] config_req_address_s2;
+reg [`L15_PADDR_WIDTH-1:0] config_req_address_s2;
 
 always @ *
 begin
@@ -3181,7 +3183,7 @@ for e in s3floplist:
     print("reg [%s-1:0] %s_next;" % (width, name))
 %>
 reg val_s3_next;
-reg [`L15_LRUARRAY_MASK] lru_data_s3;
+reg [`L15_LRUARRAY_WIDTH-1:0] lru_data_s3;
 
 // local variables
 reg cpxencoder_req_staled_s3;
@@ -3204,8 +3206,8 @@ reg lru_state_mes_s3;
 reg flush_state_m_s3;
 reg flush_state_mes_s3;
 
-reg [`L15_PADDR_MASK] lru_way_address_s3;
-reg [`L15_PADDR_MASK] flush_way_address_s3;
+reg [`L15_PADDR_WIDTH-1:0] lru_way_address_s3;
+reg [`L15_PADDR_WIDTH-1:0] flush_way_address_s3;
 
 always @ (posedge clk)
 begin
@@ -3492,7 +3494,7 @@ end
 //////////////////////
 // note: lru write is moved to s3 from s2 for timing
 // correctness should be the same
-reg [`L15_LRUARRAY_MASK] lruarray_write_data_s3;
+reg [`L15_LRUARRAY_WIDTH-1:0] lruarray_write_data_s3;
 reg lruarray_write_val_s3;
 reg [`L15_WAY_COUNT-1:0] lruarray_lru_mask_s3;
 reg [`L15_WAY_COUNT-1:0] lruarray_tagcheck_mask_s3;
@@ -4321,7 +4323,7 @@ end
 reg noc3_req_val_s3;
 reg [`L15_NOC3_REQTYPE_WIDTH-1:0] noc3_type_s3;
 reg noc3_with_data_s3;
-reg [`L15_PADDR_MASK] noc3_address_s3;
+reg [`L15_PADDR_WIDTH-1:0] noc3_address_s3;
 reg [`L15_HOMEID_SRC_WIDTH-1:0] noc3_homeid_source_s3;
 always @ *
 begin
@@ -4403,7 +4405,7 @@ begin
     l15_noc3encoder_req_mshrid = mshrid_s3;
     l15_noc3encoder_req_sequenceid = cache_index_s3[1:0]; // simply use the lowest 2 bit of the array index
     l15_noc3encoder_req_threadid = threadid_s3[`L15_THREADID_MASK];
-    l15_noc3encoder_req_address[`L15_PADDR_MASK] = noc3_address_s3[`L15_PADDR_MASK];
+    l15_noc3encoder_req_address[`L15_PADDR_WIDTH-1:0] = noc3_address_s3[`L15_PADDR_WIDTH-1:0];
     l15_noc3encoder_req_with_data = noc3_with_data_s3;
     l15_noc3encoder_req_was_inval = predecode_noc2_inval_s3;
     l15_noc3encoder_req_fwdack_vector = predecode_fwd_subcacheline_vector_s3;

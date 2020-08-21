@@ -60,7 +60,7 @@ module l15 (
     input                                   transducer_l15_invalidate_cacheline,
     input                                   transducer_l15_blockstore,
     input                                   transducer_l15_blockinitstore,
-    input [1:0]                             transducer_l15_l1rplway,
+    input [`L15_WAY_WIDTH-1:0]              transducer_l15_l1rplway,
     input                                   transducer_l15_val,
     input [39:0]                            transducer_l15_address,
     input [63:0]                            transducer_l15_data,
@@ -373,9 +373,9 @@ wire [`PACKET_HOME_ID_WIDTH-1:0] noc3buffer_noc3encoder_req_homeid;
 wire l15_dtag_val_s1;
 wire l15_dtag_rw_s1;
 wire [`L15_CACHE_INDEX_WIDTH-1:0] l15_dtag_index_s1;
-wire [`L15_CACHE_TAG_RAW_WIDTH*4-1:0] l15_dtag_write_data_s1;
-wire [`L15_CACHE_TAG_RAW_WIDTH*4-1:0] l15_dtag_write_mask_s1;
-wire [`L15_CACHE_TAG_RAW_WIDTH*4-1:0] dtag_l15_dout_s2;
+wire [`L15_CACHE_TAG_RAW_WIDTH*`L15_WAY_COUNT-1:0] l15_dtag_write_data_s1;
+wire [`L15_CACHE_TAG_RAW_WIDTH*`L15_WAY_COUNT-1:0] l15_dtag_write_mask_s1;
+wire [`L15_CACHE_TAG_RAW_WIDTH*`L15_WAY_COUNT-1:0] dtag_l15_dout_s2;
 
 sram_l15_tag dtag(
     .MEMCLK(clk),
@@ -486,9 +486,9 @@ wire [`L15_MSHR_ID_WIDTH-1:0] pipe_mshr_readreq_mshrid_s1;
 wire [`L15_CONTROL_WIDTH-1:0] mshr_pipe_readres_control_s1;
 wire [`PACKET_HOME_ID_WIDTH-1:0] mshr_pipe_readres_homeid_s1;
 wire [(`L15_NUM_MSHRID_PER_THREAD*`L15_NUM_THREADS)-1:0] mshr_pipe_vals_s1;
-wire [(40*`L15_NUM_THREADS)-1:0] mshr_pipe_ld_address;
-wire [(40*`L15_NUM_THREADS)-1:0] mshr_pipe_st_address;
-wire [(2*`L15_NUM_THREADS)-1:0] mshr_pipe_st_way_s1;
+wire [(`L15_PADDR_WIDTH*`L15_NUM_THREADS)-1:0] mshr_pipe_ld_address;
+wire [(`L15_PADDR_WIDTH*`L15_NUM_THREADS)-1:0] mshr_pipe_st_address;
+wire [(`L15_WAY_WIDTH*`L15_NUM_THREADS)-1:0] mshr_pipe_st_way_s1;
 wire [(`L15_MESI_TRANS_STATE_WIDTH*`L15_NUM_THREADS)-1:0] mshr_pipe_st_state_s1;
 wire pipe_mshr_write_buffer_rd_en_s2;
 wire [`L15_THREADID_MASK] pipe_mshr_threadid_s2;
@@ -499,7 +499,7 @@ wire [`L15_MSHR_WRITE_TYPE_WIDTH-1:0] pipe_mshr_op_s3;
 wire [`L15_MSHR_ID_WIDTH-1:0] pipe_mshr_mshrid_s3;
 wire [`L15_THREADID_MASK] pipe_mshr_threadid_s3;
 wire [`L15_MESI_TRANS_STATE_WIDTH-1:0] pipe_mshr_write_update_state_s3;
-wire [1:0] pipe_mshr_write_update_way_s3;
+wire [`L15_WAY_WIDTH-1:0] pipe_mshr_write_update_way_s3;
 
 wire noc1buffer_mshr_homeid_write_val_s4;
 wire [`L15_MSHR_ID_WIDTH-1:0] noc1buffer_mshr_homeid_write_mshrid_s4;
@@ -549,9 +549,9 @@ wire l15_mesi_read_val_s1;
 wire [`L15_CACHE_INDEX_WIDTH-1:0] l15_mesi_read_index_s1;
 wire l15_mesi_write_val_s2;
 wire [`L15_CACHE_INDEX_WIDTH-1:0] l15_mesi_write_index_s2;
-wire [7:0] l15_mesi_write_mask_s2;
-wire [7:0] l15_mesi_write_data_s2;
-wire [7:0] mesi_l15_dout_s2;
+wire [`L15_MESI_ARRAY_WIDTH-1:0] l15_mesi_write_mask_s2;
+wire [`L15_MESI_ARRAY_WIDTH-1:0] l15_mesi_write_data_s2;
+wire [`L15_MESI_ARRAY_WIDTH-1:0] mesi_l15_dout_s2;
 
 rf_l15_mesi mesi(
     .clk(clk),
@@ -634,9 +634,9 @@ wire l15_lruarray_read_val_s1;
 wire [`L15_CACHE_INDEX_WIDTH-1:0] l15_lruarray_read_index_s1;
 wire l15_lruarray_write_val_s3;
 wire [`L15_CACHE_INDEX_WIDTH-1:0] l15_lruarray_write_index_s3;
-wire [5:0] l15_lruarray_write_mask_s3;
-wire [5:0] l15_lruarray_write_data_s3;
-wire [5:0] lruarray_l15_dout_s2;
+wire [`L15_LRUARRAY_WIDTH-1:0] l15_lruarray_write_mask_s3;
+wire [`L15_LRUARRAY_WIDTH-1:0] l15_lruarray_write_data_s3;
+wire [`L15_LRUARRAY_WIDTH-1:0] lruarray_l15_dout_s2;
 rf_l15_lruarray lruarray(
     .clk(clk),
     .rst_n(rst_n),

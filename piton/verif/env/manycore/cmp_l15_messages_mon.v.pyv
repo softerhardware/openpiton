@@ -338,18 +338,18 @@ text = r'''
 
 reg do_print_stage_TILE0;
 integer i_TILE0;
-wire [63:0] dtag_tag_way0_s2_TILE0;
-wire [63:0] dtag_tag_way1_s2_TILE0;
-wire [63:0] dtag_tag_way2_s2_TILE0;
-wire [63:0] dtag_tag_way3_s2_TILE0;
+'''
 
-assign dtag_tag_way0_s2_TILE0 = (`L15_PIPE0.dtag_tag_way0_s2 << 11);
-assign dtag_tag_way1_s2_TILE0 = (`L15_PIPE0.dtag_tag_way1_s2 << 11);
-assign dtag_tag_way2_s2_TILE0 = (`L15_PIPE0.dtag_tag_way2_s2 << 11);
-assign dtag_tag_way3_s2_TILE0 = (`L15_PIPE0.dtag_tag_way3_s2 << 11);
-reg [`L15_CACHE_TAG_WIDTH-1:0] tag_data_TILE0 [0:3];
-reg [3:0] tag_val_TILE0;
-reg [`L15_WMT_ENTRY_MASK] wmt_read_data_TILE0 [0:3];
+for i in range(CONFIG_L15_ASSOCIATIVITY):
+    text += "wire [63:0] dtag_tag_way{0}_s2_TILE0 = (`L15_PIPE0.dtag_tag_way{0}_s2 << 11);".format(i)
+
+text += '''
+    reg [`L15_CACHE_TAG_WIDTH-1:0] tag_data_TILE0 [0:{0}];
+    reg [{0}:0] tag_val_TILE0;
+    reg [`L15_WMT_ENTRY_MASK] wmt_read_data_TILE0 [0:{0}];
+    '''.format(CONFIG_L15_ASSOCIATIVITY)
+
+text += r'''
 integer j_TILE0;
 reg is_csm_mshrid_TILE0;
 
@@ -787,14 +787,12 @@ begin
 
             if (`L15_PIPE0.decoder_dtag_operation_s2 == `L15_DTAG_OP_READ)
             begin
-                $display("   DTAG way0 state: 0x%x", `L15_PIPE0.mesi_state_way0_s2);
-                $display("   DTAG way0 data: 0x%x", dtag_tag_way0_s2_TILE0);
-                $display("   DTAG way1 state: 0x%x", `L15_PIPE0.mesi_state_way1_s2);
-                $display("   DTAG way1 data: 0x%x", dtag_tag_way1_s2_TILE0);
-                $display("   DTAG way2 state: 0x%x", `L15_PIPE0.mesi_state_way2_s2);
-                $display("   DTAG way2 data: 0x%x", dtag_tag_way2_s2_TILE0);
-                $display("   DTAG way3 state: 0x%x", `L15_PIPE0.mesi_state_way3_s2);
-                $display("   DTAG way3 data: 0x%x", dtag_tag_way3_s2_TILE0);
+'''
+
+for i in range(CONFIG_L15_ASSOCIATIVITY):
+    text += '''$display("   DTAG way{0} state: 0x%x", `L15_PIPE0.mesi_state_way{0}_s2);
+                $display("   DTAG way{0} data: 0x%x", dtag_tag_way{0}_s2_TILE0);'''.format(i)
+text += r'''
             end
 
             if (`L15_PIPE0.l15_mesi_write_val_s2)
@@ -1200,15 +1198,16 @@ begin
 // Monitor tags duplication error (bug #86)
     if (`L15_PIPE0.val_s2 && `L15_PIPE0.decoder_dtag_operation_s2 == `L15_DTAG_OP_READ)
     begin
-        tag_data_TILE0[0] = `L15_PIPE0.dtag_tag_way0_s2[`L15_CACHE_TAG_WIDTH-1:0];
-        tag_data_TILE0[1] = `L15_PIPE0.dtag_tag_way1_s2[`L15_CACHE_TAG_WIDTH-1:0];
-        tag_data_TILE0[2] = `L15_PIPE0.dtag_tag_way2_s2[`L15_CACHE_TAG_WIDTH-1:0];
-        tag_data_TILE0[3] = `L15_PIPE0.dtag_tag_way3_s2[`L15_CACHE_TAG_WIDTH-1:0];
-        tag_val_TILE0[0] = `L15_PIPE0.mesi_state_way0_s2 != `L15_MESI_STATE_I;
-        tag_val_TILE0[1] = `L15_PIPE0.mesi_state_way1_s2 != `L15_MESI_STATE_I;
-        tag_val_TILE0[2] = `L15_PIPE0.mesi_state_way2_s2 != `L15_MESI_STATE_I;
-        tag_val_TILE0[3] = `L15_PIPE0.mesi_state_way3_s2 != `L15_MESI_STATE_I;
-        for (i_TILE0 = 0; i_TILE0 < 4; i_TILE0 = i_TILE0+1)
+
+for i in range(CONFIG_L15_ASSOCIATIVITY):
+    text += '''
+        tag_data_TILE0[{0}] = `L15_PIPE0.dtag_tag_way{0}_s2[`L15_CACHE_TAG_WIDTH-1:0];
+        tag_val_TILE0[{0}] = `L15_PIPE0.mesi_state_way{0}_s2 != `L15_MESI_STATE_I;
+'''.format(i)
+
+text += "for (i_TILE0 = 0; i_TILE0 < {}; i_TILE0 = i_TILE0+1)".format(CONFIG_L15_ASSOCIATIVITY)
+
+text += r'''
         begin
             for (j_TILE0 = 0; j_TILE0 < i_TILE0; j_TILE0 = j_TILE0 + 1)
             begin
@@ -1259,7 +1258,7 @@ begin
         if (`L15_PIPE0.lruarray_l15_dout_s2[`L15_PIPE0.lru_way_s2] == 1'b1)
         begin
             // replacing a valid line
-            if (&`L15_PIPE0.lru_used_bits_s2[3:0] == 1'b0)
+            if (&`L15_PIPE0.lru_used_bits_s2 == 1'b0)
             begin
                 // and an another entry is 0, then is an error
                 $display("%d : Simulation -> FAIL(%0s)", $time, "TILE0 L15 picked the wrong LRU entry");
