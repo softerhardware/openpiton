@@ -1198,9 +1198,10 @@ text += r'''
 // Monitor tags duplication error (bug #86)
     if (`L15_PIPE0.val_s2 && `L15_PIPE0.decoder_dtag_operation_s2 == `L15_DTAG_OP_READ)
     begin
+'''
 
 for i in range(CONFIG_L15_ASSOCIATIVITY):
-    text += '''
+    text += '''     
         tag_data_TILE0[{0}] = `L15_PIPE0.dtag_tag_way{0}_s2[`L15_CACHE_TAG_WIDTH-1:0];
         tag_val_TILE0[{0}] = `L15_PIPE0.mesi_state_way{0}_s2 != `L15_MESI_STATE_I;
 '''.format(i)

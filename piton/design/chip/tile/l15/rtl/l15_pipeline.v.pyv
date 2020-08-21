@@ -2507,7 +2507,7 @@ reg [`L15_MESI_STATE_WIDTH-1:0] tagcheck_state_s2;
 reg [`L15_WAY_WIDTH-1:0] tagcheck_way_s2;
 // reg [`L15_UNPARAM_3_0] tagcheck_way_mask_s2;
 // reg tagcheck_val_s2;
-wire tagcheck_lrsc_flag_s2 = tagcheck_way;
+reg tagcheck_lrsc_flag_s2;
 
 wire [`L15_CACHE_TAG_WIDTH-1:0] lru_way_tag_s2 = dtag_l15_dout_s2 >> (lru_way_s2*`L15_CACHE_TAG_RAW_WIDTH);
 wire [`L15_MESI_STATE_WIDTH-1:0] lru_state_s2 = mesi_l15_dout_s2 >> (lru_way_s2*`L15_MESI_STATE_WIDTH);
@@ -2965,7 +2965,7 @@ reg [`L15_CSM_NUM_TICKETS_LOG2-1:0] csm_ticket_s2;
 //     end
 // end
 
-reg [`L15_LINE_SIZE-1:0] csm_fill_data;
+reg [`L15_CACHELINE_WIDTH-1:0] csm_fill_data;
 reg csm_req_val_s2;
 reg csm_req_type_s2;
 reg csm_req_lru_address_s2;
@@ -3062,7 +3062,7 @@ begin
     l15_csm_req_type_s2 = csm_req_type_s2;
     // l15_csm_stall_s2 = stall_s2;
     // l15_csm_clump_tile_count_s2 = 1'b0; // adsfasdf
-    l15_csm_req_data_s2 = csm_fill_data[`L15_LINE_SIZE-1:0];
+    l15_csm_req_data_s2 = csm_fill_data[`L15_CACHELINE_WIDTH-1:0];
     l15_csm_req_pcx_data_s2 = csm_pcx_data_s2;
 end
 
@@ -3513,7 +3513,7 @@ begin
         begin
             lruarray_write_val_s3 = tagcheck_state_mes_s3;
             if (&(lru_data_s3[`L15_LRUARRAY_USED_MASK] | lruarray_tagcheck_mask_s3))
-                lruarray_write_data_s3[`L15_LRUARRAY_USED_MASK] = `L15_WAY_COUNT'b0;
+                lruarray_write_data_s3[`L15_LRUARRAY_USED_MASK] = {`L15_WAY_COUNT{1'b0}};
             else
                 lruarray_write_data_s3[`L15_LRUARRAY_USED_MASK] = lru_data_s3[`L15_LRUARRAY_USED_MASK] | lruarray_tagcheck_mask_s3;
             lruarray_write_data_s3[`L15_LRUARRAY_RR_MASK] = lru_data_s3[`L15_LRUARRAY_RR_MASK]; // retain old round robin
@@ -3522,7 +3522,7 @@ begin
         begin
             lruarray_write_val_s3 = tagcheck_lrsc_flag_s3;
             if (&(lru_data_s3[`L15_LRUARRAY_USED_MASK] | lruarray_tagcheck_mask_s3))
-                lruarray_write_data_s3[`L15_LRUARRAY_USED_MASK] = `L15_WAY_COUNT'b0;
+                lruarray_write_data_s3[`L15_LRUARRAY_USED_MASK] = {`L15_WAY_COUNT{1'b0}};
             else
                 lruarray_write_data_s3[`L15_LRUARRAY_USED_MASK] = lru_data_s3[`L15_LRUARRAY_USED_MASK] | lruarray_tagcheck_mask_s3;
             lruarray_write_data_s3[`L15_LRUARRAY_RR_MASK] = lru_data_s3[`L15_LRUARRAY_RR_MASK]; // retain old round robin
@@ -3532,7 +3532,7 @@ begin
             // lruarray_write_val_s3 = 1'b1; // might be an error to change here
             // lruarray_write_data_s3[`L15_LRUARRAY_USED_MASK] = lru_data_s3[`L15_LRUARRAY_USED_MASK] & ~lruarray_lru_mask_s3;
             //    // retain old access bits and remove the evicted bit
-            // lruarray_write_data_s3[`L15_LRUARRAY_RR_MASK] = lru_data_s3[`L15_LRUARRAY_RR_MASK] + `L15_LRUARRAY_WIDTH'b1;
+            // lruarray_write_data_s3[`L15_LRUARRAY_RR_MASK] = lru_data_s3[`L15_LRUARRAY_RR_MASK] + {{`L15_LRUARRAY_WIDTH-1{1'b0}},1'b1};
         end
         `L15_LRU_REPLACEMENT:
         begin
@@ -3542,7 +3542,7 @@ begin
             // lruarray_write_data_s3[`L15_LRUARRAY_RR_MASK] = lru_data_s3[`L15_LRUARRAY_RR_MASK] + 2'b1;
             lruarray_write_val_s3 = 1'b1; // no change for now, only turn on access bit on the second access
             lruarray_write_data_s3[`L15_LRUARRAY_USED_MASK] = lru_data_s3[`L15_LRUARRAY_USED_MASK] | lruarray_lru_mask_s3;
-            lruarray_write_data_s3[`L15_LRUARRAY_RR_MASK] = lru_data_s3[`L15_LRUARRAY_RR_MASK] + `L15_LRUARRAY_WIDTH'b1;
+            lruarray_write_data_s3[`L15_LRUARRAY_RR_MASK] = lru_data_s3[`L15_LRUARRAY_RR_MASK] + {{`L15_LRUARRAY_WIDTH-1{1'b0}},1'b1};
         end
         `L15_LRU_INVALIDATE_IF_TAGCHECK_WAY_IS_MES:
         begin
@@ -3836,7 +3836,7 @@ reg cpx_req_val_s3;
 reg [`CPX_RESTYPE_WIDTH-1:0] cpx_type_s3;
 reg cpx_invalidate_l1_s3;
 // reg cpx_dcache_inval_all_s3;
-reg [`L1WAY_WIDTH-1:0] cpx_inval_way_s3;
+reg [`L1_WAY_WIDTH-1:0] cpx_inval_way_s3;
 reg [`L15_CPX_SOURCE_WIDTH-1:0] cpx_data_source_s3;
 reg cpx_atomic_bit_s3;
 reg cpx_icache_inval_s3;
@@ -4004,7 +4004,7 @@ begin
     l15_cpxencoder_inval_dcache_all_way = 0;
     l15_cpxencoder_inval_address_15_4[15:4] = 0;
     l15_cpxencoder_cross_invalidate = 0;
-    l15_cpxencoder_cross_invalidate_way = `L1_WAY_WIDTH'b0;
+    l15_cpxencoder_cross_invalidate_way = {`L1_WAY_WIDTH{1'b0}};
     l15_cpxencoder_inval_dcache_inval = 0;
     l15_cpxencoder_inval_icache_inval = 0;
     l15_cpxencoder_inval_way = `L1_WAY_WIDTH'b0;
@@ -4022,7 +4022,7 @@ begin
         // l15_cpxencoder_inval_dcache_all_way = cpx_dcache_inval_all_s3;
         l15_cpxencoder_inval_address_15_4[15:4] = address_s3[15:4];
         l15_cpxencoder_cross_invalidate = 0; // Don't think we will be cross invalidating
-        l15_cpxencoder_cross_invalidate_way = L1_WAY_WIDTH'b0;
+        l15_cpxencoder_cross_invalidate_way = {`L1_WAY_WIDTH{1'b0}};
         l15_cpxencoder_inval_dcache_inval = cpx_invalidate_l1_s3; // default
         // l15_cpxencoder_inval_icache_inval = cpx_icache_inval_s3; // default
         l15_cpxencoder_inval_icache_inval = 0; // default

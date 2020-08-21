@@ -96,7 +96,7 @@ begin
    begin
       <%
          for i in range (numset):
-            print("regfile[%d] <= `L15_LRUARRAY_WIDTH'b0;" % (i))
+            print("regfile[%d] <= {`L15_LRUARRAY_WIDTH{1'b0}};" % (i))
       %>
       // regfile <= 1024'b0;
    end

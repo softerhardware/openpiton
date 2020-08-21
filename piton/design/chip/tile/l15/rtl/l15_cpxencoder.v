@@ -51,7 +51,7 @@ module l15_cpxencoder(
     input wire          l15_cpxencoder_val,
     input wire [`CPX_RESTYPE_WIDTH-1:0]    l15_cpxencoder_returntype,
     input wire          l15_cpxencoder_l2miss,
-    input wire [`CPX_ERROR_CODE_WIDTH1:0]    l15_cpxencoder_error,
+    input wire [`CPX_ERROR_CODE_WIDTH-1:0]    l15_cpxencoder_error,
     input wire          l15_cpxencoder_noncacheable,
     input wire          l15_cpxencoder_atomic,
     input wire [`L15_THREADID_MASK]    l15_cpxencoder_threadid,
