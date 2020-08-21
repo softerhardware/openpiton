@@ -477,21 +477,35 @@ begin
     case (predecode_source_s1)
         `L15_PREDECODE_SOURCE_NOC2:
         begin
-            // predecode_address_s1 = predecode_mshr_address_s1;
-            predecode_size_s1 = predecode_mshr_read_control_s1[`L15_CONTROL_SIZE_3B -: 3];
-            // predecode_threadid_s1 = predecode_mshr_read_control_s1[`L15_CONTROL_THREADID -: `L15_THREADID_WIDTH];
-            predecode_threadid_s1[`L15_THREADID_MASK] = noc2decoder_l15_threadid[`L15_THREADID_MASK];
-            predecode_l1_replacement_way_s1 = predecode_mshr_read_control_s1[`L15_CONTROL_L1_REPLACEMENT_WAY_2B -: 2];
-            predecode_non_cacheable_s1 = predecode_mshr_read_control_s1[`L15_CONTROL_NC_1B -: 1];
-            // 4.16.14: disable blockstores
-            predecode_blockstore_bit_s1 = predecode_mshr_read_control_s1[`L15_CONTROL_BLOCKSTORE_1B -: 1];
-            predecode_blockstore_init_s1 = predecode_mshr_read_control_s1[`L15_CONTROL_BLOCKSTOREINIT_1B -: 1];
-            predecode_prefetch_bit_s1 = predecode_mshr_read_control_s1[`L15_CONTROL_PREFETCH_1B -: 1];
-            // predecode_invalidate_index_s1 = predecode_mshr_read_control_s1[`L15_CONTROL_INVALIDATE_INDEX_1B -: 1];
+            // // predecode_address_s1 = predecode_mshr_address_s1;
+            // predecode_size_s1 = predecode_mshr_read_control_s1[`L15_CONTROL_SIZE_3B -: 3];
+            // // predecode_threadid_s1 = predecode_mshr_read_control_s1[`L15_CONTROL_THREADID -: `L15_THREADID_WIDTH];
+            // predecode_threadid_s1[`L15_THREADID_MASK] = noc2decoder_l15_threadid[`L15_THREADID_MASK];
+            // predecode_l1_replacement_way_s1 = predecode_mshr_read_control_s1[`L15_CONTROL_L1_REPLACEMENT_WAY_2B -: 2];
+            // predecode_non_cacheable_s1 = predecode_mshr_read_control_s1[`L15_CONTROL_NC_1B -: 1];
+            // // 4.16.14: disable blockstores
+            // predecode_blockstore_bit_s1 = predecode_mshr_read_control_s1[`L15_CONTROL_BLOCKSTORE_1B -: 1];
+            // predecode_blockstore_init_s1 = predecode_mshr_read_control_s1[`L15_CONTROL_BLOCKSTOREINIT_1B -: 1];
+            // predecode_prefetch_bit_s1 = predecode_mshr_read_control_s1[`L15_CONTROL_PREFETCH_1B -: 1];
+            // // predecode_invalidate_index_s1 = predecode_mshr_read_control_s1[`L15_CONTROL_INVALIDATE_INDEX_1B -: 1];
+
+            {
+                predecode_size_s1,
+                predecode_threadid_s1,
+                predecode_l1_replacement_way_s1,
+                predecode_non_cacheable_s1,
+                predecode_blockstore_bit_s1,
+                predecode_blockstore_init_s1,
+                predecode_prefetch_bit_s1,
+                predecode_icache_bit_s1,
+                predecode_dcache_load_s1,
+                predecode_atomic_s1
+            } = predecode_mshr_read_control_s1;
+
+            predecode_threadid_s1 = noc2decoder_l15_threadid; // override the above
+
             predecode_l2_miss_s1 = noc2decoder_l15_l2miss;
             predecode_f4b_s1 = noc2decoder_l15_f4b;
-            predecode_atomic_s1 = predecode_mshr_read_control_s1[`L15_CONTROL_ATOMIC];
-            predecode_dcache_load_s1 = predecode_mshr_read_control_s1[`L15_CONTROL_LOAD];
             predecode_fwd_subcacheline_vector_s1 = noc2decoder_l15_fwd_subcacheline_vector;
 
             predecode_dcache_noc2_store_im_s1 = mshr_st_state_array[predecode_threadid_s1] == `L15_MESI_TRANSITION_STATE_IM;
@@ -584,7 +598,7 @@ begin
                 end
                 `MSG_TYPE_DATA_ACK, `MSG_TYPE_NC_LOAD_MEM_ACK:
                 begin
-                    predecode_icache_bit_s1 = predecode_mshr_read_control_s1[`L15_CONTROL_ICACHE];
+                    // predecode_icache_bit_s1 = predecode_mshr_read_control_s1[`L15_CONTROL_ICACHE];
 
                     if (noc2decoder_l15_mshrid == `L15_MSHR_ID_LD)
                         predecode_address_s1 = mshr_ld_address_array[noc2decoder_l15_threadid];
@@ -628,7 +642,7 @@ begin
                 end
                 `MSG_TYPE_NODATA_ACK, `MSG_TYPE_NC_STORE_MEM_ACK:
                 begin
-                    predecode_icache_bit_s1 = predecode_mshr_read_control_s1[`L15_CONTROL_ICACHE];
+                    // predecode_icache_bit_s1 = predecode_mshr_read_control_s1[`L15_CONTROL_ICACHE];
                     predecode_address_s1 = mshr_st_address_array[noc2decoder_l15_threadid];
 
                     // one way to distinguish prefetch ack from write-through ack is the mshrid
@@ -2080,28 +2094,42 @@ end
 ////////////////////////////
 // depends on predecode and decode
 
-reg [`L15_CONTROL_WIDTH-1:0] mshr_control_bits_write_s1;
+// reg [`L15_CONTROL_WIDTH-1:0] mshr_control_bits_write_s1;
 // reg mshr_next_available_mshrid_valid_s1;
-always @ *
-begin
-    // mux betweeen new mshrid and noc2 returned mshrid
+// always @ *
+// begin
+//     // mux betweeen new mshrid and noc2 returned mshrid
+// 
+//     // write
+//     // trinnn: change to mask
+//     mshr_control_bits_write_s1 = 0;
+//     mshr_control_bits_write_s1 [`L15_CONTROL_SIZE_3B -: 3] = predecode_size_s1;
+//     mshr_control_bits_write_s1 [`L15_CONTROL_THREADID -: `L15_THREADID_WIDTH] = predecode_threadid_s1;
+//     mshr_control_bits_write_s1 [`L15_CONTROL_L1_REPLACEMENT_WAY_2B -: `L15_WAY_WIDTH] = predecode_l1_replacement_way_s1;
+//     // for Load Reserve, we evict and send INVs like a NC req. But when we get the data ack, we reagrd it as a Cacheable req
+//     mshr_control_bits_write_s1 [`L15_CONTROL_NC_1B -: 1] = (predecode_reqtype_s1 == `L15_REQTYPE_AMO_LR) ? 1'b0 : predecode_non_cacheable_s1;
+//     mshr_control_bits_write_s1 [`L15_CONTROL_BLOCKSTORE_1B -: 1] = predecode_blockstore_bit_s1;
+//     mshr_control_bits_write_s1 [`L15_CONTROL_BLOCKSTOREINIT_1B -: 1] = predecode_blockstore_init_s1;
+//     mshr_control_bits_write_s1 [`L15_CONTROL_PREFETCH_1B -: 1] = predecode_prefetch_bit_s1;
+//     // mshr_control_bits_write_s1 [`L15_CONTROL_INVALIDATE_INDEX_1B -: 1] = predecode_invalidate_index_s1;
+//     mshr_control_bits_write_s1 [`L15_CONTROL_ICACHE -: 1] = predecode_icache_bit_s1;
+//     mshr_control_bits_write_s1 [`L15_CONTROL_LOAD -: 1] = predecode_dcache_load_s1;
+//     mshr_control_bits_write_s1 [`L15_CONTROL_ATOMIC -: 1] = predecode_atomic_s1;
+// end
 
-    // write
-    // trinnn: change to mask
-    mshr_control_bits_write_s1 = 0;
-    mshr_control_bits_write_s1 [`L15_CONTROL_SIZE_3B -: 3] = predecode_size_s1;
-    mshr_control_bits_write_s1 [`L15_CONTROL_THREADID -: `L15_THREADID_WIDTH] = predecode_threadid_s1;
-    mshr_control_bits_write_s1 [`L15_CONTROL_L1_REPLACEMENT_WAY_2B -: `L15_WAY_WIDTH] = predecode_l1_replacement_way_s1;
-    // for Load Reserve, we evict and send INVs like a NC req. But when we get the data ack, we reagrd it as a Cacheable req
-    mshr_control_bits_write_s1 [`L15_CONTROL_NC_1B -: 1] = (predecode_reqtype_s1 == `L15_REQTYPE_AMO_LR) ? 1'b0 : predecode_non_cacheable_s1;
-    mshr_control_bits_write_s1 [`L15_CONTROL_BLOCKSTORE_1B -: 1] = predecode_blockstore_bit_s1;
-    mshr_control_bits_write_s1 [`L15_CONTROL_BLOCKSTOREINIT_1B -: 1] = predecode_blockstore_init_s1;
-    mshr_control_bits_write_s1 [`L15_CONTROL_PREFETCH_1B -: 1] = predecode_prefetch_bit_s1;
-    // mshr_control_bits_write_s1 [`L15_CONTROL_INVALIDATE_INDEX_1B -: 1] = predecode_invalidate_index_s1;
-    mshr_control_bits_write_s1 [`L15_CONTROL_ICACHE -: 1] = predecode_icache_bit_s1;
-    mshr_control_bits_write_s1 [`L15_CONTROL_LOAD -: 1] = predecode_dcache_load_s1;
-    mshr_control_bits_write_s1 [`L15_CONTROL_ATOMIC -: 1] = predecode_atomic_s1;
-end
+wire [`L15_MSHR_BITS_WIDTH-1:0] mshr_control_bits_write_s1 =
+    {
+        predecode_size_s1,
+        predecode_threadid_s1,
+        predecode_l1_replacement_way_s1,
+        predecode_non_cacheable_s1,
+        predecode_blockstore_bit_s1,
+        predecode_blockstore_init_s1,
+        predecode_prefetch_bit_s1,
+        predecode_icache_bit_s1,
+        predecode_dcache_load_s1,
+        predecode_atomic_s1
+    };
 
 ////////////////////////////
 // MSHR allocation logic
