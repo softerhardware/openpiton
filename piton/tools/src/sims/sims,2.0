@@ -1438,7 +1438,7 @@ sub generic_sim_build
       print "$prg: LM_LICENSE_FILE : none\n";
     }
 
-    push (@{$opt{sim_build_args}}, "-f flist") if (!($opt{vcs_build} && $opt{flist_vhdl}));
+    push (@{$opt{sim_build_args}}, "-f flist") if (!($opt{vcs_build} && @{$opt{flist_vhdl}}));
 
     if ($opt{vcs_build}) {
       $lib_path = "-L$ENV{DV_ROOT}/tools/";
@@ -1600,7 +1600,7 @@ sub generic_sim_build
     if ($opt{vcs_build}) {
       if ($ENV{VCS_BIN}) {
         $build_cmd = "$ENV{VCS_BIN} ";
-      } elsif ($opt{flist_vhdl}) {
+      } elsif (@{$opt{flist_vhdl}}) {
         $build_cmd = " " ;
       } else {
         $build_cmd  = "vcs " ;
@@ -1613,7 +1613,7 @@ sub generic_sim_build
         $build_cmd .= " -timescale=1ps/1ps ";
       }
 
-      if ($opt{flist_vhdl}) {
+      if (@{$opt{flist_vhdl}}) {
         my $vhdl_build_cmd = "vhdlan -full64 -vhdl08 -work work -f flist_vhdl";
 
         print "$prg: $vhdl_build_cmd\n";
@@ -1649,7 +1649,7 @@ sub generic_sim_build
       $build_cmd = "vlib work; vlog " ;
     }
     if ($opt{viv_build}) {
-      if ($opt{flist_vhdl}) {
+      if (@{$opt{flist_vhdl}}) {
         my $vhdl_build_cmd = "xvhdl --2008 -f flist_vhdl";
 
         print "$prg: $vhdl_build_cmd\n";
@@ -1664,7 +1664,8 @@ sub generic_sim_build
       if ($opt{ariane}) {
         $build_cmd .= "-L uvm " ;
         $build_cmd .= "-i $ENV{XILINX_VIVADO}/data/system_verilog/uvm_1.2 " ;
-        $build_cmd .= "$ENV{XILINX_VIVADO}/data/system_verilog/uvm_1.2/uvm_pkg.sv " ;
+        # $build_cmd .= "$ENV{XILINX_VIVADO}/data/system_verilog/uvm_1.2/uvm_pkg.sv " ;
+        $build_cmd .= "$ENV{XILINX_VIVADO}/data/system_verilog/uvm_1.2/xlnx_uvm_package.sv " ;
       }
       $build_cmd .= "-d PITON_DPI " ;
     }
@@ -1719,7 +1720,7 @@ sub generic_sim_build
     rename "flist", "flist.orig" or die ("DIE. can't rename flist");
     rename "flist.new", "flist" or die ("DIE. can't rename flist.new");
 
-    if ($opt{vcs_build} && $opt{flist_vhdl}) {
+    if ($opt{vcs_build} && @{$opt{flist_vhdl}}) {
       my $vlog_build_cmd = "vlogan -full64 -nc " . $build_cmd . " -work work -f flist -sverilog";
 
       print "$prg: $vlog_build_cmd\n";
@@ -2021,10 +2022,10 @@ if ($opt{riv_run}) {
       }
 
       foreach my $runarg (@{$opt{sim_run_args}}) {
-        print "$prg: runarg $runarg\n" ;
+        # print "$prg: runarg $runarg\n" ;
         if ($runarg =~ /^\+/) {
           $runarg =~ s/^\+(.*)/--testplusarg \"$1\"/ ;
-          print "$prg: starts with +\n" ;
+          # print "$prg: starts with +\n" ;
         }
         $cmd .= "$runarg " ;
       }

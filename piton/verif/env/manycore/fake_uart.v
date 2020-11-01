@@ -52,13 +52,14 @@ end
 
 always @(posedge clk) begin
     if (m_axi_awvalid & m_axi_wvalid & (m_axi_awaddr[2:0] == 3'b0)) begin
-        $fwrite(file, "%c", m_axi_wdata[7:0]);
+        $display("FAKE UART: %x", m_axi_wdata);
+        $fwrite(file, "%c", m_axi_wdata[63:56]);
         $fflush(file);
     end
 end
 
 noc_axilite_bridge #(
- .SLAVE_RESP_BYTEWIDTH (1)
+ .SLAVE_RESP_BYTEWIDTH (8)
 ) noc_axilite_bridge (
     .clk                    (clk),
     .rst                    (~rst_n),
