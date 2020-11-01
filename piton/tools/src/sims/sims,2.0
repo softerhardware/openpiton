@@ -179,6 +179,8 @@ Getopt::Long::Configure ('no_auto_abbrev') ;
         'pico' => 0,
         'pico_het' => 0,
         'post_process_cmd' => [],
+	'power' => 0,
+	'power_target_triple=s' => "",
         'pre_process_cmd' => [],
         'reg_count' => 0,
         'regress' => 0,
@@ -2419,8 +2421,8 @@ sub assemble_diag
     if ($opt{asm_diag_name} =~ /\.pal/)        { $diag_name = "diag.pal"  ; }
     elsif ($opt{asm_diag_name} =~ /\.s\.gz/)   { $diag_name = "diag.s.gz" ; }
     elsif ($opt{precompiled} and ($opt{rv32} | $opt{rv64})) { $diag_name = "diag.exe"  ; }
-    elsif (($opt{rv32} | $opt{rv64}) and ($opt{asm_diag_name} =~ /\.S/)) { $diag_name = "diag.S" ; }
-    elsif (($opt{rv32} | $opt{rv64}) and ($opt{asm_diag_name} =~ /\.c/)) { $diag_name = "diag.c" ; }
+    elsif (($opt{rv32} | $opt{rv64} | $opt{power}) and ($opt{asm_diag_name} =~ /\.S/)) { $diag_name = "diag.S" ; }
+    elsif (($opt{rv32} | $opt{rv64} | $opt{power}) and ($opt{asm_diag_name} =~ /\.c/)) { $diag_name = "diag.c" ; }
     else { $diag_name = "diag.s" ; }
 
     # copy diagnostic to run area
@@ -2594,6 +2596,37 @@ sub assemble_diag
         }
         print ("$prg: warning could not copy files back to $launch_dir\n") if ($?) ;
       }
+    }
+    if ($opt{power}) {
+      # OpenPOWER flow for Microwatt
+      if (!$opt{power_target_triple}) {
+        if ($opt{power}) {
+          $ENV{POWER_TARGET_TRIPLE} = "powerpc64le-linux" ;
+        }
+      } else {
+        $ENV{POWER_TARGET_TRIPLE} = $opt{power_target_triple} ;
+      }
+
+      if (!$opt{precompiled}) {
+        print "$prg: assembling 64bit power diag\n" ;
+        my $defs = "-DPITON_NUMTILES=$ENV{PTON_NUM_TILES} ";
+        if ($opt{uart_dmw}) {
+          $defs .= " -DPITONSTREAM ";
+        }
+        foreach my $additional_args (@{$opt{gcc_args}}) {
+          $defs .= " ${additional_args}";
+        }
+        my $cmd = "power_cc ${diag_name} \"$defs\"" ;
+        print "$prg: $cmd\n";
+        my $waitstatus = call_program($cmd, "power_cc.log");
+        die ("DIE. power_cc compilation error") if ($waitstatus) ;
+      }
+
+      my $cmd = "power_img" ;
+
+      print "$prg: $cmd\n";
+      my $waitstatus = call_program($cmd, "power_img.log");
+      die ("DIE. power_img error creating mem image") if ($waitstatus) ;
     }
 
     exit (0) if ($opt{midas_only}) ;
@@ -2772,6 +2805,8 @@ sub parse_args
             'pal_use_tgseed!',
             'parallel!',
             'post_process_cmd=s@',
+            'power!',
+            'power_target_triple=s',
             'pre_process_cmd=s@',
             'reg_count=i',
             'regress!',
@@ -2992,6 +3027,10 @@ sub parse_args
   if ($opt{ariane}) {
     $opt{rv64} = 1 ;
     print "$prg: Building/running for rv64\n" ;
+  }
+  if ($opt{microwatt}) {
+    $opt{power} = 1 ;
+    print "$prg: Building/running for OpenPOWER\n" ;
   }
 
   $ENV{PITON_OST1}     = $opt{ost1};
@@ -3416,6 +3455,10 @@ this is the compiler used for RISC-V cores (e.g., when the -pico or -ariane swit
 
     -gcc_args
            additional gcc arguments
+
+    -power_target_triple
+           specifies power cross-compiler prefix (e.g. powerpc64le-linux)
+           default varies by core
 
     -rv32_target_triple
            specifies rv32 cross-compiler prefix (e.g. riscv32-unknown-elf)
