@@ -339,6 +339,9 @@ GetOptions (\%opt,
             'ariane!',
             'pico!',
             'pico_het!',
+            'sparcv9!',
+            'rv32!',
+            'rv64!',
             'regress!',
             'regress_id=s',
             'report!',
@@ -1550,6 +1553,7 @@ sub generic_sim_build
       $build_cmd .= "--top-module cmp_top " ;
       $build_cmd .= "-Wno-fatal " ;
       $build_cmd .= "-Wno-BLKANDNBLK " ;
+      $build_cmd .= "-Wno-TIMESCALEMOD " ;
       $build_cmd .= "-DPITON_DPI " ;
       $build_cmd .= "--unroll-count 256 " ;
       $build_cmd .= "-CFLAGS -DVERILATOR " ;
@@ -2732,6 +2736,24 @@ sub parse_args
     else { die ("DIE. Unprocessed argument: $x") ; }
   }
 
+  # Set ISA to choose compilation flow based on ISA
+  if ($opt{ost1}) {
+    $opt{sparcv9} = 1 ;
+    print "$prg: Building/running for sparcv9\n" ;
+  }
+  if ($opt{pico}) {
+    $opt{rv32} = 1 ;
+    print "$prg: Building/running for rv32\n" ;
+  }
+  if ($opt{ariane}) {
+    $opt{rv64} = 1 ;
+    print "$prg: Building/running for rv64\n" ;
+  }
+  if ($opt{mor1kx}) {
+    $opt{or1k} = 1 ;
+    print "$prg: Building/running for or1k\n" ;
+  }
+
   # in case a precompiled riscv binary for ariane is directly specified
   if ($opt{precompiled} and ($opt{rv32} | $opt{rv64})) {
     if (!($opt{asm_diag_name} =~ /\.riscv/)) {
@@ -2791,24 +2813,6 @@ sub parse_args
     $ENV{PITON_NETWORK_CONFIG}="2d_mesh";
   }
 
-  # Set ISA to choose compilation flow based on ISA
-  if ($opt{ost1}) {
-    $opt{sparcv9} = 1 ;
-    print "$prg: Building/running for sparcv9\n" ;
-  }
-  if ($opt{pico}) {
-    $opt{rv32} = 1 ;
-    print "$prg: Building/running for rv32\n" ;
-  }
-  if ($opt{ariane}) {
-    $opt{rv64} = 1 ;
-    print "$prg: Building/running for rv64\n" ;
-  }
-  if ($opt{mor1kx}) {
-    $opt{or1k} = 1 ;
-    print "$prg: Building/running for or1k\n" ;
-  }
-
   $ENV{PITON_OST1}     = $opt{ost1};
   $ENV{PITON_PICO}     = $opt{pico};
   $ENV{PITON_PICO_HET} = $opt{pico_het};
@@ -2821,11 +2825,6 @@ sub parse_args
   push (@{$opt{config_rtl}}, "PITON_ARIANE")   if ($opt{ariane});
   push (@{$opt{config_rtl}}, "WT_DCACHE")      if ($opt{ariane});
   push (@{$opt{config_rtl}}, "PITON_MOR1KX")   if ($opt{mor1kx});
-
-  if ($opt{pico} or $opt{pico_het} or $opt{ariane} or $opt{mor1kx}) {
-    push (@{$opt{config_rtl}}, "NO_MRA_VAL") ;
-    push (@{$opt{config_rtl}}, "NO_SLAM_RANDOM") ;
-  }
 
   my $pton_x_tiles="";
   my $pton_y_tiles="";
@@ -2905,9 +2904,9 @@ sub parse_args
   push (@{$opt{config_rtl}}, "ORAM_ON") if ($opt{oram}) ;
   push (@{$opt{sim_run_args}}, "+oram") if ($opt{oram}) ;
 
-  if ($opt{msm_build} or $opt{icv_build} or $opt{vlt_build}) {
-      push(@{$opt{config_rtl}}, "NO_SLAM_RANDOM") ;
-      push(@{$opt{config_rtl}}, "NO_MRA_VAL") ;
+  if ($opt{vcs_build} or $opt{ncv_build} or $opt{riv_build}) {
+      push(@{$opt{config_rtl}}, "OST1_PLI_SLAM_RANDOM") ;
+      push(@{$opt{config_rtl}}, "OST1_PLI_MRA_VAL") ;
   }
 
 }
