@@ -1100,7 +1100,7 @@ mor1kx_cpu_cappuccino #(
     .FEATURE_IMMU               ("NONE"),
     .FEATURE_IMMU_HW_TLB_RELOAD ("NONE"),
     .OPTION_IMMU_SET_WIDTH      (6),
-    .OPTION_IMMU_WAYS           (1),
+    .OPTION_IMMU_WAYS           (1)
 ) core (
     .clk                        (clk_gated),
     .rst                        (~rst_n_f),
