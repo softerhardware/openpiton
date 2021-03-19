@@ -1092,12 +1092,12 @@ mor1kx_cpu_cappuccino #(
     .OPTION_ICACHE_LIMIT_WIDTH  (32),
     .OPTION_ICACHE_SNOOP        ("ENABLED"),
 
-    .FEATURE_DMMU               ("ENABLED").
+    .FEATURE_DMMU               ("NONE"),
     .FEATURE_DMMU_HW_TLB_RELOAD ("NONE"),
     .OPTION_DMMU_SET_WIDTH      (6),
     .OPTION_DMMU_WAYS           (1),
 
-    .FEATURE_IMMU               ("ENABLED").
+    .FEATURE_IMMU               ("NONE"),
     .FEATURE_IMMU_HW_TLB_RELOAD ("NONE"),
     .OPTION_IMMU_SET_WIDTH      (6),
     .OPTION_IMMU_WAYS           (1),
