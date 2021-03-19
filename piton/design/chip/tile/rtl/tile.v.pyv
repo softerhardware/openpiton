@@ -1105,6 +1105,16 @@ mor1kx_cpu_cappuccino #(
     .clk                        (clk_gated),
     .rst                        (~rst_n_f),
 
+    .dbus_err_i                 (1'b0),
+    .dbus_ack_i                 (1'b0),
+    .dbus_dat_i                 (32'b0),
+    .dbus_adr_o                 (),
+    .dbus_dat_o                 (),
+    .dbus_req_o                 (),
+    .dbus_bsel_o                (),
+    .dbus_we_o                  (),
+    .dbus_burst_o               (),
+
     .transducer_l15_val                         (transducer_l15_val),
     .transducer_l15_rqtype                      (transducer_l15_rqtype),
     .transducer_l15_amo_op                      (transducer_l15_amo_op),
