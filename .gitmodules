@@ -6,4 +6,4 @@
 	url = https://github.com/PrincetonUniversity/openpiton-aws.git
 [submodule "piton/design/chip/tile/mor1kx"]
 	path = piton/design/chip/tile/mor1kx
-	url = git@github.com:jefflongo/mor1kx.git
+	url = https://github.com/jefflongo/mor1kx.git
