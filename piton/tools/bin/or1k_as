@@ -1,0 +1,17 @@
+or1k-elf-gcc -nostdlib -nostartfiles   \
+             diag.s -o diag.exe
+
+# create mem.image
+#or1k-elf-objcopy --reverse-bytes 4 -I elf32-or1k -O binary diag.exe diag.o
+or1k-elf-objcopy -I elf32-or1k -O binary diag.exe diag.o
+du diag.o -b | awk '{print(128 - ($1 % 128));}' | xargs -t -ISIZE truncate diag.o -s +SIZE
+printf "\n@0000000000000000\t// Section '.RED_SEC', segment 'text'\n" >mem.image
+#od -tx -v -An -w32 diag.o >>mem.image
+xxd -g 16 -c 32 diag.o | awk '{printf("%s %s\n", $2, $3);}' >>mem.image
+
+#create symbol.tbl
+or1k-elf-objdump -d diag.exe | grep "<pass>:" | awk '{printf("good_trap %s X %s\n", $1, $1);}' >symbol.tbl
+or1k-elf-objdump -d diag.exe | grep "<fail>:" | awk '{printf("bad_trap %s X %s\n", $1, $1);}' >>symbol.tbl
+
+#create empty diag.ev
+touch diag.ev

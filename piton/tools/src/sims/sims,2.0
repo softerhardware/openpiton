@@ -2413,7 +2413,13 @@ sub assemble_diag
       }
     }
     if ($opt{or1k}) {
+      print "$prg: assembling or1k diag\n" ;
+      my $cmd = "or1k_as " ;
+      #$cmd .= join (" ", @{$opt{midas_args}}) ;
+      print "$prg: $cmd\n";
 
+      my $waitstatus = call_program($cmd, "or1k_as.log");
+      die ("DIE. or1k_as compilation error") if ($waitstatus) ;
     }
 
     exit (0) if ($opt{midas_only}) ;
