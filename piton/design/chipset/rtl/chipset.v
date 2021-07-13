@@ -692,11 +692,11 @@ end
 /////////////////////////
 
 `ifndef PITON_BOARD
+    `ifdef PITON_CLKS_CHIPSET
     `ifndef PITONSYS_INC_PASSTHRU
         assign io_clk_loopback = io_clk;
     `endif
 
-    `ifdef PITON_CLKS_CHIPSET
         // If we are generating clocks, they are just the same as
         // this chipset clocks. This means everything is synchronous
         // to the same clock

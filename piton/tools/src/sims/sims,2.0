@@ -1538,15 +1538,21 @@ sub generic_sim_build
     }
 	
     if ($opt{vlt_build}) {
-      $build_cmd = "verilator -cc " ;
-      $build_cmd .= "-exe $dv_root/tools/verilator/my_top.cpp " ;
-      $build_cmd .= "$dv_root/tools/pli/iop/b_ary.c " ;
-      $build_cmd .= "$dv_root/tools/pli/iop/bw_lib.c " ;
-      $build_cmd .= "$dv_root/tools/pli/iop/iob_main.cc " ;
-      $build_cmd .= "$dv_root/tools/pli/iop/iob.cc " ;
-      $build_cmd .= "$dv_root/tools/pli/iop/cpx.cc " ;
-      $build_cmd .= "$dv_root/tools/pli/iop/pcx.cc " ;
-      $build_cmd .= "--top-module cmp_top " ;
+      $build_cmd = "verilator -build -j -cc " ;
+      foreach my $top_n (@{$opt{toplevel}}) {
+        $build_cmd .= "-exe $dv_root/tools/verilator/my_$top_n.cpp " ;
+      }
+      if ($opt{sys} ne "metro_tile") {
+        $build_cmd .= "$dv_root/tools/pli/iop/b_ary.c " ;
+        $build_cmd .= "$dv_root/tools/pli/iop/bw_lib.c " ;
+        $build_cmd .= "$dv_root/tools/pli/iop/iob_main.cc " ;
+        $build_cmd .= "$dv_root/tools/pli/iop/iob.cc " ;
+        $build_cmd .= "$dv_root/tools/pli/iop/cpx.cc " ;
+        $build_cmd .= "$dv_root/tools/pli/iop/pcx.cc " ;
+      }
+      foreach my $top_n (@{$opt{toplevel}}) {
+        $build_cmd .= "--top-module $top_n ";
+      }
       $build_cmd .= "-Wno-fatal " ;
       $build_cmd .= "-Wno-BLKANDNBLK " ;
       $build_cmd .= "-Wno-TIMESCALEMOD " ;
@@ -1555,7 +1561,9 @@ sub generic_sim_build
       $build_cmd .= "-CFLAGS -DVERILATOR " ;
       $build_cmd .= "-CFLAGS -DPITON_DPI " ;
       $build_cmd .= "-CFLAGS -lstdc++ " ;
-      $build_cmd .= "-CFLAGS -I$dv_root/tools/pli/iop " ;
+      if ($opt{sys} ne "metro_tile") {
+        $build_cmd .= "-CFLAGS -I$dv_root/tools/pli/iop " ;
+      }
       $build_cmd .= "-CFLAGS -I$dv_root/tools/verilator " ;
     }
     if ($opt{other_sim_build}) {
@@ -1593,17 +1601,6 @@ sub generic_sim_build
     if (! $opt{dryrun}) {
       system ($build_cmd) ;
       die ("DIE. failed building model") if ($?) ;
-    }
-
-    if ($opt{vlt_build}) {
-      $build_cmd = "make -j -C $model_path/obj_dir -f Vcmp_top.mk Vcmp_top" ;
-
-      print "$prg: $build_cmd\n";
-
-      if (! $opt{dryrun}) {
-        system ($build_cmd) ;
-        die ("DIE. failed building model") if ($?) ;
-      }
     }
 
     # go back to where the script was invoked
@@ -1848,7 +1845,10 @@ if ($opt{riv_run}) {
     }	
 
     if ($opt{vlt_run}) {
-      $cmd .= "$model_path/obj_dir/Vcmp_top " ;
+
+      foreach my $top_n (@{$opt{toplevel}}) {
+        $cmd .= "$model_path/obj_dir/V$top_n " ;
+      }
       $cmd .= " " ;
       $cmd .= join (" ", @{$opt{sim_run_args}}) ;
     }
