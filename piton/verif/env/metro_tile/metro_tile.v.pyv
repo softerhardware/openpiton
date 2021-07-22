@@ -60,7 +60,88 @@ output wire                            pll_lock,
 input reg [1:0]                       clk_mux_sel,
 input reg                             async_mux,
 input                                 diag_done,
-input                                 ok_iob
+input                                 ok_iob,
+
+input wire [`NOC_DATA_WIDTH-1:0] in_N_noc1_data,
+input wire [`NOC_DATA_WIDTH-1:0] in_E_noc1_data,
+input wire [`NOC_DATA_WIDTH-1:0] in_W_noc1_data,
+input wire [`NOC_DATA_WIDTH-1:0] in_S_noc1_data,
+input wire                       in_N_noc1_valid,
+input wire                       in_E_noc1_valid,
+input wire                       in_W_noc1_valid,
+input wire                       in_S_noc1_valid,
+input wire                       in_N_noc1_yummy,
+input wire                       in_E_noc1_yummy,
+input wire                       in_W_noc1_yummy,
+input wire                       in_S_noc1_yummy,
+
+output wire [`NOC_DATA_WIDTH-1:0] out_N_noc1_data,
+output wire [`NOC_DATA_WIDTH-1:0] out_E_noc1_data,
+output wire [`NOC_DATA_WIDTH-1:0] out_W_noc1_data,
+output wire [`NOC_DATA_WIDTH-1:0] out_S_noc1_data,
+output wire                       out_N_noc1_valid,
+output wire                       out_E_noc1_valid,
+output wire                       out_W_noc1_valid,
+output wire                       out_S_noc1_valid,
+output wire                       out_N_noc1_yummy,
+output wire                       out_E_noc1_yummy,
+output wire                       out_W_noc1_yummy,
+output wire                       out_S_noc1_yummy,
+
+input wire [`NOC_DATA_WIDTH-1:0] in_N_noc2_data,
+input wire [`NOC_DATA_WIDTH-1:0] in_E_noc2_data,
+input wire [`NOC_DATA_WIDTH-1:0] in_W_noc2_data,
+input wire [`NOC_DATA_WIDTH-1:0] in_S_noc2_data,
+input wire                       in_N_noc2_valid,
+input wire                       in_E_noc2_valid,
+input wire                       in_W_noc2_valid,
+input wire                       in_S_noc2_valid,
+input wire                       in_N_noc2_yummy,
+input wire                       in_E_noc2_yummy,
+input wire                       in_W_noc2_yummy,
+input wire                       in_S_noc2_yummy,
+
+output wire [`NOC_DATA_WIDTH-1:0] out_N_noc2_data,
+output wire [`NOC_DATA_WIDTH-1:0] out_E_noc2_data,
+output wire [`NOC_DATA_WIDTH-1:0] out_W_noc2_data,
+output wire [`NOC_DATA_WIDTH-1:0] out_S_noc2_data,
+output wire                       out_N_noc2_valid,
+output wire                       out_E_noc2_valid,
+output wire                       out_W_noc2_valid,
+output wire                       out_S_noc2_valid,
+output wire                       out_N_noc2_yummy,
+output wire                       out_E_noc2_yummy,
+output wire                       out_W_noc2_yummy,
+output wire                       out_S_noc2_yummy,
+
+input wire [`NOC_DATA_WIDTH-1:0] in_N_noc3_data,
+input wire [`NOC_DATA_WIDTH-1:0] in_E_noc3_data,
+input wire [`NOC_DATA_WIDTH-1:0] in_W_noc3_data,
+input wire [`NOC_DATA_WIDTH-1:0] in_S_noc3_data,
+input wire                       in_N_noc3_valid,
+input wire                       in_E_noc3_valid,
+input wire                       in_W_noc3_valid,
+input wire                       in_S_noc3_valid,
+input wire                       in_N_noc3_yummy,
+input wire                       in_E_noc3_yummy,
+input wire                       in_W_noc3_yummy,
+input wire                       in_S_noc3_yummy,
+
+output wire [`NOC_DATA_WIDTH-1:0] out_N_noc3_data,
+output wire [`NOC_DATA_WIDTH-1:0] out_E_noc3_data,
+output wire [`NOC_DATA_WIDTH-1:0] out_W_noc3_data,
+output wire [`NOC_DATA_WIDTH-1:0] out_S_noc3_data,
+output wire                       out_N_noc3_valid,
+output wire                       out_E_noc3_valid,
+output wire                       out_W_noc3_valid,
+output wire                       out_S_noc3_valid,
+output wire                       out_N_noc3_yummy,
+output wire                       out_E_noc3_yummy,
+output wire                       out_W_noc3_yummy,
+output wire                       out_S_noc3_yummy
+
+
+
 `endif
 );
 
@@ -279,6 +360,7 @@ end
 // SYNTHESIZABLE TILE
 ///////////////////////////////////////////////////////
 
+`ifndef VERILATOR
 wire [`NOC_DATA_WIDTH-1:0] in_N_noc1_data;
 wire [`NOC_DATA_WIDTH-1:0] in_E_noc1_data;
 wire [`NOC_DATA_WIDTH-1:0] in_W_noc1_data;
@@ -356,6 +438,8 @@ wire                       out_N_noc3_yummy;
 wire                       out_E_noc3_yummy;
 wire                       out_W_noc3_yummy;
 wire                       out_S_noc3_yummy;
+`endif // ifndef VERILATOR
+
 
 // Generate tile instances
 tile #(.TILE_TYPE(`ARIANE_RV64_TILE))

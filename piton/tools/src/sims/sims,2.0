@@ -1538,10 +1538,12 @@ sub generic_sim_build
     }
 	
     if ($opt{vlt_build}) {
-      $build_cmd = "verilator -build -j -cc " ;
+      $build_cmd = "verilator -j 2 -cc -trace  " ;
       foreach my $top_n (@{$opt{toplevel}}) {
         $build_cmd .= "-exe $dv_root/tools/verilator/my_$top_n.cpp " ;
       }
+      # improvable
+      $build_cmd .= "$dv_root/tools/verilator/metro_mpi.cpp ";
       if ($opt{sys} ne "metro_tile") {
         $build_cmd .= "$dv_root/tools/pli/iop/b_ary.c " ;
         $build_cmd .= "$dv_root/tools/pli/iop/bw_lib.c " ;
