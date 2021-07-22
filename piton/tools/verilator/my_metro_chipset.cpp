@@ -185,7 +185,7 @@ void reset_and_init() {
     top->processor_offchip_noc3_data  = 0;
     top->offchip_processor_noc3_yummy = 0;
 
-    //init_jbus_model_call((char *) "mem.image", 0);
+    init_jbus_model_call((char *) "mem.image", 0);
 
     std::cout << "Before first ticks" << std::endl << std::flush;
     tick();
