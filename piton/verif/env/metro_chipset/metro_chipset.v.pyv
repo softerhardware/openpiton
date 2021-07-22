@@ -60,7 +60,26 @@ output wire                            pll_lock,
 input reg [1:0]                       clk_mux_sel,
 input reg                             async_mux,
 input                                 diag_done,
-input                                 ok_iob
+input                                 ok_iob,
+input wire                            processor_offchip_noc1_valid,
+input wire [`NOC_DATA_WIDTH-1:0]      processor_offchip_noc1_data,
+output wire                           processor_offchip_noc1_yummy,
+input wire                            processor_offchip_noc2_valid,
+input wire [`NOC_DATA_WIDTH-1:0]      processor_offchip_noc2_data,
+output wire                           processor_offchip_noc2_yummy,
+input wire                            processor_offchip_noc3_valid,
+input wire [`NOC_DATA_WIDTH-1:0]      processor_offchip_noc3_data,
+output wire                           processor_offchip_noc3_yummy,
+
+output wire                           offchip_processor_noc1_valid,
+output wire [`NOC_DATA_WIDTH-1:0]     offchip_processor_noc1_data,
+input  wire                           offchip_processor_noc1_yummy,
+output wire                           offchip_processor_noc2_valid,
+output wire [`NOC_DATA_WIDTH-1:0]     offchip_processor_noc2_data,
+input  wire                           offchip_processor_noc2_yummy,
+output wire                           offchip_processor_noc3_valid,
+output wire [`NOC_DATA_WIDTH-1:0]     offchip_processor_noc3_data,
+input  wire                           offchip_processor_noc3_yummy
 `endif
 );
 
@@ -279,6 +298,7 @@ end
 // SYNTHESIZABLE CHIPSET
 ///////////////////////////////////////////////////////
 
+`ifndef VERILATOR
 wire processor_offchip_noc1_valid;
 wire [`NOC_DATA_WIDTH-1:0] processor_offchip_noc1_data;
 wire processor_offchip_noc1_yummy;
@@ -298,6 +318,7 @@ wire offchip_processor_noc2_yummy;
 wire offchip_processor_noc3_valid;
 wire [`NOC_DATA_WIDTH-1:0] offchip_processor_noc3_data;
 wire offchip_processor_noc3_yummy;
+`endif // VERILATOR
 
 chipset chipset(
 `ifndef VERILATOR

@@ -27,13 +27,40 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "Vmetro_tile.h"
 #include "verilated.h"
 #include <iostream>
+#define VERILATOR_VCD 1 
 #ifdef VERILATOR_VCD
 #include "verilated_vcd_c.h"
 #endif
+#include <iomanip>
+
+const int YUMMY_NOC_1 = 0;
+const int DATA_NOC_1  = 1;
+const int YUMMY_NOC_2 = 2;
+const int DATA_NOC_2  = 3;
+const int YUMMY_NOC_3 = 4;
+const int DATA_NOC_3  = 5;
 
 uint64_t main_time = 0; // Current simulation time
 uint64_t clk = 0;
 Vmetro_tile* top;
+int rank, dest, size;
+
+void initialize();
+
+// MPI Yummy functions
+unsigned short mpi_receive_yummy(int origin, int flag);
+
+void mpi_send_yummy(unsigned short message, int dest, int rank, int flag);
+// MPI data&Valid functions
+void mpi_send_data(unsigned long long data, unsigned char valid, int dest, int rank, int flag);
+
+unsigned long long mpi_receive_data(int origin, unsigned short* valid, int flag);
+int getRank();
+
+int getSize();
+
+void finalize();
+
 #ifdef VERILATOR_VCD
 VerilatedVcdC* tfp;
 #endif
@@ -58,6 +85,66 @@ void tick() {
     tfp->dump(main_time);
 #endif
 }
+
+void mpi_work_chipset() {
+
+    std::cout.precision(10);
+    if (top->out_W_noc1_valid | top->out_W_noc2_valid | top->out_W_noc3_valid ) {
+        std::cout << "Cycle " << std::setw(10) << sc_time_stamp() << std::endl;
+    }
+    // send data
+    mpi_send_data(top->out_W_noc1_data, top->out_W_noc1_valid, dest, rank, DATA_NOC_1);
+    // send yummy
+    mpi_send_yummy(top->out_W_noc1_yummy, dest, rank, YUMMY_NOC_1);
+
+    // send data
+    mpi_send_data(top->out_W_noc2_data, top->out_W_noc2_valid, dest, rank, DATA_NOC_2);
+    // send yummy
+    mpi_send_yummy(top->out_W_noc2_yummy, dest, rank, YUMMY_NOC_2);
+
+    // send data
+    mpi_send_data(top->out_W_noc3_data, top->out_W_noc3_valid, dest, rank, DATA_NOC_3);
+    // send yummy
+    mpi_send_yummy(top->out_W_noc3_yummy, dest, rank, YUMMY_NOC_3);
+
+    // receive data
+    unsigned short valid_aux;
+    top->in_W_noc1_data = mpi_receive_data(dest, &valid_aux, DATA_NOC_1);
+    top->in_W_noc1_valid = valid_aux;
+    // receive yummy
+    top->in_W_noc1_yummy = mpi_receive_yummy(dest, YUMMY_NOC_1);
+    
+    top->in_W_noc2_data = mpi_receive_data(dest, &valid_aux, DATA_NOC_2);
+    top->in_W_noc2_valid = valid_aux;
+    // receive yummy
+    top->in_W_noc2_yummy = mpi_receive_yummy(dest, YUMMY_NOC_2);
+
+    top->in_W_noc3_data = mpi_receive_data(dest, &valid_aux, DATA_NOC_3);
+    top->in_W_noc3_valid = valid_aux;
+    // receive yummy
+    top->in_W_noc3_yummy = mpi_receive_yummy(dest, YUMMY_NOC_3);
+}
+
+
+void mpi_tick() {
+    top->core_ref_clk = !top->core_ref_clk;
+    main_time += 250;
+    top->eval();
+    mpi_work_chipset();
+    // Do MPI
+    top->eval();
+#ifdef VERILATOR_VCD
+    tfp->dump(main_time);
+#endif
+    top->core_ref_clk = !top->core_ref_clk;
+    main_time += 250;
+    top->eval();
+#ifdef VERILATOR_VCD
+    tfp->dump(main_time);
+#endif
+}
+
+
 
 void reset_and_init() {
     
@@ -88,6 +175,45 @@ void reset_and_init() {
 //    jtag_datain = 1'b0;
 
     top->async_mux = 0;
+
+    top->in_N_noc1_data  = 0;
+    top->in_E_noc1_data  = 0;
+    top->in_W_noc1_data  = 0;
+    top->in_S_noc1_data  = 0;
+    top->in_N_noc1_valid = 0;
+    top->in_E_noc1_valid = 0;
+    top->in_W_noc1_valid = 0;
+    top->in_S_noc1_valid = 0;
+    top->in_N_noc1_yummy = 0;
+    top->in_E_noc1_yummy = 0;
+    top->in_W_noc1_yummy = 0;
+    top->in_S_noc1_yummy = 0;
+
+    top->in_N_noc2_data  = 0;
+    top->in_E_noc2_data  = 0;
+    top->in_W_noc2_data  = 0;
+    top->in_S_noc2_data  = 0;
+    top->in_N_noc2_valid = 0;
+    top->in_E_noc2_valid = 0;
+    top->in_W_noc2_valid = 0;
+    top->in_S_noc2_valid = 0;
+    top->in_N_noc2_yummy = 0;
+    top->in_E_noc2_yummy = 0;
+    top->in_W_noc2_yummy = 0;
+    top->in_S_noc2_yummy = 0;
+
+    top->in_N_noc3_data  = 0;
+    top->in_E_noc3_data  = 0;
+    top->in_W_noc3_data  = 0;
+    top->in_S_noc3_data  = 0;
+    top->in_N_noc3_valid = 0;
+    top->in_E_noc3_valid = 0;
+    top->in_W_noc3_valid = 0;
+    top->in_S_noc3_valid = 0;
+    top->in_N_noc3_yummy = 0;
+    top->in_E_noc3_yummy = 0;
+    top->in_W_noc3_yummy = 0;
+    top->in_S_noc3_yummy = 0;
 
     //init_jbus_model_call((char *) "mem.image", 0);
 
@@ -135,29 +261,47 @@ void reset_and_init() {
 }
 
 int main(int argc, char **argv, char **env) {
-std::cout << "Started" << std::endl << std::flush;
-Verilated::commandArgs(argc, argv);
-top = new Vmetro_tile;
-std::cout << "Vmetro_tile created" << std::endl << std::flush;
+    std::cout << "Started" << std::endl << std::flush;
+    Verilated::commandArgs(argc, argv);
+    top = new Vmetro_tile;
+    std::cout << "Vmetro_tile created" << std::endl << std::flush;
 
 #ifdef VERILATOR_VCD
-Verilated::traceEverOn(true);
-tfp = new VerilatedVcdC;
-top->trace (tfp, 99);
-tfp->open ("my_top.vcd");
+    Verilated::traceEverOn(true);
+    tfp = new VerilatedVcdC;
+    top->trace (tfp, 99);
+    tfp->open ("my_metro_tile.vcd");
 
-Verilated::debug(1);
+    Verilated::debug(1);
 #endif
 
-reset_and_init();
+    // MPI work 
+    initialize();
+    rank = getRank();
+    size = getSize();
+    std::cout << "TILE size: " << size << ", rank: " << rank <<  std::endl;
+    if (rank==0) {
+        dest = 1;
+    } else {
+        dest = 0;
+    }
 
-while (!Verilated::gotFinish()) { tick(); }
+    reset_and_init();
 
-#ifdef VERILATOR_VCD
-std::cout << "Trace done" << std::endl;
-tfp->close();
-#endif
+    for (int i = 0; i < 100000; i++) {
+        mpi_tick();
+    }
+    /*while (!Verilated::gotFinish()) { 
+        mpi_tick();
+    }*/
 
-delete top;
-exit(0);
+    #ifdef VERILATOR_VCD
+    std::cout << "Trace done" << std::endl;
+    tfp->close();
+    #endif
+
+    finalize();
+
+    delete top;
+    exit(0);
 }
