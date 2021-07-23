@@ -1538,7 +1538,7 @@ sub generic_sim_build
     }
 	
     if ($opt{vlt_build}) {
-      $build_cmd = "verilator -j 2 -cc -trace  " ;
+      $build_cmd = "verilator -j 2 -cc -trace -build " ;
       foreach my $top_n (@{$opt{toplevel}}) {
         $build_cmd .= "-exe $dv_root/tools/verilator/my_$top_n.cpp " ;
       }
@@ -1567,6 +1567,10 @@ sub generic_sim_build
         $build_cmd .= "-CFLAGS -I$dv_root/tools/pli/iop " ;
       }
       $build_cmd .= "-CFLAGS -I$dv_root/tools/verilator " ;
+      
+      if ($opt{sys} eq "metro_tile" || $opt{sys} eq "metro_chipset") {
+        $build_cmd .= "-MAKEFLAGS CXX=mpic++ -MAKEFLAGS LINK=mpic++ " ;
+      }
     }
     if ($opt{other_sim_build}) {
       if (($opt{other_sim_build_cmd}) eq "") {
@@ -1848,11 +1852,19 @@ if ($opt{riv_run}) {
 
     if ($opt{vlt_run}) {
 
-      foreach my $top_n (@{$opt{toplevel}}) {
-        $cmd .= "$model_path/obj_dir/V$top_n " ;
+      if ($opt{sys} eq "metro_chipset") {
+        $cmd .= "mpirun -np 1 -output-filename logfile ./metro_chipset/rel-0.1/obj_dir/Vmetro_chipset " ;
+        $cmd .= " " ;
+        $cmd .= join (" ", @{$opt{sim_run_args}}) ;
+        $cmd .= " : -np 1 -output-filename logfile ./metro_tile/rel-0.1/obj_dir/Vmetro_tile" ;
       }
-      $cmd .= " " ;
-      $cmd .= join (" ", @{$opt{sim_run_args}}) ;
+      else {
+        foreach my $top_n (@{$opt{toplevel}}) {
+          $cmd .= "$model_path/obj_dir/V$top_n " ;
+        }
+        $cmd .= " " ;
+        $cmd .= join (" ", @{$opt{sim_run_args}}) ;
+      }
     }
 
     if ($opt{other_sim_run}) {
