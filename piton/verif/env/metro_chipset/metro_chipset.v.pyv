@@ -34,6 +34,28 @@
     from pyhplib import *
 %>
 
+<%
+DMBR_BIN_NUM = 10
+import pyhplib
+from riscvlib import *
+import os
+from pyhplib import *
+import riscvlib
+import time
+
+if PITON_ARIANE:
+  devices = pyhplib.ReadDevicesXMLFile()
+
+  # just use a default frequency for device tree generation if not defined
+  sysFreq = 50000000
+  if 'CONFIG_SYS_FREQ' in os.environ:
+    sysFreq = int(os.environ['CONFIG_SYS_FREQ'])
+
+  timeStamp = time.strftime("%b %d %Y %H:%M:%S", time.localtime())
+  gen_riscv_dts(devices, X_TILES*Y_TILES, sysFreq, sysFreq/128, sysFreq, os.environ['ARIANE_ROOT']+"/openpiton/bootrom/", timeStamp)
+  get_bootrom_info(devices, X_TILES*Y_TILES, sysFreq, sysFreq/128, sysFreq, os.environ['ARIANE_ROOT']+"/openpiton/bootrom/", timeStamp)
+%>
+
 `ifdef PITON_DPI
 import "DPI-C" function longint read_64b_call (input longint addr);
 import "DPI-C" function void write_64b_call (input longint addr, input longint data);
@@ -41,6 +63,7 @@ import "DPI-C" function int drive_iob ();
 import "DPI-C" function int get_cpx_word (int index);
 import "DPI-C" function void report_pc (longint thread_pc);
 import "DPI-C" function void init_jbus_model_call(string str, int oram);
+//add metro_stuff
 `endif
 
 `timescale 1ps/1ps
@@ -241,9 +264,11 @@ begin
 `else // ifndef PITON_DPI
         init_jbus_model_call("mem.image", 1);
 `endif // ifndef PITON_DPI
+`ifndef METRO_CHIPSET
 `ifndef __ICARUS__
         force system.chip.ctap_oram_clk_en = 1'b1;
 `endif
+`endif //METRO_CHIPSET
     end
     else
     begin
@@ -283,6 +308,8 @@ begin
     cmp_top.system.chipset.chipset_impl.ciop_fake_iob.ok_iob = 1'b1;
 `endif // endif PITONSYS_IOCTRL
 `endif // ifndef METRO_CHIPSET
+
+//add stuff
 end
 `endif
 
@@ -451,10 +478,12 @@ chipset chipset(
     // The only thing that we will "slam init" is the integer register file
     //  and it is randomized. For some reason if we left it as X's some tests will fail
 
+`ifndef METRO_CHIPSET
 `ifndef VERILATOR
     // T1's TSO monitor, stripped of all L2 references
     tso_mon tso_mon(`CHIP_INT_CLK, `CHIP.rst_n_inter_sync);
 `endif
+`endif //METRO_CHIPSET
 
 `ifndef METRO_CHIPSET
     // L15 MONITORS

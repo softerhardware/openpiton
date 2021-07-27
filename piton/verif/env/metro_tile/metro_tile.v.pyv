@@ -303,9 +303,11 @@ begin
 `else // ifndef PITON_DPI
         init_jbus_model_call("mem.image", 1);
 `endif // ifndef PITON_DPI
+//`ifndef METRO_TILE
 `ifndef __ICARUS__
         force system.chip.ctap_oram_clk_en = 1'b1;
 `endif
+//`endif //METRO_TILE
     end
     else
     begin
@@ -568,10 +570,12 @@ tile0 (
     // The only thing that we will "slam init" is the integer register file
     //  and it is randomized. For some reason if we left it as X's some tests will fail
 
+//`ifndef METRO_TILE
 `ifndef VERILATOR
     // T1's TSO monitor, stripped of all L2 references
     tso_mon tso_mon(`CHIP_INT_CLK, `CHIP.rst_n_inter_sync);
 `endif
+//`endif //METRO_TILE
 
     // L15 MONITORS
     cmp_l15_messages_mon l15_messages_mon(
