@@ -1856,7 +1856,7 @@ if ($opt{riv_run}) {
         $cmd .= "mpirun -np 1 -output-filename logfile ./metro_chipset/rel-0.1/obj_dir/Vmetro_chipset " ;
         $cmd .= " " ;
         $cmd .= join (" ", @{$opt{sim_run_args}}) ;
-        $cmd .= " : -np 1 -output-filename logfile ./metro_tile/rel-0.1/obj_dir/Vmetro_tile" ;
+        $cmd .= " : -np 1 -output-filename logfile ./metro_tile/rel-0.1/obj_dir/Vmetro_tile $opt{x_tiles} $opt{y_tiles}" ;
       }
       else {
         foreach my $top_n (@{$opt{toplevel}}) {

@@ -27,7 +27,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "Vmetro_tile.h"
 #include "verilated.h"
 #include <iostream>
-#define VERILATOR_VCD 1 
+//#define VERILATOR_VCD 1 
 #ifdef VERILATOR_VCD
 #include "verilated_vcd_c.h"
 #endif
@@ -44,6 +44,8 @@ uint64_t main_time = 0; // Current simulation time
 uint64_t clk = 0;
 Vmetro_tile* top;
 int rank, dest, size;
+int rankN, rankS, rankW, rankE;
+int tile_x, tile_y;//, PITON_X_TILES, PITON_Y_TILES;
 
 void initialize();
 
@@ -71,6 +73,58 @@ return main_time; // converts to double, to match
 // what SystemC does
 }
 
+int get_rank_fromXY(int x, int y) {
+    return (x)+((PITON_X_TILES)*y);
+}
+
+// MPI ID funcitons
+int getDimX () {
+    if (rank==0) // Should never happen
+        return 0;
+    else
+        return (rank-1)%PITON_X_TILES;
+}
+
+int getDimY () {
+    if (rank==0) // Should never happen
+        return 0;
+    else
+        return (rank-1)/PITON_Y_TILES;
+}
+
+int getRankN () {
+    if (tile_y == 0)
+        return -1;
+    else
+        return get_rank_fromXY(tile_x, tile_y-1);
+}
+
+int getRankS () {
+    if (tile_y+1 == PITON_Y_TILES)
+        return -1;
+    else
+        return get_rank_fromXY(tile_x, tile_y+1);
+}
+
+int getRankE () {
+    if (tile_x+1 == PITON_X_TILES)
+        return -1;
+    else
+        return get_rank_fromXY(tile_x+1, tile_y);
+}
+
+int getRankW () {
+    if (rank==1) { // go to chipset
+        return 0;
+    }
+    else if (tile_x == 0) {
+        return -1;
+    }
+    else {
+        return get_rank_fromXY(tile_x-1, tile_y);
+    }
+}
+
 void tick() {
     top->core_ref_clk = !top->core_ref_clk;
     main_time += 250;
@@ -88,10 +142,10 @@ void tick() {
 
 void mpi_work_chipset() {
 
-    std::cout.precision(10);
+    /*std::cout.precision(10);
     if (top->out_W_noc1_valid | top->out_W_noc2_valid | top->out_W_noc3_valid ) {
         std::cout << "Cycle " << std::setw(10) << sc_time_stamp() << std::endl;
-    }
+    }*/
     // send data
     mpi_send_data(top->out_W_noc1_data, top->out_W_noc1_valid, dest, rank, DATA_NOC_1);
     // send yummy
@@ -263,6 +317,10 @@ void reset_and_init() {
 int main(int argc, char **argv, char **env) {
     std::cout << "Started" << std::endl << std::flush;
     Verilated::commandArgs(argc, argv);
+    if (argc != 2) {
+        std::cerr << "Usage ./VMetro_tile num_tiles_x num_tiles_y"
+    }
+    PITON_X_TILES 
     top = new Vmetro_tile;
     std::cout << "Vmetro_tile created" << std::endl << std::flush;
 
@@ -285,10 +343,23 @@ int main(int argc, char **argv, char **env) {
     } else {
         dest = 0;
     }
+    tile_x = getDimX();
+    tile_y = getDimY();
+    rankN  = getRankN();
+    rankS  = getRankS();
+    rankW  = getRankW();
+    rankE  = getRankE();
+
+    std::cout << "tile_y: " << tile_y << std::endl;
+    std::cout << "tile_x: " << tile_x << std::endl;
+    std::cout << "rankN: " << rankN << std::endl;
+    std::cout << "rankS: " << rankS << std::endl;
+    std::cout << "rankW: " << rankW << std::endl;
+    std::cout << "rankE: " << rankE << std::endl;
 
     reset_and_init();
 
-    for (int i = 0; i < 100000; i++) {
+    for (int i = 0; i < 200000; i++) {
         mpi_tick();
     }
     /*while (!Verilated::gotFinish()) { 

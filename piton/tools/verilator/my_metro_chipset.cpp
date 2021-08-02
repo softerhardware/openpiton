@@ -27,7 +27,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "Vmetro_chipset.h"
 #include "verilated.h"
 #include <iostream>
-#define VERILATOR_VCD 1
+//#define VERILATOR_VCD 1
 #ifdef VERILATOR_VCD
 #include "verilated_vcd_c.h"
 #endif
@@ -87,10 +87,10 @@ void tick() {
 }
 
 void mpi_work_chipset() {
-    std::cout.precision(10); 
+    /*std::cout.precision(10); 
     if (top->offchip_processor_noc1_valid | top->offchip_processor_noc2_valid | top->offchip_processor_noc3_valid) {
         std::cout << "Cycle " << std::setw(10) <<  sc_time_stamp() << std::endl;
-    }
+    }*/
     // send data
     mpi_send_data(top->offchip_processor_noc1_data, top->offchip_processor_noc1_valid, dest, rank, DATA_NOC_1);
     // send yummy
@@ -258,7 +258,7 @@ int main(int argc, char **argv, char **env) {
 
     reset_and_init();
 
-    for (int i = 0; i < 100000; i++) {
+    for (int i = 0; i < 200000; i++) {
         mpi_tick();
     }
     /*while (!Verilated::gotFinish()) { 
