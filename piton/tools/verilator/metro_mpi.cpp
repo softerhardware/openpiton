@@ -64,7 +64,7 @@ void mpi_send_data(unsigned long long data, unsigned char valid, int dest, int r
     /*if (valid) {
         cout << flag << " [DPI CPP] Sending DATA valid: " << flag << " " << std::hex << (int)message.valid << " data: " << std::hex << message.data << " to " << dest << endl;
     }*/
-    MPI_Send(&message, message_len, mpi_data_type, dest, 0, MPI_COMM_WORLD);
+    MPI_Send(&message, message_len, mpi_data_type, dest, flag, MPI_COMM_WORLD);
 }
 
 unsigned long long mpi_receive_data(int origin, unsigned short* valid, int flag){
@@ -72,7 +72,7 @@ unsigned long long mpi_receive_data(int origin, unsigned short* valid, int flag)
     MPI_Status status;
     mpi_data_t message;
     //cout << flag << " [DPI CPP] Blocking Receive data rank: " << origin << endl << std::flush;
-    MPI_Recv(&message, message_len, mpi_data_type, origin, 0, MPI_COMM_WORLD, &status);
+    MPI_Recv(&message, message_len, mpi_data_type, origin, flag, MPI_COMM_WORLD, &status);
     /*if (message.valid) {
         cout << flag << " [DPI CPP] Data Message received: " << (short) message.valid << " " << std::hex << message.data << endl << std::flush;
     }*/

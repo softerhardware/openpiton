@@ -199,6 +199,12 @@ void reset_and_init() {
     top->pll_rst_n = 1;
 
     std::cout << "Before second ticks" << std::endl << std::flush;
+//    // Wait for PLL lock
+//    wait( pll_lock == 1'b1 );
+    //while (!top->pll_lock) {
+    //    tick();
+    //}
+
     std::cout << "Before third ticks" << std::endl << std::flush;
 //    // After 10 cycles turn on chip-level clock enable
 //    repeat(10)@(posedge `CHIP_INT_CLK);
@@ -258,12 +264,14 @@ int main(int argc, char **argv, char **env) {
 
     reset_and_init();
 
-    for (int i = 0; i < 200000; i++) {
+    for (int i = 0; i < 350000; i++) {
         mpi_tick();
     }
     /*while (!Verilated::gotFinish()) { 
         mpi_tick();
     }*/
+
+    std::cout << std::setprecision(10) << sc_time_stamp() << std::endl;
 
     #ifdef VERILATOR_VCD
     std::cout << "Trace done" << std::endl;
