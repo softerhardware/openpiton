@@ -471,9 +471,10 @@ int main(int argc, char **argv, char **env) {
     std::cout << "rankW: " << rankW << std::endl;
     std::cout << "rankE: " << rankE << std::endl;
 
-    top->default_chipid = rank-1;
+    top->default_chipid = 0;
     top->default_coreid_x = tile_x;
     top->default_coreid_y = tile_y;
+    top->flat_tileid = rank-1;
 
     reset_and_init();
 
