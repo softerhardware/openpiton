@@ -77,6 +77,11 @@ input reg                             async_mux,
 input                                 diag_done,
 input                                 ok_iob,
 
+input wire [13:0]                     default_chipid,
+input wire [7:0]                      default_coreid_x,
+input wire [7:0]                      default_coreid_y,
+input wire [`JTAG_FLATID_WIDTH-1:0]   flat_tileid,
+
 input wire [`NOC_DATA_WIDTH-1:0] in_N_noc1_data,
 input wire [`NOC_DATA_WIDTH-1:0] in_E_noc1_data,
 input wire [`NOC_DATA_WIDTH-1:0] in_W_noc1_data,
@@ -581,10 +586,10 @@ tile0 (
     .clk                (core_ref_clk),
     .rst_n              (sys_rst_n),
     .clk_en             (clk_en),
-    .default_chipid     (14'b0),    // the first chip
-    .default_coreid_x   (8'b0),
-    .default_coreid_y   (8'b0),
-    .flat_tileid        (`JTAG_FLATID_WIDTH'd0),
+    .default_chipid     (default_chipid),    // the first chip
+    .default_coreid_x   (default_coreid_x),
+    .default_coreid_y   (default_coreid_y),
+    .flat_tileid        (flat_tileid),
 `ifdef PITON_ARIANE
     .debug_req_i        ( 1'b0 ),
     .unavailable_o      (      ),

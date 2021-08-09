@@ -1543,7 +1543,9 @@ sub generic_sim_build
         $build_cmd .= "-exe $dv_root/tools/verilator/my_$top_n.cpp " ;
       }
       # improvable
-      $build_cmd .= "$dv_root/tools/verilator/metro_mpi.cpp ";
+      if ($opt{sys} eq "metro_tile" || $opt{sys} eq "metro_chipset") {
+        $build_cmd .= "$dv_root/tools/verilator/metro_mpi.cpp ";
+      }
       if ($opt{sys} ne "metro_tile") {
         $build_cmd .= "$dv_root/tools/pli/iop/b_ary.c " ;
         $build_cmd .= "$dv_root/tools/pli/iop/bw_lib.c " ;
@@ -1570,6 +1572,8 @@ sub generic_sim_build
       
       if ($opt{sys} eq "metro_tile" || $opt{sys} eq "metro_chipset") {
         $build_cmd .= "-MAKEFLAGS CXX=mpic++ -MAKEFLAGS LINK=mpic++ " ;
+        $build_cmd .= "-CFLAGS -DX_TILES=$opt{x_tiles} " ;
+        $build_cmd .= "-CFLAGS -DY_TILES=$opt{y_tiles} " ;
       }
     }
     if ($opt{other_sim_build}) {
@@ -1860,10 +1864,12 @@ if ($opt{riv_run}) {
     if ($opt{vlt_run}) {
 
       if ($opt{sys} eq "metro_chipset") {
-        $cmd .= "mpirun -np 1 -output-filename logfile ./metro_chipset/rel-0.1/obj_dir/Vmetro_chipset " ;
+        $cmd .= "mpirun -np 1 --oversubscribe --output-filename filename ./metro_chipset/rel-0.1/obj_dir/Vmetro_chipset " ;
         $cmd .= " " ;
         $cmd .= join (" ", @{$opt{sim_run_args}}) ;
-        $cmd .= " : -np 1 -output-filename logfile ./metro_tile/rel-0.1/obj_dir/Vmetro_tile" ;
+        $cmd .= " : -np $ENV{PITON_NUM_TILES} --oversubscribe --output-filename filename ./metro_tile/rel-0.1/obj_dir/Vmetro_tile ";
+        #$cmd .= " " ;
+        #$cmd .= join (" ", @{$opt{sim_run_args}}) ;
       }
       else {
         foreach my $top_n (@{$opt{toplevel}}) {
