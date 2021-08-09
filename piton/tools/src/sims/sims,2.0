@@ -1735,9 +1735,16 @@ sub generic_sim_run
 
     # run the command
     if ($opt{vcs_run}) {
-      $cmd .= "collect " if ($opt{vcs_prof}) ;
-      $cmd .= "$model_path/simv " ;
-      $cmd .= join (" ", @{$opt{sim_run_args}}) ;
+      if ($opt{sys} eq "metro_chipset") {
+        $cmd .= "mpirun -np 1 -output-filename logfile ./metro_chipset/rel-0.1/simv " ;
+        $cmd .= " " ;
+        $cmd .= join (" ", @{$opt{sim_run_args}}) ;
+        $cmd .= " : -np 1 -output-filename logfile ./metro_tile/rel-0.1/simv" ;
+      } else {
+        $cmd .= "collect " if ($opt{vcs_prof}) ;
+        $cmd .= "$model_path/simv " ;
+        $cmd .= join (" ", @{$opt{sim_run_args}}) ;
+      }
     }
 
     if ($opt{ncv_run}) {
