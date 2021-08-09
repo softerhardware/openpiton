@@ -247,6 +247,8 @@ int DATA_NOC_3  ;
 `ifndef VERILATOR
 initial
 begin
+    $dumpfile("metro_chipset.vcd");
+    $dumpvars(0, metro_chipset);
 
     YUMMY_NOC_1 = 0;
     DATA_NOC_1  = 1;
@@ -395,7 +397,7 @@ begin
 
 // send data
 $display("CHIPSET INITIALIZED");
-for(int i = 0; i < 10000; i = i + 1)
+for(int i = 0; i < 100000; i = i + 1)
 begin
     #250;
 // send data
@@ -450,11 +452,7 @@ end
 
 
 chipset chipset(
-`ifndef VERILATOR
-    .chipset_clk(chipset_clk),
-`else
     .chipset_clk(core_ref_clk),
-`endif
 
     .rst_n(sys_rst_n),
 
