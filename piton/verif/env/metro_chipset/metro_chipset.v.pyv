@@ -399,7 +399,7 @@ begin
 
 // send data
 $display("CHIPSET INITIALIZED");
-for(int i = 0; i < 100000; i = i + 1)
+for(int i = 0; i < 350000; i = i + 1)
 begin
     #250;
 // send data
@@ -437,6 +437,7 @@ begin
 end
 $display("Trace done: METRO_CHIPSET");
 finalize();
+$finish;
 end
 `endif
 
