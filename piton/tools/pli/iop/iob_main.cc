@@ -85,7 +85,6 @@ void init_jbus_model_call(){
 #endif // ifndef PITON_DPI
   int   idx;
 #ifndef PITON_DPI
-  printf("Hello\n");
   set_random();
 
   str       = tf_getcstringp(1);  // a get file name.
