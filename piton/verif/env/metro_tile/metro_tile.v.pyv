@@ -378,7 +378,7 @@ begin
 
     //metro initialization
     initialize();
-    barrier();
+    //barrier();
     rank = getRank();
     size = getSize();
     filerank.itoa(rank);
@@ -624,13 +624,13 @@ $display("rankS: %d",rankS);
 $display("rankW: %d",rankW);
 $display("rankE: %d",rankE);
 
-
+@(posedge core_ref_clk);
 for(int i = 0; i < 350000; i = i + 1)
 begin
     if (i % 10000 == 0) begin
         $display("TIME: %d", i);
     end
-    #250;
+    #500;
     if(rankN != -1) begin
         //SENDING
         //$display("sending N");
@@ -770,7 +770,7 @@ begin
         // receive yummy
         in_W_noc3_yummy = mpi_receive_yummy(rankW, YUMMY_NOC_3);
     end
-    #250;
+    #500;
 end
 
 $display("Trace done: METRO_TILE_%d",rank);

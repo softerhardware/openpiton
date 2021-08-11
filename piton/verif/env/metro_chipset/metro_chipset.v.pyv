@@ -261,7 +261,7 @@ begin
 
     //metro initialization
     initialize();
-    barrier();
+    //barrier();
     rank = getRank();
     size = getSize();
     $display("METRO_CHIPSET INITIALIZING...");
@@ -399,9 +399,10 @@ begin
 
 // send data
 $display("CHIPSET INITIALIZED");
+@(posedge core_ref_clk);
 for(int i = 0; i < 350000; i = i + 1)
 begin
-    #250;
+    #500;
 // send data
     //$display("sending_chipset");
     mpi_send_data(offchip_processor_noc1_data, offchip_processor_noc1_valid, dest, rank, DATA_NOC_1);
@@ -433,7 +434,7 @@ begin
     processor_offchip_noc3_valid = valid_aux;
     // receive yummy
     offchip_processor_noc3_yummy = mpi_receive_yummy(dest, YUMMY_NOC_3);
-    #250;
+    #500;
 end
 $display("Trace done: METRO_CHIPSET");
 finalize();
