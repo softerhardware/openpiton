@@ -35,13 +35,30 @@
 %>
 
 `ifdef PITON_DPI
-//import "DPI-C" function longint read_64b_call (input longint addr);
-//import "DPI-C" function void write_64b_call (input longint addr, input longint data);
-//import "DPI-C" function int drive_iob ();
-//import "DPI-C" function int get_cpx_word (int index);
-//import "DPI-C" function void report_pc (longint thread_pc);
-//import "DPI-C" function void init_jbus_model_call(string str, int oram);
-`endif
+import "DPI-C" function longint read_64b_call (input longint addr);
+import "DPI-C" function void write_64b_call (input longint addr, input longint data);
+import "DPI-C" function int drive_iob ();
+import "DPI-C" function int get_cpx_word (int index);
+import "DPI-C" function void report_pc (longint thread_pc);
+import "DPI-C" function void init_jbus_model_call(string str, int oram);
+
+`ifndef VERILATOR
+// MPI Yummy functions
+import "DPI-C" function void initialize();
+import "DPI-C" function void finalize();
+import "DPI-C" function int getRank();
+import "DPI-C" function int getSize();
+
+import "DPI-C" function void mpi_send_yummy(input byte unsigned message, input int dest, input int rank, input int flag);
+import "DPI-C" function byte unsigned mpi_receive_yummy(input int origin, input int flag);
+
+import "DPI-C" function longint unsigned mpi_receive_data(input int origin, output byte unsigned valid, input int flag);
+import "DPI-C" function void mpi_send_data(input longint unsigned data, input byte unsigned valid, input int dest, input int rank, input int flag);
+
+import "DPI-C" function void barrier();
+//add metro_stuff
+`endif // ifndef VERILATOR
+`endif // ifdef PITON_DPI
 
 `timescale 1ps/1ps
 module metro_tile (
@@ -61,6 +78,11 @@ input reg [1:0]                       clk_mux_sel,
 input reg                             async_mux,
 input                                 diag_done,
 input                                 ok_iob,
+
+input wire [13:0]                     default_chipid,
+input wire [7:0]                      default_coreid_x,
+input wire [7:0]                      default_coreid_y,
+input wire [`JTAG_FLATID_WIDTH-1:0]   flat_tileid,
 
 input wire [`NOC_DATA_WIDTH-1:0] in_N_noc1_data,
 input wire [`NOC_DATA_WIDTH-1:0] in_E_noc1_data,
@@ -192,6 +214,93 @@ reg                             fail_flag;
 reg [3:0]                       stub_done;
 reg [3:0]                       stub_pass;
 
+`ifndef VERILATOR
+reg [`NOC_DATA_WIDTH-1:0] in_N_noc1_data;
+reg [`NOC_DATA_WIDTH-1:0] in_E_noc1_data;
+reg [`NOC_DATA_WIDTH-1:0] in_W_noc1_data;
+reg [`NOC_DATA_WIDTH-1:0] in_S_noc1_data;
+reg                       in_N_noc1_valid;
+reg                       in_E_noc1_valid;
+reg                       in_W_noc1_valid;
+reg                       in_S_noc1_valid;
+reg                       in_N_noc1_yummy;
+reg                       in_E_noc1_yummy;
+reg                       in_W_noc1_yummy;
+reg                       in_S_noc1_yummy;
+
+reg [`NOC_DATA_WIDTH-1:0] out_N_noc1_data;
+reg [`NOC_DATA_WIDTH-1:0] out_E_noc1_data;
+reg [`NOC_DATA_WIDTH-1:0] out_W_noc1_data;
+reg [`NOC_DATA_WIDTH-1:0] out_S_noc1_data;
+reg                       out_N_noc1_valid;
+reg                       out_E_noc1_valid;
+reg                       out_W_noc1_valid;
+reg                       out_S_noc1_valid;
+reg                       out_N_noc1_yummy;
+reg                       out_E_noc1_yummy;
+reg                       out_W_noc1_yummy;
+reg                       out_S_noc1_yummy;
+
+reg [`NOC_DATA_WIDTH-1:0] in_N_noc2_data;
+reg [`NOC_DATA_WIDTH-1:0] in_E_noc2_data;
+reg [`NOC_DATA_WIDTH-1:0] in_W_noc2_data;
+reg [`NOC_DATA_WIDTH-1:0] in_S_noc2_data;
+reg                       in_N_noc2_valid;
+reg                       in_E_noc2_valid;
+reg                       in_W_noc2_valid;
+reg                       in_S_noc2_valid;
+reg                       in_N_noc2_yummy;
+reg                       in_E_noc2_yummy;
+reg                       in_W_noc2_yummy;
+reg                       in_S_noc2_yummy;
+
+reg [`NOC_DATA_WIDTH-1:0] out_N_noc2_data;
+reg [`NOC_DATA_WIDTH-1:0] out_E_noc2_data;
+reg [`NOC_DATA_WIDTH-1:0] out_W_noc2_data;
+reg [`NOC_DATA_WIDTH-1:0] out_S_noc2_data;
+reg                       out_N_noc2_valid;
+reg                       out_E_noc2_valid;
+reg                       out_W_noc2_valid;
+reg                       out_S_noc2_valid;
+reg                       out_N_noc2_yummy;
+reg                       out_E_noc2_yummy;
+reg                       out_W_noc2_yummy;
+reg                       out_S_noc2_yummy;
+
+reg [`NOC_DATA_WIDTH-1:0] in_N_noc3_data;
+reg [`NOC_DATA_WIDTH-1:0] in_E_noc3_data;
+reg [`NOC_DATA_WIDTH-1:0] in_W_noc3_data;
+reg [`NOC_DATA_WIDTH-1:0] in_S_noc3_data;
+reg                       in_N_noc3_valid;
+reg                       in_E_noc3_valid;
+reg                       in_W_noc3_valid;
+reg                       in_S_noc3_valid;
+reg                       in_N_noc3_yummy;
+reg                       in_E_noc3_yummy;
+reg                       in_W_noc3_yummy;
+reg                       in_S_noc3_yummy;
+
+reg [`NOC_DATA_WIDTH-1:0] out_N_noc3_data;
+reg [`NOC_DATA_WIDTH-1:0] out_E_noc3_data;
+reg [`NOC_DATA_WIDTH-1:0] out_W_noc3_data;
+reg [`NOC_DATA_WIDTH-1:0] out_S_noc3_data;
+reg                       out_N_noc3_valid;
+reg                       out_E_noc3_valid;
+reg                       out_W_noc3_valid;
+reg                       out_S_noc3_valid;
+reg                       out_N_noc3_yummy;
+reg                       out_E_noc3_yummy;
+reg                       out_W_noc3_yummy;
+reg                       out_S_noc3_yummy;
+
+reg [13:0]                     default_chipid = 14'b0;
+reg [7:0]                      default_coreid_x = 8'b0;
+reg [7:0]                      default_coreid_y = 8'b0;
+reg [`JTAG_FLATID_WIDTH-1:0]   flat_tileid = `JTAG_FLATID_WIDTH'b0;
+
+`endif // ifndef VERILATOR
+
+
 ////////////////////
 // Simulated Clocks
 ////////////////////
@@ -235,9 +344,126 @@ always #25000 spi_sys_clk = ~spi_sys_clk;                       // 20MHz
 // SIMULATED BOOT SEQUENCE
 ////////////////////////////////////////////////////////
 
+int           rank; 
+int           size; 
+int           dest;
+byte unsigned valid_aux;
+
+int           tile_x; 
+int           tile_y;
+int           rankN; 
+int           rankE; 
+int           rankS; 
+int           rankW;
+
+
+int YUMMY_NOC_1 ;
+int DATA_NOC_1  ;
+int YUMMY_NOC_2 ;
+int DATA_NOC_2  ;
+int YUMMY_NOC_3 ;
+int DATA_NOC_3  ;
+
 `ifndef VERILATOR
 initial
 begin
+    string filerank;
+
+    YUMMY_NOC_1 = 0;
+    DATA_NOC_1  = 1;
+    YUMMY_NOC_2 = 2;
+    DATA_NOC_2  = 3;
+    YUMMY_NOC_3 = 4;
+    DATA_NOC_3  = 5;
+
+    //metro initialization
+    initialize();
+    //barrier();
+    rank = getRank();
+    size = getSize();
+    filerank.itoa(rank);
+    $dumpfile({"metro_tile_",filerank,".vcd"});
+    $dumpvars(0, metro_tile);
+
+    $display("METRO_TILE INITIALIZING...");
+    $display("size: %d", size);
+    $display("rank: %d", rank);
+    if (rank==0) begin
+            dest = 1;
+    end else begin
+            dest = 0;
+    end
+
+    //Guillem's functions that I'm hardcoding in
+    //int get_rank_fromXY(int x, int y) { return 1 + ((x)+((`PITON_X_TILES)*y));}
+    //int getRankN () {
+    //if (tile_y == 0)
+    //    return -1;
+    //else
+    //    return get_rank_fromXY(tile_x, tile_y-1);
+    //}
+    //int getRankS () {
+    //    if (tile_y+1 == `PITON_Y_TILES)
+    //        return -1;
+    //    else
+    //        return get_rank_fromXY(tile_x, tile_y+1);
+    //}
+    //int getRankE () {
+    //    if (tile_x+1 == `PITON_X_TILES)
+    //        return -1;
+    //    else
+    //        return get_rank_fromXY(tile_x+1, tile_y);
+    //}
+    //int getRankW () {
+    //    if (rank==1) { // go to chipset
+    //        return 0;
+    //    }
+    //    else if (tile_x == 0) {
+    //        return -1;
+    //    }
+    //    else {
+    //        return get_rank_fromXY(tile_x-1, tile_y);
+    //    }
+    //}
+
+    tile_x = (rank-1)%`PITON_X_TILES;
+    tile_y = (rank-1)/`PITON_X_TILES;
+
+    //rankN
+    if (tile_y == 0) begin
+        rankN = -1;
+    end else begin
+        rankN = 1 + ((tile_x)+((`PITON_X_TILES)*(tile_y-1)));
+    end
+    
+    //rankE
+    if (tile_x+1 == `PITON_X_TILES) begin
+        rankE = -1;
+    end else begin
+        rankE = 1 + ((tile_x+1)+((`PITON_X_TILES)*tile_y));
+    end
+
+    //rankS
+    if (tile_y+1 == `PITON_Y_TILES) begin
+        rankS = -1;
+    end else begin
+        rankS = 1 + ((tile_x)+((`PITON_X_TILES)*(tile_y+1)));
+    end
+
+    //rankW
+    if (rank==1) begin
+        rankW = 0;
+    end else if (tile_x == 0) begin
+        rankW = -1;
+    end else begin
+        rankW = 1 + ((tile_x-1)+((`PITON_X_TILES)*tile_y));
+    end
+
+    default_chipid   = 14'b0;
+    default_coreid_x = tile_x;
+    default_coreid_y = tile_y;
+    flat_tileid = rank-1;
+
     // These are not referenced elsewhere in this module,
     // but are cross referenced from monitor.v.pyv.  Do not
     // delete
@@ -295,6 +521,7 @@ begin
     async_mux = 1'b0;
 `endif
 
+`ifndef METRO_TILE
     // Init JBUS model plus some ORAM stuff
     if ($test$plusargs("oram"))
     begin
@@ -312,10 +539,50 @@ begin
 `ifndef PITON_DPI
         $init_jbus_model("mem.image", 0);
 `else // ifndef PITON_DPI
+        $display("init_jbus_model_call");
         init_jbus_model_call("mem.image", 0);
 `endif // ifndef PITON_DPI
     end
+`endif //METRO_TILE
 
+    in_N_noc1_data  = 0;
+    in_E_noc1_data  = 0;
+    in_W_noc1_data  = 0;
+    in_S_noc1_data  = 0;
+    in_N_noc1_valid = 0;
+    in_E_noc1_valid = 0;
+    in_W_noc1_valid = 0;
+    in_S_noc1_valid = 0;
+    in_N_noc1_yummy = 0;
+    in_E_noc1_yummy = 0;
+    in_W_noc1_yummy = 0;
+    in_S_noc1_yummy = 0;
+
+    in_N_noc2_data  = 0;
+    in_E_noc2_data  = 0;
+    in_W_noc2_data  = 0;
+    in_S_noc2_data  = 0;
+    in_N_noc2_valid = 0;
+    in_E_noc2_valid = 0;
+    in_W_noc2_valid = 0;
+    in_S_noc2_valid = 0;
+    in_N_noc2_yummy = 0;
+    in_E_noc2_yummy = 0;
+    in_W_noc2_yummy = 0;
+    in_S_noc2_yummy = 0;
+
+    in_N_noc3_data  = 0;
+    in_E_noc3_data  = 0;
+    in_W_noc3_data  = 0;
+    in_S_noc3_data  = 0;
+    in_N_noc3_valid = 0;
+    in_E_noc3_valid = 0;
+    in_W_noc3_valid = 0;
+    in_S_noc3_valid = 0;
+    in_N_noc3_yummy = 0;
+    in_E_noc3_yummy = 0;
+    in_W_noc3_yummy = 0;
+    in_S_noc3_yummy = 0;
 
     // Reset PLL for 100 cycles
     repeat(100)@(posedge core_ref_clk);
@@ -345,6 +612,170 @@ begin
     cmp_top.system.chipset.chipset_impl.ciop_fake_iob.ok_iob = 1'b1;
 `endif // endif PITONSYS_IOCTRL
 `endif // ifndef METRO_TILE
+
+//ok_iob = 1;
+
+//metro code
+$display("TILE INITIALIZED");
+$display("tile_y: %d",tile_y);
+$display("tile_x: %d",tile_x);
+$display("rankN: %d",rankN);
+$display("rankS: %d",rankS);
+$display("rankW: %d",rankW);
+$display("rankE: %d",rankE);
+
+@(posedge core_ref_clk);
+for(int i = 0; i < 350000; i = i + 1)
+begin
+    if (i % 10000 == 0) begin
+        $display("TIME: %d", i);
+    end
+    #500;
+    if(rankN != -1) begin
+        //SENDING
+        //$display("sending N");
+        mpi_send_data(out_N_noc1_data, out_N_noc1_valid, rankN, rank, DATA_NOC_1);
+        // send yummy
+        mpi_send_yummy(out_N_noc1_yummy, rankN, rank, YUMMY_NOC_1);
+
+        // send data
+        mpi_send_data(out_N_noc2_data, out_N_noc2_valid, rankN, rank, DATA_NOC_2);
+        // send yummy
+        mpi_send_yummy(out_N_noc2_yummy, rankN, rank, YUMMY_NOC_2);
+
+        // send data
+        mpi_send_data(out_N_noc3_data, out_N_noc3_valid, rankN, rank, DATA_NOC_3);
+        // send yummy
+        mpi_send_yummy(out_N_noc3_yummy, rankN, rank, YUMMY_NOC_3);
+
+        // RECEIVING
+        //$display("receiving N");
+        in_N_noc1_data = mpi_receive_data(rankN, valid_aux, DATA_NOC_1);
+        in_N_noc1_valid = valid_aux;
+        // receive yummy
+        in_N_noc1_yummy = mpi_receive_yummy(rankN, YUMMY_NOC_1);
+        
+        in_N_noc2_data = mpi_receive_data(rankN, valid_aux, DATA_NOC_2);
+        in_N_noc2_valid = valid_aux;
+        // receive yummy
+        in_N_noc2_yummy = mpi_receive_yummy(rankN, YUMMY_NOC_2);
+
+        in_N_noc3_data = mpi_receive_data(rankN, valid_aux, DATA_NOC_3);
+        in_N_noc3_valid = valid_aux;
+        // receive yummy
+        in_N_noc3_yummy = mpi_receive_yummy(rankN, YUMMY_NOC_3);
+    end
+
+    if(rankE != -1) begin
+        //SENDING
+        //$display("sending E");
+        mpi_send_data(out_E_noc1_data, out_E_noc1_valid, rankE, rank, DATA_NOC_1);
+        // send yummy
+        mpi_send_yummy(out_E_noc1_yummy, rankE, rank, YUMMY_NOC_1);
+
+        // send data
+        mpi_send_data(out_E_noc2_data, out_E_noc2_valid, rankE, rank, DATA_NOC_2);
+        // send yummy
+        mpi_send_yummy(out_E_noc2_yummy, rankE, rank, YUMMY_NOC_2);
+
+        // send data
+        mpi_send_data(out_E_noc3_data, out_E_noc3_valid, rankE, rank, DATA_NOC_3);
+        // send yummy
+        mpi_send_yummy(out_E_noc3_yummy, rankE, rank, YUMMY_NOC_3);
+
+        // RECEIVING
+        //$display("receiving E");
+        in_E_noc1_data = mpi_receive_data(rankE, valid_aux, DATA_NOC_1);
+        in_E_noc1_valid = valid_aux;
+        // receive yummy
+        in_E_noc1_yummy = mpi_receive_yummy(rankE, YUMMY_NOC_1);
+        
+        in_E_noc2_data = mpi_receive_data(rankE, valid_aux, DATA_NOC_2);
+        in_E_noc2_valid = valid_aux;
+        // receive yummy
+        in_E_noc2_yummy = mpi_receive_yummy(rankE, YUMMY_NOC_2);
+
+        in_E_noc3_data = mpi_receive_data(rankE, valid_aux, DATA_NOC_3);
+        in_E_noc3_valid = valid_aux;
+        // receive yummy
+        in_E_noc3_yummy = mpi_receive_yummy(rankE, YUMMY_NOC_3);
+    end
+
+    if(rankS != -1) begin
+        //SENDING
+        //$display("sending S");
+        mpi_send_data(out_S_noc1_data, out_S_noc1_valid, rankS, rank, DATA_NOC_1);
+        // send yummy
+        mpi_send_yummy(out_S_noc1_yummy, rankS, rank, YUMMY_NOC_1);
+
+        // send data
+        mpi_send_data(out_S_noc2_data, out_S_noc2_valid, rankS, rank, DATA_NOC_2);
+        // send yummy
+        mpi_send_yummy(out_S_noc2_yummy, rankS, rank, YUMMY_NOC_2);
+
+        // send data
+        mpi_send_data(out_S_noc3_data, out_S_noc3_valid, rankS, rank, DATA_NOC_3);
+        // send yummy
+        mpi_send_yummy(out_S_noc3_yummy, rankS, rank, YUMMY_NOC_3);
+
+        // RECEIVING
+        //$display("receiving S");
+        in_S_noc1_data = mpi_receive_data(rankS, valid_aux, DATA_NOC_1);
+        in_S_noc1_valid = valid_aux;
+        // receive yummy
+        in_S_noc1_yummy = mpi_receive_yummy(rankS, YUMMY_NOC_1);
+        
+        in_S_noc2_data = mpi_receive_data(rankS, valid_aux, DATA_NOC_2);
+        in_S_noc2_valid = valid_aux;
+        // receive yummy
+        in_S_noc2_yummy = mpi_receive_yummy(rankS, YUMMY_NOC_2);
+
+        in_S_noc3_data = mpi_receive_data(rankS, valid_aux, DATA_NOC_3);
+        in_S_noc3_valid = valid_aux;
+        // receive yummy
+        in_S_noc3_yummy = mpi_receive_yummy(rankS, YUMMY_NOC_3);
+    end
+
+    if(rankW != -1) begin
+        //SENDING
+        //$display("sending W");
+        mpi_send_data(out_W_noc1_data, out_W_noc1_valid, rankW, rank, DATA_NOC_1);
+        // send yummy
+        mpi_send_yummy(out_W_noc1_yummy, rankW, rank, YUMMY_NOC_1);
+
+        // send data
+        mpi_send_data(out_W_noc2_data, out_W_noc2_valid, rankW, rank, DATA_NOC_2);
+        // send yummy
+        mpi_send_yummy(out_W_noc2_yummy, rankW, rank, YUMMY_NOC_2);
+
+        // send data
+        mpi_send_data(out_W_noc3_data, out_W_noc3_valid, rankW, rank, DATA_NOC_3);
+        // send yummy
+        mpi_send_yummy(out_W_noc3_yummy, rankW, rank, YUMMY_NOC_3);
+
+        // RECEIVING
+        //$display("receiving W");
+        in_W_noc1_data = mpi_receive_data(rankW, valid_aux, DATA_NOC_1);
+        in_W_noc1_valid = valid_aux;
+        // receive yummy
+        in_W_noc1_yummy = mpi_receive_yummy(rankW, YUMMY_NOC_1);
+        
+        in_W_noc2_data = mpi_receive_data(rankW, valid_aux, DATA_NOC_2);
+        in_W_noc2_valid = valid_aux;
+        // receive yummy
+        in_W_noc2_yummy = mpi_receive_yummy(rankW, YUMMY_NOC_2);
+
+        in_W_noc3_data = mpi_receive_data(rankW, valid_aux, DATA_NOC_3);
+        in_W_noc3_valid = valid_aux;
+        // receive yummy
+        in_W_noc3_yummy = mpi_receive_yummy(rankW, YUMMY_NOC_3);
+    end
+    #500;
+end
+
+$display("Trace done: METRO_TILE_%d",rank);
+finalize();
+$finish;
 end
 `endif
 
@@ -360,86 +791,6 @@ end
 // SYNTHESIZABLE TILE
 ///////////////////////////////////////////////////////
 
-`ifndef VERILATOR
-wire [`NOC_DATA_WIDTH-1:0] in_N_noc1_data;
-wire [`NOC_DATA_WIDTH-1:0] in_E_noc1_data;
-wire [`NOC_DATA_WIDTH-1:0] in_W_noc1_data;
-wire [`NOC_DATA_WIDTH-1:0] in_S_noc1_data;
-wire                       in_N_noc1_valid;
-wire                       in_E_noc1_valid;
-wire                       in_W_noc1_valid;
-wire                       in_S_noc1_valid;
-wire                       in_N_noc1_yummy;
-wire                       in_E_noc1_yummy;
-wire                       in_W_noc1_yummy;
-wire                       in_S_noc1_yummy;
-
-wire [`NOC_DATA_WIDTH-1:0] out_N_noc1_data;
-wire [`NOC_DATA_WIDTH-1:0] out_E_noc1_data;
-wire [`NOC_DATA_WIDTH-1:0] out_W_noc1_data;
-wire [`NOC_DATA_WIDTH-1:0] out_S_noc1_data;
-wire                       out_N_noc1_valid;
-wire                       out_E_noc1_valid;
-wire                       out_W_noc1_valid;
-wire                       out_S_noc1_valid;
-wire                       out_N_noc1_yummy;
-wire                       out_E_noc1_yummy;
-wire                       out_W_noc1_yummy;
-wire                       out_S_noc1_yummy;
-
-wire [`NOC_DATA_WIDTH-1:0] in_N_noc2_data;
-wire [`NOC_DATA_WIDTH-1:0] in_E_noc2_data;
-wire [`NOC_DATA_WIDTH-1:0] in_W_noc2_data;
-wire [`NOC_DATA_WIDTH-1:0] in_S_noc2_data;
-wire                       in_N_noc2_valid;
-wire                       in_E_noc2_valid;
-wire                       in_W_noc2_valid;
-wire                       in_S_noc2_valid;
-wire                       in_N_noc2_yummy;
-wire                       in_E_noc2_yummy;
-wire                       in_W_noc2_yummy;
-wire                       in_S_noc2_yummy;
-
-wire [`NOC_DATA_WIDTH-1:0] out_N_noc2_data;
-wire [`NOC_DATA_WIDTH-1:0] out_E_noc2_data;
-wire [`NOC_DATA_WIDTH-1:0] out_W_noc2_data;
-wire [`NOC_DATA_WIDTH-1:0] out_S_noc2_data;
-wire                       out_N_noc2_valid;
-wire                       out_E_noc2_valid;
-wire                       out_W_noc2_valid;
-wire                       out_S_noc2_valid;
-wire                       out_N_noc2_yummy;
-wire                       out_E_noc2_yummy;
-wire                       out_W_noc2_yummy;
-wire                       out_S_noc2_yummy;
-
-wire [`NOC_DATA_WIDTH-1:0] in_N_noc3_data;
-wire [`NOC_DATA_WIDTH-1:0] in_E_noc3_data;
-wire [`NOC_DATA_WIDTH-1:0] in_W_noc3_data;
-wire [`NOC_DATA_WIDTH-1:0] in_S_noc3_data;
-wire                       in_N_noc3_valid;
-wire                       in_E_noc3_valid;
-wire                       in_W_noc3_valid;
-wire                       in_S_noc3_valid;
-wire                       in_N_noc3_yummy;
-wire                       in_E_noc3_yummy;
-wire                       in_W_noc3_yummy;
-wire                       in_S_noc3_yummy;
-
-wire [`NOC_DATA_WIDTH-1:0] out_N_noc3_data;
-wire [`NOC_DATA_WIDTH-1:0] out_E_noc3_data;
-wire [`NOC_DATA_WIDTH-1:0] out_W_noc3_data;
-wire [`NOC_DATA_WIDTH-1:0] out_S_noc3_data;
-wire                       out_N_noc3_valid;
-wire                       out_E_noc3_valid;
-wire                       out_W_noc3_valid;
-wire                       out_S_noc3_valid;
-wire                       out_N_noc3_yummy;
-wire                       out_E_noc3_yummy;
-wire                       out_W_noc3_yummy;
-wire                       out_S_noc3_yummy;
-`endif // ifndef VERILATOR
-
 
 // Generate tile instances
 tile #(.TILE_TYPE(`ARIANE_RV64_TILE))
@@ -447,10 +798,10 @@ tile0 (
     .clk                (core_ref_clk),
     .rst_n              (sys_rst_n),
     .clk_en             (clk_en),
-    .default_chipid     (14'b0),    // the first chip
-    .default_coreid_x   (8'b0),
-    .default_coreid_y   (8'b0),
-    .flat_tileid        (`JTAG_FLATID_WIDTH'd0),
+    .default_chipid     (default_chipid),    // the first chip
+    .default_coreid_x   (default_coreid_x),
+    .default_coreid_y   (default_coreid_y),
+    .flat_tileid        (flat_tileid),
 `ifdef PITON_ARIANE
     .debug_req_i        ( 1'b0 ),
     .unavailable_o      (      ),
@@ -568,10 +919,12 @@ tile0 (
     // The only thing that we will "slam init" is the integer register file
     //  and it is randomized. For some reason if we left it as X's some tests will fail
 
+`ifndef METRO_TILE
 `ifndef VERILATOR
     // T1's TSO monitor, stripped of all L2 references
     tso_mon tso_mon(`CHIP_INT_CLK, `CHIP.rst_n_inter_sync);
 `endif
+`endif //METRO_TILE
 
     // L15 MONITORS
     cmp_l15_messages_mon l15_messages_mon(

@@ -27,7 +27,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "Vmetro_chipset.h"
 #include "verilated.h"
 #include <iostream>
-#define VERILATOR_VCD 1
+//#define VERILATOR_VCD 1
 #ifdef VERILATOR_VCD
 #include "verilated_vcd_c.h"
 #endif
@@ -87,10 +87,10 @@ void tick() {
 }
 
 void mpi_work_chipset() {
-    std::cout.precision(10); 
+    /*std::cout.precision(10); 
     if (top->offchip_processor_noc1_valid | top->offchip_processor_noc2_valid | top->offchip_processor_noc3_valid) {
         std::cout << "Cycle " << std::setw(10) <<  sc_time_stamp() << std::endl;
-    }
+    }*/
     // send data
     mpi_send_data(top->offchip_processor_noc1_data, top->offchip_processor_noc1_valid, dest, rank, DATA_NOC_1);
     // send yummy
@@ -199,6 +199,12 @@ void reset_and_init() {
     top->pll_rst_n = 1;
 
     std::cout << "Before second ticks" << std::endl << std::flush;
+//    // Wait for PLL lock
+//    wait( pll_lock == 1'b1 );
+    //while (!top->pll_lock) {
+    //    tick();
+    //}
+
     std::cout << "Before third ticks" << std::endl << std::flush;
 //    // After 10 cycles turn on chip-level clock enable
 //    repeat(10)@(posedge `CHIP_INT_CLK);
@@ -258,12 +264,14 @@ int main(int argc, char **argv, char **env) {
 
     reset_and_init();
 
-    for (int i = 0; i < 100000; i++) {
+    for (int i = 0; i < 350000; i++) {
         mpi_tick();
     }
     /*while (!Verilated::gotFinish()) { 
         mpi_tick();
     }*/
+
+    std::cout << std::setprecision(10) << sc_time_stamp() << std::endl;
 
     #ifdef VERILATOR_VCD
     std::cout << "Trace done" << std::endl;

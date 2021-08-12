@@ -34,6 +34,28 @@
     from pyhplib import *
 %>
 
+<%
+DMBR_BIN_NUM = 10
+import pyhplib
+from riscvlib import *
+import os
+from pyhplib import *
+import riscvlib
+import time
+
+if PITON_ARIANE:
+  devices = pyhplib.ReadDevicesXMLFile()
+
+  # just use a default frequency for device tree generation if not defined
+  sysFreq = 50000000
+  if 'CONFIG_SYS_FREQ' in os.environ:
+    sysFreq = int(os.environ['CONFIG_SYS_FREQ'])
+
+  timeStamp = time.strftime("%b %d %Y %H:%M:%S", time.localtime())
+  gen_riscv_dts(devices, X_TILES*Y_TILES, sysFreq, sysFreq/128, sysFreq, os.environ['ARIANE_ROOT']+"/openpiton/bootrom/", timeStamp)
+  get_bootrom_info(devices, X_TILES*Y_TILES, sysFreq, sysFreq/128, sysFreq, os.environ['ARIANE_ROOT']+"/openpiton/bootrom/", timeStamp)
+%>
+
 `ifdef PITON_DPI
 import "DPI-C" function longint read_64b_call (input longint addr);
 import "DPI-C" function void write_64b_call (input longint addr, input longint data);
@@ -41,7 +63,24 @@ import "DPI-C" function int drive_iob ();
 import "DPI-C" function int get_cpx_word (int index);
 import "DPI-C" function void report_pc (longint thread_pc);
 import "DPI-C" function void init_jbus_model_call(string str, int oram);
-`endif
+
+`ifndef VERILATOR
+// MPI Yummy functions
+import "DPI-C" function void initialize();
+import "DPI-C" function void finalize();
+import "DPI-C" function int getRank();
+import "DPI-C" function int getSize();
+
+import "DPI-C" function void mpi_send_yummy(input byte unsigned message, input int dest, input int rank, input int flag);
+import "DPI-C" function byte unsigned mpi_receive_yummy(input int origin, input int flag);
+
+import "DPI-C" function longint unsigned mpi_receive_data(input int origin, output byte unsigned valid, input int flag);
+import "DPI-C" function void mpi_send_data(input longint unsigned data, input byte unsigned valid, input int dest, input int rank, input int flag);
+
+import "DPI-C" function void barrier();
+//add metro_stuff
+`endif // ifndef VERILATOR
+`endif // ifdef PITON_DPI
 
 `timescale 1ps/1ps
 module metro_chipset (
@@ -130,6 +169,28 @@ reg                             fail_flag;
 reg [3:0]                       stub_done;
 reg [3:0]                       stub_pass;
 
+`ifndef VERILATOR
+reg                       processor_offchip_noc1_valid;
+reg [`NOC_DATA_WIDTH-1:0] processor_offchip_noc1_data;
+reg                       processor_offchip_noc1_yummy;
+reg                       processor_offchip_noc2_valid;
+reg [`NOC_DATA_WIDTH-1:0] processor_offchip_noc2_data;
+reg                       processor_offchip_noc2_yummy;
+reg                       processor_offchip_noc3_valid;
+reg [`NOC_DATA_WIDTH-1:0] processor_offchip_noc3_data;
+reg                       processor_offchip_noc3_yummy;
+
+reg                       offchip_processor_noc1_valid;
+reg [`NOC_DATA_WIDTH-1:0] offchip_processor_noc1_data;
+reg                       offchip_processor_noc1_yummy;
+reg                       offchip_processor_noc2_valid;
+reg [`NOC_DATA_WIDTH-1:0] offchip_processor_noc2_data;
+reg                       offchip_processor_noc2_yummy;
+reg                       offchip_processor_noc3_valid;
+reg [`NOC_DATA_WIDTH-1:0] offchip_processor_noc3_data;
+reg                       offchip_processor_noc3_yummy;
+`endif // VERILATOR
+
 ////////////////////
 // Simulated Clocks
 ////////////////////
@@ -173,9 +234,44 @@ always #25000 spi_sys_clk = ~spi_sys_clk;                       // 20MHz
 // SIMULATED BOOT SEQUENCE
 ////////////////////////////////////////////////////////
 
+int rank;
+int size;
+int dest;
+byte unsigned valid_aux;
+
+int YUMMY_NOC_1 ;
+int DATA_NOC_1  ;
+int YUMMY_NOC_2 ;
+int DATA_NOC_2  ;
+int YUMMY_NOC_3 ;
+int DATA_NOC_3  ;
+
 `ifndef VERILATOR
 initial
 begin
+    $dumpfile("metro_chipset.vcd");
+    $dumpvars(0, metro_chipset);
+
+    YUMMY_NOC_1 = 0;
+    DATA_NOC_1  = 1;
+    YUMMY_NOC_2 = 2;
+    DATA_NOC_2  = 3;
+    YUMMY_NOC_3 = 4;
+    DATA_NOC_3  = 5;
+
+    //metro initialization
+    initialize();
+    //barrier();
+    rank = getRank();
+    size = getSize();
+    $display("METRO_CHIPSET INITIALIZING...");
+    $display("size: %d", size);
+    $display("rank: %d", rank);
+    if (rank==0) begin
+            dest = 1;
+    end else begin
+            dest = 0;
+    end
     // These are not referenced elsewhere in this module,
     // but are cross referenced from monitor.v.pyv.  Do not
     // delete
@@ -241,19 +337,31 @@ begin
 `else // ifndef PITON_DPI
         init_jbus_model_call("mem.image", 1);
 `endif // ifndef PITON_DPI
+`ifndef METRO_CHIPSET
 `ifndef __ICARUS__
         force system.chip.ctap_oram_clk_en = 1'b1;
 `endif
+`endif //METRO_CHIPSET
     end
     else
     begin
 `ifndef PITON_DPI
         $init_jbus_model("mem.image", 0);
 `else // ifndef PITON_DPI
+        $display("init_jbus_model_call");
         init_jbus_model_call("mem.image", 0);
 `endif // ifndef PITON_DPI
     end
 
+    processor_offchip_noc1_valid = 0;
+    processor_offchip_noc1_data  = 0;
+    offchip_processor_noc1_yummy = 0;
+    processor_offchip_noc2_valid = 0;
+    processor_offchip_noc2_data  = 0;
+    offchip_processor_noc2_yummy = 0;
+    processor_offchip_noc3_valid = 0;
+    processor_offchip_noc3_data  = 0;
+    offchip_processor_noc3_yummy = 0;
 
     // Reset PLL for 100 cycles
     repeat(100)@(posedge core_ref_clk);
@@ -283,6 +391,54 @@ begin
     cmp_top.system.chipset.chipset_impl.ciop_fake_iob.ok_iob = 1'b1;
 `endif // endif PITONSYS_IOCTRL
 `endif // ifndef METRO_CHIPSET
+
+//ok_iob = 1;
+
+//metro code
+
+
+// send data
+$display("CHIPSET INITIALIZED");
+@(posedge core_ref_clk);
+for(int i = 0; i < 350000; i = i + 1)
+begin
+    #500;
+// send data
+    //$display("sending_chipset");
+    mpi_send_data(offchip_processor_noc1_data, offchip_processor_noc1_valid, dest, rank, DATA_NOC_1);
+    // send yummy
+    mpi_send_yummy(processor_offchip_noc1_yummy, dest, rank, YUMMY_NOC_1);
+
+    // send data
+    mpi_send_data(offchip_processor_noc2_data, offchip_processor_noc2_valid, dest, rank, DATA_NOC_2);
+    // send yummy
+    mpi_send_yummy(processor_offchip_noc2_yummy, dest, rank, YUMMY_NOC_2);
+
+    // send data
+    mpi_send_data(offchip_processor_noc3_data, offchip_processor_noc3_valid, dest, rank, DATA_NOC_3);
+    // send yummy
+    mpi_send_yummy(processor_offchip_noc3_yummy, dest, rank, YUMMY_NOC_3);
+    //$display("receiving_chipset");
+    // receive data
+    processor_offchip_noc1_data = mpi_receive_data(dest, valid_aux, DATA_NOC_1);
+    processor_offchip_noc1_valid = valid_aux;
+    // receive yummy
+    offchip_processor_noc1_yummy = mpi_receive_yummy(dest, YUMMY_NOC_1);
+
+    processor_offchip_noc2_data = mpi_receive_data(dest, valid_aux, DATA_NOC_2);
+    processor_offchip_noc2_valid = valid_aux;
+    // receive yummy
+    offchip_processor_noc2_yummy = mpi_receive_yummy(dest, YUMMY_NOC_2);
+
+    processor_offchip_noc3_data = mpi_receive_data(dest, valid_aux, DATA_NOC_3);
+    processor_offchip_noc3_valid = valid_aux;
+    // receive yummy
+    offchip_processor_noc3_yummy = mpi_receive_yummy(dest, YUMMY_NOC_3);
+    #500;
+end
+$display("Trace done: METRO_CHIPSET");
+finalize();
+$finish;
 end
 `endif
 
@@ -298,34 +454,9 @@ end
 // SYNTHESIZABLE CHIPSET
 ///////////////////////////////////////////////////////
 
-`ifndef VERILATOR
-wire processor_offchip_noc1_valid;
-wire [`NOC_DATA_WIDTH-1:0] processor_offchip_noc1_data;
-wire processor_offchip_noc1_yummy;
-wire processor_offchip_noc2_valid;
-wire [`NOC_DATA_WIDTH-1:0] processor_offchip_noc2_data;
-wire processor_offchip_noc2_yummy;
-wire processor_offchip_noc3_valid;
-wire [`NOC_DATA_WIDTH-1:0] processor_offchip_noc3_data;
-wire processor_offchip_noc3_yummy;
-
-wire offchip_processor_noc1_valid;
-wire [`NOC_DATA_WIDTH-1:0] offchip_processor_noc1_data;
-wire offchip_processor_noc1_yummy;
-wire offchip_processor_noc2_valid;
-wire [`NOC_DATA_WIDTH-1:0] offchip_processor_noc2_data;
-wire offchip_processor_noc2_yummy;
-wire offchip_processor_noc3_valid;
-wire [`NOC_DATA_WIDTH-1:0] offchip_processor_noc3_data;
-wire offchip_processor_noc3_yummy;
-`endif // VERILATOR
 
 chipset chipset(
-`ifndef VERILATOR
-    .chipset_clk(chipset_clk),
-`else
     .chipset_clk(core_ref_clk),
-`endif
 
     .rst_n(sys_rst_n),
 
@@ -451,10 +582,12 @@ chipset chipset(
     // The only thing that we will "slam init" is the integer register file
     //  and it is randomized. For some reason if we left it as X's some tests will fail
 
+`ifndef METRO_CHIPSET
 `ifndef VERILATOR
     // T1's TSO monitor, stripped of all L2 references
     tso_mon tso_mon(`CHIP_INT_CLK, `CHIP.rst_n_inter_sync);
 `endif
+`endif //METRO_CHIPSET
 
 `ifndef METRO_CHIPSET
     // L15 MONITORS
