@@ -110,6 +110,10 @@ $os_cpu_dot .= ".";
 $os_cpu_dot .= `uname -m`;
 $os_cpu_dot =~ s/\n//g;
 
+my $pton_x_tiles="";
+my $pton_y_tiles="";
+my $pton_num_tiles="";
+
 ################################################################################
 # configure Getopt::Long
 ################################################################################
@@ -137,6 +141,7 @@ Getopt::Long::Configure ('no_auto_abbrev') ;
         'debug' => \$opt_debug,
         'diaglist' => "",
         'diaglist_cpp_args' => [],
+        'dpi' => 0,
         'jobcommand_name' => "sim_command",
         'dryrun' => 0,
         'dv_root' => "",
@@ -329,6 +334,7 @@ GetOptions (\%opt,
             'debug' => \$opt_debug,
             'diaglist=s',
             'diaglist_cpp_args=s@',
+            'dpi' => 0,
             'group=s@',
             'model_dir=s',
             'parallel!',
@@ -348,6 +354,7 @@ GetOptions (\%opt,
             'sims_config=s',
             'simslog!',
             'simslog_name=s',
+            'vlt_build' => 0,
             'build_id=s',
            ) ;
 
@@ -364,6 +371,8 @@ push (@{$opt{config_cpp_args}}, "-DFLIST_OST1")     if ($opt{ost1} || $opt{pico_
 push (@{$opt{config_cpp_args}}, "-DFLIST_PICO")     if ($opt{pico} || $opt{pico_het}) ;
 push (@{$opt{config_cpp_args}}, "-DFLIST_ARIANE")   if ($opt{ariane}) ;
 push (@{$opt{config_cpp_args}}, "-DFLIST_ORAM")     if ($opt{oram}) ;
+
+push (@{$opt{config_cpp_args}}, "-DSIM_USE_DPI")      if ($opt{dpi} || $opt{vlt_build}) ;
 
 ################################################################################
 # define $result_dir
@@ -1542,22 +1551,11 @@ sub generic_sim_build
     }
 	
     if ($opt{vlt_build}) {
-      $build_cmd = "verilator -j 2 -cc -trace -build " ;
+      $build_cmd = "verilator -cc -trace -build " ;
       foreach my $top_n (@{$opt{toplevel}}) {
         $build_cmd .= "-exe $dv_root/tools/verilator/my_$top_n.cpp " ;
       }
       # improvable
-      if ($opt{sys} eq "metro_tile" || $opt{sys} eq "metro_chipset") {
-        $build_cmd .= "$dv_root/tools/verilator/metro_mpi.cpp ";
-      }
-      if ($opt{sys} ne "metro_tile") {
-        $build_cmd .= "$dv_root/tools/pli/iop/b_ary.c " ;
-        $build_cmd .= "$dv_root/tools/pli/iop/bw_lib.c " ;
-        $build_cmd .= "$dv_root/tools/pli/iop/iob_main.cc " ;
-        $build_cmd .= "$dv_root/tools/pli/iop/iob.cc " ;
-        $build_cmd .= "$dv_root/tools/pli/iop/cpx.cc " ;
-        $build_cmd .= "$dv_root/tools/pli/iop/pcx.cc " ;
-      }
       foreach my $top_n (@{$opt{toplevel}}) {
         $build_cmd .= "--top-module $top_n ";
       }
@@ -1567,17 +1565,12 @@ sub generic_sim_build
       $build_cmd .= "-DPITON_DPI " ;
       $build_cmd .= "--unroll-count 256 " ;
       $build_cmd .= "-CFLAGS -DVERILATOR " ;
-      $build_cmd .= "-CFLAGS -DPITON_DPI " ;
       $build_cmd .= "-CFLAGS -lstdc++ " ;
-      if ($opt{sys} ne "metro_tile") {
-        $build_cmd .= "-CFLAGS -I$dv_root/tools/pli/iop " ;
-      }
       $build_cmd .= "-CFLAGS -I$dv_root/tools/verilator " ;
       
       if ($opt{sys} eq "metro_tile" || $opt{sys} eq "metro_chipset") {
-        $build_cmd .= "-MAKEFLAGS CXX=mpic++ -MAKEFLAGS LINK=mpic++ " ;
-        $build_cmd .= "-CFLAGS -DX_TILES=$opt{x_tiles} " ;
-        $build_cmd .= "-CFLAGS -DY_TILES=$opt{y_tiles} " ;
+        $build_cmd .= "-CFLAGS -DX_TILES=$pton_x_tiles " ;
+        $build_cmd .= "-CFLAGS -DY_TILES=$pton_y_tiles " ;
       }
     }
     if ($opt{other_sim_build}) {
@@ -2581,6 +2574,7 @@ sub parse_args
             'diaglist=s',
             'diaglist_cpp_args=s@',
             'jobcommand_name=s',
+            'dpi!',
             'dryrun!',
             'dv_root=s',
             'env_base=s',
@@ -2842,10 +2836,6 @@ sub parse_args
   push (@{$opt{config_rtl}}, "PITON_PICO_HET") if ($opt{pico_het});
   push (@{$opt{config_rtl}}, "PITON_ARIANE")   if ($opt{ariane});
   push (@{$opt{config_rtl}}, "WT_DCACHE")      if ($opt{ariane});
-
-  my $pton_x_tiles="";
-  my $pton_y_tiles="";
-  my $pton_num_tiles="";
 
   # conveniently sets up the tile RTL defines for manycore model
   if ($opt{x_tiles} && $opt{y_tiles}) {
