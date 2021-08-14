@@ -1,6 +1,7 @@
-// Copyright (c) 2015 Princeton University                                                                       
+<!--
+// Copyright (c) 2015 Princeton University
 // All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
 //     * Redistributions of source code must retain the above copyright
@@ -11,7 +12,7 @@
 //     * Neither the name of Princeton University nor the
 //       names of its contributors may be used to endorse or promote products
 //       derived from this software without specific prior written permission.
-// 
+//
 // THIS SOFTWARE IS PROVIDED BY PRINCETON UNIVERSITY "AS IS" AND
 // ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 // WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -22,53 +23,29 @@
 // ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
 
-// Filename: bits2hex.v
-// Author: mmckeown
-// Description: This module converts 4 bits to an 8-bit hex character
+<bundles>
 
-module bits2hex(
-    input      [3:0]    bits,
-    output reg [7:0]    ochar
-);
+<nightly_ariane>
+    <asm_regress name="ariane_tile1">
+        <sys>manycore</sys>
+        <x_tiles>1</x_tiles>
+        <y_tiles>1</y_tiles>
+        <group>ariane_tile1</group>
+        <vcs_use_cm/>
+        <ariane/>
+    </asm_regress>
 
-///////////////////////
-// Type declarations //
-///////////////////////
+    <asm_regress name="ariane_tile16">
+        <sys>manycore</sys>
+        <x_tiles>4</x_tiles>
+        <y_tiles>4</y_tiles>
+        <group>ariane_tile16</group>
+        <slurm>--mem=4096</slurm>
+        <vcs_use_cm/>
+        <ariane/>
+    </asm_regress>
+</nightly_ariane>
 
-//////////////////////
-// Sequential Logic //
-//////////////////////
-
-/////////////////////////
-// Combinational Logic //
-/////////////////////////
-
-always @ *
-begin
-    case (bits)
-        4'h0: ochar = "0";
-        4'h1: ochar = "1";
-        4'h2: ochar = "2";
-        4'h3: ochar = "3";
-        4'h4: ochar = "4";
-        4'h5: ochar = "5";
-        4'h6: ochar = "6";
-        4'h7: ochar = "7";
-        4'h8: ochar = "8";
-        4'h9: ochar = "9";
-        4'ha: ochar = "a";
-        4'hb: ochar = "b";
-        4'hc: ochar = "c";
-        4'hd: ochar = "d";
-        4'he: ochar = "e";
-        4'hf: ochar = "f";
-        default: ochar = "?";
-    endcase
-end
-
-//////////////////////////
-// Sub-module Instances //
-//////////////////////////
-
-endmodule
+</bundles>
