@@ -12,16 +12,19 @@ filesets:
             - openpiton::piton_include
             - openpiton::piton_tile_common
             - openpiton::dynamic_node
+            - ost1? (openpiton::sparc_core)
+            - ariane? (pulp-platform.org::ariane)
+            - pico? (openpiton::pico)
             - openpiton::l15
             - openpiton::l2
-            - openpiton::sparc_core
             - openpiton::fpu
             - openpiton::dmbr
         file_type: verilogSource-2001
 
 targets:
     default:
-        filesets: [rtl]
+        filesets:
+            - rtl
         generate: [pyhp_preprocess]
     pickle:
         default_tool: icarus
@@ -39,6 +42,10 @@ targets:
         tools:
             icarus:
                 iverilog_options: [-g 2001]
+    yosys_synth:
+        default_tool: yosys
+        filesets: [rtl]
+        toplevel: [tile]
 generate:
     pyhp_preprocess:
         generator: pyhp_preprocess_gen

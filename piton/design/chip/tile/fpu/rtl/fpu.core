@@ -66,3 +66,18 @@ targets:
         tools:
             icarus:
                 iverilog_options: [-g 2001]
+    yosys_synth:
+        default_tool: yosys
+        filesets: [rtl]
+        toplevel: [fpu]
+        parameters:
+            NO_SCAN:
+                datatype: bool
+                default: true
+                paramtype: vlogdefine
+
+parameters:
+    NO_SCAN:
+        datatype: bool
+        default: true
+        paramtype: vlogdefine

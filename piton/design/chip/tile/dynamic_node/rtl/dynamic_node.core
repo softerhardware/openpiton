@@ -18,6 +18,10 @@ targets:
     default:
         filesets: [rtl]
         generate: [pyhp_preprocess]
+    yosys_synth:
+        default_tool: yosys
+        filesets: [rtl]
+        toplevel: [dynamic_node_top_wrap]
 
 
 generate:

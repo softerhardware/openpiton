@@ -57,7 +57,82 @@ targets:
         toplevel: [cmp_top]
         tools:
             verilator:
-                verilator_options: [-Wno-fatal -Wno-BLKANDNBLK]
+                verilator_options:
+                    - -j
+                    - -Wno-fatal
+                    - -Wno-BLKANDNBLK
+                    - -Wno-TIMESCALEMOD
+                    - --unroll-count 256
+                    - -CFLAGS -DPITON_DPI
+                    - -CFLAGS -DVERILATOR
+                    - -DPITON_DPI
+                    - -CFLAGS -lstdc++
+                    - -DSYNC_MUX
+            vcs:
+                vcs_options:
+                    - +nospecify
+                    - -Xstrict=1
+                    - -notice
+                    - -timescale=1ps/1ps
+                    - +rad
+                    - debug_all? ("-debug_all")
+                    - ariane? ("-sverilog")
+                    - ariane? ("+systemverilogext+.sv")
+                    - ariane? ("-ntb_opts uvm-1.1 +vpi")
+            icarus:
+                iverilog_options: [-g2001]
+            modelsim:
+                vlog_options:
+                    - -mfcu
+                    - -suppress 2583
+#            incisive:
+#                incisive_options:
+#                    - +ncsimexe+$ncsim
+#                    - +ncelabexe+$ncelab
+#                    - -arr_access
+#                    - +access+rw
+#                    - -l compile.log
+        parameters:
+            NO_SCAN:
+                datatype: bool
+                default: true
+                paramtype: vlogdefine
+            USE_FAKE_PLL_AND_CLKMUX:
+                datatype: bool
+                default: true
+                paramtype: vlogdefine
+            USE_FAKE_IOS:
+                datatype: bool
+                default: true
+                paramtype: vlogdefine
+            OST1_PLI_SLAM_RANDOM:
+                datatype: bool
+                default: false
+                paramtype: vlogdefine
+            OST1_PLI_MRA_VAL:
+                datatype: bool
+                default: false
+                paramtype: vlogdefine
+            PITON_OST1:
+                datatype: bool
+                default: false
+                paramtype: vlogdefine
+            PITON_PICO:
+                datatype: bool
+                default: false
+                paramtype: vlogdefine
+            PITON_PICO_HET:
+                datatype: bool
+                default: false
+                paramtype: vlogdefine
+            PITON_ARIANE:
+                datatype: bool
+                default: false
+                paramtype: vlogdefine
+            WT_DCACHE:
+                datatype: bool
+                default: false
+                paramtype: vlogdefine
     pickle:
         default_tool: icarus
         filesets: [tb_files]
@@ -66,6 +141,40 @@ targets:
         tools:
             icarus:
                 iverilog_options: [-g 2001 -E]
+parameters:
+    NO_SCAN:
+        datatype: bool
+        default: true
+        paramtype: vlogdefine
+    USE_FAKE_PLL_AND_CLKMUX:
+        datatype: bool
+        default: true
+        paramtype: vlogdefine
+    USE_FAKE_IOS:
+        datatype: bool
+        default: true
+        paramtype: vlogdefine
+    OST1_PLI_SLAM_RANDOM:
+        datatype: bool
+        paramtype: vlogdefine
+    OST1_PLI_MRA_VAL:
+        datatype: bool
+        paramtype: vlogdefine
+    PITON_OST1:
+        datatype: bool
+        paramtype: vlogdefine
+    PITON_PICO:
+        datatype: bool
+        paramtype: vlogdefine
+    PITON_PICO_HET:
+        datatype: bool
+        paramtype: vlogdefine
+    PITON_ARIANE:
+        datatype: bool
+        paramtype: vlogdefine
+    WT_DCACHE:
+        datatype: bool
+        paramtype: vlogdefine
 
 generate:
     pyhp_preprocess:
