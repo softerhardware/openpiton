@@ -75,10 +75,19 @@ targets:
                     - -notice
                     - -timescale=1ps/1ps
                     - +rad
-                    - debug_all? ("-debug_all")
-                    - ariane? ("-sverilog")
-                    - ariane? ("+systemverilogext+.sv")
-                    - ariane? ("-ntb_opts uvm-1.1 +vpi")
+                    - debug_all? (-debug_all)
+                    - ariane? (-sverilog)
+                    - ariane? (+systemverilogext+.sv)
+                    - ariane? (-ntb_opts uvm-1.1 +vpi)
+                    - -P
+                    - $DV_ROOT/tools/pli/iop/bwioj.tab
+                    - -P
+                    - $DV_ROOT/tools/pli/socket/bwsocket_pli.tab
+                    - -P
+                    - $DV_ROOT/tools/pli/mem/bwmem_pli.tab
+                    - -lsocket_pli
+                    - -liob
+                    - -lmem_pli
             icarus:
                 iverilog_options: [-g2001]
             modelsim:
