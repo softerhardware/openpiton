@@ -27,7 +27,7 @@ filesets:
             - thrfsm_mon.v
             - tlu_mon.v
             - fake_uart.v
-            - ../common/fake_mem_ctrl.v
+            - ../common/fake_mem_ctrl.v: {file_type: systemVerilogSource}
         file_type: verilogSource-2001
 
     cpp_files:
@@ -65,7 +65,6 @@ targets:
                     - --unroll-count 256
                     - -CFLAGS -DPITON_DPI
                     - -CFLAGS -DVERILATOR
-                    - -DPITON_DPI
                     - -CFLAGS -lstdc++
                     - -DSYNC_MUX
             vcs:
@@ -94,13 +93,16 @@ targets:
                 vlog_options:
                     - -mfcu
                     - -suppress 2583
-#            incisive:
-#                incisive_options:
-#                    - +ncsimexe+$ncsim
-#                    - +ncelabexe+$ncelab
-#                    - -arr_access
-#                    - +access+rw
-#                    - -l compile.log
+            xcelium:
+                xrun_options:
+                    - -64bit
+                    - -dpi
+                    - -disable_sem2009
+                    - -override_timescale
+                    - -timescale 1ps/1ps
+                    - -sv_lib $MODEL_DIR/piton_dpi
+                    - ariane? (-uvm)
+                    - ariane? (-uvmhome CDNS-1.2)
         parameters:
             NO_SCAN:
                 datatype: bool

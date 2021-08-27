@@ -1262,25 +1262,8 @@ sub generic_sim_build
       push (@{$opt{config_rtl}}, "COPROCESSOR_ON") if ($opt{dmbr}) ;
       push (@{$opt{config_rtl}}, "DMBR_CHECKER") if ($opt{dmbr_checker}) ;
     }
-    if ($opt{ncv_build}) {
-      # build ncelab and ncsim executable files if not present
 
-      my $ncsim = "$ENV{DV_ROOT}/tools/$os_cpu_slash/ncsim";
-      my $ncelab = "$ENV{DV_ROOT}/tools/$os_cpu_slash/ncelab";
-
-      if ( -f $ncsim) { print "$prg: file $ncsim found\n"; }
-      if ( -f $ncelab) { print "$prg: file $ncelab found\n"; }
-
-      if ((! -f $ncsim ) or (! -f $ncelab )) {
-        my $cur_dir = $ENV{PWD};
-        chdir $ENV{DV_ROOT} or die ("DIE can't change directory to $ENV{DV_ROOT}");
-        chdir "tools/pli" or die ("DIE can't change directory to tools/pli");
-        print "$prg: Calling make ncvexe\n";
-        system("make ncvexe");
-        die ("DIE. failed building ncsim or ncelab executable") if ($?) ;
-        chdir $cur_dir ;
-      }
-    }
+    push (@{$opt{config_rtl}}, "PITON_DPI") if ($opt{vlt_build} or $opt{ncv_build}) ;
 
     # copy vcs/icv/ncv/msm/vlt_build_args to generic sim_build_args
     push (@{$opt{sim_build_args}}, @{$opt{vcs_build_args}}) if ($opt{vcs_build});
@@ -1289,14 +1272,6 @@ sub generic_sim_build
     push (@{$opt{sim_build_args}}, @{$opt{msm_build_args}}) if ($opt{msm_build});
     push (@{$opt{sim_build_args}}, @{$opt{riv_build_args}}) if ($opt{riv_build});
     push (@{$opt{sim_build_args}}, @{$opt{vlt_build_args}}) if ($opt{vlt_build});
-
-    if ($opt{ncv_build}) {
-      $ld_lib_path .= "$ENV{DV_ROOT}/tools/$os_cpu_slash/lib";
-      $ld_lib_path .= ":$ENV{NCV_HOME}/tools/lib/64bit:";
-      $ld_lib_path .= $ENV{LD_LIBRARY_PATH};
-      $ENV{LD_LIBRARY_PATH} = $ld_lib_path;
-      print "$prg: LD_LIBRARY_PATH is $ENV{LD_LIBRARY_PATH}\n";
-    }
 
     # build the model
     print "$prg: Building rtl model\n" ;
@@ -1309,7 +1284,7 @@ sub generic_sim_build
       $build_cmd .= "--system-name=simv ";
     }
     if ($opt{ncv_build}) {
-      $build_cmd .= "--tool=incisive " ;
+      $build_cmd .= "--tool=xcelium " ;
     }
     if ($opt{icv_build}) {
       $build_cmd .= "--tool=icarus " ;
@@ -1351,7 +1326,7 @@ sub generic_sim_build
       $build_cmd .= "--vcs_options=\"$lib_path " ;
     }
     if ($opt{ncv_build}) {
-      $build_cmd .= "--incisive_options=\"" ;
+      $build_cmd .= "--xmvlog_options=\"" ;
     }
     if ($opt{icv_build}) {
       $build_cmd .= "--iverilog_options=\"" ;
@@ -1406,7 +1381,7 @@ sub generic_sim_run
 
     # verify that a model was compiled
     die ("DIE. simv not found in $model_path") if ($opt{vcs_run} and ! -e "$model_path/sim-vcs/simv") ;
-    die ("DIE. INCA_libs not found in $model_path") if ($opt{ncv_run} and ! -e "$model_path/sim-incisive/INCA_libs") ;
+    die ("DIE. xcelium.d not found in $model_path") if ($opt{ncv_run} and ! -e "$model_path/sim-xcelium/xcelium.d") ;
     die ("DIE. a.out not found in $model_path") if ($opt{icv_run} and ! -e "$model_path/sim-icarus/a.out") ;
     die ("DIE. work/ not found in $model_path") if ($opt{msm_run} and ! -d "$model_path/work") ;
 	die ("DIE. work/ not found in $model_path") if ($opt{riv_run} and ! -d "$model_path/work") ;
@@ -1455,6 +1430,16 @@ sub generic_sim_run
 
     if ($opt{ncv_run}) {
       $ncvcommand = "\"run\"";
+
+      push (@{$opt{sim_run_args}}, "-override_timescale") ;
+      push (@{$opt{sim_run_args}}, "-timescale 1ps/1ps") ;
+      push (@{$opt{sim_run_args}}, "-disable_sem2009") ;
+      push (@{$opt{sim_run_args}}, "-sv_lib $model_dir/piton_dpi") ;
+
+      if ($opt{ariane}) {
+        push (@{$opt{sim_run_args}}, "-uvm") ;
+        push (@{$opt{sim_run_args}}, "-uvmhome CDNS-1.2") ;
+      }
     }
 
     if ($opt{vcd}) {
@@ -1511,17 +1496,12 @@ sub generic_sim_run
     }
 
     if ($opt{ncv_run}) {
-      $ld_lib_path = $ENV{LD_LIBRARY_PATH};
-      $ld_lib_path .= ":$ENV{DV_ROOT}/tools/$os_cpu_slash/lib";
-      $ld_lib_path .= ":$ENV{NCV_HOME}/tools/lib/64bit";
-      $cmd .= "#!/bin/csh -f\nsetenv LD_LIBRARY_PATH $ld_lib_path\n" ;
-      $cmd .= "echo $ncvcommand | ncverilog " ;
-      $cmd .= "+nclibdirname+$model_path/sim-incisive/INCA_libs " ;
+      $cmd .= "#!/bin/csh -f\n" ;
+      $cmd .= "echo $ncvcommand | xrun -64bit " ;
+      $cmd .= "+xmlibdirname+$model_path/sim-xcelium/xcelium.d " ;
       foreach my $top_n (@{$opt{toplevel}}) {
-        $cmd .= "-r worklib.$top_n:v ";
+        $cmd .= "-top worklib.$top_n:v ";
       }
-      $cmd .= "+ncsimexe+$ENV{DV_ROOT}/tools/$os_cpu_slash/ncsim " ;
-      $cmd .= "+ncelabexe+$ENV{DV_ROOT}/tools/$os_cpu_slash/ncelab -s " ;
       $cmd .= join (" ", @{$opt{sim_run_args}}) ;
     }
 
@@ -2638,7 +2618,7 @@ sub parse_args
   push (@{$opt{config_rtl}}, "ORAM_ON") if ($opt{oram}) ;
   push (@{$opt{sim_run_args}}, "+oram") if ($opt{oram}) ;
 
-  if ($opt{vcs_build} or $opt{ncv_build} or $opt{riv_build}) {
+  if ($opt{vcs_build} or $opt{riv_build}) {
       push(@{$opt{fusesoc_params}}, "--OST1_PLI_SLAM_RANDOM") ;
       push(@{$opt{fusesoc_params}}, "--OST1_PLI_MRA_VAL") ;
   }
