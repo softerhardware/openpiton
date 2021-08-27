@@ -1383,7 +1383,7 @@ sub generic_sim_run
     die ("DIE. simv not found in $model_path") if ($opt{vcs_run} and ! -e "$model_path/sim-vcs/simv") ;
     die ("DIE. xcelium.d not found in $model_path") if ($opt{ncv_run} and ! -e "$model_path/sim-xcelium/xcelium.d") ;
     die ("DIE. a.out not found in $model_path") if ($opt{icv_run} and ! -e "$model_path/sim-icarus/a.out") ;
-    die ("DIE. work/ not found in $model_path") if ($opt{msm_run} and ! -d "$model_path/work") ;
+    die ("DIE. sim-modelsim/work/ not found in $model_path") if ($opt{msm_run} and ! -d "$model_path/sim-modelsim/work") ;
 	die ("DIE. work/ not found in $model_path") if ($opt{riv_run} and ! -d "$model_path/work") ;
     die ("DIE. sim-verilator/ not found in $model_path") if ($opt{vlt_run} and ! -d "$model_path/sim-verilator") ;
 
@@ -1527,7 +1527,7 @@ sub generic_sim_run
       	print("$prg: dumping all waves to save.wlf - this file can get very large so make sure you run this on a fast disk with enough space.\n");
       	$cmd .= " -wlfcompress -wlf all-waves.wlf -do \"log -r /*\" ";
       }
-      $cmd .= "-lib $model_path/work ";
+      $cmd .= "-lib $model_path/sim-modelsim/work ";
       $cmd .= "-do \"run -all\" ";
 
       foreach my $top_n (@{$opt{toplevel}}) {
@@ -1535,6 +1535,7 @@ sub generic_sim_run
       }
 
       $cmd .= "-pli \"$ENV{DV_ROOT}/tools/$os_cpu_slash/lib/libmodelsimpli.so\" ";
+      $cmd .= "-suppress vsim-3009 ";
       $cmd .= join (" ", @{$opt{sim_run_args}}) ;
       print("====================================\n$cmd\n====================================");
     }
