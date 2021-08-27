@@ -8,6 +8,8 @@ filesets:
             - openpiton::piton_include
             - openpiton::piton_chipset_include
             - openpiton::system
+            - openpiton::piton_dpi
+            - tool_verilator? (openpiton::verilator_top)
         files:
             - cmp_pcxandcpx.v
             - exu_mon.v
@@ -30,29 +32,11 @@ filesets:
             - ../common/fake_mem_ctrl.v: {file_type: systemVerilogSource}
         file_type: verilogSource-2001
 
-    cpp_files:
-        files:
-            - ../../../tools/verilator/my_top.cpp
-            - ../../../tools/pli/iop/b_ary.c
-            - ../../../tools/pli/iop/b_ary.h: {is_include_file: true}
-            - ../../../tools/pli/iop/bw_lib.c
-            - ../../../tools/pli/iop/bw_lib.h: {is_include_file: true}
-            - ../../../tools/pli/iop/iob_main.cc
-            - ../../../tools/pli/iop/iob.cc
-            - ../../../tools/pli/iop/iob.h: {is_include_file: true}
-            - ../../../tools/pli/iop/cpx.cc
-            - ../../../tools/pli/iop/cpx.h: {is_include_file: true}
-            - ../../../tools/pli/iop/pcx.cc
-            - ../../../tools/pli/iop/pcx.h: {is_include_file: true}
-            - ../../../tools/pli/iop/global.h: {is_include_file: true}
-        file_type: cppSource
-
 targets:
     sim:
         default_tool: icarus
         filesets:
             - tb_files
-            - tool_verilator? (cpp_files)
         generate: [pyhp_preprocess]
         toplevel: [cmp_top]
         tools:
@@ -66,7 +50,6 @@ targets:
                     - -CFLAGS -DPITON_DPI
                     - -CFLAGS -DVERILATOR
                     - -CFLAGS -lstdc++
-                    - -DSYNC_MUX
             vcs:
                 vcs_options:
                     - +nospecify
@@ -87,6 +70,9 @@ targets:
                     - -lsocket_pli
                     - -liob
                     - -lmem_pli
+                    - +lint=all,noVCDE,noVNGS,noPCTIO-L,noPCTIO
+                    - +warn=all
+                    - -l compile.log
             icarus:
                 iverilog_options: [-g2001]
             modelsim:
@@ -104,46 +90,25 @@ targets:
                     - ariane? (-uvm)
                     - ariane? (-uvmhome CDNS-1.2)
         parameters:
-            NO_SCAN:
-                datatype: bool
-                default: true
-                paramtype: vlogdefine
-            USE_FAKE_PLL_AND_CLKMUX:
-                datatype: bool
-                default: true
-                paramtype: vlogdefine
-            USE_FAKE_IOS:
-                datatype: bool
-                default: true
-                paramtype: vlogdefine
-            OST1_PLI_SLAM_RANDOM:
-                datatype: bool
-                default: false
-                paramtype: vlogdefine
-            OST1_PLI_MRA_VAL:
-                datatype: bool
-                default: false
-                paramtype: vlogdefine
-            PITON_OST1:
-                datatype: bool
-                default: false
-                paramtype: vlogdefine
-            PITON_PICO:
-                datatype: bool
-                default: false
-                paramtype: vlogdefine
-            PITON_PICO_HET:
-                datatype: bool
-                default: false
-                paramtype: vlogdefine
-            PITON_ARIANE:
-                datatype: bool
-                default: false
-                paramtype: vlogdefine
-            WT_DCACHE:
-                datatype: bool
-                default: false
-                paramtype: vlogdefine
+            - tool_vcs? (OST1_PLI_SLAM_RANDOM=true)
+            - tool_vcs? (OST1_PLI_MRA_VAL=true)
+            - tool_rivierapro? (OST1_PLI_SLAM_RANDOM=true)
+            - tool_rivierapro? (OST1_PLI_MRA_VAL=true)
+            - ost1? (PITON_OST1=true)
+            - pico? (PITON_PICO=true)
+            - pico_het? (PITON_PICO=true)
+            - pico_het? (PITON_PICO_HET=true)
+            - ariane? (PITON_ARIANE=true)
+            - ariane? (WT_DCACHE=true)
+            - tool_xcelium? (PITON_DPI=true)
+            - tool_verilator? (PITON_DPI=true)
+            - tool_verilator? (SYNC_MUX=true)
+            - oram? (ORAM_ON=true)
+            - oram? (oram=true)
+            - ibm? (IBM_SRAM_RF16X160_MODEL_CHECKER=true)
+            - ibm? (IBM_SRAM_RF32X80_MODEL_CHECKER=true)
+            - ibm? (IBM_SRAM_CACHE_TAG_MODEL_CHECKER=true)
+            - ibm? (IBM_SRAM_LSU_ICACHE_MODEL_CHECKER=true)
     pickle:
         default_tool: icarus
         filesets: [tb_files]
@@ -156,6 +121,9 @@ parameters:
     NO_SCAN:
         datatype: bool
         default: true
+        paramtype: vlogdefine
+    SYNC_MUX:
+        datatype: bool
         paramtype: vlogdefine
     USE_FAKE_PLL_AND_CLKMUX:
         datatype: bool
@@ -184,6 +152,27 @@ parameters:
         datatype: bool
         paramtype: vlogdefine
     WT_DCACHE:
+        datatype: bool
+        paramtype: vlogdefine
+    PITON_DPI:
+        datatype: bool
+        paramtype: vlogdefine
+    ORAM_ON:
+        datatype: bool
+        paramtype: vlogdefine
+    oram:
+        datatype: bool
+        paramtype: plusarg
+    IBM_SRAM_RF16X160_MODEL_CHECKER:
+        datatype: bool
+        paramtype: vlogdefine
+    IBM_SRAM_RF32X80_MODEL_CHECKER:
+        datatype: bool
+        paramtype: vlogdefine
+    IBM_SRAM_CACHE_TAG_MODEL_CHECKER:
+        datatype: bool
+        paramtype: vlogdefine
+    IBM_SRAM_LSU_ICACHE_MODEL_CHECKER:
         datatype: bool
         paramtype: vlogdefine
 

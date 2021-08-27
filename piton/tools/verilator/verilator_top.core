@@ -1,0 +1,14 @@
+CAPI=2:
+name: openpiton::verilator_top:0.1
+description: Top-level Verilator testbench C++ file
+
+filesets:
+    cpp_files:
+        files:
+            - my_top.cpp
+        file_type: cppSource
+
+targets:
+    default:
+        filesets:
+            - tool_verilator? (cpp_files)

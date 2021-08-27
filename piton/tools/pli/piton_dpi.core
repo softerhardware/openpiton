@@ -1,0 +1,25 @@
+CAPI=2:
+name: openpiton::piton_dpi:0.1
+description: Files needed for OpenPiton DPI
+
+filesets:
+    cpp_files:
+        files:
+            - iop/b_ary.c
+            - iop/b_ary.h: {is_include_file: true}
+            - iop/bw_lib.c
+            - iop/bw_lib.h: {is_include_file: true}
+            - iop/iob_main.cc
+            - iop/iob.cc
+            - iop/iob.h: {is_include_file: true}
+            - iop/cpx.cc
+            - iop/cpx.h: {is_include_file: true}
+            - iop/pcx.cc
+            - iop/pcx.h: {is_include_file: true}
+            - iop/global.h: {is_include_file: true}
+        file_type: cppSource
+
+targets:
+    default:
+        filesets:
+            - tool_verilator? (cpp_files)
