@@ -1395,48 +1395,13 @@ sub generic_sim_build
       push (@{$opt{config_rtl}}, "DMBR_CHECKER") if ($opt{dmbr_checker}) ;
     }
     if ($opt{ncv_build}) {
-      # build ncelab and ncsim executable files if not present
-
-      my $ncsim = "$ENV{DV_ROOT}/tools/";
-      $ncsim .= $os_cpu_slash;
-      $ncsim .= "/ncsim";
-
-      my $ncelab = "$ENV{DV_ROOT}/tools/";
-      $ncelab .= $os_cpu_slash;
-      $ncelab .= "/ncelab";
-
-      if ( -f $ncsim) { print "$prg: file $ncsim found\n"; }
-      if ( -f $ncelab) { print "$prg: file $ncelab found\n"; }
-
-      if ((! -f $ncsim ) or (! -f $ncelab )) {
-        my $cur_dir = $ENV{PWD};
-        chdir $ENV{DV_ROOT} or die ("DIE can't change directory to $ENV{DV_ROOT}");
-        chdir "tools/pli" or die ("DIE can't change directory to tools/pli");
-        print "$prg: Calling make ncvexe\n";
-        system("make ncvexe");
-        die ("DIE. failed building ncsim or ncelab executable") if ($?) ;
-        chdir $cur_dir ;
-      }
-
-      my $cmd = "+ncsimexe+";
-      $cmd .= $ncsim;
-      $cmd .= " +ncelabexe+";
-      $cmd .= $ncelab;
-      $cmd .= " " ;
-      push (@{$opt{ncv_build_args}}, $cmd);
-      push (@{$opt{ncv_build_args}}, "-arr_access");
       push (@{$opt{ncv_build_args}}, "+access+rw");
-      #push (@{$opt{ncv_build_args}}, "+ncloadpli1=$dv_root/tools/pli/libiob_ncv:iob_boot");
-      #push (@{$opt{ncv_build_args}}, "+ncloadpli1=$dv_root/tools/pli/libjbus_mon_ncv:jbus_monboot");
-      #push (@{$opt{ncv_build_args}}, "+ncloadpli1=$dv_root/tools/pli/libmem_pli_ncv:mem_boot");
-      #push (@{$opt{ncv_build_args}}, "+ncloadpli1=$dv_root/tools/pli/libmonitor_ncv:monitor_boot");
-      #push (@{$opt{ncv_build_args}}, "+ncloadpli1=$dv_root/tools/pli/libsjm_ncv:sjm_boot");
-      #push (@{$opt{ncv_build_args}}, "+ncloadpli1=$dv_root/tools/pli/libsocket_pli_ncv:socketboot");
-      #push (@{$opt{ncv_build_args}}, "+ncloadpli1=$dv_root/tools/pli/libutility_ncv:utility_boot");
+      push (@{$opt{ncv_build_args}}, "-disable_sem2009");
 
-      push (@{$opt{ncv_build_args}}, "+name+$opt{sys}") ;
+      foreach my $top_n (@{$opt{toplevel}}) {
+        push (@{$opt{ncv_build_args}}, "-top $top_n") ;
+      }
       push (@{$opt{ncv_build_args}}, "-l compile.log") ;
-
     }
     if ($opt{icv_build}) {
       foreach my $top_n (@{$opt{toplevel}}) {
@@ -1513,9 +1478,7 @@ sub generic_sim_build
       }
     }
     if ($opt{ncv_build}) {
-      $build_cmd = "LD_LIBRARY_PATH=";
-      $build_cmd .= $ld_lib_path;
-      $build_cmd  .= " ; export LD_LIBRARY_PATH;  ncverilog -C " ;
+      $build_cmd  .= "xmverilog -64bit -elaborate " ;
     }
     if ($opt{icv_build}) {
       $build_cmd = "iverilog " ;
@@ -1633,7 +1596,7 @@ sub generic_sim_run
 
     # verify that a model was compiled
     die ("DIE. simv not found in $model_path") if ($opt{vcs_run} and ! -e "$model_path/simv") ;
-    die ("DIE. INCA_libs not found in $model_path") if ($opt{ncv_run} and ! -e "$model_path/INCA_libs") ;
+    die ("DIE. xcelium.d not found in $model_path") if ($opt{ncv_run} and ! -e "$model_path/xcelium.d") ;
     die ("DIE. a.out not found in $model_path") if ($opt{icv_run} and ! -e "$model_path/a.out") ;
     die ("DIE. work/ not found in $model_path") if ($opt{msm_run} and ! -d "$model_path/work") ;
 	die ("DIE. work/ not found in $model_path") if ($opt{riv_run} and ! -d "$model_path/work") ;
@@ -1717,7 +1680,7 @@ sub generic_sim_run
     push (@{$opt{sim_run_args}},  $good_trap) if ($good_trap ne "") ;
     push (@{$opt{sim_run_args}},  $bad_trap) if ($bad_trap ne "") ;
     # push (@{$opt{sim_run_args}}, "-l sim.log") ;
-    # push (@{$opt{sim_run_args}}, "-l ncverilog.log") ;
+    # push (@{$opt{sim_run_args}}, "-l xcelium.log") ;
     push (@{$opt{sim_run_args}}, "+nolog") if ($opt{ncv_run}) ;
     # push (@{$opt{sim_run_args}}, "+vcs+nostdout") if ($opt{regress});
     push (@{$opt{sim_run_args}}, "-cm $opt{vcs_cm_args}") if ($opt{vcs_use_cm});
@@ -1738,26 +1701,12 @@ sub generic_sim_run
     }
 
     if ($opt{ncv_run}) {
-      $ld_lib_path = $ENV{LD_LIBRARY_PATH};
-      $ld_lib_path .= ":$ENV{DV_ROOT}/tools/";
-      $ld_lib_path .= $os_cpu_slash;
-      $ld_lib_path .= "/lib";
-      $ld_lib_path .= ":$ENV{NCV_HOME}/tools/lib/64bit";
-      $cmd .= "#!/bin/csh -f\nsetenv LD_LIBRARY_PATH ";
-      $cmd .= $ld_lib_path;
-      $cmd .= "\n" ;
+      $cmd .= "#!/bin/csh -f\n";
       $cmd .= "echo ";
       $cmd .= $ncvcommand;
-      $cmd .= " | ncverilog " ;
-      $cmd .= "+nclibdirname+$model_path/INCA_libs " ;
-      $cmd .= "-r worklib.$opt{sys}:v " ;
-      $cmd .= "+name+$opt{sys} " ;
-      $cmd .= "+ncsimexe+$ENV{DV_ROOT}/tools/";
-      $cmd .= $os_cpu_slash;
-      $cmd .= "/ncsim " ;
-      $cmd .= "+ncelabexe+$ENV{DV_ROOT}/tools/";
-      $cmd .= $os_cpu_slash;
-      $cmd .= "/ncelab -s " ;
+      $cmd .= " | xrun -64bit " ;
+      $cmd .= "+xmlibdirname+$model_path/xcelium.d " ;
+      $cmd .= "-top worklib.cmp_top:v " ;
       $cmd .= join (" ", @{$opt{sim_run_args}}) ;
     }
 
@@ -2888,7 +2837,7 @@ sub parse_args
   push (@{$opt{config_rtl}}, "ORAM_ON") if ($opt{oram}) ;
   push (@{$opt{sim_run_args}}, "+oram") if ($opt{oram}) ;
 
-  if ($opt{vcs_build} or $opt{ncv_build} or $opt{riv_build}) {
+  if ($opt{vcs_build} or $opt{riv_build}) {
       push(@{$opt{config_rtl}}, "OST1_PLI_SLAM_RANDOM") ;
       push(@{$opt{config_rtl}}, "OST1_PLI_MRA_VAL") ;
   }
@@ -3032,17 +2981,17 @@ OPENPITON ARGUMENTS
 VERILOG COMPILATION RELATED
 
     -sim_type=vcs/ncv/icv/msm/vlt/riv
-         defines which simulator to use vcs, ncverilog, icarus, modelsim, riviera, or verilator, defaults to vcs.
+         defines which simulator to use vcs, xcelium (ncv), icarus, modelsim, riviera, or verilator, defaults to vcs.
 
     -sim_q_command="command"
          defines which job queue manager command to use to launch jobs.
           Defaults to /bin/sh and runs simulation jobs on the local machine.
 
     -ncv_build/-noncv_build
-           builds a ncverilog model. defaults to off.
+           builds a xcelium model. defaults to off.
 
     -ncv_build_args=OPTION
-           ncverilog compile options. multiple options can be specified using
+           xcelium compile options. multiple options can be specified using
            multiple such arguments.
 
     -icv_build/-noicv_build
@@ -3442,7 +3391,7 @@ Build a vcs model using DV_ROOT as design root
 
   sims -sys=manycore -x_tiles=1 -y_tiles=1 -vcs_build
 
-Build a ncverilog model using DV_ROOT as design root
+Build a xcelium model using DV_ROOT as design root
 
   sims -sys=manycore -x_tiles=1 -y_tiles=1 -ncv_build
 
