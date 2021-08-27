@@ -43,6 +43,11 @@
 
 `define MEM_ADDR_WIDTH      64
 
+`ifdef PITON_DPI
+import "DPI-C" function longint read_64b_call (input longint addr);
+import "DPI-C" function void write_64b_call (input longint addr, input longint data);
+`endif
+
 module fake_mem_ctrl(
 
     input wire clk,

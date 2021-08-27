@@ -29,6 +29,12 @@
 
 %>
 
+`ifdef PITON_DPI
+import "DPI-C" function int drive_iob ();
+import "DPI-C" function int get_cpx_word (int index);
+import "DPI-C" function void report_pc (longint thread_pc);
+`endif
+
 module ciop_fake_iob(
     input clk,
     input rst_n,
