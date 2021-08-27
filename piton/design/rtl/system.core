@@ -29,7 +29,8 @@ filesets:
             - ../chipset/io_ctrl/xilinx/genesys2/ip_cores/atg_uart_init/uart_addr.coe: {file_type : user}
             - ../chipset/io_ctrl/xilinx/genesys2/ip_cores/atg_uart_init/uart_data.coe: {file_type : user}
             - ../chipset/noc_sd_bridge/xilinx/genesys2/ip_cores/sd_cache_bram/sd_cache_bram.xci: {file_type : xci}
-            - ../chipset/noc_sd_bridge/xilinx/genesys2/ip_cores/sd_fifo/sd_fifo.xci: {file_type : xci}
+            - ../chipset/noc_sd_bridge/xilinx/genesys2/ip_cores/sd_ctrl_fifo/sd_ctrl_fifo.xci: {file_type : xci}
+            - ../chipset/noc_sd_bridge/xilinx/genesys2/ip_cores/sd_data_fifo/sd_data_fifo.xci: {file_type : xci}
 
 
 targets:
