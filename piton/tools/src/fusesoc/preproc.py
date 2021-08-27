@@ -38,7 +38,7 @@ filesets:
     rtl:
         files:
 __RTL_FILES_TEMPLATE__
-        file_type: verilogSource
+        file_type: systemVerilogSource
 
 targets:
     default:
