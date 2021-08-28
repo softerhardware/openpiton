@@ -1199,28 +1199,28 @@ sub generic_sim_build
       chomp(my $vcsd = "vcsd".$proj_vars{vcsprefix});
       $vcsd =~ s/(vcsd)vcs(\d+)\.(\d+).*/$1$2$3/;
       my $vcsd_tab = "vcsd.tab";
+    }
 
-      # figure out the location of vcs from variable
-      if ($opt{vcs_build}) {
-        if (!defined($ENV{VCS_HOME})) { die ("DIE. VCS_HOME not defined.") }
-        print "$prg: VCS_HOME is $ENV{VCS_HOME}\n";
-      }
-      if ($opt{ncv_build}) {
-        if (!defined($ENV{NCV_HOME})) { die ("DIE. NCV_HOME not defined.") }
-        print "$prg: NCV_HOME is $ENV{NCV_HOME}\n";
-      }
-      if ($opt{icv_build}) {
-        if (!defined($ENV{ICARUS_HOME})) { die ("DIE. ICARUS_HOME not defined.") }
-        print "$prg: ICARUS_HOME is $ENV{ICARUS_HOME}\n";
-      }
-      if ($opt{msm_build}) {
-        if (!defined($ENV{MODELSIM_HOME})) { die ("DIE. MODELSIM_HOME not defined.") }
-        print "$prg: MODELSIM_HOME is $ENV{MODELSIM_HOME}\n";
-      }
-      if ($opt{riv_build}) {
-        if (!defined($ENV{RIVIERA_HOME})) { die ("DIE. RIVIERA_HOME not defined.") }
-        print "$prg: RIVIERA_HOME is $ENV{RIVIERA_HOME}\n";
-      }
+    # figure out the location of vcs from variable
+    if ($opt{vcs_build}) {
+      if (!defined($ENV{VCS_HOME})) { die ("DIE. VCS_HOME not defined.") }
+      print "$prg: VCS_HOME is $ENV{VCS_HOME}\n";
+    }
+    if ($opt{ncv_build}) {
+      if (!defined($ENV{NCV_HOME})) { die ("DIE. NCV_HOME not defined.") }
+      print "$prg: NCV_HOME is $ENV{NCV_HOME}\n";
+    }
+    if ($opt{icv_build}) {
+      if (!defined($ENV{ICARUS_HOME})) { die ("DIE. ICARUS_HOME not defined.") }
+      print "$prg: ICARUS_HOME is $ENV{ICARUS_HOME}\n";
+    }
+    if ($opt{msm_build}) {
+      if (!defined($ENV{MODELSIM_HOME})) { die ("DIE. MODELSIM_HOME not defined.") }
+      print "$prg: MODELSIM_HOME is $ENV{MODELSIM_HOME}\n";
+    }
+    if ($opt{riv_build}) {
+      if (!defined($ENV{RIVIERA_HOME})) { die ("DIE. RIVIERA_HOME not defined.") }
+      print "$prg: RIVIERA_HOME is $ENV{RIVIERA_HOME}\n";
     }
 
     if ($ENV{LM_LICENSE_FILE}) {
@@ -1241,29 +1241,7 @@ sub generic_sim_build
       push (@{$opt{vcs_build_args}}, "-cm_name $opt{vcs_cm_name}") if ($opt{vcs_use_cm}) ;
       push (@{$opt{vcs_build_args}}, "-cm_dir $model_path") if ($opt{vcs_use_cm}) ;
       push (@{$opt{vcs_build_args}}, "+cli -line") if ($opt{vcs_use_cli}) ;
-
-      # tri: adds some lint info
-      # tri: remove the useless inout port lintings
-      # push (@{$opt{vcs_build_args}}, "+lint=TFIPC-L,noPCTIO-L");
-      # push (@{$opt{vcs_build_args}}, "+lint=noPCTIO-L");
-      # VNGS = variable never get set, happens a lot when variables are wires set by submodules
-      #
-      push (@{$opt{vcs_build_args}}, "+lint=all,noVCDE,noVNGS,noPCTIO-L,noPCTIO");
-      push (@{$opt{vcs_build_args}}, "+warn=all");
-      push (@{$opt{vcs_build_args}}, "-l compile.log") ;
-
-      if ($opt{ibm}) {
-          push (@{$opt{config_rtl}}, "IBM_SRAM_RF16X160_MODEL_CHECKER") ;
-          push (@{$opt{config_rtl}}, "IBM_SRAM_RF32X80_MODEL_CHECKER") ;
-          push (@{$opt{config_rtl}}, "IBM_SRAM_CACHE_TAG_MODEL_CHECKER") ;
-          push (@{$opt{config_rtl}}, "IBM_SRAM_LSU_ICACHE_MODEL_CHECKER") ;
-      }
-
-      push (@{$opt{config_rtl}}, "COPROCESSOR_ON") if ($opt{dmbr}) ;
-      push (@{$opt{config_rtl}}, "DMBR_CHECKER") if ($opt{dmbr_checker}) ;
     }
-
-    push (@{$opt{config_rtl}}, "PITON_DPI") if ($opt{vlt_build} or $opt{ncv_build}) ;
 
     # copy vcs/icv/ncv/msm/vlt_build_args to generic sim_build_args
     push (@{$opt{sim_build_args}}, @{$opt{vcs_build_args}}) if ($opt{vcs_build});
@@ -1280,7 +1258,6 @@ sub generic_sim_build
 
     if ($opt{vcs_build}) {
       $build_cmd .= "--tool=vcs " ;
-      # lib_path needs to be before vcs_build_args
       $build_cmd .= "--system-name=simv ";
     }
     if ($opt{ncv_build}) {
@@ -2401,7 +2378,6 @@ sub parse_args
             'ed_sync_method=s',
             'slurm!',
             'dmbr!',
-            'dmbr_checker!',
             'oram!',
            );
 
@@ -2537,12 +2513,6 @@ sub parse_args
   $ENV{PITON_PICO}     = $opt{pico};
   $ENV{PITON_PICO_HET} = $opt{pico_het};
   $ENV{PITON_ARIANE}   = $opt{ariane};
-  push (@{$opt{fusesoc_params}}, "--PITON_OST1")     if ($opt{ost1});
-  push (@{$opt{fusesoc_params}}, "--PITON_PICO")     if ($opt{pico});
-  push (@{$opt{fusesoc_params}}, "--PITON_PICO")     if ($opt{pico_het});
-  push (@{$opt{fusesoc_params}}, "--PITON_PICO_HET") if ($opt{pico_het});
-  push (@{$opt{fusesoc_params}}, "--PITON_ARIANE")   if ($opt{ariane});
-  push (@{$opt{fusesoc_params}}, "--WT_DCACHE")      if ($opt{ariane});
 
   my $pton_x_tiles="";
   my $pton_y_tiles="";
@@ -2614,15 +2584,6 @@ sub parse_args
 
   # Push optional dmbr enable
   push (@{$opt{midas_args}}, "-DDMBR_ENABLE") if ($opt{dmbr});
-
-  # Push optional oram enable
-  push (@{$opt{config_rtl}}, "ORAM_ON") if ($opt{oram}) ;
-  push (@{$opt{sim_run_args}}, "+oram") if ($opt{oram}) ;
-
-  if ($opt{vcs_build} or $opt{riv_build}) {
-      push(@{$opt{fusesoc_params}}, "--OST1_PLI_SLAM_RANDOM") ;
-      push(@{$opt{fusesoc_params}}, "--OST1_PLI_MRA_VAL") ;
-  }
 
 }
 
