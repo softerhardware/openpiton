@@ -11,11 +11,6 @@ filesets:
             - openpiton::chipset
         file_type: verilogSource-2001
 
-    vivado_tcl:
-        files:
-            - g2_defines.h: {file_type : verilogSource-2001}
-            - system_defines.tcl: {file_type : tclSource}
-
     vivado_ip:
         files:
             - ../xilinx/genesys2/constraints.xdc: {file_type : xdc}
@@ -53,8 +48,119 @@ targets:
 
     fpga:
         default_tool: vivado
-        filesets: [rtl, vivado_tcl, vivado_ip]
+        filesets: [rtl, vivado_ip]
         toplevel: [system]
         tools:
             vivado:
                 part: xc7k325tffg900-2
+        parameters:
+            - NO_SCAN=true
+            - FPGA_SYN=true
+            - PITON_FPGA_SYNTH=true
+            - PITON_PROTO=true
+            - ost1? (PITON_OST1=true)
+            - ariane? (PITON_ARIANE=true)
+            - ariane? (WT_DCACHE=true)
+            - PITON_FULL_SYSTEM=true
+            - PITON_FPGA_NO_DMBR=true
+            - MERGE_L1_DCACHE=true
+            - FPGA_SYN_1THREAD=true
+            - FPGA_FORCE_SRAM_ICACHE_TAG=true
+            - FPGA_FORCE_SRAM_LSU_ICACHE=true
+            - FPGA_FORCE_SRAM_DCACHE_TAG=true
+            - FPGA_FORCE_SRAM_LSU_DCACHE=true
+            - FPGA_FORCE_SRAM_RF16X160=true
+            - FPGA_FORCE_SRAM_RF32X80=true
+            - CONFIG_DISABLE_BIST_CLEAR=true
+            - ariane? (NO_RTL_CSM=true)
+            - PITON_FPGA_MC_DDR3=true
+            - PITONSYS_MEM_ZEROER=true
+            - PITON_FPGA_SD_BOOT=true
+            - PITONSYS_UART_BOOT=true
+            - PITON_NO_CHIP_BRIDGE=true
+            - PITON_UART16550=true
+            - genesys2? (GENESYS2_BOARD=true)
+
+parameters:
+    NO_SCAN:
+        datatype: bool
+        default: true
+        paramtype: vlogdefine
+    FPGA_SYN:
+        datatype: bool
+        paramtype: vlogdefine
+    PITON_FPGA_SYNTH:
+        datatype: bool
+        paramtype: vlogdefine
+    PITON_PROTO:
+        datatype: bool
+        paramtype: vlogdefine
+    PITON_OST1:
+        datatype: bool
+        paramtype: vlogdefine
+    PITON_ARIANE:
+        datatype: bool
+        paramtype: vlogdefine
+    WT_DCACHE:
+        datatype: bool
+        paramtype: vlogdefine
+    PITON_FULL_SYSTEM:
+        datatype: bool
+        paramtype: vlogdefine
+    PITON_FPGA_NO_DMBR:
+        datatype: bool
+        paramtype: vlogdefine
+    MERGE_L1_DCACHE:
+        datatype: bool
+        paramtype: vlogdefine
+    FPGA_SYN_1THREAD:
+        datatype: bool
+        paramtype: vlogdefine
+    FPGA_FORCE_SRAM_ICACHE_TAG:
+        datatype: bool
+        paramtype: vlogdefine
+    FPGA_FORCE_SRAM_LSU_ICACHE:
+        datatype: bool
+        paramtype: vlogdefine
+    FPGA_FORCE_SRAM_DCACHE_TAG:
+        datatype: bool
+        paramtype: vlogdefine
+    FPGA_FORCE_SRAM_LSU_DCACHE:
+        datatype: bool
+        paramtype: vlogdefine
+    FPGA_FORCE_SRAM_RF16X160:
+        datatype: bool
+        paramtype: vlogdefine
+    FPGA_FORCE_SRAM_RF32X80:
+        datatype: bool
+        paramtype: vlogdefine
+    CONFIG_DISABLE_BIST_CLEAR:
+        datatype: bool
+        paramtype: vlogdefine
+    NO_RTL_CSM:
+        datatype: bool
+        paramtype: vlogdefine
+    PITON_FPGA_MC_DDR3:
+        datatype: bool
+        paramtype: vlogdefine
+    PITONSYS_MEM_ZEROER:
+        datatype: bool
+        paramtype: vlogdefine
+    PITON_FPGA_SD_BOOT:
+        datatype: bool
+        paramtype: vlogdefine
+    PITONSYS_UART_BOOT:
+        datatype: bool
+        paramtype: vlogdefine
+    PITON_NO_CHIP_BRIDGE:
+        datatype: bool
+        paramtype: vlogdefine
+    PITON_UART16550:
+        datatype: bool
+        paramtype: vlogdefine
+    PITON_FPGA_ETHERNETLITE:
+        datatype: bool
+        paramtype: vlogdefine
+    GENESYS2_BOARD:
+        datatype: bool
+        paramtype: vlogdefine

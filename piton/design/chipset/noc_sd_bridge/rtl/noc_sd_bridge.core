@@ -5,6 +5,7 @@ description: OpenPiton NoC to SDHC Bridge
 filesets:
     rtl:
         files:
+            - piton_sd_define.vh: {is_include_file: true}
             - sd_defines.h: {is_include_file: true}
             - byte_en_reg.v
             - cdc_bits.v
