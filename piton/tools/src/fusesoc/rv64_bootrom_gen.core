@@ -1,0 +1,7 @@
+CAPI=2:
+name : openpiton::rv64_bootrom_gen:0.1
+
+generators:
+    rv64_bootrom_gen:
+        command: rv64_bootrom_gen.py
+        interpreter: python3

@@ -1,0 +1,7 @@
+CAPI=2:
+name : openpiton::rv_plic_gen:0.1
+
+generators:
+    rv_plic_gen:
+        command: rv_plic_gen.py
+        interpreter: python3
