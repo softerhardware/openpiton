@@ -1,0 +1,40 @@
+CAPI=2:
+name: openpiton::xilinx_chipset_ip:0.1
+description: OpenPiton Xilinx Chipset IP
+
+filesets:
+    genesys2_ip:
+        files:
+            - genesys2/ip_cores/clk_mmcm/clk_mmcm.xci: {file_type : xci}
+            - genesys2/ip_cores/mac_eth_axi_lite/mac_eth_axi_lite.xci: {file_type : xci}
+            - genesys2/ip_cores/afifo_w64_d128_std/afifo_w64_d128_std.xci: {file_type : xci}
+    nexysVideo_ip:
+        files:
+            - nexysVideo/ip_cores/clk_mmcm/clk_mmcm.xci: {file_type : xci}
+            - nexysVideo/ip_cores/mac_eth_axi_lite/mac_eth_axi_lite.xci: {file_type : xci}
+            - nexysVideo/ip_cores/afifo_w64_d128_std/afifo_w64_d128_std.xci: {file_type : xci}
+    vc707_ip:
+        files:
+            - vc707/ip_cores/clk_mmcm/clk_mmcm.xci: {file_type : xci}
+            - vc707/ip_cores/afifo_w64_d128_std/afifo_w64_d128_std.xci: {file_type : xci}
+    vcu118_ip:
+        files:
+            - vcu118/ip_cores/clk_mmcm/clk_mmcm.xci: {file_type : xci}
+            - vcu118/ip_cores/afifo_w64_d128_std/afifo_w64_d128_std.xci: {file_type : xci}
+    xupp3r_ip:
+        files:
+            - xupp3r/ip_cores/clk_mmcm/clk_mmcm.xci: {file_type : xci}
+            - xupp3r/ip_cores/afifo_w64_d128_std/afifo_w64_d128_std.xci: {file_type : xci}
+    f1_ip:
+        files:
+            - f1/ip_cores/afifo_w64_d128_std/afifo_w64_d128_std.xci: {file_type : xci}
+
+targets:
+    default:
+        filesets:
+          - genesys2? (genesys2_ip)
+          - nexysVideo? (nexysVideo_ip)
+          - vc707? (vc707_ip)
+          - vcu118? (vcu118_ip)
+          - xupp3r? (xupp3r_ip)
+          - f1? (f1_ip)

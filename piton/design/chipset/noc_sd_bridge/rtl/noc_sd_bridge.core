@@ -29,6 +29,8 @@ filesets:
             - sd_fifo_filler.v
             - sd_wb_sel_ctrl.v
             - sdc_controller.v
+        depend:
+            - tool_vivado? (openpiton::xilinx_nocsdbridge_ip)
         file_type: verilogSource-2001
 
 targets:

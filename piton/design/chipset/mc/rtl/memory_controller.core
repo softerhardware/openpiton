@@ -8,7 +8,8 @@ filesets:
             - mc_top.v
             - memory_zeroer.v
             - noc_mig_bridge.v
-            - ../../noc_axi4_bridge/rtl/noc_axi4_bridge_define.vh: {is_include_file: true}
+        depend:
+            - tool_vivado? (openpiton::xilinx_mc_ip)
         file_type: verilogSource-2001
 
 targets:

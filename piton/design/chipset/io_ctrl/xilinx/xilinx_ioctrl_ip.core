@@ -1,0 +1,68 @@
+CAPI=2:
+name: openpiton::xilinx_ioctrl_ip:0.1
+description: OpenPiton Xilinx io_ctrl IP
+
+filesets:
+    common_ip:
+        files:
+            - common/ip_cores/bram_256x512/test_proto.coe: {file_type : user}
+            - common/ip_cores/mem_uart_done/mem_uart_done.coe: {file_type : user}
+    genesys2_ip:
+        files:
+            - genesys2/ip_cores/uart_16550/uart_16550.xci: {file_type : xci}
+            - genesys2/ip_cores/bram_16384x512/bram_16384x512.xci: {file_type : xci}
+            - genesys2/ip_cores/bram_256x512/bram_256x512.xci: {file_type : xci}
+            - genesys2/ip_cores/atg_uart_init/atg_uart_init.xci: {file_type : xci}
+            - genesys2/ip_cores/atg_uart_init/uart_addr.coe: {file_type : user}
+            - genesys2/ip_cores/atg_uart_init/uart_data.coe: {file_type : user}
+    nexysVideo_ip:
+        files:
+            - nexysVideo/ip_cores/uart_16550/uart_16550.xci: {file_type : xci}
+            - nexysVideo/ip_cores/bram_16384x512/bram_16384x512.xci: {file_type : xci}
+            - nexysVideo/ip_cores/bram_256x512/bram_256x512.xci: {file_type : xci}
+            - nexysVideo/ip_cores/atg_uart_init/atg_uart_init.xci: {file_type : xci}
+            - nexysVideo/ip_cores/atg_uart_init/uart_addr.coe: {file_type : user}
+            - nexysVideo/ip_cores/atg_uart_init/uart_data.coe: {file_type : user}
+    vc707_ip:
+        files:
+            - vc707/ip_cores/uart_16550/uart_16550.xci: {file_type : xci}
+            - vc707/ip_cores/bram_16384x512/bram_16384x512.xci: {file_type : xci}
+            - vc707/ip_cores/bram_256x512/bram_256x512.xci: {file_type : xci}
+            - vc707/ip_cores/atg_uart_init/atg_uart_init.xci: {file_type : xci}
+            - vc707/ip_cores/atg_uart_init/uart_addr.coe: {file_type : user}
+            - vc707/ip_cores/atg_uart_init/uart_data.coe: {file_type : user}
+    vcu118_ip:
+        files:
+            - vcu118/ip_cores/uart_16550/uart_16550.xci: {file_type : xci}
+            - vcu118/ip_cores/bram_16384x512/bram_16384x512.xci: {file_type : xci}
+            - vcu118/ip_cores/bram_256x512/bram_256x512.xci: {file_type : xci}
+            - vcu118/ip_cores/atg_uart_init/atg_uart_init.xci: {file_type : xci}
+            - vcu118/ip_cores/atg_uart_init/uart_addr.coe: {file_type : user}
+            - vcu118/ip_cores/atg_uart_init/uart_data.coe: {file_type : user}
+    xupp3r_ip:
+        files:
+            - xupp3r/ip_cores/uart_16550/uart_16550.xci: {file_type : xci}
+            - xupp3r/ip_cores/bram_16384x512/bram_16384x512.xci: {file_type : xci}
+            - xupp3r/ip_cores/bram_256x512/bram_256x512.xci: {file_type : xci}
+            - xupp3r/ip_cores/atg_uart_init/atg_uart_init.xci: {file_type : xci}
+            - xupp3r/ip_cores/atg_uart_init/uart_addr.coe: {file_type : user}
+            - xupp3r/ip_cores/atg_uart_init/uart_data.coe: {file_type : user}
+    f1_ip:
+        files:
+            - f1/ip_cores/uart_16550/uart_16550.xci: {file_type : xci}
+            - f1/ip_cores/bram_16384x512/bram_16384x512.xci: {file_type : xci}
+            - f1/ip_cores/bram_256x512/bram_256x512.xci: {file_type : xci}
+            - f1/ip_cores/atg_uart_init/atg_uart_init.xci: {file_type : xci}
+            - f1/ip_cores/atg_uart_init/uart_addr.coe: {file_type : user}
+            - f1/ip_cores/atg_uart_init/uart_data.coe: {file_type : user}
+
+targets:
+    default:
+        filesets:
+          - common_ip
+          - genesys2? (genesys2_ip)
+          - nexysVideo? (nexysVideo_ip)
+          - vc707? (vc707_ip)
+          - vcu118? (vcu118_ip)
+          - xupp3r? (xupp3r_ip)
+          - f1? (f1_ip)

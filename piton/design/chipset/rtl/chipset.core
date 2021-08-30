@@ -1,6 +1,6 @@
 CAPI=2:
 name: openpiton::chipset:0.1
-description: OpenPiton Tile
+description: OpenPiton Chipset
 
 filesets:
     rtl:
@@ -8,16 +8,18 @@ filesets:
             - blinker.v
             - chipset.v
             - test_end_checker.v
-            - ../common/rtl/noc_bidir_afifo.v
         depend:
             - openpiton::piton_chipset_include
+            - openpiton::piton_chipset_common
             - openpiton::fpga_bridge
             - "tool_vivado? (openpiton::memory_controller)"
             - openpiton::noc_axilite_bridge
+            - openpiton::noc_axi4_bridge
             - "tool_vivado? (openpiton::noc_sd_bridge)"
             - openpiton::io_ctrl
             - openpiton::io_xbar
             - "tool_vivado? (openpiton::oled)"
+            - tool_vivado? (openpiton::xilinx_chipset_ip)
         file_type: verilogSource-2001
 
 targets:

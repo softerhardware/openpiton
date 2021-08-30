@@ -1,0 +1,33 @@
+CAPI=2:
+name: openpiton::xilinx_nocsdbridge_ip:0.1
+description: OpenPiton Xilinx noc_sd_bridge IP
+
+filesets:
+    genesys2_ip:
+        files:
+            - genesys2/ip_cores/sd_cache_bram/sd_cache_bram.xci: {file_type : xci}
+            - genesys2/ip_cores/sd_ctrl_fifo/sd_ctrl_fifo.xci: {file_type : xci}
+            - genesys2/ip_cores/sd_data_fifo/sd_data_fifo.xci: {file_type : xci}
+    nexysVideo_ip:
+        files:
+            - nexysVideo/ip_cores/sd_cache_bram/sd_cache_bram.xci: {file_type : xci}
+            - nexysVideo/ip_cores/sd_ctrl_fifo/sd_ctrl_fifo.xci: {file_type : xci}
+            - nexysVideo/ip_cores/sd_data_fifo/sd_data_fifo.xci: {file_type : xci}
+    vc707_ip:
+        files:
+            - vc707/ip_cores/sd_cache_bram/sd_cache_bram.xci: {file_type : xci}
+            - vc707/ip_cores/sd_ctrl_fifo/sd_ctrl_fifo.xci: {file_type : xci}
+            - vc707/ip_cores/sd_data_fifo/sd_data_fifo.xci: {file_type : xci}
+    vcu118_ip:
+        files:
+            - vcu118/ip_cores/sd_cache_bram/sd_cache_bram.xci: {file_type : xci}
+            - vcu118/ip_cores/sd_ctrl_fifo/sd_ctrl_fifo.xci: {file_type : xci}
+            - vcu118/ip_cores/sd_data_fifo/sd_data_fifo.xci: {file_type : xci}
+
+targets:
+    default:
+        filesets:
+          - genesys2? (genesys2_ip)
+          - nexysVideo? (nexysVideo_ip)
+          - vc707? (vc707_ip)
+          - vcu118? (vcu118_ip)

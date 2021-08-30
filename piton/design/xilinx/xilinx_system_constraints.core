@@ -1,0 +1,33 @@
+CAPI=2:
+name: openpiton::xilinx_system_constraints:0.1
+description: OpenPiton Xilinx Constraint Files
+
+filesets:
+    genesys2_constraints:
+        files:
+            - genesys2/constraints.xdc: {file_type : xdc}
+    nexysVideo_constraints:
+        files:
+            - nexysVideo/constraints.xdc: {file_type : xdc}
+    vc707_constraints:
+        files:
+            - vc707/constraints.xdc: {file_type : xdc}
+    vcu118_constraints:
+        files:
+            - vcu118/constraints.xdc: {file_type : xdc}
+    xupp3r_constraints:
+        files:
+            - xupp3r/constraints.xdc: {file_type : xdc}
+    f1_constraints:
+        files:
+            - f1/constraints.xdc: {file_type : xdc}
+
+targets:
+    default:
+        filesets:
+          - genesys2? (genesys2_constraints)
+          - nexysVideo? (nexysVideo_constraints)
+          - vc707? (vc707_constraints)
+          - vcu118? (vcu118_constraints)
+          - xupp3r? (xupp3r_constraints)
+          - f1? (f1_constraints)

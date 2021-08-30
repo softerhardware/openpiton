@@ -9,24 +9,8 @@ filesets:
         depend:
             - openpiton::chip
             - openpiton::chipset
+            - tool_vivado? (openpiton::xilinx_system_constraints)
         file_type: verilogSource-2001
-
-    vivado_ip:
-        files:
-            - ../xilinx/genesys2/constraints.xdc: {file_type : xdc}
-            - ../chipset/xilinx/genesys2/ip_cores/clk_mmcm/clk_mmcm.xci: {file_type : xci}
-            - ../chipset/xilinx/genesys2/ip_cores/mac_eth_axi_lite/mac_eth_axi_lite.xci: {file_type : xci}
-            - ../chipset/xilinx/genesys2/ip_cores/afifo_w64_d128_std/afifo_w64_d128_std.xci: {file_type : xci}
-            - ../chipset/mc/xilinx/genesys2/ip_cores/mig_7series_0/mig_7series_0.xci: {file_type : xci}
-            - ../chipset/mc/xilinx/genesys2/ip_cores/mig_7series_0/mig_a.prj: {file_type : user}
-            - ../chipset/io_ctrl/xilinx/genesys2/ip_cores/uart_16550/uart_16550.xci: {file_type : xci}
-            - ../chipset/io_ctrl/xilinx/genesys2/ip_cores/atg_uart_init/atg_uart_init.xci: {file_type : xci}
-            - ../chipset/io_ctrl/xilinx/genesys2/ip_cores/atg_uart_init/uart_addr.coe: {file_type : user}
-            - ../chipset/io_ctrl/xilinx/genesys2/ip_cores/atg_uart_init/uart_data.coe: {file_type : user}
-            - ../chipset/noc_sd_bridge/xilinx/genesys2/ip_cores/sd_cache_bram/sd_cache_bram.xci: {file_type : xci}
-            - ../chipset/noc_sd_bridge/xilinx/genesys2/ip_cores/sd_ctrl_fifo/sd_ctrl_fifo.xci: {file_type : xci}
-            - ../chipset/noc_sd_bridge/xilinx/genesys2/ip_cores/sd_data_fifo/sd_data_fifo.xci: {file_type : xci}
-
 
 targets:
     default:
@@ -34,7 +18,7 @@ targets:
     pickle:
         default_tool: icarus
         filesets: [rtl]
-        toplevel: [chip]
+        toplevel: [system]
         tools:
             icarus:
                 iverilog_options: [-g 2001 -E]
@@ -46,13 +30,10 @@ targets:
             icarus:
                 iverilog_options: [-g 2001]
 
-    fpga:
+    fpga_template: &fpga_template
         default_tool: vivado
-        filesets: [rtl, vivado_ip]
+        filesets: [rtl]
         toplevel: [system]
-        tools:
-            vivado:
-                part: xc7k325tffg900-2
         parameters:
             - NO_SCAN=true
             - FPGA_SYN=true
@@ -79,7 +60,60 @@ targets:
             - PITONSYS_UART_BOOT=true
             - PITON_NO_CHIP_BRIDGE=true
             - PITON_UART16550=true
-            - genesys2? (GENESYS2_BOARD=true)
+
+    genesys2:
+        # Copy all key/value pairs from the "fpga_template" target.
+        <<: *fpga_template
+        tools:
+            vivado:
+                part: xc7k325tffg900-2
+        parameters_append:
+            - GENESYS2_BOARD=true
+
+    nexysVideo:
+        # Copy all key/value pairs from the "fpga_template" target.
+        <<: *fpga_template
+        tools:
+            vivado:
+                part: xc7a200tsbg484-1
+        parameters_append:
+            - NEXYSVIDEO_BOARD=true
+
+    vc707:
+        # Copy all key/value pairs from the "fpga_template" target.
+        <<: *fpga_template
+        tools:
+            vivado:
+                part: xc7vx485tffg1761-2
+        parameters_append:
+            - VC707_BOARD=true
+
+    vcu118:
+        # Copy all key/value pairs from the "fpga_template" target.
+        <<: *fpga_template
+        tools:
+            vivado:
+                part: xcvu9p-flga2104-2L-e
+        parameters_append:
+            - VCU118_BOARD=true
+
+    xupp3r:
+        # Copy all key/value pairs from the "fpga_template" target.
+        <<: *fpga_template
+        tools:
+            vivado:
+                part: xcvu9p-flgb2104-2-e
+        parameters_append:
+            - XUPP3R_BOARD=true
+
+    f1:
+        # Copy all key/value pairs from the "fpga_template" target.
+        <<: *fpga_template
+        tools:
+            vivado:
+                part: f1? (xcvu9p-flgb2104-2-i)
+        parameters_append:
+            - F1_BOARD=true
 
 parameters:
     NO_SCAN:
@@ -162,5 +196,20 @@ parameters:
         datatype: bool
         paramtype: vlogdefine
     GENESYS2_BOARD:
+        datatype: bool
+        paramtype: vlogdefine
+    NEXYSVIDEO_BOARD:
+        datatype: bool
+        paramtype: vlogdefine
+    VC707_BOARD:
+        datatype: bool
+        paramtype: vlogdefine
+    VCU118_BOARD:
+        datatype: bool
+        paramtype: vlogdefine
+    XUPP3R_BOARD:
+        datatype: bool
+        paramtype: vlogdefine
+    F1_BOARD:
         datatype: bool
         paramtype: vlogdefine
