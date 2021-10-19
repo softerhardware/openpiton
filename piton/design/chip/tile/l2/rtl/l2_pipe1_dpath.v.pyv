@@ -911,7 +911,8 @@ begin
 if (L2_WAYS < 8):
     print("""if (addr_S2[`L2_ADDR_OP] == {`L2_ADDR_OP_WIDTH{1'b0}})
             begin
-                return_data_S2 = {{(`L2_P1_DATA_BUF_IN_WIDTH - `L2_STATE_DATA_WIDTH){1'b0}}, state_data_trans_S2[`L2_STATE_DATA]};
+                //WE BROKE THIS TOO, ONLY USE FOR METRO-MPI
+                return_data_S2 = 64'b0;
             end
             else""")
 %>            begin
@@ -1207,8 +1208,9 @@ end
 always @ *
 begin
     if (special_addr_type_S2)
-    begin   
-        state_data_in_S2 = {msg_data_S2[`L2_RB_BITS+`L2_LRU_BITS-1:0], msg_data_S2[`L2_STATE_DATA_WIDTH-1:0]};
+    begin
+        //THIS HAS BEEN HARDCODED TO SUPPORT 1024 TILES FOR METRO-MPI, DO NOT REUSE   
+        state_data_in_S2 = {msg_data_S2[`L2_RB_BITS+`L2_LRU_BITS-1:0], msg_data_S2[63:0]}; //WE BROKE THIS, msg_data_S2 used to be `L2_STATE_DATA_WIDTH-1, HARDCODED TO 64 BIT WIDTH
     end
     else
     begin
