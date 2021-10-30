@@ -17,13 +17,13 @@
 #include <stdio.h>
 #include "util.h"
 
-int main(int argc, char** argv) {
+int main(int argc, int** argv) {
 
   // synchronization variable
   // amo_cnt[i+1][0] is the token shared by core i and core i+1
   // the length 20 is to make sure that different tokens are stored in different cache lines.
   // Support 128 cores at most
-  volatile static uint32_t amo_cnt[128][20] = {0};
+  volatile static uint32_t amo_cnt[1024][20] = {0};
 
   amo_cnt[0][0] = 1;
 

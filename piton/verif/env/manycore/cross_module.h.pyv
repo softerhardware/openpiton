@@ -29,11 +29,7 @@
     import os
 
     #MAX_THREAD = 128;
-<<<<<<< HEAD
-    MAX_TILE = 64;
-=======
     MAX_TILE = 1024;
->>>>>>> 5f7e4572 (support for 1024 tile simulation)
 
     PITON_NUM_TILES = int(os.environ.get('PTON_NUM_TILES', '-1'))
     #print "//num_tiles:", num_tiles
