@@ -86,6 +86,59 @@ pico-amoxor     amoxor_w.S
 </cmp_default>
 </pico_tile1>
 
+<anycore_tile1 sys=manycore -x_tiles=1 -y_tiles=1 -anycore>
+<cmp_default name=default>
+anycore-add    rv64ui-p-add.S
+anycore-addi   rv64ui-p-addi.S
+anycore-addiw  rv64ui-p-addiw.S
+anycore-and    rv64ui-p-and.S
+anycore-andi   rv64ui-p-andi.S
+anycore-auipc  rv64ui-p-auipc.S
+anycore-beq    rv64ui-p-beq.S
+anycore-bge    rv64ui-p-bge.S
+anycore-bgeu   rv64ui-p-bgeu.S
+anycore-blt    rv64ui-p-blt.S
+anycore-bltu   rv64ui-p-bltu.S
+anycore-bne    rv64ui-p-bne.S
+anycore-fence_i rv64ui-p-fence_i.S
+anycore-jal    rv64ui-p-jal.S
+anycore-jalr   rv64ui-p-jalr.S
+anycore-lb     rv64ui-p-lb.S
+anycore-lbu    rv64ui-p-lbu.S
+anycore-lh     rv64ui-p-lh.S
+anycore-lhu    rv64ui-p-lhu.S
+anycore-lui    rv64ui-p-lui.S
+anycore-lw     rv64ui-p-lw.S
+anycore-lw     rv64ui-p-lwu.S
+anycore-or     rv64ui-p-or.S
+anycore-ori    rv64ui-p-ori.S
+anycore-sb     rv64ui-p-sb.S
+anycore-sh     rv64ui-p-sh.S
+anycore-short-addi   rv64ui-p-short-addi.S
+anycore-short-sd     rv64ui-p-short-sd.S
+anycore-sll    rv64ui-p-sll.S
+anycore-slli   rv64ui-p-slli.S
+anycore-slliw  rv64ui-p-slliw.S
+anycore-sllw   rv64ui-p-sllw.S
+anycore-slt    rv64ui-p-slt.S
+anycore-slti   rv64ui-p-slti.S
+anycore-sltiu  rv64ui-p-sltiu.S
+anycore-sltu   rv64ui-p-sltu.S
+anycore-sra    rv64ui-p-sra.S
+anycore-srai   rv64ui-p-srai.S
+anycore-sraiw  rv64ui-p-sraiw.S
+anycore-sraw   rv64ui-p-sraw.S
+anycore-srl    rv64ui-p-srl.S
+anycore-srli   rv64ui-p-srli.S
+anycore-srliw  rv64ui-p-srliw.S
+anycore-srlw   rv64ui-p-srlw.S
+anycore-sub    rv64ui-p-sub.S
+anycore-subw   rv64ui-p-subw.S
+anycore-sw     rv64ui-p-sw.S
+anycore-xor    rv64ui-p-xor.S
+anycore-xori   rv64ui-p-xori.S
+</cmp_default>
+</anycore_tile1>
 
 <ariane_tile1 sys=manycore -x_tiles=1 -y_tiles=1 -ariane>
 <cmp_default name=default>

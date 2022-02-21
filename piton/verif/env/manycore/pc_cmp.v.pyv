@@ -277,8 +277,8 @@ endtask // get_thread_status
 
                 always @(posedge clk) begin
                     //spc0_inst_done <= `ANYCORE_CORE0.coreTop.activeList.;
-                    spc0_inst_done <= 1'b1; // Extremely imprecise
-                    spc0_phy_pc_w <= `ANYCORE_CORE0.coreTop.activeList.commitPC[0];
+                    spc0_inst_done <= `ANYCORE_CORE0.coreTop.activeList.commitVector[0]; // Extremely imprecise
+                    spc0_phy_pc_w <= `ANYCORE_CORE0.coreTop.activeList.commitPC[0][47:0];
                 end
         `endif // RTL_ANYCORE0
         `endif // RTL_PICO0
