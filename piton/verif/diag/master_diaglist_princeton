@@ -158,6 +158,39 @@ rv64um-p-remw   rv64um-p-remw.S
 </cmp_default>
 </anycore_tile1_mext>
 
+<anycore_tile1_fext sys=manycore -x_tiles=1 -y_tiles=1 -anycore>
+<cmp_default name=default>
+rv64uf-p-fadd.S     rv64uf-p-fadd.S
+rv64uf-p-fclass.S   rv64uf-p-fclass.S
+rv64uf-p-fcmp.S     rv64uf-p-fcmp.S
+rv64uf-p-fcvt.S     rv64uf-p-fcvt.S
+rv64uf-p-fcvt_w.S   rv64uf-p-fcvt_w.S
+rv64uf-p-fdiv.S     rv64uf-p-fdiv.S
+rv64uf-p-fmadd.S    rv64uf-p-fmadd.S
+rv64uf-p-fmin.S     rv64uf-p-fmin.S
+rv64uf-p-ldst.S     rv64uf-p-ldst.S
+rv64uf-p-move.S     rv64uf-p-move.S
+rv64uf-p-recoding.S rv64uf-p-recoding.S
+</cmp_default>
+</anycore_tile1_fext>
+
+<anycore_tile1_dext sys=manycore -x_tiles=1 -y_tiles=1 -anycore>
+<cmp_default name=default>
+rv64ud-p-fadd.S     rv64ud-p-fadd.S
+rv64ud-p-fclass.S   rv64ud-p-fclass.S
+rv64ud-p-fcmp.S     rv64ud-p-fcmp.S
+rv64ud-p-fcvt.S     rv64ud-p-fcvt.S
+rv64ud-p-fcvt_w.S   rv64ud-p-fcvt_w.S
+rv64ud-p-fdiv.S     rv64ud-p-fdiv.S
+rv64ud-p-fmadd.S    rv64ud-p-fmadd.S
+rv64ud-p-fmin.S     rv64ud-p-fmin.S
+rv64ud-p-ldst.S     rv64ud-p-ldst.S
+rv64ud-p-move.S     rv64ud-p-move.S
+rv64ud-p-recoding.S rv64ud-p-recoding.S
+rv64ud-p-structural rv64ud-p-structural.S
+</cmp_default>
+</anycore_tile1_dext>
+
 <ariane_tile1 sys=manycore -x_tiles=1 -y_tiles=1 -ariane>
 <cmp_default name=default>
     // note: these asm tests assume that the RISCV tests have been precompiled with the
