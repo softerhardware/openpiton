@@ -140,6 +140,24 @@ anycore-xori   rv64ui-p-xori.S
 </cmp_default>
 </anycore_tile1>
 
+<anycore_tile1_mext sys=manycore -x_tiles=1 -y_tiles=1 -anycore>
+<cmp_default name=default>
+rv64um-p-div    rv64um-p-div.S
+rv64um-p-divu   rv64um-p-divu.S
+rv64um-p-divuw  rv64um-p-divuw.S
+rv64um-p-divw   rv64um-p-divw.S
+rv64um-p-mul    rv64um-p-mul.S
+rv64um-p-mulh   rv64um-p-mulh.S
+rv64um-p-mulhsu rv64um-p-mulhsu.S
+rv64um-p-mulhu  rv64um-p-mulhu.S
+rv64um-p-mulw   rv64um-p-mulw.S
+rv64um-p-rem    rv64um-p-rem.S
+rv64um-p-remu   rv64um-p-remu.S
+rv64um-p-remuw  rv64um-p-remuw.S
+rv64um-p-remw   rv64um-p-remw.S
+</cmp_default>
+</anycore_tile1_mext>
+
 <ariane_tile1 sys=manycore -x_tiles=1 -y_tiles=1 -ariane>
 <cmp_default name=default>
     // note: these asm tests assume that the RISCV tests have been precompiled with the
