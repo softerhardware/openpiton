@@ -6,4 +6,4 @@
 	url = https://github.com/PrincetonUniversity/openpiton-aws.git
 [submodule "piton/design/chip/tile/anycore"]
 	path = piton/design/chip/tile/anycore
-	url = http://github.com/anycore/anycore-riscv-src.git
+	url = http://github.com/bring-your-own-core/anycore-riscv-src.git
