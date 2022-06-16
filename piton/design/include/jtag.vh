@@ -46,7 +46,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 `define PARALLEL_MANUFACTURE_ID  11'h03E
 `define JTAG_SCRATCH_WIDTH          128
 
-`define JTAG_FLATID_WIDTH 8
+`define JTAG_FLATID_WIDTH 14
 
 /////////////////////////////////
 // JTAG TAP
@@ -135,7 +135,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // lengths of header
 `define JTAG_REQ_OP_WIDTH 8
-`define JTAG_REQ_TILEID_WIDTH 6
+`define JTAG_REQ_TILEID_WIDTH 14
 `define JTAG_REQ_THREADID_WIDTH 2
 `define JTAG_REQ_MISC_WIDTH 16
 
@@ -173,13 +173,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // definitions of tileids
 // `define CTAP_ID_BROADCAST 6'b111111
-`define JTAG_TILEID_BROADCAST 6'b111111
-`define JTAG_TILEID_CTAP 6'b111110
+`define JTAG_TILEID_BROADCAST 7'b1111111
+`define JTAG_TILEID_CTAP 7'b1111110
 
 // mask of header
 `define JTAG_REQ_OP_MASK 31:24          // 8b
-`define JTAG_REQ_TILEID_MASK 23:18      // 6b
-`define JTAG_REQ_THREADID_MASK 17:16    // 2b
+`define JTAG_REQ_TILEID_MASK 23:17      // 7b
+`define JTAG_REQ_THREADID_MASK 16:16    // 1b
 `define JTAG_REQ_MISC_MASK 15:0         // 16b
 // misc is used for stall bit at bit 0
 
