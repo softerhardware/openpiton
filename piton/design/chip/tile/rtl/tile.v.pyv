@@ -1034,6 +1034,9 @@ bootAddr = cacheBase
 if romIsPresent:
   bootAddr = romBase
 
+## VPS_FIX
+bootAddr = "80000000"
+
 print("    assign ariane_bootaddr  =  64'h%s;" % bootAddr)
 %>
 

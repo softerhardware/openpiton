@@ -252,7 +252,7 @@ reg [`MSG_OPTIONS_3_]                  msg_options_3;
 reg [`MSG_CACHE_TYPE_WIDTH-1:0]        msg_cache_type;
 reg [`MSG_SUBLINE_VECTOR_WIDTH-1:0]    msg_subline_vector;
 reg [`MSG_DATA_SIZE_WIDTH-1:0]         msg_data_size;
-reg [5:0] t1_interrupt_cpuid;
+reg [6:0] t1_interrupt_cpuid;
 always @ *
 begin
    msg_length = 0;
