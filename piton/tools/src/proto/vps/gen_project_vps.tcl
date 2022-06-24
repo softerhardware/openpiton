@@ -1,4 +1,4 @@
-# Copyright (c) 2017 Princeton University
+# Copyright (c) 2016 Princeton University
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -22,12 +22,33 @@
 # ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-# Format:
-# BoardID           ToolID
-genesys2            vivado
-vc707               vivado
-nexysVideo          vivado
-f1                  vivado
-vcu118              vivado
-xupp3r              vivado
-vps                 vivado
+
+#
+# This script performs general actions
+# for creating a Vivado project
+#
+
+# Boiler plate startup
+set DV_ROOT $::env(DV_ROOT)
+source $DV_ROOT/tools/src/proto/vivado/setup.tcl
+
+set fid [open ../project_data.py "w"]
+puts -nonewline $fid "ALL_DEFAULT_VERILOG_MACROS = '"
+puts -nonewline $fid ${ALL_DEFAULT_VERILOG_MACROS}
+puts $fid "'"
+
+puts -nonewline $fid "ALL_INCLUDE_DIRS = '"
+puts -nonewline $fid ${ALL_INCLUDE_DIRS}
+puts $fid "'"
+
+puts -nonewline $fid "ALL_RTL_IMPL_FILES = '"
+puts -nonewline $fid ${ALL_RTL_IMPL_FILES}
+puts $fid "'"
+
+puts -nonewline $fid "ALL_INCLUDE_FILES = '"
+puts -nonewline $fid ${ALL_INCLUDE_FILES}
+puts $fid "'"
+
+close $fid
+
+puts "INFO: Project created:${PROJECT_NAME}"

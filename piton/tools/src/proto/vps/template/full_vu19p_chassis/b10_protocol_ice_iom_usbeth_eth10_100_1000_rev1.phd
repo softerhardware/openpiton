@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--- ================================================================= -->
+<!--- Unpublished work. Copyright 2021 Siemens                          -->
+<!--- This material contains trade secrets or otherwise                 -->
+<!--- confidential information owned by Siemens Industry Software Inc.  -->
+<!--- or its affiliates (collectively, "SISW"), or its licensors.       -->
+<!--- Access to and use of this information is strictly limited as      -->
+<!--- set forth in the Customer's applicable agreements with SISW.      -->
+<!---                                                                   -->
+<!--- ================================================================= -->
+
+
+<protocol>
+  <protocolId name="ICE_IOM_USBETH_ETH10_100_1000_REV1" vendor="B10"/>
+  <ports>
+    <port name="eth_int_pwdn" direction="input"/>
+    <port name="eth_mdio" direction="inout"/>
+    <port name="eth_mdc" direction="input"/>
+    <port name="eth_sig_detect" direction="output"/>
+    <port name="eth_sgmii_txd_m" direction="input"/>
+    <port name="eth_sgmii_txd_p" direction="input"/>
+    <port name="eth_sgmii_rxd_m" direction="output"/>
+    <port name="eth_sgmii_rxd_p" direction="output"/>
+    <port name="eth_refclk_25meg_p" direction="output"/>
+    <port name="eth_refclk_25meg_m" direction="output"/>
+  </ports>
+</protocol>

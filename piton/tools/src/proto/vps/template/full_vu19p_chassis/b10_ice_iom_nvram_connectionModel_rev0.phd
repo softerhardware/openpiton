@@ -1,0 +1,912 @@
+<?xml version="1.0"?>
+<!--- ================================================================= -->
+<!--- Unpublished work. Copyright 2021 Siemens                          -->
+<!--- This material contains trade secrets or otherwise                 -->
+<!--- confidential information owned by Siemens Industry Software Inc.  -->
+<!--- or its affiliates (collectively, "SISW"), or its licensors.       -->
+<!--- Access to and use of this information is strictly limited as      -->
+<!--- set forth in the Customer's applicable agreements with SISW.      -->
+<!---                                                                   -->
+<!--- ================================================================= -->
+
+
+<connectionModel name="B10_ICE_IOM_NVRAM_REV0" type="extensionBoard">
+  <connectionConnectors>
+    <connectionConnector name="IOM_NVRAM_FLINK01" size="48" logicalType="GPIO" physicalType="FLINK"/>
+    <connectionConnector name="IOM_NVRAM_FLINK02" size="48" logicalType="GPIO" physicalType="FLINK"/>
+    <connectionConnector name="FLINK01_INTERNAL" size="48" type="internal"/>
+    <connectionConnector name="FLINK02_INTERNAL" size="48" type="internal"/>
+  </connectionConnectors>
+  <connectionWires>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="0"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="24"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="1"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="25"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="2"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="26"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="3"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="27"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="4"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="28"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="5"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="29"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="6"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="30"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="7"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="31"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="8"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="32"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="9"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="33"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="10"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="34"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="11"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="35"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="12"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="36"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="13"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="37"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="14"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="38"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="15"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="39"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="16"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="40"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="17"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="41"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="18"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="42"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="19"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="43"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="20"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="44"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="21"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="45"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="22"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="46"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="23"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="47"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="24"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="0"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="25"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="1"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="26"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="2"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="27"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="3"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="28"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="4"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="29"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="5"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="30"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="6"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="31"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="7"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="32"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="8"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="33"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="9"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="34"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="10"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="35"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="11"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="36"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="12"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="37"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="13"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="38"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="14"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="39"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="15"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="40"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="16"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="41"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="17"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="42"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="18"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="43"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="19"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="44"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="20"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="45"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="21"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="46"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="22"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK01" index="47"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="23"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="0"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="24"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="1"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="25"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="2"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="26"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="3"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="27"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="4"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="28"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="5"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="29"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="6"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="30"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="7"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="31"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="8"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="32"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="9"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="33"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="10"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="34"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="11"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="35"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="12"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="36"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="13"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="37"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="14"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="38"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="15"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="39"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="16"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="40"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="17"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="41"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="18"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="42"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="19"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="43"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="20"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="44"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="21"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="45"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="22"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="46"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="23"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="47"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="24"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="0"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="25"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="1"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="26"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="2"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="27"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="3"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="28"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="4"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="29"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="5"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="30"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="6"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="31"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="7"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="32"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="8"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="33"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="9"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="34"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="10"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="35"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="11"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="36"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="12"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="37"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="13"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="38"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="14"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="39"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="15"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="40"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="16"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="41"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="17"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="42"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="18"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="43"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="19"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="44"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="20"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="45"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="21"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="46"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="22"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_NVRAM_FLINK02" index="47"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="23"/>
+    </connectionWire>
+  </connectionWires>
+  <protocolInstances>
+    <protocolInstance name="ICE_IOM_CONTROL_1" model="ICE_IOM_CONTROL_REV0" vendor="B10">
+      <protocolInstanceMappings>
+        <protocolInstanceMapping protocolPort="iom_error_n">
+          <connectorMappings>
+            <connectorMapping name="FLINK01_INTERNAL" index="26" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="iom_go">
+          <connectorMappings>
+            <connectorMapping name="FLINK01_INTERNAL" index="27" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+      </protocolInstanceMappings>
+    </protocolInstance>
+    <protocolInstance name="ICE_IOM_CONTROL_2" model="ICE_IOM_CONTROL_REV0" vendor="B10">
+      <protocolInstanceMappings>
+        <protocolInstanceMapping protocolPort="iom_error_n">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="8" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="iom_go">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="9" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+      </protocolInstanceMappings>
+    </protocolInstance>
+    <protocolInstance name="ICE_IOM_NVRAM_I2C_EEPROM" model="ICE_IOM_NVRAM_I2C_EEPROM_REV0" vendor="B10">
+      <protocolInstanceMappings>
+        <protocolInstanceMapping protocolPort="i2c_wp">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="38" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="i2c_sda">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="39" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="i2c_scl">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="41" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+      </protocolInstanceMappings>
+    </protocolInstance>
+    <protocolInstance name="ICE_IOM_NVRAM_SPI_EEPROM" model="ICE_IOM_NVRAM_SPI_EEPROM_REV0" vendor="B10">
+      <protocolInstanceMappings>
+        <protocolInstanceMapping protocolPort="spi_ee_cs1_n">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="43" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="spi_ee_cs0_n">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="45" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="spi_ee_wp_n">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="46" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="spi_ee_hold_n">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="47" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="spi_ee_so">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="3" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="spi_ee_sck">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="5" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="spi_ee_si">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="7" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+      </protocolInstanceMappings>
+    </protocolInstance>
+    <protocolInstance name="ICE_IOM_NVRAM_QSPI_NOR_FLASH" model="ICE_IOM_NVRAM_QSPI_NOR_FLASH_REV0" vendor="B10">
+      <protocolInstanceMappings>
+        <protocolInstanceMapping protocolPort="qspi_c">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="27" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="qspi_s_n">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="29" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="qspi_d3">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="31" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="qspi_d2">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="33" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="qspi_d1">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="35" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="qspi_d0">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="37" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+      </protocolInstanceMappings>
+    </protocolInstance>
+    <protocolInstance name="ICE_IOM_NVRAM_SPI_FRAM" model="ICE_IOM_NVRAM_SPI_FRAM_REV0" vendor="B10">
+      <protocolInstanceMappings>
+        <protocolInstanceMapping protocolPort="fram_sclk_f">
+          <connectorMappings>
+            <connectorMapping name="FLINK01_INTERNAL" index="29" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="fram_wp_n">
+          <connectorMappings>
+            <connectorMapping name="FLINK01_INTERNAL" index="31" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="fram_si">
+          <connectorMappings>
+            <connectorMapping name="FLINK01_INTERNAL" index="33" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="fram_so">
+          <connectorMappings>
+            <connectorMapping name="FLINK01_INTERNAL" index="35" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="fram_cs_n">
+          <connectorMappings>
+            <connectorMapping name="FLINK01_INTERNAL" index="37" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="fram_sck">
+          <connectorMappings>
+            <connectorMapping name="FLINK01_INTERNAL" index="25" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+      </protocolInstanceMappings>
+    </protocolInstance>
+    <protocolInstance name="ICE_IOM_NVRAM_EMMC" model="ICE_IOM_NVRAM_EMMC_REV0" vendor="B10">
+      <protocolInstanceMappings>
+        <protocolInstanceMapping protocolPort="emmc_ds">
+          <connectorMappings>
+            <connectorMapping name="FLINK01_INTERNAL" index="5" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="emmc_dat2">
+          <connectorMappings>
+            <connectorMapping name="FLINK01_INTERNAL" index="7" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="emmc_dat7">
+          <connectorMappings>
+            <connectorMapping name="FLINK01_INTERNAL" index="9" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="emmc_dat6">
+          <connectorMappings>
+            <connectorMapping name="FLINK01_INTERNAL" index="11" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="emmc_dat5">
+          <connectorMappings>
+            <connectorMapping name="FLINK01_INTERNAL" index="13" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="emmc_dat1">
+          <connectorMappings>
+            <connectorMapping name="FLINK01_INTERNAL" index="15" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="emmc_dat4">
+          <connectorMappings>
+            <connectorMapping name="FLINK01_INTERNAL" index="17" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="emmc_dat3">
+          <connectorMappings>
+            <connectorMapping name="FLINK01_INTERNAL" index="19" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="emmc_dat0">
+          <connectorMappings>
+            <connectorMapping name="FLINK01_INTERNAL" index="21" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="emmc_cmd">
+          <connectorMappings>
+            <connectorMapping name="FLINK01_INTERNAL" index="23" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="emmc_clk">
+          <connectorMappings>
+            <connectorMapping name="FLINK01_INTERNAL" index="1" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+      </protocolInstanceMappings>
+    </protocolInstance>
+    <protocolInstance name="ICE_IOM_NVRAM_SDCARD" model="ICE_IOM_NVRAM_SDCARD_REV0" vendor="B10">
+      <protocolInstanceMappings>
+        <protocolInstanceMapping protocolPort="sdc_dat123_dir">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="10" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="sdc_cmd">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="11" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="sdc_clk_f">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="13" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="sdc_wp">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="14" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="sdc_dat0">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="15" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="sdc_cd_n">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="16" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="sdc_dat1">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="17" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="sdc_uhs_en_n">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="18" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="sdc_dat3_cd">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="19" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="sdc_dat2">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="21" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="sdc_dat0_dir">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="22" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="sdc_cmd_dir">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="23" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="sdc_clk">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="1" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+      </protocolInstanceMappings>
+    </protocolInstance>
+    <protocolInstance name="ICE_IOM_NVRAM_UART" model="ICE_IOM_NVRAM_UART_REV0" vendor="B10">
+      <protocolInstanceMappings>
+        <protocolInstanceMapping protocolPort="uart_rxd">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="24" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="uart_txd">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="25" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+      </protocolInstanceMappings>
+    </protocolInstance>
+  </protocolInstances>
+</connectionModel>

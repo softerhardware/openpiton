@@ -1,0 +1,230 @@
+<?xml version="1.0"?>
+<!--- ================================================================= -->
+<!--- Unpublished work. Copyright 2021 Siemens                          -->
+<!--- This material contains trade secrets or otherwise                 -->
+<!--- confidential information owned by Siemens Industry Software Inc.  -->
+<!--- or its affiliates (collectively, "SISW"), or its licensors.       -->
+<!--- Access to and use of this information is strictly limited as      -->
+<!--- set forth in the Customer's applicable agreements with SISW.      -->
+<!---                                                                   -->
+<!--- ================================================================= -->
+
+
+<connectionModel name="B10_ICE_ETH_10G_OPTICAL_REV1" type="extensionBoard">
+  <connectionConnectors>
+    <connectionConnector name="ETH_10G_OPTICAL_OLINK01" size="4" logicalType="MGT" physicalType="LC"/>
+    <connectionConnector name="ETH_10G_OPTICAL_OLINK02" size="4" logicalType="MGT" physicalType="LC"/>
+    <connectionConnector name="ETH_10G_OPTICAL_OLINK03" size="4" logicalType="MGT" physicalType="LC"/>
+    <connectionConnector name="ETH_10G_OPTICAL_OLINK04" size="4" logicalType="MGT" physicalType="LC"/>
+    <connectionConnector name="ETH_10G_OPTICAL_REFCLK" size="2"/>
+    <connectionConnector name="OLINK01_INTERNAL" size="4" type="internal"/>
+    <connectionConnector name="OLINK02_INTERNAL" size="4" type="internal"/>
+    <connectionConnector name="OLINK03_INTERNAL" size="4" type="internal"/>
+    <connectionConnector name="OLINK04_INTERNAL" size="4" type="internal"/>
+    <connectionConnector name="REFCLK_INTERNAL" size="2" type="internal"/>
+  </connectionConnectors>
+  <connectionWires>
+    <connectionWire>
+      <connectionConnectorRef name="ETH_10G_OPTICAL_OLINK01" index="0"/>
+      <connectionConnectorRef name="OLINK01_INTERNAL" index="0"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ETH_10G_OPTICAL_OLINK01" index="1"/>
+      <connectionConnectorRef name="OLINK01_INTERNAL" index="1"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ETH_10G_OPTICAL_OLINK01" index="2"/>
+      <connectionConnectorRef name="OLINK01_INTERNAL" index="2"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ETH_10G_OPTICAL_OLINK01" index="3"/>
+      <connectionConnectorRef name="OLINK01_INTERNAL" index="3"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ETH_10G_OPTICAL_OLINK02" index="0"/>
+      <connectionConnectorRef name="OLINK02_INTERNAL" index="0"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ETH_10G_OPTICAL_OLINK02" index="1"/>
+      <connectionConnectorRef name="OLINK02_INTERNAL" index="1"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ETH_10G_OPTICAL_OLINK02" index="2"/>
+      <connectionConnectorRef name="OLINK02_INTERNAL" index="2"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ETH_10G_OPTICAL_OLINK02" index="3"/>
+      <connectionConnectorRef name="OLINK02_INTERNAL" index="3"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ETH_10G_OPTICAL_OLINK03" index="0"/>
+      <connectionConnectorRef name="OLINK03_INTERNAL" index="0"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ETH_10G_OPTICAL_OLINK03" index="1"/>
+      <connectionConnectorRef name="OLINK03_INTERNAL" index="1"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ETH_10G_OPTICAL_OLINK03" index="2"/>
+      <connectionConnectorRef name="OLINK03_INTERNAL" index="2"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ETH_10G_OPTICAL_OLINK03" index="3"/>
+      <connectionConnectorRef name="OLINK03_INTERNAL" index="3"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ETH_10G_OPTICAL_OLINK04" index="0"/>
+      <connectionConnectorRef name="OLINK04_INTERNAL" index="0"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ETH_10G_OPTICAL_OLINK04" index="1"/>
+      <connectionConnectorRef name="OLINK04_INTERNAL" index="1"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ETH_10G_OPTICAL_OLINK04" index="2"/>
+      <connectionConnectorRef name="OLINK04_INTERNAL" index="2"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ETH_10G_OPTICAL_OLINK04" index="3"/>
+      <connectionConnectorRef name="OLINK04_INTERNAL" index="3"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ETH_10G_OPTICAL_REFCLK" index="0"/>
+      <connectionConnectorRef name="REFCLK_INTERNAL" index="0"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ETH_10G_OPTICAL_REFCLK" index="1"/>
+      <connectionConnectorRef name="REFCLK_INTERNAL" index="1"/>
+    </connectionWire>
+  </connectionWires>
+  <protocolInstances>
+    <protocolInstance name="ICE_ETH_10G_OPTICAL" model="ICE_ETH_10G_OPTICAL_REV1" vendor="B10">
+      <protocolInstanceMappings>
+        <protocolInstanceMapping protocolPort="rx_n">
+          <connectorMappings>
+            <connectorMapping name="OLINK01_INTERNAL" index="0" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="NONE"/>
+            <ioStandard type="HR" value="NONE"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="rx_p">
+          <connectorMappings>
+            <connectorMapping name="OLINK01_INTERNAL" index="1" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="NONE"/>
+            <ioStandard type="HR" value="NONE"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="tx_n">
+          <connectorMappings>
+            <connectorMapping name="OLINK01_INTERNAL" index="2" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="NONE"/>
+            <ioStandard type="HR" value="NONE"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="tx_p">
+          <connectorMappings>
+            <connectorMapping name="OLINK01_INTERNAL" index="3" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="NONE"/>
+            <ioStandard type="HR" value="NONE"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="refclk_n">
+          <connectorMappings>
+            <connectorMapping name="REFCLK_INTERNAL" index="0" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="NONE"/>
+            <ioStandard type="HR" value="NONE"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="refclk_p">
+          <connectorMappings>
+            <connectorMapping name="REFCLK_INTERNAL" index="1" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="NONE"/>
+            <ioStandard type="HR" value="NONE"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+      </protocolInstanceMappings>
+    </protocolInstance>
+    <protocolInstance name="ICE_ETH_10G_OPTICAL_X4" model="ICE_ETH_10G_OPTICAL_X4_REV1" vendor="B10">
+      <protocolInstanceMappings>
+        <protocolInstanceMapping protocolPort="rx_n">
+          <connectorMappings>
+            <connectorMapping name="OLINK01_INTERNAL" index="0" protocolPortIndex = "0"/>
+            <connectorMapping name="OLINK02_INTERNAL" index="0" protocolPortIndex = "1"/>
+            <connectorMapping name="OLINK03_INTERNAL" index="0" protocolPortIndex = "2"/>
+            <connectorMapping name="OLINK04_INTERNAL" index="0" protocolPortIndex = "3"/>
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="NONE"/>
+            <ioStandard type="HR" value="NONE"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="rx_p">
+          <connectorMappings>
+            <connectorMapping name="OLINK01_INTERNAL" index="1" protocolPortIndex = "0"/>
+            <connectorMapping name="OLINK02_INTERNAL" index="1" protocolPortIndex = "1"/>
+            <connectorMapping name="OLINK03_INTERNAL" index="1" protocolPortIndex = "2"/>
+            <connectorMapping name="OLINK04_INTERNAL" index="1" protocolPortIndex = "3"/>
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="NONE"/>
+            <ioStandard type="HR" value="NONE"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="tx_n">
+          <connectorMappings>
+            <connectorMapping name="OLINK01_INTERNAL" index="2" protocolPortIndex = "0"/>
+            <connectorMapping name="OLINK02_INTERNAL" index="2" protocolPortIndex = "1"/>
+            <connectorMapping name="OLINK03_INTERNAL" index="2" protocolPortIndex = "2"/>
+            <connectorMapping name="OLINK04_INTERNAL" index="2" protocolPortIndex = "3"/>
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="NONE"/>
+            <ioStandard type="HR" value="NONE"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="tx_p">
+          <connectorMappings>
+            <connectorMapping name="OLINK01_INTERNAL" index="3" protocolPortIndex = "0"/>
+            <connectorMapping name="OLINK02_INTERNAL" index="3" protocolPortIndex = "1"/>
+            <connectorMapping name="OLINK03_INTERNAL" index="3" protocolPortIndex = "2"/>
+            <connectorMapping name="OLINK04_INTERNAL" index="3" protocolPortIndex = "3"/>
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="NONE"/>
+            <ioStandard type="HR" value="NONE"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="refclk_n">
+          <connectorMappings>
+            <connectorMapping name="REFCLK_INTERNAL" index="0" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="NONE"/>
+            <ioStandard type="HR" value="NONE"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="refclk_p">
+          <connectorMappings>
+            <connectorMapping name="REFCLK_INTERNAL" index="1" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="NONE"/>
+            <ioStandard type="HR" value="NONE"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+      </protocolInstanceMappings>
+    </protocolInstance>
+  </protocolInstances>
+</connectionModel>

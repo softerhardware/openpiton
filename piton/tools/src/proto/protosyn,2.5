@@ -64,6 +64,7 @@ def usage():
     print("                  genesys2", file=sys.stderr)
     print("                  nexysVideo", file=sys.stderr)
     print("                  f1", file=sys.stderr)
+    print("                  vps", file=sys.stderr)
     print("\n       -d, --design <design>", file=sys.stderr)
     print("              Name of design module to synthesize.  The default is 'system', which", file=sys.stderr)
     print("              synthesizes a full system with chip and chipset. See", file=sys.stderr)
@@ -273,6 +274,45 @@ def runImplF1(board, design_data, src_dir, work_dir, log_dir, def_list, slurm, d
     return jid
 
 
+def makeVPSProject(board, design_data, work_dir, log_dir, def_list, slurm, dep_list):
+    ns = {}
+    exec(open(work_dir+"/../project_data.py").read(),ns)
+
+    with open(work_dir+"/../vps.fl","w") as f:
+        l = ns['ALL_DEFAULT_VERILOG_MACROS'].split()
+        for e in l:
+            f.write("+define+{0}\n".format(e))
+        for e in def_list:
+            f.write("+define+{0}\n".format(e))
+        f.write("\n")
+
+        l = ns['ALL_INCLUDE_DIRS'].split()
+        for e in l:
+            f.write("+incdir+{0}\n".format(e))
+        f.write("\n")
+
+        l = ns['ALL_INCLUDE_FILES'].split()
+        for e in l:
+            f.write("{0}\n".format(e))
+        f.write("\n")
+
+        l = ns['ALL_RTL_IMPL_FILES'].split()
+        for e in l:
+            f.write("{0}\n".format(e))
+        f.write("\n")
+
+        s = """./vpsrtl/uart_16550_stub.v
+./vpsrtl/atg_uart_init_stub.v
+./vpsrtl/afifo_w64_d128.v
+./vpsrtl/bram_256x512.sv
+$RED_HOME/partitioner/hdl/red_vip/axi_slave/axi4_slave_sm.sv
+$RED_HOME/partitioner/hdl/red_vip/vuart/RED_VUART.v"""
+        f.write(s)
+        f.write("\n")
+
+    src = os.path.join(DV_ROOT, "tools", "src", "proto", "vps", "template") + "/"
+    os.system("rsync -raz --copy-links " + src + " " + work_dir+"/..")
+
 def makeProject(board, design_data, work_dir, log_dir, slurm, dep_list):
     prev_dir = os.getcwd()
 
@@ -283,7 +323,10 @@ def makeProject(board, design_data, work_dir, log_dir, slurm, dep_list):
     #os.system('cp -r $DV_ROOT/tools/src/proto/%s/* .' % board)
     #os.system('cp -r -n $DV_ROOT/tools/src/proto/common/* .')
     print_info("Building a project for design '%s' on board '%s'" % (design_data["ID"],board))
-    proj_script = os.path.join(DV_ROOT, "tools/src/proto/" + tool + "/gen_project.tcl")
+    if board != 'vps' or tool != 'vivado':
+        proj_script = os.path.join(DV_ROOT, "tools/src/proto/" + tool + "/gen_project.tcl")
+    else:
+        proj_script = os.path.join(DV_ROOT, "tools/src/proto/vps/gen_project_vps.tcl")
     proj_log = os.path.join(log_dir, PROJECT_BUILD_LOG)
     jname = "protosyn_mkproj_%s_%s" % (board, design_data["ID"])
     jid = None
@@ -501,7 +544,7 @@ def makeDefList(options):
 
     # --axi4_mem option
     if (options.axi4_mem == True):
-        if (options.board not in {"vc707", "xupp3r"}):
+        if (options.board not in {"vc707", "xupp3r", "vps"}):
             print_warning("axi4_mem option is ignored without board != vc707 or board != xupp3r" )
         else:
             defines.append("PITONSYS_AXI4_MEM")      
@@ -511,7 +554,7 @@ def makeDefList(options):
         defines.append("PITONSYS_MEM_ZEROER")    
 
     # do not use SD controller if BRAM is used for boot or a test or if board doesn't have sd
-    if (options.test_name != None) or (options.board in {"piton_board", 'xupp3r', "f1"}):
+    if (options.test_name != None) or (options.board in {"piton_board", 'xupp3r', "f1", "vps"}):
         pass
     else:   # default option
         defines.append("PITON_FPGA_SD_BOOT")
@@ -688,6 +731,11 @@ def main():
         run_fpga_impl           = False
         run_sim                 = False # maybe change later
         run_map_test            = False # maybe change later
+
+    if options.board == 'vps':
+        run_fpga_impl     = False
+        defines.append("VPS_AXI_SM")
+        defines.append("RED_VUART")
 
     ##################################
     # Setting directory structure
@@ -913,7 +961,6 @@ def main():
         if jid != None:
             dep_list.append(jid)
 
-
     ####################################################################################
     # Waiting for all previous jobs to finish before checking results
     # dep_list has jobids only for slurm jobs, otherwise all steps
@@ -939,6 +986,9 @@ def main():
                 print_info("Checking Project Implementation results")
                 if not implFlowSuccess(rc_dir.log, rc_dir.run):
                     exit_code = 1
+
+    if options.board == "vps":
+        makeVPSProject(options.board, design_data, rc_dir.work, rc_dir.log, defines, options.slurm, dep_list)
 
     os.chdir(prev_dir)
 

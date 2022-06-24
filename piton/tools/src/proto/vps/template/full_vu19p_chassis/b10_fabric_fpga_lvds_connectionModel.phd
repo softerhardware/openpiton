@@ -1,0 +1,215 @@
+<?xml version="1.0"?>
+<!--- ================================================================= -->
+<!--- Unpublished work. Copyright 2021 Siemens                          -->
+<!--- This material contains trade secrets or otherwise                 -->
+<!--- confidential information owned by Siemens Industry Software Inc.  -->
+<!--- or its affiliates (collectively, "SISW"), or its licensors.       -->
+<!--- Access to and use of this information is strictly limited as      -->
+<!--- set forth in the Customer's applicable agreements with SISW.      -->
+<!---                                                                   -->
+<!--- ================================================================= -->
+
+
+<connectionModel name="CONN_FABRIC_LVDS" type="pcb">
+  <connectionConnectors>
+    <connectionConnector name="fpga_connector" size="48"/>
+    <connectionConnector name="fabric_connector" size="48"/>
+  </connectionConnectors>
+  <connectionWires>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="0"/>
+      <connectionConnectorRef name="fabric_connector" index="0"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="1"/>
+      <connectionConnectorRef name="fabric_connector" index="1"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="2"/>
+      <connectionConnectorRef name="fabric_connector" index="2"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="3"/>
+      <connectionConnectorRef name="fabric_connector" index="3"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="4"/>
+      <connectionConnectorRef name="fabric_connector" index="4"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="5"/>
+      <connectionConnectorRef name="fabric_connector" index="5"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="6"/>
+      <connectionConnectorRef name="fabric_connector" index="6"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="7"/>
+      <connectionConnectorRef name="fabric_connector" index="7"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="8"/>
+      <connectionConnectorRef name="fabric_connector" index="8"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="9"/>
+      <connectionConnectorRef name="fabric_connector" index="9"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="10"/>
+      <connectionConnectorRef name="fabric_connector" index="10"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="11"/>
+      <connectionConnectorRef name="fabric_connector" index="11"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="12"/>
+      <connectionConnectorRef name="fabric_connector" index="12"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="13"/>
+      <connectionConnectorRef name="fabric_connector" index="13"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="14"/>
+      <connectionConnectorRef name="fabric_connector" index="14"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="15"/>
+      <connectionConnectorRef name="fabric_connector" index="15"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="16"/>
+      <connectionConnectorRef name="fabric_connector" index="16"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="17"/>
+      <connectionConnectorRef name="fabric_connector" index="17"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="18"/>
+      <connectionConnectorRef name="fabric_connector" index="18"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="19"/>
+      <connectionConnectorRef name="fabric_connector" index="19"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="20"/>
+      <connectionConnectorRef name="fabric_connector" index="20"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="21"/>
+      <connectionConnectorRef name="fabric_connector" index="21"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="22"/>
+      <connectionConnectorRef name="fabric_connector" index="22"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="23"/>
+      <connectionConnectorRef name="fabric_connector" index="23"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="24"/>
+      <connectionConnectorRef name="fabric_connector" index="24"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="25"/>
+      <connectionConnectorRef name="fabric_connector" index="25"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="26"/>
+      <connectionConnectorRef name="fabric_connector" index="26"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="27"/>
+      <connectionConnectorRef name="fabric_connector" index="27"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="28"/>
+      <connectionConnectorRef name="fabric_connector" index="28"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="29"/>
+      <connectionConnectorRef name="fabric_connector" index="29"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="30"/>
+      <connectionConnectorRef name="fabric_connector" index="30"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="31"/>
+      <connectionConnectorRef name="fabric_connector" index="31"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="32"/>
+      <connectionConnectorRef name="fabric_connector" index="32"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="33"/>
+      <connectionConnectorRef name="fabric_connector" index="33"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="34"/>
+      <connectionConnectorRef name="fabric_connector" index="34"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="35"/>
+      <connectionConnectorRef name="fabric_connector" index="35"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="36"/>
+      <connectionConnectorRef name="fabric_connector" index="36"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="37"/>
+      <connectionConnectorRef name="fabric_connector" index="37"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="38"/>
+      <connectionConnectorRef name="fabric_connector" index="38"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="39"/>
+      <connectionConnectorRef name="fabric_connector" index="39"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="40"/>
+      <connectionConnectorRef name="fabric_connector" index="40"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="41"/>
+      <connectionConnectorRef name="fabric_connector" index="41"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="42"/>
+      <connectionConnectorRef name="fabric_connector" index="42"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="43"/>
+      <connectionConnectorRef name="fabric_connector" index="43"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="44"/>
+      <connectionConnectorRef name="fabric_connector" index="44"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="45"/>
+      <connectionConnectorRef name="fabric_connector" index="45"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="46"/>
+      <connectionConnectorRef name="fabric_connector" index="46"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="47"/>
+      <connectionConnectorRef name="fabric_connector" index="47"/>
+    </connectionWire>
+  </connectionWires>
+    <vendorExtensions>
+      <vendorExtension name="mentor" value="Black10"/>
+    </vendorExtensions>
+  </connectionModel>

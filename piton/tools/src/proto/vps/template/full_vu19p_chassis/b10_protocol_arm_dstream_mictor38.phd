@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--- ================================================================= -->
+<!--- Unpublished work. Copyright 2021 Siemens                          -->
+<!--- This material contains trade secrets or otherwise                 -->
+<!--- confidential information owned by Siemens Industry Software Inc.  -->
+<!--- or its affiliates (collectively, "SISW"), or its licensors.       -->
+<!--- Access to and use of this information is strictly limited as      -->
+<!--- set forth in the Customer's applicable agreements with SISW.      -->
+<!---                                                                   -->
+<!--- ================================================================= -->
+
+
+<protocol>
+  <protocolId name="ARM_DSTREAM_MICTOR38" vendor="B10"/>
+  <ports>
+    <port name="DBGACK" direction="input"/>
+    <port name="DBGRQ" direction="output"/>
+    <port name="TRSTn" direction="output"/>
+    <port name="SRSTn" direction="inout"/>
+    <port name="TCK" direction="output"/>
+    <port name="TDI" direction="output"/>
+    <port name="TDO" direction="input"/>
+    <port name="TMS" direction="output"/>
+    <port name="TRACECLK" direction="input"/>
+    <port name="TRACECTL" direction="input"/>
+    <port name="TRACEDATA" msb="15" lsb="0" direction="input"/>
+    <port name="RTCK" direction="input"/>
+  </ports>
+</protocol>

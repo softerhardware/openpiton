@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--- ================================================================= -->
+<!--- Unpublished work. Copyright 2021 Siemens                          -->
+<!--- This material contains trade secrets or otherwise                 -->
+<!--- confidential information owned by Siemens Industry Software Inc.  -->
+<!--- or its affiliates (collectively, "SISW"), or its licensors.       -->
+<!--- Access to and use of this information is strictly limited as      -->
+<!--- set forth in the Customer's applicable agreements with SISW.      -->
+<!---                                                                   -->
+<!--- ================================================================= -->
+
+
+<protocol>
+  <protocolId name="ICE_IOM_NVRAM_SPI_EEPROM_REV0" vendor="B10"/>
+  <ports>
+    <port name="spi_ee_cs1_n" direction="input"/>
+    <port name="spi_ee_cs0_n" direction="input"/>
+    <port name="spi_ee_wp_n" direction="input"/>
+    <port name="spi_ee_hold_n" direction="input"/>
+    <port name="spi_ee_so" direction="output"/>
+    <port name="spi_ee_sck" direction="input"/>
+    <port name="spi_ee_si" direction="input"/>
+  </ports>
+</protocol>

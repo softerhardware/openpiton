@@ -35,6 +35,10 @@
         <uart-dmw>ddr</uart-dmw>
     </board>
 
+    <board name="vps">
+        <uart-dmw>ddr</uart-dmw>
+    </board>
+
     <board name="nexysVideo">
         <uart-dmw>ddr</uart-dmw>
     </board>

@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!--- ================================================================= -->
+<!--- Unpublished work. Copyright 2021 Siemens                          -->
+<!--- This material contains trade secrets or otherwise                 -->
+<!--- confidential information owned by Siemens Industry Software Inc.  -->
+<!--- or its affiliates (collectively, "SISW"), or its licensors.       -->
+<!--- Access to and use of this information is strictly limited as      -->
+<!--- set forth in the Customer's applicable agreements with SISW.      -->
+<!---                                                                   -->
+<!--- ================================================================= -->
+
+
+<protocol>
+  <protocolId name="ICE_IOM_JTAG_GPIO_REV1" vendor="B10"/>
+  <parameters>
+    <parameter name="gpio_msb" value="7"/>
+  </parameters>
+  <ports>
+    <port name="iom_go" direction="input"/>
+    <port name="iom_error_n" direction="output"/>
+    <port name="jtag_tck" direction="output"/>
+    <port name="jtag_tck_dir" direction="input"/>
+    <port name="jtag_trst" direction="output"/>
+    <port name="jtag_trst_dir" direction="input"/>
+    <port name="jtag_tms" direction="output"/>
+    <port name="jtag_tms_dir" direction="input"/>
+    <port name="jtag_tdi" direction="output"/>
+    <port name="jtag_tdi_dir" direction="input"/>
+    <port name="jtag_tdo" direction="input"/>
+    <port name="srst_l" direction="inout"/>
+    <port name="srst_l_dir" direction="input"/>
+    <port name="rtck_l" direction="inout"/>
+    <port name="rtck_l_dir" direction="input"/>
+    <port name="i2c_enable" direction="input"/>
+    <port name="gpio_1_io" msb="gpio_msb" lsb="0" direction="inout"/>
+    <port name="gpio_1_dir" msb="gpio_msb" lsb="0" direction="input"/>
+    <port name="gpio_2_io" msb="gpio_msb" lsb="0" direction="inout"/>
+    <port name="gpio_2_dir" msb="gpio_msb" lsb="0" direction="input"/>
+  </ports>
+</protocol>

@@ -1,0 +1,306 @@
+<?xml version="1.0"?>
+<!--- ================================================================= -->
+<!--- Unpublished work. Copyright 2021 Siemens                          -->
+<!--- This material contains trade secrets or otherwise                 -->
+<!--- confidential information owned by Siemens Industry Software Inc.  -->
+<!--- or its affiliates (collectively, "SISW"), or its licensors.       -->
+<!--- Access to and use of this information is strictly limited as      -->
+<!--- set forth in the Customer's applicable agreements with SISW.      -->
+<!---                                                                   -->
+<!--- ================================================================= -->
+
+
+<module name="b10_iom_jtag_gpio">
+  <connectors>
+    <connector name="IOM_FLINK01" size="48">
+      <vendorExtensions>
+        <vendorExtension name="type" value="IOM_FLINK"/>
+        <vendorExtension name="index" value="1"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="IOM_FLINK01_0" index="0"/>
+        <connectorPort name="IOM_FLINK01_1" index="1"/>
+        <connectorPort name="IOM_FLINK01_2" index="2"/>
+        <connectorPort name="IOM_FLINK01_3" index="3"/>
+        <connectorPort name="IOM_FLINK01_4" index="4"/>
+        <connectorPort name="IOM_FLINK01_5" index="5"/>
+        <connectorPort name="IOM_FLINK01_6" index="6"/>
+        <connectorPort name="IOM_FLINK01_7" index="7"/>
+        <connectorPort name="IOM_FLINK01_8" index="8"/>
+        <connectorPort name="IOM_FLINK01_9" index="9"/>
+        <connectorPort name="IOM_FLINK01_10" index="10"/>
+        <connectorPort name="IOM_FLINK01_11" index="11"/>
+        <connectorPort name="IOM_FLINK01_12" index="12"/>
+        <connectorPort name="IOM_FLINK01_13" index="13"/>
+        <connectorPort name="IOM_FLINK01_14" index="14"/>
+        <connectorPort name="IOM_FLINK01_15" index="15"/>
+        <connectorPort name="IOM_FLINK01_16" index="16"/>
+        <connectorPort name="IOM_FLINK01_17" index="17"/>
+        <connectorPort name="IOM_FLINK01_18" index="18"/>
+        <connectorPort name="IOM_FLINK01_19" index="19"/>
+        <connectorPort name="IOM_FLINK01_20" index="20"/>
+        <connectorPort name="IOM_FLINK01_21" index="21"/>
+        <connectorPort name="IOM_FLINK01_22" index="22"/>
+        <connectorPort name="IOM_FLINK01_23" index="23"/>
+        <connectorPort name="IOM_FLINK01_24" index="24"/>
+        <connectorPort name="IOM_FLINK01_25" index="25"/>
+        <connectorPort name="IOM_FLINK01_26" index="26"/>
+        <connectorPort name="IOM_FLINK01_27" index="27"/>
+        <connectorPort name="IOM_FLINK01_28" index="28"/>
+        <connectorPort name="IOM_FLINK01_29" index="29"/>
+        <connectorPort name="IOM_FLINK01_30" index="30"/>
+        <connectorPort name="IOM_FLINK01_31" index="31"/>
+        <connectorPort name="IOM_FLINK01_32" index="32"/>
+        <connectorPort name="IOM_FLINK01_33" index="33"/>
+        <connectorPort name="IOM_FLINK01_34" index="34"/>
+        <connectorPort name="IOM_FLINK01_35" index="35"/>
+        <connectorPort name="IOM_FLINK01_36" index="36"/>
+        <connectorPort name="IOM_FLINK01_37" index="37"/>
+        <connectorPort name="IOM_FLINK01_38" index="38"/>
+        <connectorPort name="IOM_FLINK01_39" index="39"/>
+        <connectorPort name="IOM_FLINK01_40" index="40"/>
+        <connectorPort name="IOM_FLINK01_41" index="41"/>
+        <connectorPort name="IOM_FLINK01_42" index="42"/>
+        <connectorPort name="IOM_FLINK01_43" index="43"/>
+        <connectorPort name="IOM_FLINK01_44" index="44"/>
+        <connectorPort name="IOM_FLINK01_45" index="45"/>
+        <connectorPort name="IOM_FLINK01_46" index="46"/>
+        <connectorPort name="IOM_FLINK01_47" index="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="IOM_FLINK02" size="48">
+      <vendorExtensions>
+        <vendorExtension name="type" value="IOM_FLINK"/>
+        <vendorExtension name="index" value="1"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="IOM_FLINK02_0" index="0"/>
+        <connectorPort name="IOM_FLINK02_1" index="1"/>
+        <connectorPort name="IOM_FLINK02_2" index="2"/>
+        <connectorPort name="IOM_FLINK02_3" index="3"/>
+        <connectorPort name="IOM_FLINK02_4" index="4"/>
+        <connectorPort name="IOM_FLINK02_5" index="5"/>
+        <connectorPort name="IOM_FLINK02_6" index="6"/>
+        <connectorPort name="IOM_FLINK02_7" index="7"/>
+        <connectorPort name="IOM_FLINK02_8" index="8"/>
+        <connectorPort name="IOM_FLINK02_9" index="9"/>
+        <connectorPort name="IOM_FLINK02_10" index="10"/>
+        <connectorPort name="IOM_FLINK02_11" index="11"/>
+        <connectorPort name="IOM_FLINK02_12" index="12"/>
+        <connectorPort name="IOM_FLINK02_13" index="13"/>
+        <connectorPort name="IOM_FLINK02_14" index="14"/>
+        <connectorPort name="IOM_FLINK02_15" index="15"/>
+        <connectorPort name="IOM_FLINK02_16" index="16"/>
+        <connectorPort name="IOM_FLINK02_17" index="17"/>
+        <connectorPort name="IOM_FLINK02_18" index="18"/>
+        <connectorPort name="IOM_FLINK02_19" index="19"/>
+        <connectorPort name="IOM_FLINK02_20" index="20"/>
+        <connectorPort name="IOM_FLINK02_21" index="21"/>
+        <connectorPort name="IOM_FLINK02_22" index="22"/>
+        <connectorPort name="IOM_FLINK02_23" index="23"/>
+        <connectorPort name="IOM_FLINK02_24" index="24"/>
+        <connectorPort name="IOM_FLINK02_25" index="25"/>
+        <connectorPort name="IOM_FLINK02_26" index="26"/>
+        <connectorPort name="IOM_FLINK02_27" index="27"/>
+        <connectorPort name="IOM_FLINK02_28" index="28"/>
+        <connectorPort name="IOM_FLINK02_29" index="29"/>
+        <connectorPort name="IOM_FLINK02_30" index="30"/>
+        <connectorPort name="IOM_FLINK02_31" index="31"/>
+        <connectorPort name="IOM_FLINK02_32" index="32"/>
+        <connectorPort name="IOM_FLINK02_33" index="33"/>
+        <connectorPort name="IOM_FLINK02_34" index="34"/>
+        <connectorPort name="IOM_FLINK02_35" index="35"/>
+        <connectorPort name="IOM_FLINK02_36" index="36"/>
+        <connectorPort name="IOM_FLINK02_37" index="37"/>
+        <connectorPort name="IOM_FLINK02_38" index="38"/>
+        <connectorPort name="IOM_FLINK02_39" index="39"/>
+        <connectorPort name="IOM_FLINK02_40" index="40"/>
+        <connectorPort name="IOM_FLINK02_41" index="41"/>
+        <connectorPort name="IOM_FLINK02_42" index="42"/>
+        <connectorPort name="IOM_FLINK02_43" index="43"/>
+        <connectorPort name="IOM_FLINK02_44" index="44"/>
+        <connectorPort name="IOM_FLINK02_45" index="45"/>
+        <connectorPort name="IOM_FLINK02_46" index="46"/>
+        <connectorPort name="IOM_FLINK02_47" index="47"/>
+      </connectorPorts>
+    </connector>
+  </connectors>
+  <protocolInstances>
+    <protocolInstance name="JTAG_GPIO_1" model="JTAG_GPIO" vendor="B10">
+      <protocolInstanceMappings>
+        <protocolInstanceMapping protocolPort="iom_go">
+          <connectorMappings>
+            <connectorMapping name="IOM_FLINK01" index="27"/>
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="iom_error_n">
+          <connectorMappings>
+            <connectorMapping name="IOM_FLINK01" index="26"/>
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="jtag_tck">
+          <connectorMappings>
+            <connectorMapping name="IOM_FLINK01" index="1"/>
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="jtag_tdo_dir">
+          <connectorMappings>
+            <connectorMapping name="IOM_FLINK01" index="18"/>
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="jtag_tck_dir">
+          <connectorMappings>
+            <connectorMapping name="IOM_FLINK01" index="0"/>
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="jtag_trst">
+          <connectorMappings>
+            <connectorMapping name="IOM_FLINK01" index="13"/>
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="jtag_tdi">
+          <connectorMappings>
+            <connectorMapping name="IOM_FLINK01" index="17"/>
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="jtag_tms">
+          <connectorMappings>
+            <connectorMapping name="IOM_FLINK01" index="15"/>
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="jtag_tdo">
+          <connectorMappings>
+            <connectorMapping name="IOM_FLINK01" index="19"/>
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="jtag_tms_dir">
+          <connectorMappings>
+            <connectorMapping name="IOM_FLINK01" index="14"/>
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="jtag_tdi_dir">
+          <connectorMappings>
+            <connectorMapping name="IOM_FLINK01" index="16"/>
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="jtag_trst_dir">
+          <connectorMappings>
+            <connectorMapping name="IOM_FLINK01" index="12"/>
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="gpio_2_io">
+          <connectorMappings>
+            <connectorMapping name="IOM_FLINK01" index="25" protocolPortIndex = "2"/>
+            <connectorMapping name="IOM_FLINK01" index="45" protocolPortIndex = "0"/>
+            <connectorMapping name="IOM_FLINK01" index="47" protocolPortIndex = "1"/>
+            <connectorMapping name="IOM_FLINK01" index="3" protocolPortIndex = "3"/>
+            <connectorMapping name="IOM_FLINK01" index="5" protocolPortIndex = "4"/>
+            <connectorMapping name="IOM_FLINK01" index="7" protocolPortIndex = "5"/>
+            <connectorMapping name="IOM_FLINK01" index="9" protocolPortIndex = "6"/>
+            <connectorMapping name="IOM_FLINK01" index="11" protocolPortIndex = "7"/>
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="gpio_1_io">
+          <connectorMappings>
+            <connectorMapping name="IOM_FLINK01" index="29" protocolPortIndex = "0"/>
+            <connectorMapping name="IOM_FLINK01" index="31" protocolPortIndex = "1"/>
+            <connectorMapping name="IOM_FLINK01" index="33" protocolPortIndex = "2"/>
+            <connectorMapping name="IOM_FLINK01" index="35" protocolPortIndex = "3"/>
+            <connectorMapping name="IOM_FLINK01" index="37" protocolPortIndex = "4"/>
+            <connectorMapping name="IOM_FLINK01" index="39" protocolPortIndex = "5"/>
+            <connectorMapping name="IOM_FLINK01" index="41" protocolPortIndex = "6"/>
+            <connectorMapping name="IOM_FLINK01" index="43" protocolPortIndex = "7"/>
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="gpio_1_dir">
+          <connectorMappings>
+            <connectorMapping name="IOM_FLINK01" index="28" protocolPortIndex = "0"/>
+            <connectorMapping name="IOM_FLINK01" index="30" protocolPortIndex = "1"/>
+            <connectorMapping name="IOM_FLINK01" index="32" protocolPortIndex = "2"/>
+            <connectorMapping name="IOM_FLINK01" index="34" protocolPortIndex = "3"/>
+            <connectorMapping name="IOM_FLINK01" index="36" protocolPortIndex = "4"/>
+            <connectorMapping name="IOM_FLINK01" index="38" protocolPortIndex = "5"/>
+            <connectorMapping name="IOM_FLINK01" index="40" protocolPortIndex = "6"/>
+            <connectorMapping name="IOM_FLINK01" index="42" protocolPortIndex = "7"/>
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="gpio_2_dir">
+          <connectorMappings>
+            <connectorMapping name="IOM_FLINK01" index="24" protocolPortIndex = "2"/>
+            <connectorMapping name="IOM_FLINK01" index="44" protocolPortIndex = "0"/>
+            <connectorMapping name="IOM_FLINK01" index="46" protocolPortIndex = "1"/>
+            <connectorMapping name="IOM_FLINK01" index="2" protocolPortIndex = "3"/>
+            <connectorMapping name="IOM_FLINK01" index="4" protocolPortIndex = "4"/>
+            <connectorMapping name="IOM_FLINK01" index="6" protocolPortIndex = "5"/>
+            <connectorMapping name="IOM_FLINK01" index="8" protocolPortIndex = "6"/>
+            <connectorMapping name="IOM_FLINK01" index="10" protocolPortIndex = "7"/>
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+      </protocolInstanceMappings>
+    </protocolInstance>
+  </protocolInstances>
+</module>

@@ -1,0 +1,2996 @@
+<?xml version="1.0"?>
+<!--- ================================================================ -->
+<!--- Unpublished work. Copyright 2022 Siemens                         -->
+<!--- This material contains trade secrets or otherwise                -->
+<!--- confidential information owned by Siemens Industry Software Inc. -->
+<!--- or its affiliates (collectively, "SISW"), or its licensors.      -->
+<!--- Access to and use of this information is strictly limited as     -->
+<!--- set forth in the Customer's applicable agreements with SISW.     -->
+<!---                                                                  -->
+<!--- ================================================================ -->
+
+
+<module name="fabric_revB">
+  <instances>
+    <instance name="U_A">
+      <moduleRef name="fabric_fpga_ua_revB"/>
+      <vendorExtensions>
+        <vendorExtension name="FPGA_ID" type="String" value="A"/>
+      </vendorExtensions>
+    </instance>
+    <instance name="U_B">
+      <moduleRef name="fabric_fpga_ub_revB"/>
+      <vendorExtensions>
+        <vendorExtension name="FPGA_ID" type="String" value="B"/>
+      </vendorExtensions>
+    </instance>
+  </instances>
+  <connectors>
+    <connector name="MTP24_A" size="48" cabling="true" visibleInDB="true" instance="CONNECTION_MTP24_A" logicalType="MGT" physicalType="MTP24">
+      <vendorExtensions>
+        <vendorExtension name="type" value="MTP24"/>
+        <vendorExtension name="index" value="0"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+        <connectorPort name="fabric_connector" index="4" refIndex="4"/>
+        <connectorPort name="fabric_connector" index="5" refIndex="5"/>
+        <connectorPort name="fabric_connector" index="6" refIndex="6"/>
+        <connectorPort name="fabric_connector" index="7" refIndex="7"/>
+        <connectorPort name="fabric_connector" index="8" refIndex="8"/>
+        <connectorPort name="fabric_connector" index="9" refIndex="9"/>
+        <connectorPort name="fabric_connector" index="10" refIndex="10"/>
+        <connectorPort name="fabric_connector" index="11" refIndex="11"/>
+        <connectorPort name="fabric_connector" index="12" refIndex="12"/>
+        <connectorPort name="fabric_connector" index="13" refIndex="13"/>
+        <connectorPort name="fabric_connector" index="14" refIndex="14"/>
+        <connectorPort name="fabric_connector" index="15" refIndex="15"/>
+        <connectorPort name="fabric_connector" index="16" refIndex="16"/>
+        <connectorPort name="fabric_connector" index="17" refIndex="17"/>
+        <connectorPort name="fabric_connector" index="18" refIndex="18"/>
+        <connectorPort name="fabric_connector" index="19" refIndex="19"/>
+        <connectorPort name="fabric_connector" index="20" refIndex="20"/>
+        <connectorPort name="fabric_connector" index="21" refIndex="21"/>
+        <connectorPort name="fabric_connector" index="22" refIndex="22"/>
+        <connectorPort name="fabric_connector" index="23" refIndex="23"/>
+        <connectorPort name="fabric_connector" index="24" refIndex="24"/>
+        <connectorPort name="fabric_connector" index="25" refIndex="25"/>
+        <connectorPort name="fabric_connector" index="26" refIndex="26"/>
+        <connectorPort name="fabric_connector" index="27" refIndex="27"/>
+        <connectorPort name="fabric_connector" index="28" refIndex="28"/>
+        <connectorPort name="fabric_connector" index="29" refIndex="29"/>
+        <connectorPort name="fabric_connector" index="30" refIndex="30"/>
+        <connectorPort name="fabric_connector" index="31" refIndex="31"/>
+        <connectorPort name="fabric_connector" index="32" refIndex="32"/>
+        <connectorPort name="fabric_connector" index="33" refIndex="33"/>
+        <connectorPort name="fabric_connector" index="34" refIndex="34"/>
+        <connectorPort name="fabric_connector" index="35" refIndex="35"/>
+        <connectorPort name="fabric_connector" index="36" refIndex="36"/>
+        <connectorPort name="fabric_connector" index="37" refIndex="37"/>
+        <connectorPort name="fabric_connector" index="38" refIndex="38"/>
+        <connectorPort name="fabric_connector" index="39" refIndex="39"/>
+        <connectorPort name="fabric_connector" index="40" refIndex="40"/>
+        <connectorPort name="fabric_connector" index="41" refIndex="41"/>
+        <connectorPort name="fabric_connector" index="42" refIndex="42"/>
+        <connectorPort name="fabric_connector" index="43" refIndex="43"/>
+        <connectorPort name="fabric_connector" index="44" refIndex="44"/>
+        <connectorPort name="fabric_connector" index="45" refIndex="45"/>
+        <connectorPort name="fabric_connector" index="46" refIndex="46"/>
+        <connectorPort name="fabric_connector" index="47" refIndex="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK24" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK24" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="24"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK23" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK23" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="23"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK22" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK22" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="22"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK21" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK21" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="21"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK20" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK20" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="20"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK19" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK19" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="19"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK18" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK18" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="18"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK17" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK17" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="17"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK16" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK16" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="16"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK15" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK15" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="15"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK14" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK14" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="14"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK13" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK13" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="13"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK12" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK12" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="12"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK11" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK11" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="11"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK10" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK10" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="10"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK09" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK09" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="9"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK08" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK08" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="8"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK07" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK07" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="7"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK06" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK06" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="6"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK05" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK05" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="5"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK04" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK04" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="4"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK03" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK03" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="3"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK02" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK02" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="2"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK01" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK01" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="1"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="MTP24_B" size="48" cabling="true" visibleInDB="true" instance="CONNECTION_MTP24_B" logicalType="MGT" physicalType="MTP24">
+      <vendorExtensions>
+        <vendorExtension name="type" value="MTP24"/>
+        <vendorExtension name="index" value="1"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+        <connectorPort name="fabric_connector" index="4" refIndex="4"/>
+        <connectorPort name="fabric_connector" index="5" refIndex="5"/>
+        <connectorPort name="fabric_connector" index="6" refIndex="6"/>
+        <connectorPort name="fabric_connector" index="7" refIndex="7"/>
+        <connectorPort name="fabric_connector" index="8" refIndex="8"/>
+        <connectorPort name="fabric_connector" index="9" refIndex="9"/>
+        <connectorPort name="fabric_connector" index="10" refIndex="10"/>
+        <connectorPort name="fabric_connector" index="11" refIndex="11"/>
+        <connectorPort name="fabric_connector" index="12" refIndex="12"/>
+        <connectorPort name="fabric_connector" index="13" refIndex="13"/>
+        <connectorPort name="fabric_connector" index="14" refIndex="14"/>
+        <connectorPort name="fabric_connector" index="15" refIndex="15"/>
+        <connectorPort name="fabric_connector" index="16" refIndex="16"/>
+        <connectorPort name="fabric_connector" index="17" refIndex="17"/>
+        <connectorPort name="fabric_connector" index="18" refIndex="18"/>
+        <connectorPort name="fabric_connector" index="19" refIndex="19"/>
+        <connectorPort name="fabric_connector" index="20" refIndex="20"/>
+        <connectorPort name="fabric_connector" index="21" refIndex="21"/>
+        <connectorPort name="fabric_connector" index="22" refIndex="22"/>
+        <connectorPort name="fabric_connector" index="23" refIndex="23"/>
+        <connectorPort name="fabric_connector" index="24" refIndex="24"/>
+        <connectorPort name="fabric_connector" index="25" refIndex="25"/>
+        <connectorPort name="fabric_connector" index="26" refIndex="26"/>
+        <connectorPort name="fabric_connector" index="27" refIndex="27"/>
+        <connectorPort name="fabric_connector" index="28" refIndex="28"/>
+        <connectorPort name="fabric_connector" index="29" refIndex="29"/>
+        <connectorPort name="fabric_connector" index="30" refIndex="30"/>
+        <connectorPort name="fabric_connector" index="31" refIndex="31"/>
+        <connectorPort name="fabric_connector" index="32" refIndex="32"/>
+        <connectorPort name="fabric_connector" index="33" refIndex="33"/>
+        <connectorPort name="fabric_connector" index="34" refIndex="34"/>
+        <connectorPort name="fabric_connector" index="35" refIndex="35"/>
+        <connectorPort name="fabric_connector" index="36" refIndex="36"/>
+        <connectorPort name="fabric_connector" index="37" refIndex="37"/>
+        <connectorPort name="fabric_connector" index="38" refIndex="38"/>
+        <connectorPort name="fabric_connector" index="39" refIndex="39"/>
+        <connectorPort name="fabric_connector" index="40" refIndex="40"/>
+        <connectorPort name="fabric_connector" index="41" refIndex="41"/>
+        <connectorPort name="fabric_connector" index="42" refIndex="42"/>
+        <connectorPort name="fabric_connector" index="43" refIndex="43"/>
+        <connectorPort name="fabric_connector" index="44" refIndex="44"/>
+        <connectorPort name="fabric_connector" index="45" refIndex="45"/>
+        <connectorPort name="fabric_connector" index="46" refIndex="46"/>
+        <connectorPort name="fabric_connector" index="47" refIndex="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK60" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK60" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="60"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK59" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK59" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="59"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK58" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK58" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="58"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK57" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK57" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="57"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK56" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK56" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="56"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK55" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK55" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="55"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK54" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK54" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="54"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK53" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK53" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="53"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK52" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK52" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="52"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK51" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK51" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="51"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK50" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK50" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="50"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK49" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK49" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="49"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK48" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK48" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="48"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK47" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK47" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="47"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK46" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK46" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="46"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK45" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK45" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="45"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK44" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK44" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="44"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK43" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK43" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="43"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK42" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK42" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="42"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK41" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK41" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="41"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK40" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK40" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="40"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK39" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK39" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="39"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK38" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK38" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="38"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="OLINK37" size="4" cabling="true" visibleInDB="true" instance="CONNECTION_OLINK37" logicalType="MGT" physicalType="LC">
+      <vendorExtensions>
+        <vendorExtension name="type" value="OLINK"/>
+        <vendorExtension name="index" value="37"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FLINK04" size="48" cabling="true" visibleInDB="true" instance="CONNECTION_FLINK04" logicalType="GPIO" physicalType="FLINK">
+      <vendorExtensions>
+        <vendorExtension name="type" value="FLINK"/>
+        <vendorExtension name="index" value="4"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+        <connectorPort name="fabric_connector" index="4" refIndex="4"/>
+        <connectorPort name="fabric_connector" index="5" refIndex="5"/>
+        <connectorPort name="fabric_connector" index="6" refIndex="6"/>
+        <connectorPort name="fabric_connector" index="7" refIndex="7"/>
+        <connectorPort name="fabric_connector" index="8" refIndex="8"/>
+        <connectorPort name="fabric_connector" index="9" refIndex="9"/>
+        <connectorPort name="fabric_connector" index="10" refIndex="10"/>
+        <connectorPort name="fabric_connector" index="11" refIndex="11"/>
+        <connectorPort name="fabric_connector" index="12" refIndex="12"/>
+        <connectorPort name="fabric_connector" index="13" refIndex="13"/>
+        <connectorPort name="fabric_connector" index="14" refIndex="14"/>
+        <connectorPort name="fabric_connector" index="15" refIndex="15"/>
+        <connectorPort name="fabric_connector" index="16" refIndex="16"/>
+        <connectorPort name="fabric_connector" index="17" refIndex="17"/>
+        <connectorPort name="fabric_connector" index="18" refIndex="18"/>
+        <connectorPort name="fabric_connector" index="19" refIndex="19"/>
+        <connectorPort name="fabric_connector" index="20" refIndex="20"/>
+        <connectorPort name="fabric_connector" index="21" refIndex="21"/>
+        <connectorPort name="fabric_connector" index="22" refIndex="22"/>
+        <connectorPort name="fabric_connector" index="23" refIndex="23"/>
+        <connectorPort name="fabric_connector" index="24" refIndex="24"/>
+        <connectorPort name="fabric_connector" index="25" refIndex="25"/>
+        <connectorPort name="fabric_connector" index="26" refIndex="26"/>
+        <connectorPort name="fabric_connector" index="27" refIndex="27"/>
+        <connectorPort name="fabric_connector" index="28" refIndex="28"/>
+        <connectorPort name="fabric_connector" index="29" refIndex="29"/>
+        <connectorPort name="fabric_connector" index="30" refIndex="30"/>
+        <connectorPort name="fabric_connector" index="31" refIndex="31"/>
+        <connectorPort name="fabric_connector" index="32" refIndex="32"/>
+        <connectorPort name="fabric_connector" index="33" refIndex="33"/>
+        <connectorPort name="fabric_connector" index="34" refIndex="34"/>
+        <connectorPort name="fabric_connector" index="35" refIndex="35"/>
+        <connectorPort name="fabric_connector" index="36" refIndex="36"/>
+        <connectorPort name="fabric_connector" index="37" refIndex="37"/>
+        <connectorPort name="fabric_connector" index="38" refIndex="38"/>
+        <connectorPort name="fabric_connector" index="39" refIndex="39"/>
+        <connectorPort name="fabric_connector" index="40" refIndex="40"/>
+        <connectorPort name="fabric_connector" index="41" refIndex="41"/>
+        <connectorPort name="fabric_connector" index="42" refIndex="42"/>
+        <connectorPort name="fabric_connector" index="43" refIndex="43"/>
+        <connectorPort name="fabric_connector" index="44" refIndex="44"/>
+        <connectorPort name="fabric_connector" index="45" refIndex="45"/>
+        <connectorPort name="fabric_connector" index="46" refIndex="46"/>
+        <connectorPort name="fabric_connector" index="47" refIndex="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FLINK03" size="48" cabling="true" visibleInDB="true" instance="CONNECTION_FLINK03" logicalType="GPIO" physicalType="FLINK">
+      <vendorExtensions>
+        <vendorExtension name="type" value="FLINK"/>
+        <vendorExtension name="index" value="3"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+        <connectorPort name="fabric_connector" index="4" refIndex="4"/>
+        <connectorPort name="fabric_connector" index="5" refIndex="5"/>
+        <connectorPort name="fabric_connector" index="6" refIndex="6"/>
+        <connectorPort name="fabric_connector" index="7" refIndex="7"/>
+        <connectorPort name="fabric_connector" index="8" refIndex="8"/>
+        <connectorPort name="fabric_connector" index="9" refIndex="9"/>
+        <connectorPort name="fabric_connector" index="10" refIndex="10"/>
+        <connectorPort name="fabric_connector" index="11" refIndex="11"/>
+        <connectorPort name="fabric_connector" index="12" refIndex="12"/>
+        <connectorPort name="fabric_connector" index="13" refIndex="13"/>
+        <connectorPort name="fabric_connector" index="14" refIndex="14"/>
+        <connectorPort name="fabric_connector" index="15" refIndex="15"/>
+        <connectorPort name="fabric_connector" index="16" refIndex="16"/>
+        <connectorPort name="fabric_connector" index="17" refIndex="17"/>
+        <connectorPort name="fabric_connector" index="18" refIndex="18"/>
+        <connectorPort name="fabric_connector" index="19" refIndex="19"/>
+        <connectorPort name="fabric_connector" index="20" refIndex="20"/>
+        <connectorPort name="fabric_connector" index="21" refIndex="21"/>
+        <connectorPort name="fabric_connector" index="22" refIndex="22"/>
+        <connectorPort name="fabric_connector" index="23" refIndex="23"/>
+        <connectorPort name="fabric_connector" index="24" refIndex="24"/>
+        <connectorPort name="fabric_connector" index="25" refIndex="25"/>
+        <connectorPort name="fabric_connector" index="26" refIndex="26"/>
+        <connectorPort name="fabric_connector" index="27" refIndex="27"/>
+        <connectorPort name="fabric_connector" index="28" refIndex="28"/>
+        <connectorPort name="fabric_connector" index="29" refIndex="29"/>
+        <connectorPort name="fabric_connector" index="30" refIndex="30"/>
+        <connectorPort name="fabric_connector" index="31" refIndex="31"/>
+        <connectorPort name="fabric_connector" index="32" refIndex="32"/>
+        <connectorPort name="fabric_connector" index="33" refIndex="33"/>
+        <connectorPort name="fabric_connector" index="34" refIndex="34"/>
+        <connectorPort name="fabric_connector" index="35" refIndex="35"/>
+        <connectorPort name="fabric_connector" index="36" refIndex="36"/>
+        <connectorPort name="fabric_connector" index="37" refIndex="37"/>
+        <connectorPort name="fabric_connector" index="38" refIndex="38"/>
+        <connectorPort name="fabric_connector" index="39" refIndex="39"/>
+        <connectorPort name="fabric_connector" index="40" refIndex="40"/>
+        <connectorPort name="fabric_connector" index="41" refIndex="41"/>
+        <connectorPort name="fabric_connector" index="42" refIndex="42"/>
+        <connectorPort name="fabric_connector" index="43" refIndex="43"/>
+        <connectorPort name="fabric_connector" index="44" refIndex="44"/>
+        <connectorPort name="fabric_connector" index="45" refIndex="45"/>
+        <connectorPort name="fabric_connector" index="46" refIndex="46"/>
+        <connectorPort name="fabric_connector" index="47" refIndex="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FLINK02" size="48" cabling="true" visibleInDB="true" instance="CONNECTION_FLINK02" logicalType="GPIO" physicalType="FLINK">
+      <vendorExtensions>
+        <vendorExtension name="type" value="FLINK"/>
+        <vendorExtension name="index" value="2"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+        <connectorPort name="fabric_connector" index="4" refIndex="4"/>
+        <connectorPort name="fabric_connector" index="5" refIndex="5"/>
+        <connectorPort name="fabric_connector" index="6" refIndex="6"/>
+        <connectorPort name="fabric_connector" index="7" refIndex="7"/>
+        <connectorPort name="fabric_connector" index="8" refIndex="8"/>
+        <connectorPort name="fabric_connector" index="9" refIndex="9"/>
+        <connectorPort name="fabric_connector" index="10" refIndex="10"/>
+        <connectorPort name="fabric_connector" index="11" refIndex="11"/>
+        <connectorPort name="fabric_connector" index="12" refIndex="12"/>
+        <connectorPort name="fabric_connector" index="13" refIndex="13"/>
+        <connectorPort name="fabric_connector" index="14" refIndex="14"/>
+        <connectorPort name="fabric_connector" index="15" refIndex="15"/>
+        <connectorPort name="fabric_connector" index="16" refIndex="16"/>
+        <connectorPort name="fabric_connector" index="17" refIndex="17"/>
+        <connectorPort name="fabric_connector" index="18" refIndex="18"/>
+        <connectorPort name="fabric_connector" index="19" refIndex="19"/>
+        <connectorPort name="fabric_connector" index="20" refIndex="20"/>
+        <connectorPort name="fabric_connector" index="21" refIndex="21"/>
+        <connectorPort name="fabric_connector" index="22" refIndex="22"/>
+        <connectorPort name="fabric_connector" index="23" refIndex="23"/>
+        <connectorPort name="fabric_connector" index="24" refIndex="24"/>
+        <connectorPort name="fabric_connector" index="25" refIndex="25"/>
+        <connectorPort name="fabric_connector" index="26" refIndex="26"/>
+        <connectorPort name="fabric_connector" index="27" refIndex="27"/>
+        <connectorPort name="fabric_connector" index="28" refIndex="28"/>
+        <connectorPort name="fabric_connector" index="29" refIndex="29"/>
+        <connectorPort name="fabric_connector" index="30" refIndex="30"/>
+        <connectorPort name="fabric_connector" index="31" refIndex="31"/>
+        <connectorPort name="fabric_connector" index="32" refIndex="32"/>
+        <connectorPort name="fabric_connector" index="33" refIndex="33"/>
+        <connectorPort name="fabric_connector" index="34" refIndex="34"/>
+        <connectorPort name="fabric_connector" index="35" refIndex="35"/>
+        <connectorPort name="fabric_connector" index="36" refIndex="36"/>
+        <connectorPort name="fabric_connector" index="37" refIndex="37"/>
+        <connectorPort name="fabric_connector" index="38" refIndex="38"/>
+        <connectorPort name="fabric_connector" index="39" refIndex="39"/>
+        <connectorPort name="fabric_connector" index="40" refIndex="40"/>
+        <connectorPort name="fabric_connector" index="41" refIndex="41"/>
+        <connectorPort name="fabric_connector" index="42" refIndex="42"/>
+        <connectorPort name="fabric_connector" index="43" refIndex="43"/>
+        <connectorPort name="fabric_connector" index="44" refIndex="44"/>
+        <connectorPort name="fabric_connector" index="45" refIndex="45"/>
+        <connectorPort name="fabric_connector" index="46" refIndex="46"/>
+        <connectorPort name="fabric_connector" index="47" refIndex="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FLINK01" size="48" cabling="true" visibleInDB="true" instance="CONNECTION_FLINK01" logicalType="GPIO" physicalType="FLINK">
+      <vendorExtensions>
+        <vendorExtension name="type" value="FLINK"/>
+        <vendorExtension name="index" value="1"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+        <connectorPort name="fabric_connector" index="4" refIndex="4"/>
+        <connectorPort name="fabric_connector" index="5" refIndex="5"/>
+        <connectorPort name="fabric_connector" index="6" refIndex="6"/>
+        <connectorPort name="fabric_connector" index="7" refIndex="7"/>
+        <connectorPort name="fabric_connector" index="8" refIndex="8"/>
+        <connectorPort name="fabric_connector" index="9" refIndex="9"/>
+        <connectorPort name="fabric_connector" index="10" refIndex="10"/>
+        <connectorPort name="fabric_connector" index="11" refIndex="11"/>
+        <connectorPort name="fabric_connector" index="12" refIndex="12"/>
+        <connectorPort name="fabric_connector" index="13" refIndex="13"/>
+        <connectorPort name="fabric_connector" index="14" refIndex="14"/>
+        <connectorPort name="fabric_connector" index="15" refIndex="15"/>
+        <connectorPort name="fabric_connector" index="16" refIndex="16"/>
+        <connectorPort name="fabric_connector" index="17" refIndex="17"/>
+        <connectorPort name="fabric_connector" index="18" refIndex="18"/>
+        <connectorPort name="fabric_connector" index="19" refIndex="19"/>
+        <connectorPort name="fabric_connector" index="20" refIndex="20"/>
+        <connectorPort name="fabric_connector" index="21" refIndex="21"/>
+        <connectorPort name="fabric_connector" index="22" refIndex="22"/>
+        <connectorPort name="fabric_connector" index="23" refIndex="23"/>
+        <connectorPort name="fabric_connector" index="24" refIndex="24"/>
+        <connectorPort name="fabric_connector" index="25" refIndex="25"/>
+        <connectorPort name="fabric_connector" index="26" refIndex="26"/>
+        <connectorPort name="fabric_connector" index="27" refIndex="27"/>
+        <connectorPort name="fabric_connector" index="28" refIndex="28"/>
+        <connectorPort name="fabric_connector" index="29" refIndex="29"/>
+        <connectorPort name="fabric_connector" index="30" refIndex="30"/>
+        <connectorPort name="fabric_connector" index="31" refIndex="31"/>
+        <connectorPort name="fabric_connector" index="32" refIndex="32"/>
+        <connectorPort name="fabric_connector" index="33" refIndex="33"/>
+        <connectorPort name="fabric_connector" index="34" refIndex="34"/>
+        <connectorPort name="fabric_connector" index="35" refIndex="35"/>
+        <connectorPort name="fabric_connector" index="36" refIndex="36"/>
+        <connectorPort name="fabric_connector" index="37" refIndex="37"/>
+        <connectorPort name="fabric_connector" index="38" refIndex="38"/>
+        <connectorPort name="fabric_connector" index="39" refIndex="39"/>
+        <connectorPort name="fabric_connector" index="40" refIndex="40"/>
+        <connectorPort name="fabric_connector" index="41" refIndex="41"/>
+        <connectorPort name="fabric_connector" index="42" refIndex="42"/>
+        <connectorPort name="fabric_connector" index="43" refIndex="43"/>
+        <connectorPort name="fabric_connector" index="44" refIndex="44"/>
+        <connectorPort name="fabric_connector" index="45" refIndex="45"/>
+        <connectorPort name="fabric_connector" index="46" refIndex="46"/>
+        <connectorPort name="fabric_connector" index="47" refIndex="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FLINK06" size="48" cabling="true" visibleInDB="true" instance="CONNECTION_FLINK06" logicalType="GPIO" physicalType="FLINK">
+      <vendorExtensions>
+        <vendorExtension name="type" value="FLINK"/>
+        <vendorExtension name="index" value="6"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+        <connectorPort name="fabric_connector" index="4" refIndex="4"/>
+        <connectorPort name="fabric_connector" index="5" refIndex="5"/>
+        <connectorPort name="fabric_connector" index="6" refIndex="6"/>
+        <connectorPort name="fabric_connector" index="7" refIndex="7"/>
+        <connectorPort name="fabric_connector" index="8" refIndex="8"/>
+        <connectorPort name="fabric_connector" index="9" refIndex="9"/>
+        <connectorPort name="fabric_connector" index="10" refIndex="10"/>
+        <connectorPort name="fabric_connector" index="11" refIndex="11"/>
+        <connectorPort name="fabric_connector" index="12" refIndex="12"/>
+        <connectorPort name="fabric_connector" index="13" refIndex="13"/>
+        <connectorPort name="fabric_connector" index="14" refIndex="14"/>
+        <connectorPort name="fabric_connector" index="15" refIndex="15"/>
+        <connectorPort name="fabric_connector" index="16" refIndex="16"/>
+        <connectorPort name="fabric_connector" index="17" refIndex="17"/>
+        <connectorPort name="fabric_connector" index="18" refIndex="18"/>
+        <connectorPort name="fabric_connector" index="19" refIndex="19"/>
+        <connectorPort name="fabric_connector" index="20" refIndex="20"/>
+        <connectorPort name="fabric_connector" index="21" refIndex="21"/>
+        <connectorPort name="fabric_connector" index="22" refIndex="22"/>
+        <connectorPort name="fabric_connector" index="23" refIndex="23"/>
+        <connectorPort name="fabric_connector" index="24" refIndex="24"/>
+        <connectorPort name="fabric_connector" index="25" refIndex="25"/>
+        <connectorPort name="fabric_connector" index="26" refIndex="26"/>
+        <connectorPort name="fabric_connector" index="27" refIndex="27"/>
+        <connectorPort name="fabric_connector" index="28" refIndex="28"/>
+        <connectorPort name="fabric_connector" index="29" refIndex="29"/>
+        <connectorPort name="fabric_connector" index="30" refIndex="30"/>
+        <connectorPort name="fabric_connector" index="31" refIndex="31"/>
+        <connectorPort name="fabric_connector" index="32" refIndex="32"/>
+        <connectorPort name="fabric_connector" index="33" refIndex="33"/>
+        <connectorPort name="fabric_connector" index="34" refIndex="34"/>
+        <connectorPort name="fabric_connector" index="35" refIndex="35"/>
+        <connectorPort name="fabric_connector" index="36" refIndex="36"/>
+        <connectorPort name="fabric_connector" index="37" refIndex="37"/>
+        <connectorPort name="fabric_connector" index="38" refIndex="38"/>
+        <connectorPort name="fabric_connector" index="39" refIndex="39"/>
+        <connectorPort name="fabric_connector" index="40" refIndex="40"/>
+        <connectorPort name="fabric_connector" index="41" refIndex="41"/>
+        <connectorPort name="fabric_connector" index="42" refIndex="42"/>
+        <connectorPort name="fabric_connector" index="43" refIndex="43"/>
+        <connectorPort name="fabric_connector" index="44" refIndex="44"/>
+        <connectorPort name="fabric_connector" index="45" refIndex="45"/>
+        <connectorPort name="fabric_connector" index="46" refIndex="46"/>
+        <connectorPort name="fabric_connector" index="47" refIndex="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FLINK05" size="48" cabling="true" visibleInDB="true" instance="CONNECTION_FLINK05" logicalType="GPIO" physicalType="FLINK">
+      <vendorExtensions>
+        <vendorExtension name="type" value="FLINK"/>
+        <vendorExtension name="index" value="5"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+        <connectorPort name="fabric_connector" index="4" refIndex="4"/>
+        <connectorPort name="fabric_connector" index="5" refIndex="5"/>
+        <connectorPort name="fabric_connector" index="6" refIndex="6"/>
+        <connectorPort name="fabric_connector" index="7" refIndex="7"/>
+        <connectorPort name="fabric_connector" index="8" refIndex="8"/>
+        <connectorPort name="fabric_connector" index="9" refIndex="9"/>
+        <connectorPort name="fabric_connector" index="10" refIndex="10"/>
+        <connectorPort name="fabric_connector" index="11" refIndex="11"/>
+        <connectorPort name="fabric_connector" index="12" refIndex="12"/>
+        <connectorPort name="fabric_connector" index="13" refIndex="13"/>
+        <connectorPort name="fabric_connector" index="14" refIndex="14"/>
+        <connectorPort name="fabric_connector" index="15" refIndex="15"/>
+        <connectorPort name="fabric_connector" index="16" refIndex="16"/>
+        <connectorPort name="fabric_connector" index="17" refIndex="17"/>
+        <connectorPort name="fabric_connector" index="18" refIndex="18"/>
+        <connectorPort name="fabric_connector" index="19" refIndex="19"/>
+        <connectorPort name="fabric_connector" index="20" refIndex="20"/>
+        <connectorPort name="fabric_connector" index="21" refIndex="21"/>
+        <connectorPort name="fabric_connector" index="22" refIndex="22"/>
+        <connectorPort name="fabric_connector" index="23" refIndex="23"/>
+        <connectorPort name="fabric_connector" index="24" refIndex="24"/>
+        <connectorPort name="fabric_connector" index="25" refIndex="25"/>
+        <connectorPort name="fabric_connector" index="26" refIndex="26"/>
+        <connectorPort name="fabric_connector" index="27" refIndex="27"/>
+        <connectorPort name="fabric_connector" index="28" refIndex="28"/>
+        <connectorPort name="fabric_connector" index="29" refIndex="29"/>
+        <connectorPort name="fabric_connector" index="30" refIndex="30"/>
+        <connectorPort name="fabric_connector" index="31" refIndex="31"/>
+        <connectorPort name="fabric_connector" index="32" refIndex="32"/>
+        <connectorPort name="fabric_connector" index="33" refIndex="33"/>
+        <connectorPort name="fabric_connector" index="34" refIndex="34"/>
+        <connectorPort name="fabric_connector" index="35" refIndex="35"/>
+        <connectorPort name="fabric_connector" index="36" refIndex="36"/>
+        <connectorPort name="fabric_connector" index="37" refIndex="37"/>
+        <connectorPort name="fabric_connector" index="38" refIndex="38"/>
+        <connectorPort name="fabric_connector" index="39" refIndex="39"/>
+        <connectorPort name="fabric_connector" index="40" refIndex="40"/>
+        <connectorPort name="fabric_connector" index="41" refIndex="41"/>
+        <connectorPort name="fabric_connector" index="42" refIndex="42"/>
+        <connectorPort name="fabric_connector" index="43" refIndex="43"/>
+        <connectorPort name="fabric_connector" index="44" refIndex="44"/>
+        <connectorPort name="fabric_connector" index="45" refIndex="45"/>
+        <connectorPort name="fabric_connector" index="46" refIndex="46"/>
+        <connectorPort name="fabric_connector" index="47" refIndex="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FLINK10" size="48" cabling="true" visibleInDB="true" instance="CONNECTION_FLINK10" logicalType="GPIO" physicalType="FLINK">
+      <vendorExtensions>
+        <vendorExtension name="type" value="FLINK"/>
+        <vendorExtension name="index" value="10"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+        <connectorPort name="fabric_connector" index="4" refIndex="4"/>
+        <connectorPort name="fabric_connector" index="5" refIndex="5"/>
+        <connectorPort name="fabric_connector" index="6" refIndex="6"/>
+        <connectorPort name="fabric_connector" index="7" refIndex="7"/>
+        <connectorPort name="fabric_connector" index="8" refIndex="8"/>
+        <connectorPort name="fabric_connector" index="9" refIndex="9"/>
+        <connectorPort name="fabric_connector" index="10" refIndex="10"/>
+        <connectorPort name="fabric_connector" index="11" refIndex="11"/>
+        <connectorPort name="fabric_connector" index="12" refIndex="12"/>
+        <connectorPort name="fabric_connector" index="13" refIndex="13"/>
+        <connectorPort name="fabric_connector" index="14" refIndex="14"/>
+        <connectorPort name="fabric_connector" index="15" refIndex="15"/>
+        <connectorPort name="fabric_connector" index="16" refIndex="16"/>
+        <connectorPort name="fabric_connector" index="17" refIndex="17"/>
+        <connectorPort name="fabric_connector" index="18" refIndex="18"/>
+        <connectorPort name="fabric_connector" index="19" refIndex="19"/>
+        <connectorPort name="fabric_connector" index="20" refIndex="20"/>
+        <connectorPort name="fabric_connector" index="21" refIndex="21"/>
+        <connectorPort name="fabric_connector" index="22" refIndex="22"/>
+        <connectorPort name="fabric_connector" index="23" refIndex="23"/>
+        <connectorPort name="fabric_connector" index="24" refIndex="24"/>
+        <connectorPort name="fabric_connector" index="25" refIndex="25"/>
+        <connectorPort name="fabric_connector" index="26" refIndex="26"/>
+        <connectorPort name="fabric_connector" index="27" refIndex="27"/>
+        <connectorPort name="fabric_connector" index="28" refIndex="28"/>
+        <connectorPort name="fabric_connector" index="29" refIndex="29"/>
+        <connectorPort name="fabric_connector" index="30" refIndex="30"/>
+        <connectorPort name="fabric_connector" index="31" refIndex="31"/>
+        <connectorPort name="fabric_connector" index="32" refIndex="32"/>
+        <connectorPort name="fabric_connector" index="33" refIndex="33"/>
+        <connectorPort name="fabric_connector" index="34" refIndex="34"/>
+        <connectorPort name="fabric_connector" index="35" refIndex="35"/>
+        <connectorPort name="fabric_connector" index="36" refIndex="36"/>
+        <connectorPort name="fabric_connector" index="37" refIndex="37"/>
+        <connectorPort name="fabric_connector" index="38" refIndex="38"/>
+        <connectorPort name="fabric_connector" index="39" refIndex="39"/>
+        <connectorPort name="fabric_connector" index="40" refIndex="40"/>
+        <connectorPort name="fabric_connector" index="41" refIndex="41"/>
+        <connectorPort name="fabric_connector" index="42" refIndex="42"/>
+        <connectorPort name="fabric_connector" index="43" refIndex="43"/>
+        <connectorPort name="fabric_connector" index="44" refIndex="44"/>
+        <connectorPort name="fabric_connector" index="45" refIndex="45"/>
+        <connectorPort name="fabric_connector" index="46" refIndex="46"/>
+        <connectorPort name="fabric_connector" index="47" refIndex="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FLINK09" size="48" cabling="true" visibleInDB="true" instance="CONNECTION_FLINK09" logicalType="GPIO" physicalType="FLINK">
+      <vendorExtensions>
+        <vendorExtension name="type" value="FLINK"/>
+        <vendorExtension name="index" value="9"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+        <connectorPort name="fabric_connector" index="4" refIndex="4"/>
+        <connectorPort name="fabric_connector" index="5" refIndex="5"/>
+        <connectorPort name="fabric_connector" index="6" refIndex="6"/>
+        <connectorPort name="fabric_connector" index="7" refIndex="7"/>
+        <connectorPort name="fabric_connector" index="8" refIndex="8"/>
+        <connectorPort name="fabric_connector" index="9" refIndex="9"/>
+        <connectorPort name="fabric_connector" index="10" refIndex="10"/>
+        <connectorPort name="fabric_connector" index="11" refIndex="11"/>
+        <connectorPort name="fabric_connector" index="12" refIndex="12"/>
+        <connectorPort name="fabric_connector" index="13" refIndex="13"/>
+        <connectorPort name="fabric_connector" index="14" refIndex="14"/>
+        <connectorPort name="fabric_connector" index="15" refIndex="15"/>
+        <connectorPort name="fabric_connector" index="16" refIndex="16"/>
+        <connectorPort name="fabric_connector" index="17" refIndex="17"/>
+        <connectorPort name="fabric_connector" index="18" refIndex="18"/>
+        <connectorPort name="fabric_connector" index="19" refIndex="19"/>
+        <connectorPort name="fabric_connector" index="20" refIndex="20"/>
+        <connectorPort name="fabric_connector" index="21" refIndex="21"/>
+        <connectorPort name="fabric_connector" index="22" refIndex="22"/>
+        <connectorPort name="fabric_connector" index="23" refIndex="23"/>
+        <connectorPort name="fabric_connector" index="24" refIndex="24"/>
+        <connectorPort name="fabric_connector" index="25" refIndex="25"/>
+        <connectorPort name="fabric_connector" index="26" refIndex="26"/>
+        <connectorPort name="fabric_connector" index="27" refIndex="27"/>
+        <connectorPort name="fabric_connector" index="28" refIndex="28"/>
+        <connectorPort name="fabric_connector" index="29" refIndex="29"/>
+        <connectorPort name="fabric_connector" index="30" refIndex="30"/>
+        <connectorPort name="fabric_connector" index="31" refIndex="31"/>
+        <connectorPort name="fabric_connector" index="32" refIndex="32"/>
+        <connectorPort name="fabric_connector" index="33" refIndex="33"/>
+        <connectorPort name="fabric_connector" index="34" refIndex="34"/>
+        <connectorPort name="fabric_connector" index="35" refIndex="35"/>
+        <connectorPort name="fabric_connector" index="36" refIndex="36"/>
+        <connectorPort name="fabric_connector" index="37" refIndex="37"/>
+        <connectorPort name="fabric_connector" index="38" refIndex="38"/>
+        <connectorPort name="fabric_connector" index="39" refIndex="39"/>
+        <connectorPort name="fabric_connector" index="40" refIndex="40"/>
+        <connectorPort name="fabric_connector" index="41" refIndex="41"/>
+        <connectorPort name="fabric_connector" index="42" refIndex="42"/>
+        <connectorPort name="fabric_connector" index="43" refIndex="43"/>
+        <connectorPort name="fabric_connector" index="44" refIndex="44"/>
+        <connectorPort name="fabric_connector" index="45" refIndex="45"/>
+        <connectorPort name="fabric_connector" index="46" refIndex="46"/>
+        <connectorPort name="fabric_connector" index="47" refIndex="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FLINK08" size="48" cabling="true" visibleInDB="true" instance="CONNECTION_FLINK08" logicalType="GPIO" physicalType="FLINK">
+      <vendorExtensions>
+        <vendorExtension name="type" value="FLINK"/>
+        <vendorExtension name="index" value="8"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+        <connectorPort name="fabric_connector" index="4" refIndex="4"/>
+        <connectorPort name="fabric_connector" index="5" refIndex="5"/>
+        <connectorPort name="fabric_connector" index="6" refIndex="6"/>
+        <connectorPort name="fabric_connector" index="7" refIndex="7"/>
+        <connectorPort name="fabric_connector" index="8" refIndex="8"/>
+        <connectorPort name="fabric_connector" index="9" refIndex="9"/>
+        <connectorPort name="fabric_connector" index="10" refIndex="10"/>
+        <connectorPort name="fabric_connector" index="11" refIndex="11"/>
+        <connectorPort name="fabric_connector" index="12" refIndex="12"/>
+        <connectorPort name="fabric_connector" index="13" refIndex="13"/>
+        <connectorPort name="fabric_connector" index="14" refIndex="14"/>
+        <connectorPort name="fabric_connector" index="15" refIndex="15"/>
+        <connectorPort name="fabric_connector" index="16" refIndex="16"/>
+        <connectorPort name="fabric_connector" index="17" refIndex="17"/>
+        <connectorPort name="fabric_connector" index="18" refIndex="18"/>
+        <connectorPort name="fabric_connector" index="19" refIndex="19"/>
+        <connectorPort name="fabric_connector" index="20" refIndex="20"/>
+        <connectorPort name="fabric_connector" index="21" refIndex="21"/>
+        <connectorPort name="fabric_connector" index="22" refIndex="22"/>
+        <connectorPort name="fabric_connector" index="23" refIndex="23"/>
+        <connectorPort name="fabric_connector" index="24" refIndex="24"/>
+        <connectorPort name="fabric_connector" index="25" refIndex="25"/>
+        <connectorPort name="fabric_connector" index="26" refIndex="26"/>
+        <connectorPort name="fabric_connector" index="27" refIndex="27"/>
+        <connectorPort name="fabric_connector" index="28" refIndex="28"/>
+        <connectorPort name="fabric_connector" index="29" refIndex="29"/>
+        <connectorPort name="fabric_connector" index="30" refIndex="30"/>
+        <connectorPort name="fabric_connector" index="31" refIndex="31"/>
+        <connectorPort name="fabric_connector" index="32" refIndex="32"/>
+        <connectorPort name="fabric_connector" index="33" refIndex="33"/>
+        <connectorPort name="fabric_connector" index="34" refIndex="34"/>
+        <connectorPort name="fabric_connector" index="35" refIndex="35"/>
+        <connectorPort name="fabric_connector" index="36" refIndex="36"/>
+        <connectorPort name="fabric_connector" index="37" refIndex="37"/>
+        <connectorPort name="fabric_connector" index="38" refIndex="38"/>
+        <connectorPort name="fabric_connector" index="39" refIndex="39"/>
+        <connectorPort name="fabric_connector" index="40" refIndex="40"/>
+        <connectorPort name="fabric_connector" index="41" refIndex="41"/>
+        <connectorPort name="fabric_connector" index="42" refIndex="42"/>
+        <connectorPort name="fabric_connector" index="43" refIndex="43"/>
+        <connectorPort name="fabric_connector" index="44" refIndex="44"/>
+        <connectorPort name="fabric_connector" index="45" refIndex="45"/>
+        <connectorPort name="fabric_connector" index="46" refIndex="46"/>
+        <connectorPort name="fabric_connector" index="47" refIndex="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FLINK07" size="48" cabling="true" visibleInDB="true" instance="CONNECTION_FLINK07" logicalType="GPIO" physicalType="FLINK">
+      <vendorExtensions>
+        <vendorExtension name="type" value="FLINK"/>
+        <vendorExtension name="index" value="7"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+        <connectorPort name="fabric_connector" index="4" refIndex="4"/>
+        <connectorPort name="fabric_connector" index="5" refIndex="5"/>
+        <connectorPort name="fabric_connector" index="6" refIndex="6"/>
+        <connectorPort name="fabric_connector" index="7" refIndex="7"/>
+        <connectorPort name="fabric_connector" index="8" refIndex="8"/>
+        <connectorPort name="fabric_connector" index="9" refIndex="9"/>
+        <connectorPort name="fabric_connector" index="10" refIndex="10"/>
+        <connectorPort name="fabric_connector" index="11" refIndex="11"/>
+        <connectorPort name="fabric_connector" index="12" refIndex="12"/>
+        <connectorPort name="fabric_connector" index="13" refIndex="13"/>
+        <connectorPort name="fabric_connector" index="14" refIndex="14"/>
+        <connectorPort name="fabric_connector" index="15" refIndex="15"/>
+        <connectorPort name="fabric_connector" index="16" refIndex="16"/>
+        <connectorPort name="fabric_connector" index="17" refIndex="17"/>
+        <connectorPort name="fabric_connector" index="18" refIndex="18"/>
+        <connectorPort name="fabric_connector" index="19" refIndex="19"/>
+        <connectorPort name="fabric_connector" index="20" refIndex="20"/>
+        <connectorPort name="fabric_connector" index="21" refIndex="21"/>
+        <connectorPort name="fabric_connector" index="22" refIndex="22"/>
+        <connectorPort name="fabric_connector" index="23" refIndex="23"/>
+        <connectorPort name="fabric_connector" index="24" refIndex="24"/>
+        <connectorPort name="fabric_connector" index="25" refIndex="25"/>
+        <connectorPort name="fabric_connector" index="26" refIndex="26"/>
+        <connectorPort name="fabric_connector" index="27" refIndex="27"/>
+        <connectorPort name="fabric_connector" index="28" refIndex="28"/>
+        <connectorPort name="fabric_connector" index="29" refIndex="29"/>
+        <connectorPort name="fabric_connector" index="30" refIndex="30"/>
+        <connectorPort name="fabric_connector" index="31" refIndex="31"/>
+        <connectorPort name="fabric_connector" index="32" refIndex="32"/>
+        <connectorPort name="fabric_connector" index="33" refIndex="33"/>
+        <connectorPort name="fabric_connector" index="34" refIndex="34"/>
+        <connectorPort name="fabric_connector" index="35" refIndex="35"/>
+        <connectorPort name="fabric_connector" index="36" refIndex="36"/>
+        <connectorPort name="fabric_connector" index="37" refIndex="37"/>
+        <connectorPort name="fabric_connector" index="38" refIndex="38"/>
+        <connectorPort name="fabric_connector" index="39" refIndex="39"/>
+        <connectorPort name="fabric_connector" index="40" refIndex="40"/>
+        <connectorPort name="fabric_connector" index="41" refIndex="41"/>
+        <connectorPort name="fabric_connector" index="42" refIndex="42"/>
+        <connectorPort name="fabric_connector" index="43" refIndex="43"/>
+        <connectorPort name="fabric_connector" index="44" refIndex="44"/>
+        <connectorPort name="fabric_connector" index="45" refIndex="45"/>
+        <connectorPort name="fabric_connector" index="46" refIndex="46"/>
+        <connectorPort name="fabric_connector" index="47" refIndex="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FLINK12" size="48" cabling="true" visibleInDB="true" instance="CONNECTION_FLINK12" logicalType="GPIO" physicalType="FLINK">
+      <vendorExtensions>
+        <vendorExtension name="type" value="FLINK"/>
+        <vendorExtension name="index" value="12"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+        <connectorPort name="fabric_connector" index="4" refIndex="4"/>
+        <connectorPort name="fabric_connector" index="5" refIndex="5"/>
+        <connectorPort name="fabric_connector" index="6" refIndex="6"/>
+        <connectorPort name="fabric_connector" index="7" refIndex="7"/>
+        <connectorPort name="fabric_connector" index="8" refIndex="8"/>
+        <connectorPort name="fabric_connector" index="9" refIndex="9"/>
+        <connectorPort name="fabric_connector" index="10" refIndex="10"/>
+        <connectorPort name="fabric_connector" index="11" refIndex="11"/>
+        <connectorPort name="fabric_connector" index="12" refIndex="12"/>
+        <connectorPort name="fabric_connector" index="13" refIndex="13"/>
+        <connectorPort name="fabric_connector" index="14" refIndex="14"/>
+        <connectorPort name="fabric_connector" index="15" refIndex="15"/>
+        <connectorPort name="fabric_connector" index="16" refIndex="16"/>
+        <connectorPort name="fabric_connector" index="17" refIndex="17"/>
+        <connectorPort name="fabric_connector" index="18" refIndex="18"/>
+        <connectorPort name="fabric_connector" index="19" refIndex="19"/>
+        <connectorPort name="fabric_connector" index="20" refIndex="20"/>
+        <connectorPort name="fabric_connector" index="21" refIndex="21"/>
+        <connectorPort name="fabric_connector" index="22" refIndex="22"/>
+        <connectorPort name="fabric_connector" index="23" refIndex="23"/>
+        <connectorPort name="fabric_connector" index="24" refIndex="24"/>
+        <connectorPort name="fabric_connector" index="25" refIndex="25"/>
+        <connectorPort name="fabric_connector" index="26" refIndex="26"/>
+        <connectorPort name="fabric_connector" index="27" refIndex="27"/>
+        <connectorPort name="fabric_connector" index="28" refIndex="28"/>
+        <connectorPort name="fabric_connector" index="29" refIndex="29"/>
+        <connectorPort name="fabric_connector" index="30" refIndex="30"/>
+        <connectorPort name="fabric_connector" index="31" refIndex="31"/>
+        <connectorPort name="fabric_connector" index="32" refIndex="32"/>
+        <connectorPort name="fabric_connector" index="33" refIndex="33"/>
+        <connectorPort name="fabric_connector" index="34" refIndex="34"/>
+        <connectorPort name="fabric_connector" index="35" refIndex="35"/>
+        <connectorPort name="fabric_connector" index="36" refIndex="36"/>
+        <connectorPort name="fabric_connector" index="37" refIndex="37"/>
+        <connectorPort name="fabric_connector" index="38" refIndex="38"/>
+        <connectorPort name="fabric_connector" index="39" refIndex="39"/>
+        <connectorPort name="fabric_connector" index="40" refIndex="40"/>
+        <connectorPort name="fabric_connector" index="41" refIndex="41"/>
+        <connectorPort name="fabric_connector" index="42" refIndex="42"/>
+        <connectorPort name="fabric_connector" index="43" refIndex="43"/>
+        <connectorPort name="fabric_connector" index="44" refIndex="44"/>
+        <connectorPort name="fabric_connector" index="45" refIndex="45"/>
+        <connectorPort name="fabric_connector" index="46" refIndex="46"/>
+        <connectorPort name="fabric_connector" index="47" refIndex="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FLINK11" size="48" cabling="true" visibleInDB="true" instance="CONNECTION_FLINK11" logicalType="GPIO" physicalType="FLINK">
+      <vendorExtensions>
+        <vendorExtension name="type" value="FLINK"/>
+        <vendorExtension name="index" value="11"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+        <connectorPort name="fabric_connector" index="4" refIndex="4"/>
+        <connectorPort name="fabric_connector" index="5" refIndex="5"/>
+        <connectorPort name="fabric_connector" index="6" refIndex="6"/>
+        <connectorPort name="fabric_connector" index="7" refIndex="7"/>
+        <connectorPort name="fabric_connector" index="8" refIndex="8"/>
+        <connectorPort name="fabric_connector" index="9" refIndex="9"/>
+        <connectorPort name="fabric_connector" index="10" refIndex="10"/>
+        <connectorPort name="fabric_connector" index="11" refIndex="11"/>
+        <connectorPort name="fabric_connector" index="12" refIndex="12"/>
+        <connectorPort name="fabric_connector" index="13" refIndex="13"/>
+        <connectorPort name="fabric_connector" index="14" refIndex="14"/>
+        <connectorPort name="fabric_connector" index="15" refIndex="15"/>
+        <connectorPort name="fabric_connector" index="16" refIndex="16"/>
+        <connectorPort name="fabric_connector" index="17" refIndex="17"/>
+        <connectorPort name="fabric_connector" index="18" refIndex="18"/>
+        <connectorPort name="fabric_connector" index="19" refIndex="19"/>
+        <connectorPort name="fabric_connector" index="20" refIndex="20"/>
+        <connectorPort name="fabric_connector" index="21" refIndex="21"/>
+        <connectorPort name="fabric_connector" index="22" refIndex="22"/>
+        <connectorPort name="fabric_connector" index="23" refIndex="23"/>
+        <connectorPort name="fabric_connector" index="24" refIndex="24"/>
+        <connectorPort name="fabric_connector" index="25" refIndex="25"/>
+        <connectorPort name="fabric_connector" index="26" refIndex="26"/>
+        <connectorPort name="fabric_connector" index="27" refIndex="27"/>
+        <connectorPort name="fabric_connector" index="28" refIndex="28"/>
+        <connectorPort name="fabric_connector" index="29" refIndex="29"/>
+        <connectorPort name="fabric_connector" index="30" refIndex="30"/>
+        <connectorPort name="fabric_connector" index="31" refIndex="31"/>
+        <connectorPort name="fabric_connector" index="32" refIndex="32"/>
+        <connectorPort name="fabric_connector" index="33" refIndex="33"/>
+        <connectorPort name="fabric_connector" index="34" refIndex="34"/>
+        <connectorPort name="fabric_connector" index="35" refIndex="35"/>
+        <connectorPort name="fabric_connector" index="36" refIndex="36"/>
+        <connectorPort name="fabric_connector" index="37" refIndex="37"/>
+        <connectorPort name="fabric_connector" index="38" refIndex="38"/>
+        <connectorPort name="fabric_connector" index="39" refIndex="39"/>
+        <connectorPort name="fabric_connector" index="40" refIndex="40"/>
+        <connectorPort name="fabric_connector" index="41" refIndex="41"/>
+        <connectorPort name="fabric_connector" index="42" refIndex="42"/>
+        <connectorPort name="fabric_connector" index="43" refIndex="43"/>
+        <connectorPort name="fabric_connector" index="44" refIndex="44"/>
+        <connectorPort name="fabric_connector" index="45" refIndex="45"/>
+        <connectorPort name="fabric_connector" index="46" refIndex="46"/>
+        <connectorPort name="fabric_connector" index="47" refIndex="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="BLINK08" size="48" cabling="false" visibleInDB="true" instance="CONNECTION_BLINK08">
+      <vendorExtensions>
+        <vendorExtension name="type" value="BLINK"/>
+        <vendorExtension name="index" value="8"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+        <connectorPort name="fabric_connector" index="4" refIndex="4"/>
+        <connectorPort name="fabric_connector" index="5" refIndex="5"/>
+        <connectorPort name="fabric_connector" index="6" refIndex="6"/>
+        <connectorPort name="fabric_connector" index="7" refIndex="7"/>
+        <connectorPort name="fabric_connector" index="8" refIndex="8"/>
+        <connectorPort name="fabric_connector" index="9" refIndex="9"/>
+        <connectorPort name="fabric_connector" index="10" refIndex="10"/>
+        <connectorPort name="fabric_connector" index="11" refIndex="11"/>
+        <connectorPort name="fabric_connector" index="12" refIndex="12"/>
+        <connectorPort name="fabric_connector" index="13" refIndex="13"/>
+        <connectorPort name="fabric_connector" index="14" refIndex="14"/>
+        <connectorPort name="fabric_connector" index="15" refIndex="15"/>
+        <connectorPort name="fabric_connector" index="16" refIndex="16"/>
+        <connectorPort name="fabric_connector" index="17" refIndex="17"/>
+        <connectorPort name="fabric_connector" index="18" refIndex="18"/>
+        <connectorPort name="fabric_connector" index="19" refIndex="19"/>
+        <connectorPort name="fabric_connector" index="20" refIndex="20"/>
+        <connectorPort name="fabric_connector" index="21" refIndex="21"/>
+        <connectorPort name="fabric_connector" index="22" refIndex="22"/>
+        <connectorPort name="fabric_connector" index="23" refIndex="23"/>
+        <connectorPort name="fabric_connector" index="24" refIndex="24"/>
+        <connectorPort name="fabric_connector" index="25" refIndex="25"/>
+        <connectorPort name="fabric_connector" index="26" refIndex="26"/>
+        <connectorPort name="fabric_connector" index="27" refIndex="27"/>
+        <connectorPort name="fabric_connector" index="28" refIndex="28"/>
+        <connectorPort name="fabric_connector" index="29" refIndex="29"/>
+        <connectorPort name="fabric_connector" index="30" refIndex="30"/>
+        <connectorPort name="fabric_connector" index="31" refIndex="31"/>
+        <connectorPort name="fabric_connector" index="32" refIndex="32"/>
+        <connectorPort name="fabric_connector" index="33" refIndex="33"/>
+        <connectorPort name="fabric_connector" index="34" refIndex="34"/>
+        <connectorPort name="fabric_connector" index="35" refIndex="35"/>
+        <connectorPort name="fabric_connector" index="36" refIndex="36"/>
+        <connectorPort name="fabric_connector" index="37" refIndex="37"/>
+        <connectorPort name="fabric_connector" index="38" refIndex="38"/>
+        <connectorPort name="fabric_connector" index="39" refIndex="39"/>
+        <connectorPort name="fabric_connector" index="40" refIndex="40"/>
+        <connectorPort name="fabric_connector" index="41" refIndex="41"/>
+        <connectorPort name="fabric_connector" index="42" refIndex="42"/>
+        <connectorPort name="fabric_connector" index="43" refIndex="43"/>
+        <connectorPort name="fabric_connector" index="44" refIndex="44"/>
+        <connectorPort name="fabric_connector" index="45" refIndex="45"/>
+        <connectorPort name="fabric_connector" index="46" refIndex="46"/>
+        <connectorPort name="fabric_connector" index="47" refIndex="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="BLINK03" size="48" cabling="false" visibleInDB="true" instance="CONNECTION_BLINK03">
+      <vendorExtensions>
+        <vendorExtension name="type" value="BLINK"/>
+        <vendorExtension name="index" value="3"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+        <connectorPort name="fabric_connector" index="4" refIndex="4"/>
+        <connectorPort name="fabric_connector" index="5" refIndex="5"/>
+        <connectorPort name="fabric_connector" index="6" refIndex="6"/>
+        <connectorPort name="fabric_connector" index="7" refIndex="7"/>
+        <connectorPort name="fabric_connector" index="8" refIndex="8"/>
+        <connectorPort name="fabric_connector" index="9" refIndex="9"/>
+        <connectorPort name="fabric_connector" index="10" refIndex="10"/>
+        <connectorPort name="fabric_connector" index="11" refIndex="11"/>
+        <connectorPort name="fabric_connector" index="12" refIndex="12"/>
+        <connectorPort name="fabric_connector" index="13" refIndex="13"/>
+        <connectorPort name="fabric_connector" index="14" refIndex="14"/>
+        <connectorPort name="fabric_connector" index="15" refIndex="15"/>
+        <connectorPort name="fabric_connector" index="16" refIndex="16"/>
+        <connectorPort name="fabric_connector" index="17" refIndex="17"/>
+        <connectorPort name="fabric_connector" index="18" refIndex="18"/>
+        <connectorPort name="fabric_connector" index="19" refIndex="19"/>
+        <connectorPort name="fabric_connector" index="20" refIndex="20"/>
+        <connectorPort name="fabric_connector" index="21" refIndex="21"/>
+        <connectorPort name="fabric_connector" index="22" refIndex="22"/>
+        <connectorPort name="fabric_connector" index="23" refIndex="23"/>
+        <connectorPort name="fabric_connector" index="24" refIndex="24"/>
+        <connectorPort name="fabric_connector" index="25" refIndex="25"/>
+        <connectorPort name="fabric_connector" index="26" refIndex="26"/>
+        <connectorPort name="fabric_connector" index="27" refIndex="27"/>
+        <connectorPort name="fabric_connector" index="28" refIndex="28"/>
+        <connectorPort name="fabric_connector" index="29" refIndex="29"/>
+        <connectorPort name="fabric_connector" index="30" refIndex="30"/>
+        <connectorPort name="fabric_connector" index="31" refIndex="31"/>
+        <connectorPort name="fabric_connector" index="32" refIndex="32"/>
+        <connectorPort name="fabric_connector" index="33" refIndex="33"/>
+        <connectorPort name="fabric_connector" index="34" refIndex="34"/>
+        <connectorPort name="fabric_connector" index="35" refIndex="35"/>
+        <connectorPort name="fabric_connector" index="36" refIndex="36"/>
+        <connectorPort name="fabric_connector" index="37" refIndex="37"/>
+        <connectorPort name="fabric_connector" index="38" refIndex="38"/>
+        <connectorPort name="fabric_connector" index="39" refIndex="39"/>
+        <connectorPort name="fabric_connector" index="40" refIndex="40"/>
+        <connectorPort name="fabric_connector" index="41" refIndex="41"/>
+        <connectorPort name="fabric_connector" index="42" refIndex="42"/>
+        <connectorPort name="fabric_connector" index="43" refIndex="43"/>
+        <connectorPort name="fabric_connector" index="44" refIndex="44"/>
+        <connectorPort name="fabric_connector" index="45" refIndex="45"/>
+        <connectorPort name="fabric_connector" index="46" refIndex="46"/>
+        <connectorPort name="fabric_connector" index="47" refIndex="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="BLINK04" size="48" cabling="false" visibleInDB="true" instance="CONNECTION_BLINK04">
+      <vendorExtensions>
+        <vendorExtension name="type" value="BLINK"/>
+        <vendorExtension name="index" value="4"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+        <connectorPort name="fabric_connector" index="4" refIndex="4"/>
+        <connectorPort name="fabric_connector" index="5" refIndex="5"/>
+        <connectorPort name="fabric_connector" index="6" refIndex="6"/>
+        <connectorPort name="fabric_connector" index="7" refIndex="7"/>
+        <connectorPort name="fabric_connector" index="8" refIndex="8"/>
+        <connectorPort name="fabric_connector" index="9" refIndex="9"/>
+        <connectorPort name="fabric_connector" index="10" refIndex="10"/>
+        <connectorPort name="fabric_connector" index="11" refIndex="11"/>
+        <connectorPort name="fabric_connector" index="12" refIndex="12"/>
+        <connectorPort name="fabric_connector" index="13" refIndex="13"/>
+        <connectorPort name="fabric_connector" index="14" refIndex="14"/>
+        <connectorPort name="fabric_connector" index="15" refIndex="15"/>
+        <connectorPort name="fabric_connector" index="16" refIndex="16"/>
+        <connectorPort name="fabric_connector" index="17" refIndex="17"/>
+        <connectorPort name="fabric_connector" index="18" refIndex="18"/>
+        <connectorPort name="fabric_connector" index="19" refIndex="19"/>
+        <connectorPort name="fabric_connector" index="20" refIndex="20"/>
+        <connectorPort name="fabric_connector" index="21" refIndex="21"/>
+        <connectorPort name="fabric_connector" index="22" refIndex="22"/>
+        <connectorPort name="fabric_connector" index="23" refIndex="23"/>
+        <connectorPort name="fabric_connector" index="24" refIndex="24"/>
+        <connectorPort name="fabric_connector" index="25" refIndex="25"/>
+        <connectorPort name="fabric_connector" index="26" refIndex="26"/>
+        <connectorPort name="fabric_connector" index="27" refIndex="27"/>
+        <connectorPort name="fabric_connector" index="28" refIndex="28"/>
+        <connectorPort name="fabric_connector" index="29" refIndex="29"/>
+        <connectorPort name="fabric_connector" index="30" refIndex="30"/>
+        <connectorPort name="fabric_connector" index="31" refIndex="31"/>
+        <connectorPort name="fabric_connector" index="32" refIndex="32"/>
+        <connectorPort name="fabric_connector" index="33" refIndex="33"/>
+        <connectorPort name="fabric_connector" index="34" refIndex="34"/>
+        <connectorPort name="fabric_connector" index="35" refIndex="35"/>
+        <connectorPort name="fabric_connector" index="36" refIndex="36"/>
+        <connectorPort name="fabric_connector" index="37" refIndex="37"/>
+        <connectorPort name="fabric_connector" index="38" refIndex="38"/>
+        <connectorPort name="fabric_connector" index="39" refIndex="39"/>
+        <connectorPort name="fabric_connector" index="40" refIndex="40"/>
+        <connectorPort name="fabric_connector" index="41" refIndex="41"/>
+        <connectorPort name="fabric_connector" index="42" refIndex="42"/>
+        <connectorPort name="fabric_connector" index="43" refIndex="43"/>
+        <connectorPort name="fabric_connector" index="44" refIndex="44"/>
+        <connectorPort name="fabric_connector" index="45" refIndex="45"/>
+        <connectorPort name="fabric_connector" index="46" refIndex="46"/>
+        <connectorPort name="fabric_connector" index="47" refIndex="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="BLINK07" size="48" cabling="false" visibleInDB="true" instance="CONNECTION_BLINK07">
+      <vendorExtensions>
+        <vendorExtension name="type" value="BLINK"/>
+        <vendorExtension name="index" value="7"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+        <connectorPort name="fabric_connector" index="4" refIndex="4"/>
+        <connectorPort name="fabric_connector" index="5" refIndex="5"/>
+        <connectorPort name="fabric_connector" index="6" refIndex="6"/>
+        <connectorPort name="fabric_connector" index="7" refIndex="7"/>
+        <connectorPort name="fabric_connector" index="8" refIndex="8"/>
+        <connectorPort name="fabric_connector" index="9" refIndex="9"/>
+        <connectorPort name="fabric_connector" index="10" refIndex="10"/>
+        <connectorPort name="fabric_connector" index="11" refIndex="11"/>
+        <connectorPort name="fabric_connector" index="12" refIndex="12"/>
+        <connectorPort name="fabric_connector" index="13" refIndex="13"/>
+        <connectorPort name="fabric_connector" index="14" refIndex="14"/>
+        <connectorPort name="fabric_connector" index="15" refIndex="15"/>
+        <connectorPort name="fabric_connector" index="16" refIndex="16"/>
+        <connectorPort name="fabric_connector" index="17" refIndex="17"/>
+        <connectorPort name="fabric_connector" index="18" refIndex="18"/>
+        <connectorPort name="fabric_connector" index="19" refIndex="19"/>
+        <connectorPort name="fabric_connector" index="20" refIndex="20"/>
+        <connectorPort name="fabric_connector" index="21" refIndex="21"/>
+        <connectorPort name="fabric_connector" index="22" refIndex="22"/>
+        <connectorPort name="fabric_connector" index="23" refIndex="23"/>
+        <connectorPort name="fabric_connector" index="24" refIndex="24"/>
+        <connectorPort name="fabric_connector" index="25" refIndex="25"/>
+        <connectorPort name="fabric_connector" index="26" refIndex="26"/>
+        <connectorPort name="fabric_connector" index="27" refIndex="27"/>
+        <connectorPort name="fabric_connector" index="28" refIndex="28"/>
+        <connectorPort name="fabric_connector" index="29" refIndex="29"/>
+        <connectorPort name="fabric_connector" index="30" refIndex="30"/>
+        <connectorPort name="fabric_connector" index="31" refIndex="31"/>
+        <connectorPort name="fabric_connector" index="32" refIndex="32"/>
+        <connectorPort name="fabric_connector" index="33" refIndex="33"/>
+        <connectorPort name="fabric_connector" index="34" refIndex="34"/>
+        <connectorPort name="fabric_connector" index="35" refIndex="35"/>
+        <connectorPort name="fabric_connector" index="36" refIndex="36"/>
+        <connectorPort name="fabric_connector" index="37" refIndex="37"/>
+        <connectorPort name="fabric_connector" index="38" refIndex="38"/>
+        <connectorPort name="fabric_connector" index="39" refIndex="39"/>
+        <connectorPort name="fabric_connector" index="40" refIndex="40"/>
+        <connectorPort name="fabric_connector" index="41" refIndex="41"/>
+        <connectorPort name="fabric_connector" index="42" refIndex="42"/>
+        <connectorPort name="fabric_connector" index="43" refIndex="43"/>
+        <connectorPort name="fabric_connector" index="44" refIndex="44"/>
+        <connectorPort name="fabric_connector" index="45" refIndex="45"/>
+        <connectorPort name="fabric_connector" index="46" refIndex="46"/>
+        <connectorPort name="fabric_connector" index="47" refIndex="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="BLINK02" size="48" cabling="false" visibleInDB="true" instance="CONNECTION_BLINK02">
+      <vendorExtensions>
+        <vendorExtension name="type" value="BLINK"/>
+        <vendorExtension name="index" value="2"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+        <connectorPort name="fabric_connector" index="4" refIndex="4"/>
+        <connectorPort name="fabric_connector" index="5" refIndex="5"/>
+        <connectorPort name="fabric_connector" index="6" refIndex="6"/>
+        <connectorPort name="fabric_connector" index="7" refIndex="7"/>
+        <connectorPort name="fabric_connector" index="8" refIndex="8"/>
+        <connectorPort name="fabric_connector" index="9" refIndex="9"/>
+        <connectorPort name="fabric_connector" index="10" refIndex="10"/>
+        <connectorPort name="fabric_connector" index="11" refIndex="11"/>
+        <connectorPort name="fabric_connector" index="12" refIndex="12"/>
+        <connectorPort name="fabric_connector" index="13" refIndex="13"/>
+        <connectorPort name="fabric_connector" index="14" refIndex="14"/>
+        <connectorPort name="fabric_connector" index="15" refIndex="15"/>
+        <connectorPort name="fabric_connector" index="16" refIndex="16"/>
+        <connectorPort name="fabric_connector" index="17" refIndex="17"/>
+        <connectorPort name="fabric_connector" index="18" refIndex="18"/>
+        <connectorPort name="fabric_connector" index="19" refIndex="19"/>
+        <connectorPort name="fabric_connector" index="20" refIndex="20"/>
+        <connectorPort name="fabric_connector" index="21" refIndex="21"/>
+        <connectorPort name="fabric_connector" index="22" refIndex="22"/>
+        <connectorPort name="fabric_connector" index="23" refIndex="23"/>
+        <connectorPort name="fabric_connector" index="24" refIndex="24"/>
+        <connectorPort name="fabric_connector" index="25" refIndex="25"/>
+        <connectorPort name="fabric_connector" index="26" refIndex="26"/>
+        <connectorPort name="fabric_connector" index="27" refIndex="27"/>
+        <connectorPort name="fabric_connector" index="28" refIndex="28"/>
+        <connectorPort name="fabric_connector" index="29" refIndex="29"/>
+        <connectorPort name="fabric_connector" index="30" refIndex="30"/>
+        <connectorPort name="fabric_connector" index="31" refIndex="31"/>
+        <connectorPort name="fabric_connector" index="32" refIndex="32"/>
+        <connectorPort name="fabric_connector" index="33" refIndex="33"/>
+        <connectorPort name="fabric_connector" index="34" refIndex="34"/>
+        <connectorPort name="fabric_connector" index="35" refIndex="35"/>
+        <connectorPort name="fabric_connector" index="36" refIndex="36"/>
+        <connectorPort name="fabric_connector" index="37" refIndex="37"/>
+        <connectorPort name="fabric_connector" index="38" refIndex="38"/>
+        <connectorPort name="fabric_connector" index="39" refIndex="39"/>
+        <connectorPort name="fabric_connector" index="40" refIndex="40"/>
+        <connectorPort name="fabric_connector" index="41" refIndex="41"/>
+        <connectorPort name="fabric_connector" index="42" refIndex="42"/>
+        <connectorPort name="fabric_connector" index="43" refIndex="43"/>
+        <connectorPort name="fabric_connector" index="44" refIndex="44"/>
+        <connectorPort name="fabric_connector" index="45" refIndex="45"/>
+        <connectorPort name="fabric_connector" index="46" refIndex="46"/>
+        <connectorPort name="fabric_connector" index="47" refIndex="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="BLINK06" size="48" cabling="false" visibleInDB="true" instance="CONNECTION_BLINK06">
+      <vendorExtensions>
+        <vendorExtension name="type" value="BLINK"/>
+        <vendorExtension name="index" value="6"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+        <connectorPort name="fabric_connector" index="4" refIndex="4"/>
+        <connectorPort name="fabric_connector" index="5" refIndex="5"/>
+        <connectorPort name="fabric_connector" index="6" refIndex="6"/>
+        <connectorPort name="fabric_connector" index="7" refIndex="7"/>
+        <connectorPort name="fabric_connector" index="8" refIndex="8"/>
+        <connectorPort name="fabric_connector" index="9" refIndex="9"/>
+        <connectorPort name="fabric_connector" index="10" refIndex="10"/>
+        <connectorPort name="fabric_connector" index="11" refIndex="11"/>
+        <connectorPort name="fabric_connector" index="12" refIndex="12"/>
+        <connectorPort name="fabric_connector" index="13" refIndex="13"/>
+        <connectorPort name="fabric_connector" index="14" refIndex="14"/>
+        <connectorPort name="fabric_connector" index="15" refIndex="15"/>
+        <connectorPort name="fabric_connector" index="16" refIndex="16"/>
+        <connectorPort name="fabric_connector" index="17" refIndex="17"/>
+        <connectorPort name="fabric_connector" index="18" refIndex="18"/>
+        <connectorPort name="fabric_connector" index="19" refIndex="19"/>
+        <connectorPort name="fabric_connector" index="20" refIndex="20"/>
+        <connectorPort name="fabric_connector" index="21" refIndex="21"/>
+        <connectorPort name="fabric_connector" index="22" refIndex="22"/>
+        <connectorPort name="fabric_connector" index="23" refIndex="23"/>
+        <connectorPort name="fabric_connector" index="24" refIndex="24"/>
+        <connectorPort name="fabric_connector" index="25" refIndex="25"/>
+        <connectorPort name="fabric_connector" index="26" refIndex="26"/>
+        <connectorPort name="fabric_connector" index="27" refIndex="27"/>
+        <connectorPort name="fabric_connector" index="28" refIndex="28"/>
+        <connectorPort name="fabric_connector" index="29" refIndex="29"/>
+        <connectorPort name="fabric_connector" index="30" refIndex="30"/>
+        <connectorPort name="fabric_connector" index="31" refIndex="31"/>
+        <connectorPort name="fabric_connector" index="32" refIndex="32"/>
+        <connectorPort name="fabric_connector" index="33" refIndex="33"/>
+        <connectorPort name="fabric_connector" index="34" refIndex="34"/>
+        <connectorPort name="fabric_connector" index="35" refIndex="35"/>
+        <connectorPort name="fabric_connector" index="36" refIndex="36"/>
+        <connectorPort name="fabric_connector" index="37" refIndex="37"/>
+        <connectorPort name="fabric_connector" index="38" refIndex="38"/>
+        <connectorPort name="fabric_connector" index="39" refIndex="39"/>
+        <connectorPort name="fabric_connector" index="40" refIndex="40"/>
+        <connectorPort name="fabric_connector" index="41" refIndex="41"/>
+        <connectorPort name="fabric_connector" index="42" refIndex="42"/>
+        <connectorPort name="fabric_connector" index="43" refIndex="43"/>
+        <connectorPort name="fabric_connector" index="44" refIndex="44"/>
+        <connectorPort name="fabric_connector" index="45" refIndex="45"/>
+        <connectorPort name="fabric_connector" index="46" refIndex="46"/>
+        <connectorPort name="fabric_connector" index="47" refIndex="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="BLINK14" size="48" cabling="false" visibleInDB="true" instance="CONNECTION_BLINK14">
+      <vendorExtensions>
+        <vendorExtension name="type" value="BLINK"/>
+        <vendorExtension name="index" value="14"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+        <connectorPort name="fabric_connector" index="4" refIndex="4"/>
+        <connectorPort name="fabric_connector" index="5" refIndex="5"/>
+        <connectorPort name="fabric_connector" index="6" refIndex="6"/>
+        <connectorPort name="fabric_connector" index="7" refIndex="7"/>
+        <connectorPort name="fabric_connector" index="8" refIndex="8"/>
+        <connectorPort name="fabric_connector" index="9" refIndex="9"/>
+        <connectorPort name="fabric_connector" index="10" refIndex="10"/>
+        <connectorPort name="fabric_connector" index="11" refIndex="11"/>
+        <connectorPort name="fabric_connector" index="12" refIndex="12"/>
+        <connectorPort name="fabric_connector" index="13" refIndex="13"/>
+        <connectorPort name="fabric_connector" index="14" refIndex="14"/>
+        <connectorPort name="fabric_connector" index="15" refIndex="15"/>
+        <connectorPort name="fabric_connector" index="16" refIndex="16"/>
+        <connectorPort name="fabric_connector" index="17" refIndex="17"/>
+        <connectorPort name="fabric_connector" index="18" refIndex="18"/>
+        <connectorPort name="fabric_connector" index="19" refIndex="19"/>
+        <connectorPort name="fabric_connector" index="20" refIndex="20"/>
+        <connectorPort name="fabric_connector" index="21" refIndex="21"/>
+        <connectorPort name="fabric_connector" index="22" refIndex="22"/>
+        <connectorPort name="fabric_connector" index="23" refIndex="23"/>
+        <connectorPort name="fabric_connector" index="24" refIndex="24"/>
+        <connectorPort name="fabric_connector" index="25" refIndex="25"/>
+        <connectorPort name="fabric_connector" index="26" refIndex="26"/>
+        <connectorPort name="fabric_connector" index="27" refIndex="27"/>
+        <connectorPort name="fabric_connector" index="28" refIndex="28"/>
+        <connectorPort name="fabric_connector" index="29" refIndex="29"/>
+        <connectorPort name="fabric_connector" index="30" refIndex="30"/>
+        <connectorPort name="fabric_connector" index="31" refIndex="31"/>
+        <connectorPort name="fabric_connector" index="32" refIndex="32"/>
+        <connectorPort name="fabric_connector" index="33" refIndex="33"/>
+        <connectorPort name="fabric_connector" index="34" refIndex="34"/>
+        <connectorPort name="fabric_connector" index="35" refIndex="35"/>
+        <connectorPort name="fabric_connector" index="36" refIndex="36"/>
+        <connectorPort name="fabric_connector" index="37" refIndex="37"/>
+        <connectorPort name="fabric_connector" index="38" refIndex="38"/>
+        <connectorPort name="fabric_connector" index="39" refIndex="39"/>
+        <connectorPort name="fabric_connector" index="40" refIndex="40"/>
+        <connectorPort name="fabric_connector" index="41" refIndex="41"/>
+        <connectorPort name="fabric_connector" index="42" refIndex="42"/>
+        <connectorPort name="fabric_connector" index="43" refIndex="43"/>
+        <connectorPort name="fabric_connector" index="44" refIndex="44"/>
+        <connectorPort name="fabric_connector" index="45" refIndex="45"/>
+        <connectorPort name="fabric_connector" index="46" refIndex="46"/>
+        <connectorPort name="fabric_connector" index="47" refIndex="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="BLINK12" size="48" cabling="false" visibleInDB="true" instance="CONNECTION_BLINK12">
+      <vendorExtensions>
+        <vendorExtension name="type" value="BLINK"/>
+        <vendorExtension name="index" value="12"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+        <connectorPort name="fabric_connector" index="4" refIndex="4"/>
+        <connectorPort name="fabric_connector" index="5" refIndex="5"/>
+        <connectorPort name="fabric_connector" index="6" refIndex="6"/>
+        <connectorPort name="fabric_connector" index="7" refIndex="7"/>
+        <connectorPort name="fabric_connector" index="8" refIndex="8"/>
+        <connectorPort name="fabric_connector" index="9" refIndex="9"/>
+        <connectorPort name="fabric_connector" index="10" refIndex="10"/>
+        <connectorPort name="fabric_connector" index="11" refIndex="11"/>
+        <connectorPort name="fabric_connector" index="12" refIndex="12"/>
+        <connectorPort name="fabric_connector" index="13" refIndex="13"/>
+        <connectorPort name="fabric_connector" index="14" refIndex="14"/>
+        <connectorPort name="fabric_connector" index="15" refIndex="15"/>
+        <connectorPort name="fabric_connector" index="16" refIndex="16"/>
+        <connectorPort name="fabric_connector" index="17" refIndex="17"/>
+        <connectorPort name="fabric_connector" index="18" refIndex="18"/>
+        <connectorPort name="fabric_connector" index="19" refIndex="19"/>
+        <connectorPort name="fabric_connector" index="20" refIndex="20"/>
+        <connectorPort name="fabric_connector" index="21" refIndex="21"/>
+        <connectorPort name="fabric_connector" index="22" refIndex="22"/>
+        <connectorPort name="fabric_connector" index="23" refIndex="23"/>
+        <connectorPort name="fabric_connector" index="24" refIndex="24"/>
+        <connectorPort name="fabric_connector" index="25" refIndex="25"/>
+        <connectorPort name="fabric_connector" index="26" refIndex="26"/>
+        <connectorPort name="fabric_connector" index="27" refIndex="27"/>
+        <connectorPort name="fabric_connector" index="28" refIndex="28"/>
+        <connectorPort name="fabric_connector" index="29" refIndex="29"/>
+        <connectorPort name="fabric_connector" index="30" refIndex="30"/>
+        <connectorPort name="fabric_connector" index="31" refIndex="31"/>
+        <connectorPort name="fabric_connector" index="32" refIndex="32"/>
+        <connectorPort name="fabric_connector" index="33" refIndex="33"/>
+        <connectorPort name="fabric_connector" index="34" refIndex="34"/>
+        <connectorPort name="fabric_connector" index="35" refIndex="35"/>
+        <connectorPort name="fabric_connector" index="36" refIndex="36"/>
+        <connectorPort name="fabric_connector" index="37" refIndex="37"/>
+        <connectorPort name="fabric_connector" index="38" refIndex="38"/>
+        <connectorPort name="fabric_connector" index="39" refIndex="39"/>
+        <connectorPort name="fabric_connector" index="40" refIndex="40"/>
+        <connectorPort name="fabric_connector" index="41" refIndex="41"/>
+        <connectorPort name="fabric_connector" index="42" refIndex="42"/>
+        <connectorPort name="fabric_connector" index="43" refIndex="43"/>
+        <connectorPort name="fabric_connector" index="44" refIndex="44"/>
+        <connectorPort name="fabric_connector" index="45" refIndex="45"/>
+        <connectorPort name="fabric_connector" index="46" refIndex="46"/>
+        <connectorPort name="fabric_connector" index="47" refIndex="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="BLINK01" size="48" cabling="false" visibleInDB="true" instance="CONNECTION_BLINK01">
+      <vendorExtensions>
+        <vendorExtension name="type" value="BLINK"/>
+        <vendorExtension name="index" value="1"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+        <connectorPort name="fabric_connector" index="4" refIndex="4"/>
+        <connectorPort name="fabric_connector" index="5" refIndex="5"/>
+        <connectorPort name="fabric_connector" index="6" refIndex="6"/>
+        <connectorPort name="fabric_connector" index="7" refIndex="7"/>
+        <connectorPort name="fabric_connector" index="8" refIndex="8"/>
+        <connectorPort name="fabric_connector" index="9" refIndex="9"/>
+        <connectorPort name="fabric_connector" index="10" refIndex="10"/>
+        <connectorPort name="fabric_connector" index="11" refIndex="11"/>
+        <connectorPort name="fabric_connector" index="12" refIndex="12"/>
+        <connectorPort name="fabric_connector" index="13" refIndex="13"/>
+        <connectorPort name="fabric_connector" index="14" refIndex="14"/>
+        <connectorPort name="fabric_connector" index="15" refIndex="15"/>
+        <connectorPort name="fabric_connector" index="16" refIndex="16"/>
+        <connectorPort name="fabric_connector" index="17" refIndex="17"/>
+        <connectorPort name="fabric_connector" index="18" refIndex="18"/>
+        <connectorPort name="fabric_connector" index="19" refIndex="19"/>
+        <connectorPort name="fabric_connector" index="20" refIndex="20"/>
+        <connectorPort name="fabric_connector" index="21" refIndex="21"/>
+        <connectorPort name="fabric_connector" index="22" refIndex="22"/>
+        <connectorPort name="fabric_connector" index="23" refIndex="23"/>
+        <connectorPort name="fabric_connector" index="24" refIndex="24"/>
+        <connectorPort name="fabric_connector" index="25" refIndex="25"/>
+        <connectorPort name="fabric_connector" index="26" refIndex="26"/>
+        <connectorPort name="fabric_connector" index="27" refIndex="27"/>
+        <connectorPort name="fabric_connector" index="28" refIndex="28"/>
+        <connectorPort name="fabric_connector" index="29" refIndex="29"/>
+        <connectorPort name="fabric_connector" index="30" refIndex="30"/>
+        <connectorPort name="fabric_connector" index="31" refIndex="31"/>
+        <connectorPort name="fabric_connector" index="32" refIndex="32"/>
+        <connectorPort name="fabric_connector" index="33" refIndex="33"/>
+        <connectorPort name="fabric_connector" index="34" refIndex="34"/>
+        <connectorPort name="fabric_connector" index="35" refIndex="35"/>
+        <connectorPort name="fabric_connector" index="36" refIndex="36"/>
+        <connectorPort name="fabric_connector" index="37" refIndex="37"/>
+        <connectorPort name="fabric_connector" index="38" refIndex="38"/>
+        <connectorPort name="fabric_connector" index="39" refIndex="39"/>
+        <connectorPort name="fabric_connector" index="40" refIndex="40"/>
+        <connectorPort name="fabric_connector" index="41" refIndex="41"/>
+        <connectorPort name="fabric_connector" index="42" refIndex="42"/>
+        <connectorPort name="fabric_connector" index="43" refIndex="43"/>
+        <connectorPort name="fabric_connector" index="44" refIndex="44"/>
+        <connectorPort name="fabric_connector" index="45" refIndex="45"/>
+        <connectorPort name="fabric_connector" index="46" refIndex="46"/>
+        <connectorPort name="fabric_connector" index="47" refIndex="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="BLINK05" size="48" cabling="false" visibleInDB="true" instance="CONNECTION_BLINK05">
+      <vendorExtensions>
+        <vendorExtension name="type" value="BLINK"/>
+        <vendorExtension name="index" value="5"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+        <connectorPort name="fabric_connector" index="4" refIndex="4"/>
+        <connectorPort name="fabric_connector" index="5" refIndex="5"/>
+        <connectorPort name="fabric_connector" index="6" refIndex="6"/>
+        <connectorPort name="fabric_connector" index="7" refIndex="7"/>
+        <connectorPort name="fabric_connector" index="8" refIndex="8"/>
+        <connectorPort name="fabric_connector" index="9" refIndex="9"/>
+        <connectorPort name="fabric_connector" index="10" refIndex="10"/>
+        <connectorPort name="fabric_connector" index="11" refIndex="11"/>
+        <connectorPort name="fabric_connector" index="12" refIndex="12"/>
+        <connectorPort name="fabric_connector" index="13" refIndex="13"/>
+        <connectorPort name="fabric_connector" index="14" refIndex="14"/>
+        <connectorPort name="fabric_connector" index="15" refIndex="15"/>
+        <connectorPort name="fabric_connector" index="16" refIndex="16"/>
+        <connectorPort name="fabric_connector" index="17" refIndex="17"/>
+        <connectorPort name="fabric_connector" index="18" refIndex="18"/>
+        <connectorPort name="fabric_connector" index="19" refIndex="19"/>
+        <connectorPort name="fabric_connector" index="20" refIndex="20"/>
+        <connectorPort name="fabric_connector" index="21" refIndex="21"/>
+        <connectorPort name="fabric_connector" index="22" refIndex="22"/>
+        <connectorPort name="fabric_connector" index="23" refIndex="23"/>
+        <connectorPort name="fabric_connector" index="24" refIndex="24"/>
+        <connectorPort name="fabric_connector" index="25" refIndex="25"/>
+        <connectorPort name="fabric_connector" index="26" refIndex="26"/>
+        <connectorPort name="fabric_connector" index="27" refIndex="27"/>
+        <connectorPort name="fabric_connector" index="28" refIndex="28"/>
+        <connectorPort name="fabric_connector" index="29" refIndex="29"/>
+        <connectorPort name="fabric_connector" index="30" refIndex="30"/>
+        <connectorPort name="fabric_connector" index="31" refIndex="31"/>
+        <connectorPort name="fabric_connector" index="32" refIndex="32"/>
+        <connectorPort name="fabric_connector" index="33" refIndex="33"/>
+        <connectorPort name="fabric_connector" index="34" refIndex="34"/>
+        <connectorPort name="fabric_connector" index="35" refIndex="35"/>
+        <connectorPort name="fabric_connector" index="36" refIndex="36"/>
+        <connectorPort name="fabric_connector" index="37" refIndex="37"/>
+        <connectorPort name="fabric_connector" index="38" refIndex="38"/>
+        <connectorPort name="fabric_connector" index="39" refIndex="39"/>
+        <connectorPort name="fabric_connector" index="40" refIndex="40"/>
+        <connectorPort name="fabric_connector" index="41" refIndex="41"/>
+        <connectorPort name="fabric_connector" index="42" refIndex="42"/>
+        <connectorPort name="fabric_connector" index="43" refIndex="43"/>
+        <connectorPort name="fabric_connector" index="44" refIndex="44"/>
+        <connectorPort name="fabric_connector" index="45" refIndex="45"/>
+        <connectorPort name="fabric_connector" index="46" refIndex="46"/>
+        <connectorPort name="fabric_connector" index="47" refIndex="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="BLINK11" size="48" cabling="false" visibleInDB="true" instance="CONNECTION_BLINK11">
+      <vendorExtensions>
+        <vendorExtension name="type" value="BLINK"/>
+        <vendorExtension name="index" value="11"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+        <connectorPort name="fabric_connector" index="4" refIndex="4"/>
+        <connectorPort name="fabric_connector" index="5" refIndex="5"/>
+        <connectorPort name="fabric_connector" index="6" refIndex="6"/>
+        <connectorPort name="fabric_connector" index="7" refIndex="7"/>
+        <connectorPort name="fabric_connector" index="8" refIndex="8"/>
+        <connectorPort name="fabric_connector" index="9" refIndex="9"/>
+        <connectorPort name="fabric_connector" index="10" refIndex="10"/>
+        <connectorPort name="fabric_connector" index="11" refIndex="11"/>
+        <connectorPort name="fabric_connector" index="12" refIndex="12"/>
+        <connectorPort name="fabric_connector" index="13" refIndex="13"/>
+        <connectorPort name="fabric_connector" index="14" refIndex="14"/>
+        <connectorPort name="fabric_connector" index="15" refIndex="15"/>
+        <connectorPort name="fabric_connector" index="16" refIndex="16"/>
+        <connectorPort name="fabric_connector" index="17" refIndex="17"/>
+        <connectorPort name="fabric_connector" index="18" refIndex="18"/>
+        <connectorPort name="fabric_connector" index="19" refIndex="19"/>
+        <connectorPort name="fabric_connector" index="20" refIndex="20"/>
+        <connectorPort name="fabric_connector" index="21" refIndex="21"/>
+        <connectorPort name="fabric_connector" index="22" refIndex="22"/>
+        <connectorPort name="fabric_connector" index="23" refIndex="23"/>
+        <connectorPort name="fabric_connector" index="24" refIndex="24"/>
+        <connectorPort name="fabric_connector" index="25" refIndex="25"/>
+        <connectorPort name="fabric_connector" index="26" refIndex="26"/>
+        <connectorPort name="fabric_connector" index="27" refIndex="27"/>
+        <connectorPort name="fabric_connector" index="28" refIndex="28"/>
+        <connectorPort name="fabric_connector" index="29" refIndex="29"/>
+        <connectorPort name="fabric_connector" index="30" refIndex="30"/>
+        <connectorPort name="fabric_connector" index="31" refIndex="31"/>
+        <connectorPort name="fabric_connector" index="32" refIndex="32"/>
+        <connectorPort name="fabric_connector" index="33" refIndex="33"/>
+        <connectorPort name="fabric_connector" index="34" refIndex="34"/>
+        <connectorPort name="fabric_connector" index="35" refIndex="35"/>
+        <connectorPort name="fabric_connector" index="36" refIndex="36"/>
+        <connectorPort name="fabric_connector" index="37" refIndex="37"/>
+        <connectorPort name="fabric_connector" index="38" refIndex="38"/>
+        <connectorPort name="fabric_connector" index="39" refIndex="39"/>
+        <connectorPort name="fabric_connector" index="40" refIndex="40"/>
+        <connectorPort name="fabric_connector" index="41" refIndex="41"/>
+        <connectorPort name="fabric_connector" index="42" refIndex="42"/>
+        <connectorPort name="fabric_connector" index="43" refIndex="43"/>
+        <connectorPort name="fabric_connector" index="44" refIndex="44"/>
+        <connectorPort name="fabric_connector" index="45" refIndex="45"/>
+        <connectorPort name="fabric_connector" index="46" refIndex="46"/>
+        <connectorPort name="fabric_connector" index="47" refIndex="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="BLINK15" size="48" cabling="false" visibleInDB="true" instance="CONNECTION_BLINK15">
+      <vendorExtensions>
+        <vendorExtension name="type" value="BLINK"/>
+        <vendorExtension name="index" value="15"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+        <connectorPort name="fabric_connector" index="4" refIndex="4"/>
+        <connectorPort name="fabric_connector" index="5" refIndex="5"/>
+        <connectorPort name="fabric_connector" index="6" refIndex="6"/>
+        <connectorPort name="fabric_connector" index="7" refIndex="7"/>
+        <connectorPort name="fabric_connector" index="8" refIndex="8"/>
+        <connectorPort name="fabric_connector" index="9" refIndex="9"/>
+        <connectorPort name="fabric_connector" index="10" refIndex="10"/>
+        <connectorPort name="fabric_connector" index="11" refIndex="11"/>
+        <connectorPort name="fabric_connector" index="12" refIndex="12"/>
+        <connectorPort name="fabric_connector" index="13" refIndex="13"/>
+        <connectorPort name="fabric_connector" index="14" refIndex="14"/>
+        <connectorPort name="fabric_connector" index="15" refIndex="15"/>
+        <connectorPort name="fabric_connector" index="16" refIndex="16"/>
+        <connectorPort name="fabric_connector" index="17" refIndex="17"/>
+        <connectorPort name="fabric_connector" index="18" refIndex="18"/>
+        <connectorPort name="fabric_connector" index="19" refIndex="19"/>
+        <connectorPort name="fabric_connector" index="20" refIndex="20"/>
+        <connectorPort name="fabric_connector" index="21" refIndex="21"/>
+        <connectorPort name="fabric_connector" index="22" refIndex="22"/>
+        <connectorPort name="fabric_connector" index="23" refIndex="23"/>
+        <connectorPort name="fabric_connector" index="24" refIndex="24"/>
+        <connectorPort name="fabric_connector" index="25" refIndex="25"/>
+        <connectorPort name="fabric_connector" index="26" refIndex="26"/>
+        <connectorPort name="fabric_connector" index="27" refIndex="27"/>
+        <connectorPort name="fabric_connector" index="28" refIndex="28"/>
+        <connectorPort name="fabric_connector" index="29" refIndex="29"/>
+        <connectorPort name="fabric_connector" index="30" refIndex="30"/>
+        <connectorPort name="fabric_connector" index="31" refIndex="31"/>
+        <connectorPort name="fabric_connector" index="32" refIndex="32"/>
+        <connectorPort name="fabric_connector" index="33" refIndex="33"/>
+        <connectorPort name="fabric_connector" index="34" refIndex="34"/>
+        <connectorPort name="fabric_connector" index="35" refIndex="35"/>
+        <connectorPort name="fabric_connector" index="36" refIndex="36"/>
+        <connectorPort name="fabric_connector" index="37" refIndex="37"/>
+        <connectorPort name="fabric_connector" index="38" refIndex="38"/>
+        <connectorPort name="fabric_connector" index="39" refIndex="39"/>
+        <connectorPort name="fabric_connector" index="40" refIndex="40"/>
+        <connectorPort name="fabric_connector" index="41" refIndex="41"/>
+        <connectorPort name="fabric_connector" index="42" refIndex="42"/>
+        <connectorPort name="fabric_connector" index="43" refIndex="43"/>
+        <connectorPort name="fabric_connector" index="44" refIndex="44"/>
+        <connectorPort name="fabric_connector" index="45" refIndex="45"/>
+        <connectorPort name="fabric_connector" index="46" refIndex="46"/>
+        <connectorPort name="fabric_connector" index="47" refIndex="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="BLINK10" size="48" cabling="false" visibleInDB="true" instance="CONNECTION_BLINK10">
+      <vendorExtensions>
+        <vendorExtension name="type" value="BLINK"/>
+        <vendorExtension name="index" value="10"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+        <connectorPort name="fabric_connector" index="4" refIndex="4"/>
+        <connectorPort name="fabric_connector" index="5" refIndex="5"/>
+        <connectorPort name="fabric_connector" index="6" refIndex="6"/>
+        <connectorPort name="fabric_connector" index="7" refIndex="7"/>
+        <connectorPort name="fabric_connector" index="8" refIndex="8"/>
+        <connectorPort name="fabric_connector" index="9" refIndex="9"/>
+        <connectorPort name="fabric_connector" index="10" refIndex="10"/>
+        <connectorPort name="fabric_connector" index="11" refIndex="11"/>
+        <connectorPort name="fabric_connector" index="12" refIndex="12"/>
+        <connectorPort name="fabric_connector" index="13" refIndex="13"/>
+        <connectorPort name="fabric_connector" index="14" refIndex="14"/>
+        <connectorPort name="fabric_connector" index="15" refIndex="15"/>
+        <connectorPort name="fabric_connector" index="16" refIndex="16"/>
+        <connectorPort name="fabric_connector" index="17" refIndex="17"/>
+        <connectorPort name="fabric_connector" index="18" refIndex="18"/>
+        <connectorPort name="fabric_connector" index="19" refIndex="19"/>
+        <connectorPort name="fabric_connector" index="20" refIndex="20"/>
+        <connectorPort name="fabric_connector" index="21" refIndex="21"/>
+        <connectorPort name="fabric_connector" index="22" refIndex="22"/>
+        <connectorPort name="fabric_connector" index="23" refIndex="23"/>
+        <connectorPort name="fabric_connector" index="24" refIndex="24"/>
+        <connectorPort name="fabric_connector" index="25" refIndex="25"/>
+        <connectorPort name="fabric_connector" index="26" refIndex="26"/>
+        <connectorPort name="fabric_connector" index="27" refIndex="27"/>
+        <connectorPort name="fabric_connector" index="28" refIndex="28"/>
+        <connectorPort name="fabric_connector" index="29" refIndex="29"/>
+        <connectorPort name="fabric_connector" index="30" refIndex="30"/>
+        <connectorPort name="fabric_connector" index="31" refIndex="31"/>
+        <connectorPort name="fabric_connector" index="32" refIndex="32"/>
+        <connectorPort name="fabric_connector" index="33" refIndex="33"/>
+        <connectorPort name="fabric_connector" index="34" refIndex="34"/>
+        <connectorPort name="fabric_connector" index="35" refIndex="35"/>
+        <connectorPort name="fabric_connector" index="36" refIndex="36"/>
+        <connectorPort name="fabric_connector" index="37" refIndex="37"/>
+        <connectorPort name="fabric_connector" index="38" refIndex="38"/>
+        <connectorPort name="fabric_connector" index="39" refIndex="39"/>
+        <connectorPort name="fabric_connector" index="40" refIndex="40"/>
+        <connectorPort name="fabric_connector" index="41" refIndex="41"/>
+        <connectorPort name="fabric_connector" index="42" refIndex="42"/>
+        <connectorPort name="fabric_connector" index="43" refIndex="43"/>
+        <connectorPort name="fabric_connector" index="44" refIndex="44"/>
+        <connectorPort name="fabric_connector" index="45" refIndex="45"/>
+        <connectorPort name="fabric_connector" index="46" refIndex="46"/>
+        <connectorPort name="fabric_connector" index="47" refIndex="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="BLINK16" size="48" cabling="false" visibleInDB="true" instance="CONNECTION_BLINK16">
+      <vendorExtensions>
+        <vendorExtension name="type" value="BLINK"/>
+        <vendorExtension name="index" value="16"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+        <connectorPort name="fabric_connector" index="4" refIndex="4"/>
+        <connectorPort name="fabric_connector" index="5" refIndex="5"/>
+        <connectorPort name="fabric_connector" index="6" refIndex="6"/>
+        <connectorPort name="fabric_connector" index="7" refIndex="7"/>
+        <connectorPort name="fabric_connector" index="8" refIndex="8"/>
+        <connectorPort name="fabric_connector" index="9" refIndex="9"/>
+        <connectorPort name="fabric_connector" index="10" refIndex="10"/>
+        <connectorPort name="fabric_connector" index="11" refIndex="11"/>
+        <connectorPort name="fabric_connector" index="12" refIndex="12"/>
+        <connectorPort name="fabric_connector" index="13" refIndex="13"/>
+        <connectorPort name="fabric_connector" index="14" refIndex="14"/>
+        <connectorPort name="fabric_connector" index="15" refIndex="15"/>
+        <connectorPort name="fabric_connector" index="16" refIndex="16"/>
+        <connectorPort name="fabric_connector" index="17" refIndex="17"/>
+        <connectorPort name="fabric_connector" index="18" refIndex="18"/>
+        <connectorPort name="fabric_connector" index="19" refIndex="19"/>
+        <connectorPort name="fabric_connector" index="20" refIndex="20"/>
+        <connectorPort name="fabric_connector" index="21" refIndex="21"/>
+        <connectorPort name="fabric_connector" index="22" refIndex="22"/>
+        <connectorPort name="fabric_connector" index="23" refIndex="23"/>
+        <connectorPort name="fabric_connector" index="24" refIndex="24"/>
+        <connectorPort name="fabric_connector" index="25" refIndex="25"/>
+        <connectorPort name="fabric_connector" index="26" refIndex="26"/>
+        <connectorPort name="fabric_connector" index="27" refIndex="27"/>
+        <connectorPort name="fabric_connector" index="28" refIndex="28"/>
+        <connectorPort name="fabric_connector" index="29" refIndex="29"/>
+        <connectorPort name="fabric_connector" index="30" refIndex="30"/>
+        <connectorPort name="fabric_connector" index="31" refIndex="31"/>
+        <connectorPort name="fabric_connector" index="32" refIndex="32"/>
+        <connectorPort name="fabric_connector" index="33" refIndex="33"/>
+        <connectorPort name="fabric_connector" index="34" refIndex="34"/>
+        <connectorPort name="fabric_connector" index="35" refIndex="35"/>
+        <connectorPort name="fabric_connector" index="36" refIndex="36"/>
+        <connectorPort name="fabric_connector" index="37" refIndex="37"/>
+        <connectorPort name="fabric_connector" index="38" refIndex="38"/>
+        <connectorPort name="fabric_connector" index="39" refIndex="39"/>
+        <connectorPort name="fabric_connector" index="40" refIndex="40"/>
+        <connectorPort name="fabric_connector" index="41" refIndex="41"/>
+        <connectorPort name="fabric_connector" index="42" refIndex="42"/>
+        <connectorPort name="fabric_connector" index="43" refIndex="43"/>
+        <connectorPort name="fabric_connector" index="44" refIndex="44"/>
+        <connectorPort name="fabric_connector" index="45" refIndex="45"/>
+        <connectorPort name="fabric_connector" index="46" refIndex="46"/>
+        <connectorPort name="fabric_connector" index="47" refIndex="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="BLINK09" size="48" cabling="false" visibleInDB="true" instance="CONNECTION_BLINK09">
+      <vendorExtensions>
+        <vendorExtension name="type" value="BLINK"/>
+        <vendorExtension name="index" value="9"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+        <connectorPort name="fabric_connector" index="4" refIndex="4"/>
+        <connectorPort name="fabric_connector" index="5" refIndex="5"/>
+        <connectorPort name="fabric_connector" index="6" refIndex="6"/>
+        <connectorPort name="fabric_connector" index="7" refIndex="7"/>
+        <connectorPort name="fabric_connector" index="8" refIndex="8"/>
+        <connectorPort name="fabric_connector" index="9" refIndex="9"/>
+        <connectorPort name="fabric_connector" index="10" refIndex="10"/>
+        <connectorPort name="fabric_connector" index="11" refIndex="11"/>
+        <connectorPort name="fabric_connector" index="12" refIndex="12"/>
+        <connectorPort name="fabric_connector" index="13" refIndex="13"/>
+        <connectorPort name="fabric_connector" index="14" refIndex="14"/>
+        <connectorPort name="fabric_connector" index="15" refIndex="15"/>
+        <connectorPort name="fabric_connector" index="16" refIndex="16"/>
+        <connectorPort name="fabric_connector" index="17" refIndex="17"/>
+        <connectorPort name="fabric_connector" index="18" refIndex="18"/>
+        <connectorPort name="fabric_connector" index="19" refIndex="19"/>
+        <connectorPort name="fabric_connector" index="20" refIndex="20"/>
+        <connectorPort name="fabric_connector" index="21" refIndex="21"/>
+        <connectorPort name="fabric_connector" index="22" refIndex="22"/>
+        <connectorPort name="fabric_connector" index="23" refIndex="23"/>
+        <connectorPort name="fabric_connector" index="24" refIndex="24"/>
+        <connectorPort name="fabric_connector" index="25" refIndex="25"/>
+        <connectorPort name="fabric_connector" index="26" refIndex="26"/>
+        <connectorPort name="fabric_connector" index="27" refIndex="27"/>
+        <connectorPort name="fabric_connector" index="28" refIndex="28"/>
+        <connectorPort name="fabric_connector" index="29" refIndex="29"/>
+        <connectorPort name="fabric_connector" index="30" refIndex="30"/>
+        <connectorPort name="fabric_connector" index="31" refIndex="31"/>
+        <connectorPort name="fabric_connector" index="32" refIndex="32"/>
+        <connectorPort name="fabric_connector" index="33" refIndex="33"/>
+        <connectorPort name="fabric_connector" index="34" refIndex="34"/>
+        <connectorPort name="fabric_connector" index="35" refIndex="35"/>
+        <connectorPort name="fabric_connector" index="36" refIndex="36"/>
+        <connectorPort name="fabric_connector" index="37" refIndex="37"/>
+        <connectorPort name="fabric_connector" index="38" refIndex="38"/>
+        <connectorPort name="fabric_connector" index="39" refIndex="39"/>
+        <connectorPort name="fabric_connector" index="40" refIndex="40"/>
+        <connectorPort name="fabric_connector" index="41" refIndex="41"/>
+        <connectorPort name="fabric_connector" index="42" refIndex="42"/>
+        <connectorPort name="fabric_connector" index="43" refIndex="43"/>
+        <connectorPort name="fabric_connector" index="44" refIndex="44"/>
+        <connectorPort name="fabric_connector" index="45" refIndex="45"/>
+        <connectorPort name="fabric_connector" index="46" refIndex="46"/>
+        <connectorPort name="fabric_connector" index="47" refIndex="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="BLINK13" size="48" cabling="false" visibleInDB="true" instance="CONNECTION_BLINK13">
+      <vendorExtensions>
+        <vendorExtension name="type" value="BLINK"/>
+        <vendorExtension name="index" value="13"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+        <connectorPort name="fabric_connector" index="2" refIndex="2"/>
+        <connectorPort name="fabric_connector" index="3" refIndex="3"/>
+        <connectorPort name="fabric_connector" index="4" refIndex="4"/>
+        <connectorPort name="fabric_connector" index="5" refIndex="5"/>
+        <connectorPort name="fabric_connector" index="6" refIndex="6"/>
+        <connectorPort name="fabric_connector" index="7" refIndex="7"/>
+        <connectorPort name="fabric_connector" index="8" refIndex="8"/>
+        <connectorPort name="fabric_connector" index="9" refIndex="9"/>
+        <connectorPort name="fabric_connector" index="10" refIndex="10"/>
+        <connectorPort name="fabric_connector" index="11" refIndex="11"/>
+        <connectorPort name="fabric_connector" index="12" refIndex="12"/>
+        <connectorPort name="fabric_connector" index="13" refIndex="13"/>
+        <connectorPort name="fabric_connector" index="14" refIndex="14"/>
+        <connectorPort name="fabric_connector" index="15" refIndex="15"/>
+        <connectorPort name="fabric_connector" index="16" refIndex="16"/>
+        <connectorPort name="fabric_connector" index="17" refIndex="17"/>
+        <connectorPort name="fabric_connector" index="18" refIndex="18"/>
+        <connectorPort name="fabric_connector" index="19" refIndex="19"/>
+        <connectorPort name="fabric_connector" index="20" refIndex="20"/>
+        <connectorPort name="fabric_connector" index="21" refIndex="21"/>
+        <connectorPort name="fabric_connector" index="22" refIndex="22"/>
+        <connectorPort name="fabric_connector" index="23" refIndex="23"/>
+        <connectorPort name="fabric_connector" index="24" refIndex="24"/>
+        <connectorPort name="fabric_connector" index="25" refIndex="25"/>
+        <connectorPort name="fabric_connector" index="26" refIndex="26"/>
+        <connectorPort name="fabric_connector" index="27" refIndex="27"/>
+        <connectorPort name="fabric_connector" index="28" refIndex="28"/>
+        <connectorPort name="fabric_connector" index="29" refIndex="29"/>
+        <connectorPort name="fabric_connector" index="30" refIndex="30"/>
+        <connectorPort name="fabric_connector" index="31" refIndex="31"/>
+        <connectorPort name="fabric_connector" index="32" refIndex="32"/>
+        <connectorPort name="fabric_connector" index="33" refIndex="33"/>
+        <connectorPort name="fabric_connector" index="34" refIndex="34"/>
+        <connectorPort name="fabric_connector" index="35" refIndex="35"/>
+        <connectorPort name="fabric_connector" index="36" refIndex="36"/>
+        <connectorPort name="fabric_connector" index="37" refIndex="37"/>
+        <connectorPort name="fabric_connector" index="38" refIndex="38"/>
+        <connectorPort name="fabric_connector" index="39" refIndex="39"/>
+        <connectorPort name="fabric_connector" index="40" refIndex="40"/>
+        <connectorPort name="fabric_connector" index="41" refIndex="41"/>
+        <connectorPort name="fabric_connector" index="42" refIndex="42"/>
+        <connectorPort name="fabric_connector" index="43" refIndex="43"/>
+        <connectorPort name="fabric_connector" index="44" refIndex="44"/>
+        <connectorPort name="fabric_connector" index="45" refIndex="45"/>
+        <connectorPort name="fabric_connector" index="46" refIndex="46"/>
+        <connectorPort name="fabric_connector" index="47" refIndex="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="MGT_REFCLK_0" size="2" cabling="false" visibleInDB="false" instance="CONNECTION_MGT_REFCLK_0">
+      <vendorExtensions>
+        <vendorExtension name="type" value="MGT_REFCLK"/>
+        <vendorExtension name="index" value="0"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+      </connectorPorts>
+    </connector>
+    <connector name="MGT_REFCLK_1" size="2" cabling="false" visibleInDB="false" instance="CONNECTION_MGT_REFCLK_1">
+      <vendorExtensions>
+        <vendorExtension name="type" value="MGT_REFCLK"/>
+        <vendorExtension name="index" value="1"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+      </connectorPorts>
+    </connector>
+    <connector name="MGT_REFCLK_2" size="2" cabling="false" visibleInDB="false" instance="CONNECTION_MGT_REFCLK_2">
+      <vendorExtensions>
+        <vendorExtension name="type" value="MGT_REFCLK"/>
+        <vendorExtension name="index" value="2"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+      </connectorPorts>
+    </connector>
+    <connector name="MGT_REFCLK_3" size="2" cabling="false" visibleInDB="false" instance="CONNECTION_MGT_REFCLK_3">
+      <vendorExtensions>
+        <vendorExtension name="type" value="MGT_REFCLK"/>
+        <vendorExtension name="index" value="3"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+      </connectorPorts>
+    </connector>
+    <connector name="MGT_REFCLK_4" size="2" cabling="false" visibleInDB="false" instance="CONNECTION_MGT_REFCLK_4">
+      <vendorExtensions>
+        <vendorExtension name="type" value="MGT_REFCLK"/>
+        <vendorExtension name="index" value="4"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+      </connectorPorts>
+    </connector>
+    <connector name="MGT_REFCLK_5" size="2" cabling="false" visibleInDB="false" instance="CONNECTION_MGT_REFCLK_5">
+      <vendorExtensions>
+        <vendorExtension name="type" value="MGT_REFCLK"/>
+        <vendorExtension name="index" value="5"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+      </connectorPorts>
+    </connector>
+    <connector name="MGT_REFCLK_6" size="2" cabling="false" visibleInDB="false" instance="CONNECTION_MGT_REFCLK_6">
+      <vendorExtensions>
+        <vendorExtension name="type" value="MGT_REFCLK"/>
+        <vendorExtension name="index" value="6"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+      </connectorPorts>
+    </connector>
+    <connector name="MGT_REFCLK_7" size="2" cabling="false" visibleInDB="false" instance="CONNECTION_MGT_REFCLK_7">
+      <vendorExtensions>
+        <vendorExtension name="type" value="MGT_REFCLK"/>
+        <vendorExtension name="index" value="7"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+      </connectorPorts>
+    </connector>
+    <connector name="MGT_USER_CLK_4_A" size="2" cabling="false" visibleInDB="false" instance="CONNECTION_MGT_USER_CLK_4_A">
+      <vendorExtensions>
+        <vendorExtension name="type" value="MGT_REFCLK"/>
+        <vendorExtension name="index" value="8"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+      </connectorPorts>
+    </connector>
+    <connector name="MGT_USER_CLK_4_B" size="2" cabling="false" visibleInDB="false" instance="CONNECTION_MGT_USER_CLK_4_B">
+      <vendorExtensions>
+        <vendorExtension name="type" value="MGT_REFCLK"/>
+        <vendorExtension name="index" value="9"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="fabric_connector" index="0" refIndex="0"/>
+        <connectorPort name="fabric_connector" index="1" refIndex="1"/>
+      </connectorPorts>
+    </connector>
+  </connectors>
+  <connections>
+    <connection name="CONNECTION_LLINK01" connectionModelRef="CONN_LLINK">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="LLINK01" connectionConnector="LLINK_A"/>
+        <connectorRef instancePath="U_B" connector="LLINK11" connectionConnector="LLINK_B"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_LLINK02" connectionModelRef="CONN_LLINK">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="LLINK02" connectionConnector="LLINK_A"/>
+        <connectorRef instancePath="U_B" connector="LLINK12" connectionConnector="LLINK_B"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_LLINK03" connectionModelRef="CONN_LLINK">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="LLINK03" connectionConnector="LLINK_A"/>
+        <connectorRef instancePath="U_B" connector="LLINK13" connectionConnector="LLINK_B"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_LLINK04" connectionModelRef="CONN_LLINK">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="LLINK04" connectionConnector="LLINK_A"/>
+        <connectorRef instancePath="U_B" connector="LLINK14" connectionConnector="LLINK_B"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_LLINK05" connectionModelRef="CONN_LLINK">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="LLINK05" connectionConnector="LLINK_A"/>
+        <connectorRef instancePath="U_B" connector="LLINK15" connectionConnector="LLINK_B"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_LLINK06" connectionModelRef="CONN_LLINK">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="LLINK06" connectionConnector="LLINK_A"/>
+        <connectorRef instancePath="U_B" connector="LLINK16" connectionConnector="LLINK_B"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_LLINK07" connectionModelRef="CONN_LLINK">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="LLINK07" connectionConnector="LLINK_A"/>
+        <connectorRef instancePath="U_B" connector="LLINK17" connectionConnector="LLINK_B"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_LLINK08" connectionModelRef="CONN_LLINK">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="LLINK08" connectionConnector="LLINK_A"/>
+        <connectorRef instancePath="U_B" connector="LLINK18" connectionConnector="LLINK_B"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_LLINK09" connectionModelRef="CONN_LLINK">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="LLINK09" connectionConnector="LLINK_A"/>
+        <connectorRef instancePath="U_B" connector="LLINK19" connectionConnector="LLINK_B"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_LLINK10" connectionModelRef="CONN_LLINK">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="LLINK10" connectionConnector="LLINK_A"/>
+        <connectorRef instancePath="U_B" connector="LLINK20" connectionConnector="LLINK_B"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_LLINK01_SE">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="LLINK01_SE"/>
+        <connectorRef instancePath="U_B" connector="LLINK11_SE"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_LLINK02_SE">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="LLINK02_SE"/>
+        <connectorRef instancePath="U_B" connector="LLINK12_SE"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_LLINK03_SE">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="LLINK03_SE"/>
+        <connectorRef instancePath="U_B" connector="LLINK13_SE"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_LLINK04_SE">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="LLINK04_SE"/>
+        <connectorRef instancePath="U_B" connector="LLINK14_SE"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_LLINK05_SE">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="LLINK05_SE"/>
+        <connectorRef instancePath="U_B" connector="LLINK15_SE"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_LLINK06_SE">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="LLINK06_SE"/>
+        <connectorRef instancePath="U_B" connector="LLINK16_SE"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_LLINK07_SE">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="LLINK07_SE"/>
+        <connectorRef instancePath="U_B" connector="LLINK17_SE"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_LLINK08_SE">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="LLINK08_SE"/>
+        <connectorRef instancePath="U_B" connector="LLINK18_SE"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_LLINK09_SE">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="LLINK09_SE"/>
+        <connectorRef instancePath="U_B" connector="LLINK19_SE"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_LLINK10_SE">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="LLINK10_SE"/>
+        <connectorRef instancePath="U_B" connector="LLINK20_SE"/>
+      </connectorRefs>
+    </connection>
+
+    <connection name="CONNECTION_GLINK01" connectionModelRef="CONN_GLINK">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="GLINK01" connectionConnector="GLINK_A"/>
+        <connectorRef instancePath="U_B" connector="GLINK01" connectionConnector="GLINK_B"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_GLINK02" connectionModelRef="CONN_GLINK">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="GLINK02" connectionConnector="GLINK_A"/>
+        <connectorRef instancePath="U_B" connector="GLINK02" connectionConnector="GLINK_B"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_GLINK03" connectionModelRef="CONN_GLINK">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="GLINK03" connectionConnector="GLINK_A"/>
+        <connectorRef instancePath="U_B" connector="GLINK03" connectionConnector="GLINK_B"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_GLINK04" connectionModelRef="CONN_GLINK">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="GLINK04" connectionConnector="GLINK_A"/>
+        <connectorRef instancePath="U_B" connector="GLINK04" connectionConnector="GLINK_B"/>
+      </connectorRefs>
+    </connection>
+
+    <connection name="CONNECTION_FLINK01" connectionModelRef="CONN_FABRIC_LVDS">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_FLINK01" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_FLINK03" connectionModelRef="CONN_FABRIC_LVDS">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_FLINK03" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_FLINK05" connectionModelRef="CONN_FABRIC_LVDS">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_FLINK05" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_FLINK07" connectionModelRef="CONN_FABRIC_LVDS">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_FLINK07" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_FLINK09" connectionModelRef="CONN_FABRIC_LVDS">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_FLINK09" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_FLINK11" connectionModelRef="CONN_FABRIC_LVDS">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_FLINK11" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_FLINK02" connectionModelRef="CONN_FABRIC_LVDS">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_FLINK02" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_FLINK04" connectionModelRef="CONN_FABRIC_LVDS">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_FLINK04" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_FLINK06" connectionModelRef="CONN_FABRIC_LVDS">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_FLINK06" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_FLINK08" connectionModelRef="CONN_FABRIC_LVDS">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_FLINK08" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_FLINK10" connectionModelRef="CONN_FABRIC_LVDS">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_FLINK10" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_FLINK12" connectionModelRef="CONN_FABRIC_LVDS">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_FLINK12" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_BLINK02" connectionModelRef="CONN_FABRIC_LVDS">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_BLINK02" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_BLINK06" connectionModelRef="CONN_FABRIC_LVDS">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_BLINK06" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_BLINK10" connectionModelRef="CONN_FABRIC_LVDS">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_BLINK10" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_BLINK14" connectionModelRef="CONN_FABRIC_LVDS">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_BLINK14" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_BLINK01" connectionModelRef="CONN_FABRIC_LVDS">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_BLINK01" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_BLINK05" connectionModelRef="CONN_FABRIC_LVDS">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_BLINK05" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_BLINK03" connectionModelRef="CONN_FABRIC_LVDS">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_BLINK03" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_BLINK07" connectionModelRef="CONN_FABRIC_LVDS">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_BLINK07" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_BLINK04" connectionModelRef="CONN_FABRIC_LVDS">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_BLINK04" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_BLINK08" connectionModelRef="CONN_FABRIC_LVDS">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_BLINK08" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_BLINK09" connectionModelRef="CONN_FABRIC_LVDS">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_BLINK09" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_BLINK13" connectionModelRef="CONN_FABRIC_LVDS">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_BLINK13" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_BLINK11" connectionModelRef="CONN_FABRIC_LVDS">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_BLINK11" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_BLINK15" connectionModelRef="CONN_FABRIC_LVDS">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_BLINK15" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_BLINK12" connectionModelRef="CONN_FABRIC_LVDS">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_BLINK12" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_BLINK16" connectionModelRef="CONN_FABRIC_LVDS">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_BLINK16" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK01" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_OLINK01" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK02" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_OLINK02" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK03" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_OLINK03" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK04" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_OLINK04" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK05" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_OLINK05" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK06" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_OLINK06" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK07" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_OLINK07" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK08" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_OLINK08" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK09" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_OLINK09" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK10" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_OLINK10" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK11" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_OLINK11" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK12" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_OLINK12" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK13" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_OLINK13" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK14" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_OLINK14" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK15" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_OLINK15" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK16" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_OLINK16" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK17" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_OLINK17" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK18" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_OLINK18" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK19" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_OLINK19" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK20" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_OLINK20" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK21" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_OLINK21" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK22" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_OLINK22" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK23" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_OLINK23" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK24" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_OLINK24" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_MTP24_A" connectionModelRef="CONN_FABRIC_MTP24">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_OLINK25" connectionConnector="fpga_connector_1"/>
+        <connectorRef instancePath="U_A" connector="FPGA_OLINK26" connectionConnector="fpga_connector_2"/>
+        <connectorRef instancePath="U_A" connector="FPGA_OLINK27" connectionConnector="fpga_connector_3"/>
+        <connectorRef instancePath="U_A" connector="FPGA_OLINK28" connectionConnector="fpga_connector_4"/>
+        <connectorRef instancePath="U_A" connector="FPGA_OLINK29" connectionConnector="fpga_connector_5"/>
+        <connectorRef instancePath="U_A" connector="FPGA_OLINK30" connectionConnector="fpga_connector_6"/>
+        <connectorRef instancePath="U_A" connector="FPGA_OLINK31" connectionConnector="fpga_connector_7"/>
+        <connectorRef instancePath="U_A" connector="FPGA_OLINK32" connectionConnector="fpga_connector_8"/>
+        <connectorRef instancePath="U_A" connector="FPGA_OLINK33" connectionConnector="fpga_connector_9"/>
+        <connectorRef instancePath="U_A" connector="FPGA_OLINK34" connectionConnector="fpga_connector_10"/>
+        <connectorRef instancePath="U_A" connector="FPGA_OLINK35" connectionConnector="fpga_connector_11"/>
+        <connectorRef instancePath="U_A" connector="FPGA_OLINK36" connectionConnector="fpga_connector_12"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK37" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_OLINK37" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK38" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_OLINK38" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK39" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_OLINK39" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK40" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_OLINK40" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK41" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_OLINK41" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK42" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_OLINK42" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK43" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_OLINK43" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK44" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_OLINK44" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK45" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_OLINK45" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK46" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_OLINK46" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK47" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_OLINK47" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK48" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_OLINK48" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK49" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_OLINK49" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK50" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_OLINK50" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK51" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_OLINK51" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK52" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_OLINK52" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK53" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_OLINK53" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK54" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_OLINK54" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK55" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_OLINK55" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK56" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_OLINK56" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK57" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_OLINK57" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK58" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_OLINK58" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK59" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_OLINK59" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_OLINK60" connectionModelRef="CONN_FABRIC_MGT">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_OLINK60" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_MTP24_B" connectionModelRef="CONN_FABRIC_MTP24">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_OLINK61" connectionConnector="fpga_connector_1"/>
+        <connectorRef instancePath="U_B" connector="FPGA_OLINK62" connectionConnector="fpga_connector_2"/>
+        <connectorRef instancePath="U_B" connector="FPGA_OLINK63" connectionConnector="fpga_connector_3"/>
+        <connectorRef instancePath="U_B" connector="FPGA_OLINK64" connectionConnector="fpga_connector_4"/>
+        <connectorRef instancePath="U_B" connector="FPGA_OLINK65" connectionConnector="fpga_connector_5"/>
+        <connectorRef instancePath="U_B" connector="FPGA_OLINK66" connectionConnector="fpga_connector_6"/>
+        <connectorRef instancePath="U_B" connector="FPGA_OLINK67" connectionConnector="fpga_connector_7"/>
+        <connectorRef instancePath="U_B" connector="FPGA_OLINK68" connectionConnector="fpga_connector_8"/>
+        <connectorRef instancePath="U_B" connector="FPGA_OLINK69" connectionConnector="fpga_connector_9"/>
+        <connectorRef instancePath="U_B" connector="FPGA_OLINK70" connectionConnector="fpga_connector_10"/>
+        <connectorRef instancePath="U_B" connector="FPGA_OLINK71" connectionConnector="fpga_connector_11"/>
+        <connectorRef instancePath="U_B" connector="FPGA_OLINK72" connectionConnector="fpga_connector_12"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_MGT_REFCLK_0" connectionModelRef="CONN_FABRIC_MGT_REFCLK">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_MGT_REFCLK_0" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_MGT_REFCLK_1" connectionModelRef="CONN_FABRIC_MGT_REFCLK">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_MGT_REFCLK_1" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_MGT_REFCLK_2" connectionModelRef="CONN_FABRIC_MGT_REFCLK">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_MGT_REFCLK_2" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_MGT_REFCLK_3" connectionModelRef="CONN_FABRIC_MGT_REFCLK">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_MGT_REFCLK_3" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_MGT_REFCLK_4" connectionModelRef="CONN_FABRIC_MGT_REFCLK">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_MGT_REFCLK_0" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_MGT_REFCLK_5" connectionModelRef="CONN_FABRIC_MGT_REFCLK">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_MGT_REFCLK_1" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_MGT_REFCLK_6" connectionModelRef="CONN_FABRIC_MGT_REFCLK">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_MGT_REFCLK_2" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_MGT_REFCLK_7" connectionModelRef="CONN_FABRIC_MGT_REFCLK">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_MGT_REFCLK_3" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_MGT_USER_CLK_4_A" connectionModelRef="CONN_FABRIC_MGT_REFCLK">
+      <connectorRefs>
+        <connectorRef instancePath="U_A" connector="FPGA_MGT_USER_CLK_4" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+    <connection name="CONNECTION_MGT_USER_CLK_4_B" connectionModelRef="CONN_FABRIC_MGT_REFCLK">
+      <connectorRefs>
+        <connectorRef instancePath="U_B" connector="FPGA_MGT_USER_CLK_4" connectionConnector="fpga_connector"/>
+      </connectorRefs>
+    </connection>
+  </connections>
+</module>
