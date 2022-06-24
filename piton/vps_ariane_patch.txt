@@ -1,0 +1,110 @@
+
+ diff -aurp a/design/chip/tile/ariane/core/fpu/src/fpnew_cast_multi.sv b/design/chip/tile/ariane/core/fpu/src/fpnew_cast_multi.sv
+--- a/design/chip/tile/ariane/core/fpu/src/fpnew_cast_multi.sv  2022-06-22 10:48:21.979262000 -0700
++++ b/design/chip/tile/ariane/core/fpu/src/fpnew_cast_multi.sv  2019-12-02 13:00:37.000000000 -0800
+@@ -545,7 +545,9 @@ module fpnew_cast_multi #(
+     .exact_zero_o            ( result_true_zero  )
+   );
+ 
+-  logic [NUM_FORMATS-1:0][WIDTH-1:0] fmt_result;
++  //VPS_FIX
++  //logic [NUM_FORMATS-1:0][WIDTH-1:0] fmt_result;
++  (* logic_block=1 *) logic [NUM_FORMATS-1:0][WIDTH-1:0] fmt_result;
+ 
+   // Detect overflows and inject sign
+   for (genvar fmt = 0; fmt < int'(NUM_FORMATS); fmt++) begin : gen_sign_inject
+@@ -588,7 +590,9 @@ module fpnew_cast_multi #(
+   fpnew_pkg::status_t fp_special_status;
+   logic               fp_result_is_special;
+ 
+-  logic [NUM_FORMATS-1:0][WIDTH-1:0] fmt_special_result;
++  //VPS_FIX
++  //logic [NUM_FORMATS-1:0][WIDTH-1:0] fmt_special_result;
++  (* logic_block=1 *) logic [NUM_FORMATS-1:0][WIDTH-1:0] fmt_special_result;
+ 
+   // Special result construction
+   for (genvar fmt = 0; fmt < int'(NUM_FORMATS); fmt++) begin : gen_special_results
+diff -aurp a/design/chip/tile/ariane/core/fpu/src/fpnew_pkg.sv b/design/chip/tile/ariane/core/fpu/src/fpnew_pkg.sv
+--- a/design/chip/tile/ariane/core/fpu/src/fpnew_pkg.sv 2022-06-22 10:48:22.001254000 -0700
++++ b/design/chip/tile/ariane/core/fpu/src/fpnew_pkg.sv 2019-11-01 05:19:45.000000000 -0700
+@@ -253,20 +253,34 @@ package fpnew_pkg;
+   } fpu_implementation_t;
+ 
+   localparam fpu_implementation_t DEFAULT_NOREGS = '{
+-    PipeRegs:   '{default: 0},
+-    UnitTypes:  '{'{default: PARALLEL}, // ADDMUL
+-                  '{default: MERGED},   // DIVSQRT
+-                  '{default: PARALLEL}, // NONCOMP
+-                  '{default: MERGED}},  // CONV
++  //VPS_FIX
++  //  PipeRegs:   '{default: 0},
++  //  UnitTypes:  '{'{default: PARALLEL}, // ADDMUL
++  //                '{default: MERGED},   // DIVSQRT
++  //                '{default: PARALLEL}, // NONCOMP
++  //                '{default: MERGED}},  // CONV
++  //  PipeConfig: BEFORE
++    PipeRegs:   0,
++    UnitTypes:  '{PARALLEL, // ADDMUL
++                  MERGED,   // DIVSQRT
++                  PARALLEL, // NONCOMP
++                  MERGED},  // CONV
+     PipeConfig: BEFORE
+   };
+ 
+   localparam fpu_implementation_t DEFAULT_SNITCH = '{
+-    PipeRegs:   '{default: 1},
+-    UnitTypes:  '{'{default: PARALLEL}, // ADDMUL
+-                  '{default: DISABLED}, // DIVSQRT
+-                  '{default: PARALLEL}, // NONCOMP
+-                  '{default: MERGED}},  // CONV
++  //VPS_FIX
++  //  PipeRegs:   '{default: 1},
++  //  UnitTypes:  '{'{default: PARALLEL}, // ADDMUL
++  //                '{default: DISABLED}, // DIVSQRT
++  //                '{default: PARALLEL}, // NONCOMP
++  //                '{default: MERGED}},  // CONV
++  //  PipeConfig: BEFORE
++    PipeRegs:   1,
++    UnitTypes:  '{PARALLEL, // ADDMUL
++                  DISABLED, // DIVSQRT
++                  PARALLEL, // NONCOMP
++                  MERGED},  // CONV
+     PipeConfig: BEFORE
+   };
+ 
+diff -aurp a/design/chip/tile/ariane/corev_apu/openpiton/bootrom/linux/src/main.c b/design/chip/tile/ariane/corev_apu/openpiton/bootrom/linux/src/main.c
+--- a/design/chip/tile/ariane/corev_apu/openpiton/bootrom/linux/src/main.c 2022-06-23 21:45:39.132248000 -0700
++++ b/design/chip/tile/ariane/corev_apu/openpiton/bootrom/linux/src/main.c 2022-06-23 22:03:54.356425000 -0700
+@@ -1,7 +1,4 @@
+ #include "uart.h"
+-#include "spi.h"
+-#include "sd.h"
+-#include "gpt.h"
+ #include "info.h"
+ 
+ int main()
+@@ -9,9 +6,9 @@ int main()
+     init_uart(UART_FREQ, 115200);
+     print_uart(info);
+ 
+-    print_uart("sd initialized!\r\n");
+-
+-    int res = gpt_find_boot_partition((uint8_t *)0x80000000UL, 2 * 32768);
++    print_uart("skipping sd init!\r\n");
++    print_uart("skipping sd copy!\r\n");
++    print_uart("loading kernel from ddr!\r\n");
+ 
+     return 0;
+ }
+diff -aurp a/design/chip/tile/ariane/corev_apu/openpiton/bootrom/linux/Makefile b/design/chip/tile/ariane/corev_apu/openpiton/bootrom/linux/Makefile
+--- a/design/chip/tile/ariane/corev_apu/openpiton/bootrom/linux/Makefile 2022-06-23 21:45:39.116473000 -0700
++++ b/design/chip/tile/ariane/corev_apu/openpiton/bootrom/linux/Makefile 2022-06-23 22:10:48.610754000 -0700
+@@ -10,7 +10,7 @@ LDFLAGS = -nostdlib -nodefaultlibs -nost
+ 
+ INCLUDES = -I./ -I./src
+ 
+-SRCS_C = src/main.c src/uart.c src/spi.c src/sd.c src/gpt.c
++SRCS_C = src/main.c src/uart.c
+ SRCS_ASM = startup.S
+ OBJS_C = $(SRCS_C:.c=.o)
+ OBJS_S = $(SRCS_ASM:.S=.o)
