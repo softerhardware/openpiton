@@ -1,6 +1,6 @@
 [submodule "piton/design/chip/tile/ariane"]
 	path = piton/design/chip/tile/ariane
-	url = https://github.com/softerhardware/ariane.git
+	url = https://github.com/jbalkind/ariane.git
 	branch = upstreaming
 [submodule "aws"]
 	path = piton/design/aws
