@@ -313,6 +313,8 @@ $RED_HOME/partitioner/hdl/red_vip/vuart/RED_VUART.v"""
     src = os.path.join(DV_ROOT, "tools", "src", "proto", "vps", "template") + "/"
     os.system("rsync -raz --copy-links " + src + " " + work_dir+"/..")
 
+    os.system("ln -s " + os.path.join(DV_ROOT, "design") + " " + work_dir+"/..")
+
 def makeProject(board, design_data, work_dir, log_dir, slurm, dep_list):
     prev_dir = os.getcwd()
 
