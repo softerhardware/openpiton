@@ -43,6 +43,11 @@ module mc_top (
 
     input                           uart_boot_en,
     
+`ifdef VPS_AXI_SM
+    input                           axi_sm_aclk,
+    input                           axi_sm_aresetn,
+    output                          mmcm_locked,
+`else // VPS_AXI_SM
 `ifdef PITONSYS_DDR4
     // directly feed in 250MHz ref clock
     input                           sys_clk_p,
@@ -80,7 +85,7 @@ module mc_top (
     output [`DDR3_DM_WIDTH-1:0]     ddr_dm,
 `endif // PITONSYS_DDR4
     output [`DDR3_ODT_WIDTH-1:0]    ddr_odt,
-
+`endif // VPS_AXI_SM
     output                          init_calib_complete_out,
     input                           sys_rst_n
 );
@@ -932,6 +937,58 @@ axi4_zeroer axi4_zeroer(
 );
 `endif // PITONSYS_MEM_ZEROER
 
+`ifdef VPS_AXI_SM
+assign ui_clk = axi_sm_aclk;
+assign ui_clk_sync_rst = ~sys_rst_n;
+
+axi4_slave_sm #(
+  .ID_WIDTH(`AXI4_ID_WIDTH),
+  .ADDR_WIDTH(`AXI4_ADDR_WIDTH),
+  .DATA_WIDTH(`AXI4_DATA_WIDTH)
+) axi4_sm (
+  .aclk(axi_sm_aclk),
+  .aresetn(axi_sm_aresetn),
+  .awid(m_axi_awid),
+  .awaddr(m_axi_awaddr),
+  .awlen(m_axi_awlen),
+  .awsize(m_axi_awsize),
+  .awlock(m_axi_awlock),
+  .awburst(m_axi_awburst),
+  .awcache(m_axi_awcache),
+  .awvalid(m_axi_awvalid),
+  .awprot(m_axi_awprot),
+  .awqos(m_axi_awqos),
+  .awready(m_axi_awready),
+  .wdata(m_axi_wdata),
+  .wlast(m_axi_wlast),
+  .wstrb(m_axi_wstrb),
+  .wready(m_axi_wready),
+  .wvalid(m_axi_wvalid),
+  .bresp(m_axi_bresp),
+  .bid(m_axi_bid),
+  .bready(m_axi_bready),
+  .bvalid(m_axi_bvalid),
+  .arsize(m_axi_arsize),
+  .araddr(m_axi_araddr),
+  .arlen(m_axi_arlen),
+  .arid(m_axi_arid),
+  .arprot(m_axi_arprot),
+  .arready(m_axi_arready),
+  .arburst(m_axi_arburst),
+  .arlock(m_axi_arlock),
+  .arvalid(m_axi_arvalid),
+  .arqos(m_axi_arqos),
+  .arcache(m_axi_arcache),
+  .rdata(m_axi_rdata),
+  .rlast(m_axi_rlast),
+  .rresp(m_axi_rresp),
+  .rready(m_axi_rready),
+  .rvalid(m_axi_rvalid),
+  .rid(m_axi_rid),
+  .init_calib_complete(init_calib_complete),
+  .mmcm_locked(mmcm_locked)
+);
+`else // VPS_AXI_SM
 `ifdef PITONSYS_DDR4
 
 ddr4_axi4 ddr_axi4 (
@@ -1107,6 +1164,7 @@ mig_7series_axi4 u_mig_7series_axi4 (
 );
 
 `endif // PITONSYS_DDR4
+`endif // VPS_AXI_SM
 `endif // PITONSYS_AXI4_MEM
 
 `ifdef PITON_PROTO

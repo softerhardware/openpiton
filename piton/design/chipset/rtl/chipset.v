@@ -109,7 +109,9 @@ module chipset(
 
     `ifndef PITONSYS_NO_MC
     `ifdef PITON_FPGA_MC_DDR3
+    `ifndef VPS_AXI_SM 
         input                                       mc_clk,
+    `endif // endif VPS_AXI_SM 
     `endif // endif PITON_FPGA_MC_DDR3
     `endif // endif PITONSYS_NO_MC
 
@@ -223,6 +225,11 @@ module chipset(
     // Generalized interface for any FPGA board we support.
     // Not all signals will be used for all FPGA boards (see constraints)
 `ifndef F1_BOARD
+`ifdef VPS_AXI_SM
+    input                                       axi_sm_aclk,
+    input                                       axi_sm_aresetn,
+    output                                      mmcm_locked,
+`else // VPS_AXI_SM
 `ifdef PITONSYS_DDR4
     output                                      ddr_act_n,
     output [`DDR3_BG_WIDTH-1:0]                 ddr_bg,
@@ -253,6 +260,7 @@ module chipset(
     output [`DDR3_DM_WIDTH-1:0]                 ddr_dm,
 `endif // PITONSYS_DDR4
     output [`DDR3_ODT_WIDTH-1:0]                ddr_odt,
+`endif // VPS_AXI_SM
 `else // F1_BOARD
     input                                        mc_clk,
     // AXI Write Address Channel Signals
@@ -1240,6 +1248,7 @@ chipset_impl_noc_power_test  chipset_impl (
     `ifndef PITONSYS_NO_MC
     `ifdef PITON_FPGA_MC_DDR3
     `ifndef F1_BOARD
+    `ifndef VPS_AXI_SM
         // Memory controller clock
         `ifdef PITONSYS_DDR4
             .mc_clk_p(mc_clk_p),
@@ -1247,6 +1256,7 @@ chipset_impl_noc_power_test  chipset_impl (
         `else  // PITONSYS_DDR4                               
             .mc_clk(mc_clk),
         `endif  // PITONSYS_DDR4                               
+    `endif // ifndef VPS_AXI_SM
     `endif // ifndef F1_BOARD
     `endif // endif PITON_FPGA_MC_DDR3
     `endif // endif PITONSYS_NO_MC
@@ -1277,6 +1287,11 @@ chipset_impl_noc_power_test  chipset_impl (
             ,
             .init_calib_complete(init_calib_complete),
             `ifndef F1_BOARD
+                `ifdef VPS_AXI_SM
+                    .axi_sm_aclk(axi_sm_aclk),
+                    .axi_sm_aresetn(axi_sm_aresetn),
+                    .mmcm_locked(mmcm_locked)
+                `else // VPS_AXI_SM
                 `ifdef PITONSYS_DDR4
                     .ddr_act_n(ddr_act_n),                    
                     .ddr_bg(ddr_bg), 
@@ -1306,6 +1321,7 @@ chipset_impl_noc_power_test  chipset_impl (
                     .ddr_dm(ddr_dm),
                 `endif // XUPP3R_BOARD
                 .ddr_odt(ddr_odt)
+                `endif // VPS_AXI_SM
             `else // ifndef F1_BOARD
                 .mc_clk(mc_clk),
                 // AXI Write Address Channel Signals

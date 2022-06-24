@@ -135,33 +135,48 @@ module axi4_zeroer (
     output reg                                m_axi_bready
 );
 
-localparam reg [63:0] BOARD_MEM_SIZE_MB = `BOARD_MEM_SIZE_MB;
-localparam reg [`AXI4_ADDR_WIDTH-1:0] MAX_MEM_ADDR      = (BOARD_MEM_SIZE_MB * 2**20);
-localparam REQUESTS_NEEDED  = MAX_MEM_ADDR / `AXI4_STRB_WIDTH; // basically max addr divided by size of one request
+//VPS_FIX
+//localparam reg [63:0] BOARD_MEM_SIZE_MB = `BOARD_MEM_SIZE_MB;
+//localparam reg [`AXI4_ADDR_WIDTH-1:0] MAX_MEM_ADDR      = (BOARD_MEM_SIZE_MB * 2**20);
+//localparam REQUESTS_NEEDED  = MAX_MEM_ADDR / `AXI4_STRB_WIDTH; // basically max addr divided by size of one request
+localparam [63:0] BOARD_MEM_SIZE_MB = `BOARD_MEM_SIZE_MB;
+localparam [63:0] MAX_MEM_ADDR      = (BOARD_MEM_SIZE_MB * 2**20);
+localparam [63:0] REQUESTS_NEEDED   = MAX_MEM_ADDR >> $clog2(`AXI4_STRB_WIDTH); // basically max addr divided by size of one request
 localparam MAX_OUTSTANDING = 16;
 
 wire zeroer_req_val;
 wire zeroer_resp_rdy;
 wire req_go;
 wire resp_go;
-reg [`AXI4_ADDR_WIDTH-1:0] req_sent;
-reg [`AXI4_ADDR_WIDTH-1:0] resp_got;
+// VPS_FIX
+//reg [`AXI4_ADDR_WIDTH-1:0] req_sent;
+//reg [`AXI4_ADDR_WIDTH-1:0] resp_got;
+//reg [3:0] outstanding;
+//wire [`AXI4_ADDR_WIDTH-1:0] zeroer_addr;
+reg [`AXI4_ADDR_WIDTH:0] req_sent;
+reg [`AXI4_ADDR_WIDTH:0] resp_got;
 reg [3:0] outstanding;
-wire [`AXI4_ADDR_WIDTH-1:0] zeroer_addr;
+wire [`AXI4_ADDR_WIDTH:0] zeroer_addr;
 wire zeroer_wlast;
+
+// VPS_FIX
+reg zeroer_start;
+reg zeroer_awvalid;
+reg zeroer_wvalid;
 
 assign zeroer_req_val = init_calib_complete_in 
                       & (req_sent < REQUESTS_NEEDED) 
                       & (outstanding != MAX_OUTSTANDING-1) 
-                      & m_axi_awready
-                      & m_axi_wready
+                      // VPS_FIX
+                      //& m_axi_awready
+                      //& m_axi_wready
                       & rst_n;
 
 assign zeroer_resp_rdy = init_calib_complete_in 
                        & (resp_got < REQUESTS_NEEDED) 
                        & rst_n;
 
-assign req_go = zeroer_req_val;
+assign req_go = zeroer_req_val & m_axi_wready;
 assign resp_go = zeroer_resp_rdy & m_axi_bvalid;
 
 
@@ -170,14 +185,29 @@ always @(posedge clk) begin
         req_sent <= 0;
         resp_got <= 0;
         outstanding <= 0;
+        zeroer_start <= 1;
+        zeroer_awvalid <= 0;
+        zeroer_wvalid <= 0;
     end 
     else begin
+        zeroer_start <= 0;
         req_sent <= req_sent + req_go;
         resp_got <= resp_got + resp_go;
         outstanding <= req_go & resp_go ? outstanding 
                      : req_go           ? outstanding + 1 
                      : resp_go          ? outstanding - 1 
                      :                    outstanding;
+        // VPS_FIX
+        zeroer_awvalid <= !zeroer_req_val ? 0
+                        : zeroer_start    ? 1
+                        : m_axi_awready   ? 0
+                        : resp_go         ? 1
+                        : zeroer_awvalid;
+        zeroer_wvalid <= !zeroer_req_val ? 0
+                       : zeroer_start    ? 1
+                       : m_axi_wready    ? 0
+                       : resp_go         ? 1
+                       : zeroer_wvalid;
     end
 end
 
@@ -185,7 +215,9 @@ assign init_calib_complete_out = (req_sent == REQUESTS_NEEDED) &
                                  (resp_got == REQUESTS_NEEDED);
 
 assign zeroer_addr = req_sent * `AXI4_STRB_WIDTH;
-assign zeroer_wlast = zeroer_req_val;
+// VPS_FIX
+//assign zeroer_wlast = zeroer_req_val;
+assign zeroer_wlast = zeroer_wvalid;
 
 always @(*) begin
     if (~init_calib_complete_out) begin
@@ -200,14 +232,18 @@ always @(*) begin
         m_axi_awqos = `AXI4_QOS_WIDTH'b0;
         m_axi_awregion = `AXI4_REGION_WIDTH'b0;
         m_axi_awuser = `AXI4_USER_WIDTH'b0;
-        m_axi_awvalid = zeroer_req_val;
+        // VPS_FIX
+        //m_axi_awvalid = zeroer_req_val;
+        m_axi_awvalid = zeroer_awvalid;
 
         m_axi_wid = `AXI4_ID_WIDTH'b0;
         m_axi_wdata = {`AXI4_DATA_WIDTH{1'b0}};
         m_axi_wstrb = {`AXI4_STRB_WIDTH{1'b1}};
         m_axi_wlast = zeroer_wlast;
         m_axi_wuser = `AXI4_USER_WIDTH'b0;
-        m_axi_wvalid = zeroer_req_val;
+        // VPS_FIX
+        //m_axi_wvalid = zeroer_req_val;
+        m_axi_wvalid = zeroer_wvalid;
 
         m_axi_arid = `AXI4_ID_WIDTH'b0;
         m_axi_araddr = `AXI4_ADDR_WIDTH'b0;

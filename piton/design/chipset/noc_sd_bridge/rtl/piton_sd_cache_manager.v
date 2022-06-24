@@ -112,6 +112,30 @@ module piton_sd_cache_manager (
     reg                             cache_dirty_query;
     reg     [`PHY_BLOCK_BITS]       cache_addr_query_f;
     reg     [`CACHE_ENTRY_BITS]     cache_entry_query_f;
+    
+    // ------ Sub-module Instantiation ------ //
+
+    wire    [`CACHE_INDEX_BITS]             index_lkp   =   core_cache_addr_f[`CACHE_INDEX_BITS];
+    wire    [`CACHE_BLOCK_PLACEMENT_BITS]   tag_lkp     =   core_cache_addr_f[`CACHE_BLOCK_PLACEMENT_BITS];
+
+    wire    [`CACHE_INDEXES-1:0]            hit_lkp_indexed;
+    wire    [`CACHE_ENTRY_INDEXED_BITS]     entry_lkp_indexed   [`CACHE_INDEXES-1:0];
+    wire    [`CACHE_INDEXES-1:0]            dirty_lkp_indexed;
+    wire    [`CACHE_BLOCK_PLACEMENT_BITS]   addr_lkp_indexed    [`CACHE_INDEXES-1:0];
+
+    reg     [`CACHE_BLOCK_PLACEMENT_BITS]   addr_lkp_indexed_f  [`CACHE_INDEXES-1:0];
+    reg     [`CACHE_ENTRY_INDEXED_BITS]     entry_lkp_indexed_f [`CACHE_INDEXES-1:0];
+
+    wire    [`CACHE_INDEXES-1:0]            dirty_query_indexed;
+    wire    [`CACHE_BLOCK_PLACEMENT_BITS]   addr_query_indexed  [`CACHE_INDEXES-1:0];
+
+    wire    [`CACHE_ENTRY_BITS]     update_entry
+        =   cache_update_sel ?   cache_entry_query_f :   cache_entry_lkp_f;
+    wire    [`CACHE_BLOCK_PLACEMENT_BITS]   update_addr
+        =   cache_update_sel ?   cache_addr_query_f[`CACHE_BLOCK_PLACEMENT_BITS]  :   tag_lkp;
+    wire    update_dirty
+        =   cache_update_sel ?   1'b0    :   core_cache_we_f;
+
 
     // ------ Static Logic ------ //
     wire    lock    =   lock_acquire    &   ~lock_status;
@@ -360,30 +384,7 @@ module piton_sd_cache_manager (
         endcase
     end
 
-    // ------ Sub-module Instantiation ------ //
-
-    wire    [`CACHE_INDEX_BITS]             index_lkp   =   core_cache_addr_f[`CACHE_INDEX_BITS];
-    wire    [`CACHE_BLOCK_PLACEMENT_BITS]   tag_lkp     =   core_cache_addr_f[`CACHE_BLOCK_PLACEMENT_BITS];
-
-    wire    [`CACHE_INDEXES-1:0]            hit_lkp_indexed;
-    wire    [`CACHE_ENTRY_INDEXED_BITS]     entry_lkp_indexed   [`CACHE_INDEXES-1:0];
-    wire    [`CACHE_INDEXES-1:0]            dirty_lkp_indexed;
-    wire    [`CACHE_BLOCK_PLACEMENT_BITS]   addr_lkp_indexed    [`CACHE_INDEXES-1:0];
-
-    reg     [`CACHE_BLOCK_PLACEMENT_BITS]   addr_lkp_indexed_f  [`CACHE_INDEXES-1:0];
-    reg     [`CACHE_ENTRY_INDEXED_BITS]     entry_lkp_indexed_f [`CACHE_INDEXES-1:0];
-
-    wire    [`CACHE_INDEXES-1:0]            dirty_query_indexed;
-    wire    [`CACHE_BLOCK_PLACEMENT_BITS]   addr_query_indexed  [`CACHE_INDEXES-1:0];
-
-    wire    [`CACHE_ENTRY_BITS]     update_entry
-        =   cache_update_sel ?   cache_entry_query_f :   cache_entry_lkp_f;
-    wire    [`CACHE_BLOCK_PLACEMENT_BITS]   update_addr
-        =   cache_update_sel ?   cache_addr_query_f[`CACHE_BLOCK_PLACEMENT_BITS]  :   tag_lkp;
-    wire    update_dirty
-        =   cache_update_sel ?   1'b0    :   core_cache_we_f;
-
-    genvar i;
+        genvar i;
     generate for (i = 0; i < `CACHE_INDEXES; i = i + 1) begin : index_block
         piton_sd_cache_tag index(
             .clk                    (clk),

@@ -206,7 +206,9 @@ always @(posedge clk) begin
     //initialize buffer pointers
     buf_current_in <= 0;
     remaining_flits <= 0;
-    acc_state = `ACCEPT_W1;
+    //VPS_FIX
+    //acc_state = `ACCEPT_W1;
+    acc_state <= `ACCEPT_W1;
     //initialize all buffers to zero
     for(i=0; i < IN_FLIGHT_LIMIT; i=i+1) begin
       pkt_w1        [i] <= 0;
