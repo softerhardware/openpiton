@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--- ================================================================= -->
+<!--- Unpublished work. Copyright 2021 Siemens                          -->
+<!--- This material contains trade secrets or otherwise                 -->
+<!--- confidential information owned by Siemens Industry Software Inc.  -->
+<!--- or its affiliates (collectively, "SISW"), or its licensors.       -->
+<!--- Access to and use of this information is strictly limited as      -->
+<!--- set forth in the Customer's applicable agreements with SISW.      -->
+<!---                                                                   -->
+<!--- ================================================================= -->
+
+
+<protocol>
+  <protocolId name="HPFE" vendor="B10"/>
+  <parameters>
+    <parameter name="nb_lane_msb" value="1"/>
+  </parameters>
+  <ports>
+    <port name="gtx_rx_p" direction="input" msb="nb_lane_msb" lsb="0"/>
+    <port name="gtx_rx_n" direction="input" msb="nb_lane_msb" lsb="0"/>
+    <port name="gtx_tx_p" direction="output" msb="nb_lane_msb" lsb="0"/>
+    <port name="gtx_tx_n" direction="output" msb="nb_lane_msb" lsb="0"/>
+  </ports>
+</protocol>

@@ -1,0 +1,226 @@
+<?xml version="1.0"?>
+<!--- ================================================================= -->
+<!--- Unpublished work. Copyright 2021 Siemens                          -->
+<!--- This material contains trade secrets or otherwise                 -->
+<!--- confidential information owned by Siemens Industry Software Inc.  -->
+<!--- or its affiliates (collectively, "SISW"), or its licensors.       -->
+<!--- Access to and use of this information is strictly limited as      -->
+<!--- set forth in the Customer's applicable agreements with SISW.      -->
+<!---                                                                   -->
+<!--- ================================================================= -->
+
+
+<connectionModel name="CONN_MTP24_BREAKOUT" type="cable">
+  <connectionConnectors>
+    <connectionConnector name="MTP24" size="48" logicalType="MGT" physicalType="MTP24"/>
+    <connectionConnector name="OLINK_1" size="4" logicalType="MGT" physicalType="LC"/>
+    <connectionConnector name="OLINK_2" size="4" logicalType="MGT" physicalType="LC"/>
+    <connectionConnector name="OLINK_3" size="4" logicalType="MGT" physicalType="LC"/>
+    <connectionConnector name="OLINK_4" size="4" logicalType="MGT" physicalType="LC"/>
+    <connectionConnector name="OLINK_5" size="4" logicalType="MGT" physicalType="LC"/>
+    <connectionConnector name="OLINK_6" size="4" logicalType="MGT" physicalType="LC"/>
+    <connectionConnector name="OLINK_7" size="4" logicalType="MGT" physicalType="LC"/>
+    <connectionConnector name="OLINK_8" size="4" logicalType="MGT" physicalType="LC"/>
+    <connectionConnector name="OLINK_9" size="4" logicalType="MGT" physicalType="LC"/>
+    <connectionConnector name="OLINK_10" size="4" logicalType="MGT" physicalType="LC"/>
+    <connectionConnector name="OLINK_11" size="4" logicalType="MGT" physicalType="LC"/>
+    <connectionConnector name="OLINK_12" size="4" logicalType="MGT" physicalType="LC"/>
+  </connectionConnectors>
+  <connectionWires>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="0"/>
+      <connectionConnectorRef name="OLINK_1" index="2"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="1"/>
+      <connectionConnectorRef name="OLINK_1" index="3"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="2"/>
+      <connectionConnectorRef name="OLINK_1" index="0"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="3"/>
+      <connectionConnectorRef name="OLINK_1" index="1"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="4"/>
+      <connectionConnectorRef name="OLINK_2" index="2"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="5"/>
+      <connectionConnectorRef name="OLINK_2" index="3"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="6"/>
+      <connectionConnectorRef name="OLINK_2" index="0"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="7"/>
+      <connectionConnectorRef name="OLINK_2" index="1"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="8"/>
+      <connectionConnectorRef name="OLINK_3" index="2"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="9"/>
+      <connectionConnectorRef name="OLINK_3" index="3"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="10"/>
+      <connectionConnectorRef name="OLINK_3" index="0"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="11"/>
+      <connectionConnectorRef name="OLINK_3" index="1"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="12"/>
+      <connectionConnectorRef name="OLINK_4" index="2"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="13"/>
+      <connectionConnectorRef name="OLINK_4" index="3"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="14"/>
+      <connectionConnectorRef name="OLINK_4" index="0"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="15"/>
+      <connectionConnectorRef name="OLINK_4" index="1"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="16"/>
+      <connectionConnectorRef name="OLINK_5" index="2"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="17"/>
+      <connectionConnectorRef name="OLINK_5" index="3"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="18"/>
+      <connectionConnectorRef name="OLINK_5" index="0"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="19"/>
+      <connectionConnectorRef name="OLINK_5" index="1"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="20"/>
+      <connectionConnectorRef name="OLINK_6" index="2"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="21"/>
+      <connectionConnectorRef name="OLINK_6" index="3"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="22"/>
+      <connectionConnectorRef name="OLINK_6" index="0"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="23"/>
+      <connectionConnectorRef name="OLINK_6" index="1"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="24"/>
+      <connectionConnectorRef name="OLINK_7" index="2"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="25"/>
+      <connectionConnectorRef name="OLINK_7" index="3"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="26"/>
+      <connectionConnectorRef name="OLINK_7" index="0"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="27"/>
+      <connectionConnectorRef name="OLINK_7" index="1"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="28"/>
+      <connectionConnectorRef name="OLINK_8" index="2"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="29"/>
+      <connectionConnectorRef name="OLINK_8" index="3"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="30"/>
+      <connectionConnectorRef name="OLINK_8" index="0"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="31"/>
+      <connectionConnectorRef name="OLINK_8" index="1"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="32"/>
+      <connectionConnectorRef name="OLINK_9" index="2"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="33"/>
+      <connectionConnectorRef name="OLINK_9" index="3"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="34"/>
+      <connectionConnectorRef name="OLINK_9" index="0"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="35"/>
+      <connectionConnectorRef name="OLINK_9" index="1"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="36"/>
+      <connectionConnectorRef name="OLINK_10" index="2"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="37"/>
+      <connectionConnectorRef name="OLINK_10" index="3"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="38"/>
+      <connectionConnectorRef name="OLINK_10" index="0"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="39"/>
+      <connectionConnectorRef name="OLINK_10" index="1"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="40"/>
+      <connectionConnectorRef name="OLINK_11" index="2"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="41"/>
+      <connectionConnectorRef name="OLINK_11" index="3"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="42"/>
+      <connectionConnectorRef name="OLINK_11" index="0"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="43"/>
+      <connectionConnectorRef name="OLINK_11" index="1"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="44"/>
+      <connectionConnectorRef name="OLINK_12" index="2"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="45"/>
+      <connectionConnectorRef name="OLINK_12" index="3"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="46"/>
+      <connectionConnectorRef name="OLINK_12" index="0"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24" index="47"/>
+      <connectionConnectorRef name="OLINK_12" index="1"/>
+    </connectionWire>
+  </connectionWires>
+    <vendorExtensions>
+      <vendorExtension name="mentor" value="Black10"/>
+    </vendorExtensions>²
+  </connectionModel>

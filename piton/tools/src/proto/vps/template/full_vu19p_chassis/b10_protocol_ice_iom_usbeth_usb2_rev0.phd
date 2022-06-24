@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--- ================================================================= -->
+<!--- Unpublished work. Copyright 2021 Siemens                          -->
+<!--- This material contains trade secrets or otherwise                 -->
+<!--- confidential information owned by Siemens Industry Software Inc.  -->
+<!--- or its affiliates (collectively, "SISW"), or its licensors.       -->
+<!--- Access to and use of this information is strictly limited as      -->
+<!--- set forth in the Customer's applicable agreements with SISW.      -->
+<!---                                                                   -->
+<!--- ================================================================= -->
+
+
+<protocol>
+  <protocolId name="ICE_IOM_USBETH_USB2_REV0" vendor="B10"/>
+  <ports>
+    <port name="usb_ulpi_data0" direction="inout"/>
+    <port name="usb_ulpi_data1" direction="inout"/>
+    <port name="usb_ulpi_data2" direction="inout"/>
+    <port name="usb_ulpi_data3" direction="inout"/>
+    <port name="usb_ulpi_data4" direction="inout"/>
+    <port name="usb_ulpi_data5" direction="inout"/>
+    <port name="usb_ulpi_data6" direction="inout"/>
+    <port name="usb_ulpi_data7" direction="inout"/>
+    <port name="usb_ulpi_stp" direction="input"/>
+    <port name="usb_ulpi_dir" direction="output"/>
+    <port name="usb_ulpi_nxt" direction="output"/>
+    <port name="usb_ulpi_clock" direction="output"/>
+    <port name="usb_ulpi_cs" direction="input"/>
+    <port name="usb_reset_n" direction="input"/>
+  </ports>
+</protocol>

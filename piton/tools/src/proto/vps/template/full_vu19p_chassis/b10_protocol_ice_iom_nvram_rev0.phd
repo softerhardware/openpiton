@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!--- ================================================================= -->
+<!--- Unpublished work. Copyright 2021 Siemens                          -->
+<!--- This material contains trade secrets or otherwise                 -->
+<!--- confidential information owned by Siemens Industry Software Inc.  -->
+<!--- or its affiliates (collectively, "SISW"), or its licensors.       -->
+<!--- Access to and use of this information is strictly limited as      -->
+<!--- set forth in the Customer's applicable agreements with SISW.      -->
+<!---                                                                   -->
+<!--- ================================================================= -->
+
+
+<protocol>
+  <protocolId name="ICE_IOM_NVRAM_REV0" vendor="B10"/>
+  <ports>
+    <port name="qspi_c" direction="input"/>
+    <port name="qspi_s_n" direction="input"/>
+    <port name="qspi_d3" direction="inout"/>
+    <port name="qspi_d2" direction="inout"/>
+    <port name="qspi_d1" direction="inout"/>
+    <port name="qspi_d0" direction="inout"/>
+    <port name="i2c_wp" direction="input"/>
+    <port name="i2c_sda" direction="inout"/>
+    <port name="i2c_scl" direction="input"/>
+    <port name="spi_ee_cs1_n" direction="input"/>
+    <port name="spi_ee_cs0_n" direction="input"/>
+    <port name="spi_ee_wp_n" direction="input"/>
+    <port name="spi_ee_hold_n" direction="input"/>
+    <port name="uart_rxd" direction="output"/>
+    <port name="uart_txd" direction="input"/>
+    <port name="spi_ee_so" direction="output"/>
+    <port name="spi_ee_sck" direction="input"/>
+    <port name="spi_ee_si" direction="input"/>
+    <port name="iom_error_n_2" direction="output"/>
+    <port name="iom_go_2" direction="input"/>
+    <port name="sdc_dat123_dir" direction="input"/>
+    <port name="sdc_cmd" direction="inout"/>
+    <port name="sdc_clk_f" direction="output"/>
+    <port name="sdc_wp" direction="input"/>
+    <port name="sdc_dat0" direction="inout"/>
+    <port name="sdc_cd_n" direction="output"/>
+    <port name="sdc_dat1" direction="inout"/>
+    <port name="sdc_uhs_en_n" direction="input"/>
+    <port name="sdc_dat3_cd" direction="inout"/>
+    <port name="sdc_dat2" direction="inout"/>
+    <port name="sdc_dat0_dir" direction="input"/>
+    <port name="sdc_cmd_dir" direction="input"/>
+    <port name="sdc_clk" direction="input"/>
+    <port name="iom_error_n" direction="output"/>
+    <port name="iom_go" direction="input"/>
+    <port name="fram_sclk_f" direction="output"/>
+    <port name="fram_wp_n" direction="input"/>
+    <port name="fram_si" direction="input"/>
+    <port name="fram_so" direction="output"/>
+    <port name="fram_cs_n" direction="input"/>
+    <port name="fram_sck" direction="input"/>
+    <port name="emmc_ds" direction="output"/>
+    <port name="emmc_dat2" direction="inout"/>
+    <port name="emmc_dat7" direction="inout"/>
+    <port name="emmc_dat6" direction="inout"/>
+    <port name="emmc_dat5" direction="inout"/>
+    <port name="emmc_dat1" direction="inout"/>
+    <port name="emmc_dat4" direction="inout"/>
+    <port name="emmc_dat3" direction="inout"/>
+    <port name="emmc_dat0" direction="inout"/>
+    <port name="emmc_cmd" direction="inout"/>
+    <port name="emmc_clk" direction="input"/>
+  </ports>
+</protocol>

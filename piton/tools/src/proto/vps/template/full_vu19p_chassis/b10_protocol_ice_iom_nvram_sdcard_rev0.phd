@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--- ================================================================= -->
+<!--- Unpublished work. Copyright 2021 Siemens                          -->
+<!--- This material contains trade secrets or otherwise                 -->
+<!--- confidential information owned by Siemens Industry Software Inc.  -->
+<!--- or its affiliates (collectively, "SISW"), or its licensors.       -->
+<!--- Access to and use of this information is strictly limited as      -->
+<!--- set forth in the Customer's applicable agreements with SISW.      -->
+<!---                                                                   -->
+<!--- ================================================================= -->
+
+
+<protocol>
+  <protocolId name="ICE_IOM_NVRAM_SDCARD_REV0" vendor="B10"/>
+  <ports>
+    <port name="sdc_dat123_dir" direction="input"/>
+    <port name="sdc_cmd" direction="inout"/>
+    <port name="sdc_clk_f" direction="output"/>
+    <port name="sdc_wp" direction="output"/>
+    <port name="sdc_dat0" direction="inout"/>
+    <port name="sdc_cd_n" direction="output"/>
+    <port name="sdc_dat1" direction="inout"/>
+    <port name="sdc_uhs_en_n" direction="input"/>
+    <port name="sdc_dat3_cd" direction="inout"/>
+    <port name="sdc_dat2" direction="inout"/>
+    <port name="sdc_dat0_dir" direction="input"/>
+    <port name="sdc_cmd_dir" direction="input"/>
+    <port name="sdc_clk" direction="input"/>
+  </ports>
+</protocol>

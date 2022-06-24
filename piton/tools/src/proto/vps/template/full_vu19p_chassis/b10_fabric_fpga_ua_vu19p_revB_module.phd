@@ -1,0 +1,3548 @@
+<?xml version="1.0"?>
+<!--- ================================================================= -->
+<!--- Unpublished work. Copyright 2021 Siemens                          -->
+<!--- This material contains trade secrets or otherwise                 -->
+<!--- confidential information owned by Siemens Industry Software Inc.  -->
+<!--- or its affiliates (collectively, "SISW"), or its licensors.       -->
+<!--- Access to and use of this information is strictly limited as      -->
+<!--- set forth in the Customer's applicable agreements with SISW.      -->
+<!---                                                                   -->
+<!--- ================================================================= -->
+
+
+<module name="fabric_fpga_ua_revB">
+  <instances>
+    <instance name="FPGA">
+      <fpgaRef name="XCVU19PFSVA3824"/>
+      <protocolInstances>
+        <protocolInstance name="ICE_FP_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_NOSB_DUT_AS_EP" model = "ICE_FP_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_NOSB_DUT_AS_EP_REV1" vendor="B10">
+          <protocolInstanceMappings>
+            <protocolInstanceMapping protocolPort="refclk_enable">
+              <connectorMappings>
+                <connectorMapping name="W23"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVCMOS18"/>
+                <ioStandard type="HR" value="LVCMOS18"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="mgt_refclk_n">
+              <connectorMappings>
+                <connectorMapping name="W10"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="NONE"/>
+                <ioStandard type="HR" value="NONE"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="mgt_refclk_p">
+              <connectorMappings>
+                <connectorMapping name="W11"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="NONE"/>
+                <ioStandard type="HR" value="NONE"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="pcie_rxn">
+              <connectorMappings>
+                <connectorMapping name="N1" protocolPortIndex = "0"/>
+                <connectorMapping name="P3" protocolPortIndex = "1"/>
+                <connectorMapping name="R1" protocolPortIndex = "2"/>
+                <connectorMapping name="T3" protocolPortIndex = "3"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="NONE"/>
+                <ioStandard type="HR" value="NONE"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="pcie_rxp">
+              <connectorMappings>
+                <connectorMapping name="N2" protocolPortIndex = "0"/>
+                <connectorMapping name="P4" protocolPortIndex = "1"/>
+                <connectorMapping name="R2" protocolPortIndex = "2"/>
+                <connectorMapping name="T4" protocolPortIndex = "3"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="NONE"/>
+                <ioStandard type="HR" value="NONE"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="pcie_txn">
+              <connectorMappings>
+                <connectorMapping name="R6" protocolPortIndex = "0"/>
+                <connectorMapping name="T8" protocolPortIndex = "1"/>
+                <connectorMapping name="U6" protocolPortIndex = "2"/>
+                <connectorMapping name="V8" protocolPortIndex = "3"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="NONE"/>
+                <ioStandard type="HR" value="NONE"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="pcie_txp">
+              <connectorMappings>
+                <connectorMapping name="R7" protocolPortIndex = "0"/>
+                <connectorMapping name="T9" protocolPortIndex = "1"/>
+                <connectorMapping name="U7" protocolPortIndex = "2"/>
+                <connectorMapping name="V9" protocolPortIndex = "3"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="NONE"/>
+                <ioStandard type="HR" value="NONE"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+          </protocolInstanceMappings>
+        </protocolInstance>
+        <protocolInstance name="ICE_FP_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_NOSB_DUT_AS_RC" model = "ICE_FP_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_NOSB_DUT_AS_RC_REV1" vendor="B10">
+          <protocolInstanceMappings>
+            <protocolInstanceMapping protocolPort="refclk_enable">
+              <connectorMappings>
+                <connectorMapping name="W23"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVCMOS18"/>
+                <ioStandard type="HR" value="LVCMOS18"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="mgt_refclk_n">
+              <connectorMappings>
+                <connectorMapping name="W10"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="NONE"/>
+                <ioStandard type="HR" value="NONE"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="mgt_refclk_p">
+              <connectorMappings>
+                <connectorMapping name="W11"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="NONE"/>
+                <ioStandard type="HR" value="NONE"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="pcie_rxn">
+              <connectorMappings>
+                <connectorMapping name="N1" protocolPortIndex = "0"/>
+                <connectorMapping name="P3" protocolPortIndex = "1"/>
+                <connectorMapping name="R1" protocolPortIndex = "2"/>
+                <connectorMapping name="T3" protocolPortIndex = "3"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="NONE"/>
+                <ioStandard type="HR" value="NONE"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="pcie_rxp">
+              <connectorMappings>
+                <connectorMapping name="N2" protocolPortIndex = "0"/>
+                <connectorMapping name="P4" protocolPortIndex = "1"/>
+                <connectorMapping name="R2" protocolPortIndex = "2"/>
+                <connectorMapping name="T4" protocolPortIndex = "3"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="NONE"/>
+                <ioStandard type="HR" value="NONE"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="pcie_txn">
+              <connectorMappings>
+                <connectorMapping name="R6" protocolPortIndex = "0"/>
+                <connectorMapping name="T8" protocolPortIndex = "1"/>
+                <connectorMapping name="U6" protocolPortIndex = "2"/>
+                <connectorMapping name="V8" protocolPortIndex = "3"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="NONE"/>
+                <ioStandard type="HR" value="NONE"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="pcie_txp">
+              <connectorMappings>
+                <connectorMapping name="R7" protocolPortIndex = "0"/>
+                <connectorMapping name="T9" protocolPortIndex = "1"/>
+                <connectorMapping name="U7" protocolPortIndex = "2"/>
+                <connectorMapping name="V9" protocolPortIndex = "3"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="NONE"/>
+                <ioStandard type="HR" value="NONE"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+          </protocolInstanceMappings>
+        </protocolInstance>
+        <protocolInstance name="ICE_FP_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_SB_CMI_I2C_DUT_AS_EP" model = "ICE_FP_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_SB_CMI_I2C_DUT_AS_EP_REV1" vendor="B10">
+          <protocolInstanceMappings>
+            <protocolInstanceMapping protocolPort="refclk_enable">
+              <connectorMappings>
+                <connectorMapping name="W23"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVCMOS18"/>
+                <ioStandard type="HR" value="LVCMOS18"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="mgt_refclk_n">
+              <connectorMappings>
+                <connectorMapping name="W10"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="NONE"/>
+                <ioStandard type="HR" value="NONE"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="mgt_refclk_p">
+              <connectorMappings>
+                <connectorMapping name="W11"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="NONE"/>
+                <ioStandard type="HR" value="NONE"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="pcie_rxn">
+              <connectorMappings>
+                <connectorMapping name="N1" protocolPortIndex = "0"/>
+                <connectorMapping name="P3" protocolPortIndex = "1"/>
+                <connectorMapping name="R1" protocolPortIndex = "2"/>
+                <connectorMapping name="T3" protocolPortIndex = "3"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="NONE"/>
+                <ioStandard type="HR" value="NONE"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="pcie_rxp">
+              <connectorMappings>
+                <connectorMapping name="N2" protocolPortIndex = "0"/>
+                <connectorMapping name="P4" protocolPortIndex = "1"/>
+                <connectorMapping name="R2" protocolPortIndex = "2"/>
+                <connectorMapping name="T4" protocolPortIndex = "3"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="NONE"/>
+                <ioStandard type="HR" value="NONE"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="pcie_txn">
+              <connectorMappings>
+                <connectorMapping name="R6" protocolPortIndex = "0"/>
+                <connectorMapping name="T8" protocolPortIndex = "1"/>
+                <connectorMapping name="U6" protocolPortIndex = "2"/>
+                <connectorMapping name="V8" protocolPortIndex = "3"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="NONE"/>
+                <ioStandard type="HR" value="NONE"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="pcie_txp">
+              <connectorMappings>
+                <connectorMapping name="R7" protocolPortIndex = "0"/>
+                <connectorMapping name="T9" protocolPortIndex = "1"/>
+                <connectorMapping name="U7" protocolPortIndex = "2"/>
+                <connectorMapping name="V9" protocolPortIndex = "3"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="NONE"/>
+                <ioStandard type="HR" value="NONE"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="cmi_i2c_sda">
+              <connectorMappings>
+                <connectorMapping name="Y14"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HD" value="LVCMOS33"/>
+                <ioStandard type="HP" value="LVCMOS33"/>
+                <ioStandard type="HR" value="LVCMOS33"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="cmi_i2c_scl">
+              <connectorMappings>
+                <connectorMapping name="Y15"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HD" value="LVCMOS33"/>
+                <ioStandard type="HP" value="LVCMOS33"/>
+                <ioStandard type="HR" value="LVCMOS33"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="cmi_caddr">
+              <connectorMappings>
+                <connectorMapping name="AA17"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HD" value="LVCMOS33"/>
+                <ioStandard type="HP" value="LVCMOS33"/>
+                <ioStandard type="HR" value="LVCMOS33"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="cmi_cint_n">
+              <connectorMappings>
+                <connectorMapping name="AA14"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HD" value="LVCMOS33"/>
+                <ioStandard type="HP" value="LVCMOS33"/>
+                <ioStandard type="HR" value="LVCMOS33"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="cmi_cblprsnt_n">
+              <connectorMappings>
+                <connectorMapping name="AA16"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HD" value="LVCMOS33"/>
+                <ioStandard type="HP" value="LVCMOS33"/>
+                <ioStandard type="HR" value="LVCMOS33"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+          </protocolInstanceMappings>
+        </protocolInstance>
+        <protocolInstance name="B10_QSTRIP" model = "QSTRIP" vendor="B10">
+          <protocolInstanceMappings>
+            <protocolInstanceMapping protocolPort="qstrip_hi_clk_m">
+              <connectorMappings>
+                <connectorMapping name="BJ21"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_hi_clk_p">
+              <connectorMappings>
+                <connectorMapping name="BH21"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_lo_clk_m">
+              <connectorMappings>
+                <connectorMapping name="BP21"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_lo_clk_p">
+              <connectorMappings>
+                <connectorMapping name="BP22"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_hi_data0_m">
+              <connectorMappings>
+                <connectorMapping name="BK22"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_hi_data0_p">
+              <connectorMappings>
+                <connectorMapping name="BJ22"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_hi_data1_m">
+              <connectorMappings>
+                <connectorMapping name="BJ23"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_hi_data1_p">
+              <connectorMappings>
+                <connectorMapping name="BH23"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_hi_data2_m">
+              <connectorMappings>
+                <connectorMapping name="BK23"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_hi_data2_p">
+              <connectorMappings>
+                <connectorMapping name="BK24"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_hi_data3_m">
+              <connectorMappings>
+                <connectorMapping name="BH19"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_hi_data3_p">
+              <connectorMappings>
+                <connectorMapping name="BH20"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_hi_data4_m">
+              <connectorMappings>
+                <connectorMapping name="BK19"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_hi_data4_p">
+              <connectorMappings>
+                <connectorMapping name="BK20"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_hi_data5_m">
+              <connectorMappings>
+                <connectorMapping name="BE22"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_hi_data5_p">
+              <connectorMappings>
+                <connectorMapping name="BE23"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_hi_data6_m">
+              <connectorMappings>
+                <connectorMapping name="BG21"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_hi_data6_p">
+              <connectorMappings>
+                <connectorMapping name="BG22"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_lo_data0_m">
+              <connectorMappings>
+                <connectorMapping name="BU21"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_lo_data0_p">
+              <connectorMappings>
+                <connectorMapping name="BT22"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_lo_data1_m">
+              <connectorMappings>
+                <connectorMapping name="BT20"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_lo_data1_p">
+              <connectorMappings>
+                <connectorMapping name="BT21"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_lo_data2_m">
+              <connectorMappings>
+                <connectorMapping name="BU22"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_lo_data2_p">
+              <connectorMappings>
+                <connectorMapping name="BU23"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_lo_data3_m">
+              <connectorMappings>
+                <connectorMapping name="BR19"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_lo_data3_p">
+              <connectorMappings>
+                <connectorMapping name="BR20"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_lo_data4_m">
+              <connectorMappings>
+                <connectorMapping name="BR22"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_lo_data4_p">
+              <connectorMappings>
+                <connectorMapping name="BR23"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_lo_data5_m">
+              <connectorMappings>
+                <connectorMapping name="BN19"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_lo_data5_p">
+              <connectorMappings>
+                <connectorMapping name="BM19"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_lo_data6_m">
+              <connectorMappings>
+                <connectorMapping name="BP23"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_lo_data6_p">
+              <connectorMappings>
+                <connectorMapping name="BN23"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+          </protocolInstanceMappings>
+        </protocolInstance>
+        <protocolInstance name="ICE_FP_QSTRIP" model = "QSTRIP" vendor="B10">
+          <protocolInstanceMappings>
+            <protocolInstanceMapping protocolPort="qstrip_hi_clk_m">
+              <connectorMappings>
+                <connectorMapping name="BJ21"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_hi_clk_p">
+              <connectorMappings>
+                <connectorMapping name="BH21"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_lo_clk_m">
+              <connectorMappings>
+                <connectorMapping name="BP21"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_lo_clk_p">
+              <connectorMappings>
+                <connectorMapping name="BP22"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_hi_data0_m">
+              <connectorMappings>
+                <connectorMapping name="BK22"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_hi_data0_p">
+              <connectorMappings>
+                <connectorMapping name="BJ22"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_hi_data1_m">
+              <connectorMappings>
+                <connectorMapping name="BJ23"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_hi_data1_p">
+              <connectorMappings>
+                <connectorMapping name="BH23"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_hi_data2_m">
+              <connectorMappings>
+                <connectorMapping name="BK23"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_hi_data2_p">
+              <connectorMappings>
+                <connectorMapping name="BK24"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_hi_data3_m">
+              <connectorMappings>
+                <connectorMapping name="BH19"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_hi_data3_p">
+              <connectorMappings>
+                <connectorMapping name="BH20"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_hi_data4_m">
+              <connectorMappings>
+                <connectorMapping name="BK19"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_hi_data4_p">
+              <connectorMappings>
+                <connectorMapping name="BK20"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_hi_data5_m">
+              <connectorMappings>
+                <connectorMapping name="BE22"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_hi_data5_p">
+              <connectorMappings>
+                <connectorMapping name="BE23"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_hi_data6_m">
+              <connectorMappings>
+                <connectorMapping name="BG21"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_hi_data6_p">
+              <connectorMappings>
+                <connectorMapping name="BG22"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_lo_data0_m">
+              <connectorMappings>
+                <connectorMapping name="BU21"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_lo_data0_p">
+              <connectorMappings>
+                <connectorMapping name="BT22"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_lo_data1_m">
+              <connectorMappings>
+                <connectorMapping name="BT20"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_lo_data1_p">
+              <connectorMappings>
+                <connectorMapping name="BT21"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_lo_data2_m">
+              <connectorMappings>
+                <connectorMapping name="BU22"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_lo_data2_p">
+              <connectorMappings>
+                <connectorMapping name="BU23"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_lo_data3_m">
+              <connectorMappings>
+                <connectorMapping name="BR19"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_lo_data3_p">
+              <connectorMappings>
+                <connectorMapping name="BR20"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_lo_data4_m">
+              <connectorMappings>
+                <connectorMapping name="BR22"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_lo_data4_p">
+              <connectorMappings>
+                <connectorMapping name="BR23"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_lo_data5_m">
+              <connectorMappings>
+                <connectorMapping name="BN19"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_lo_data5_p">
+              <connectorMappings>
+                <connectorMapping name="BM19"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_lo_data6_m">
+              <connectorMappings>
+                <connectorMapping name="BP23"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="qstrip_lo_data6_p">
+              <connectorMappings>
+                <connectorMapping name="BN23"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVDS"/>
+                <ioStandard type="HR" value="LVDS"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+          </protocolInstanceMappings>
+        </protocolInstance>
+        <protocolInstance name="B10_JTAG" model = "JTAG" vendor="B10">
+          <protocolInstanceMappings>
+            <protocolInstanceMapping protocolPort="jtag_tms">
+              <connectorMappings>
+                <connectorMapping name="BM22"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVCMOS18"/>
+                <ioStandard type="HR" value="LVCMOS18"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="jtag_tck">
+              <connectorMappings>
+                <connectorMapping name="BL22"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVCMOS18"/>
+                <ioStandard type="HR" value="LVCMOS18"/>
+              </ioStandards>
+          </protocolInstanceMapping>
+          <protocolInstanceMapping protocolPort="jtag_tdi">
+              <connectorMappings>
+                <connectorMapping name="BL19"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVCMOS18"/>
+                <ioStandard type="HR" value="LVCMOS18"/>
+              </ioStandards>
+          </protocolInstanceMapping>
+          <protocolInstanceMapping protocolPort="jtag_tdo">
+              <connectorMappings>
+                <connectorMapping name="BL20"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVCMOS18"/>
+                <ioStandard type="HR" value="LVCMOS18"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+          </protocolInstanceMappings>
+        </protocolInstance>
+        <protocolInstance name="B10_UART" model = "UART" vendor="B10">
+          <protocolInstanceMappings>
+            <protocolInstanceMapping protocolPort="txd">
+              <connectorMappings>
+                <connectorMapping name="M21"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVCMOS18"/>
+                <ioStandard type="HR" value="LVCMOS18"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="rxd">
+              <connectorMappings>
+                <connectorMapping name="L24"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVCMOS18"/>
+                <ioStandard type="HR" value="LVCMOS18"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+          </protocolInstanceMappings>
+        </protocolInstance>
+        <protocolInstance name="ICE_FP_JTAG" model = "JTAG" vendor="B10">
+          <protocolInstanceMappings>
+            <protocolInstanceMapping protocolPort="jtag_tms">
+              <connectorMappings>
+                <connectorMapping name="BM22"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVCMOS18"/>
+                <ioStandard type="HR" value="LVCMOS18"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="jtag_tck">
+              <connectorMappings>
+                <connectorMapping name="BL22"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVCMOS18"/>
+                <ioStandard type="HR" value="LVCMOS18"/>
+              </ioStandards>
+          </protocolInstanceMapping>
+          <protocolInstanceMapping protocolPort="jtag_tdi">
+              <connectorMappings>
+                <connectorMapping name="BL19"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVCMOS18"/>
+                <ioStandard type="HR" value="LVCMOS18"/>
+              </ioStandards>
+          </protocolInstanceMapping>
+          <protocolInstanceMapping protocolPort="jtag_tdo">
+              <connectorMappings>
+                <connectorMapping name="BL20"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVCMOS18"/>
+                <ioStandard type="HR" value="LVCMOS18"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+          </protocolInstanceMappings>
+        </protocolInstance>
+        <protocolInstance name="ICE_FP_UART" model = "UART" vendor="B10">
+          <protocolInstanceMappings>
+            <protocolInstanceMapping protocolPort="txd">
+              <connectorMappings>
+                <connectorMapping name="M21"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVCMOS18"/>
+                <ioStandard type="HR" value="LVCMOS18"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="rxd">
+              <connectorMappings>
+                <connectorMapping name="L24"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVCMOS18"/>
+                <ioStandard type="HR" value="LVCMOS18"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+          </protocolInstanceMappings>
+        </protocolInstance>
+        <protocolInstance name="DDR4_CHIP_CH1" model = "DDR4" vendor="B10">
+          <protocolInstanceDefParam>
+             <parameter name="ddr4_dq_msb" value="31"/>
+             <parameter name="ddr4_dm_dbi_n_msb" value="3"/>
+             <parameter name="ddr4_adr_msb" value="16"/>
+             <parameter name="ddr4_ba_msb" value="1"/>
+             <parameter name="ddr4_cke_msb" value="0"/>
+             <parameter name="ddr4_odt_msb" value="0"/>
+             <parameter name="ddr4_cs_n_msb" value="0"/>
+             <parameter name="ddr4_bg_msb" value="1"/>
+             <parameter name="ddr4_dqs_c_msb" value="3"/>
+             <parameter name="ddr4_dqs_t_msb" value="3"/>
+             <parameter name="ddr4_ck_c_msb" value="0"/>
+             <parameter name="ddr4_ck_t_msb" value="0"/>
+          </protocolInstanceDefParam>
+          <protocolInstanceMappings>
+            <protocolInstanceMapping protocolPort="ddr4_dq">
+              <connectorMappings>
+                <connectorMapping name="D62" protocolPortIndex="0"/>
+                <connectorMapping name="F62" protocolPortIndex="1"/>
+                <connectorMapping name="E62" protocolPortIndex="2"/>
+                <connectorMapping name="E60" protocolPortIndex="3"/>
+                <connectorMapping name="C61" protocolPortIndex="4"/>
+                <connectorMapping name="F60" protocolPortIndex="5"/>
+                <connectorMapping name="C60" protocolPortIndex="6"/>
+                <connectorMapping name="F61" protocolPortIndex="7"/>
+                <connectorMapping name="H61" protocolPortIndex="8"/>
+                <connectorMapping name="K63" protocolPortIndex="9"/>
+                <connectorMapping name="G61" protocolPortIndex="10"/>
+                <connectorMapping name="J63" protocolPortIndex="11"/>
+                <connectorMapping name="H60" protocolPortIndex="12"/>
+                <connectorMapping name="K62" protocolPortIndex="13"/>
+                <connectorMapping name="G62" protocolPortIndex="14"/>
+                <connectorMapping name="J62" protocolPortIndex="15"/>
+                <connectorMapping name="M62" protocolPortIndex="16"/>
+                <connectorMapping name="K59" protocolPortIndex="17"/>
+                <connectorMapping name="L60" protocolPortIndex="18"/>
+                <connectorMapping name="N61" protocolPortIndex="19"/>
+                <connectorMapping name="K60" protocolPortIndex="20"/>
+                <connectorMapping name="N60" protocolPortIndex="21"/>
+                <connectorMapping name="M63" protocolPortIndex="22"/>
+                <connectorMapping name="L59" protocolPortIndex="23"/>
+                <connectorMapping name="R60" protocolPortIndex="24"/>
+                <connectorMapping name="T62" protocolPortIndex="25"/>
+                <connectorMapping name="P60" protocolPortIndex="26"/>
+                <connectorMapping name="P63" protocolPortIndex="27"/>
+                <connectorMapping name="T60" protocolPortIndex="28"/>
+                <connectorMapping name="T61" protocolPortIndex="29"/>
+                <connectorMapping name="N63" protocolPortIndex="30"/>
+                <connectorMapping name="P61" protocolPortIndex="31"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="POD12_DCI"/>
+                <ioStandard type="HR" value="POD12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_dm_dbi_n">
+              <connectorMappings>
+                <connectorMapping name="G59" protocolPortIndex="0"/>
+                <connectorMapping name="J60" protocolPortIndex="1"/>
+                <connectorMapping name="N59" protocolPortIndex="2"/>
+                <connectorMapping name="T59" protocolPortIndex="3"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="POD12_DCI"/>
+                <ioStandard type="HR" value="POD12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_adr">
+              <connectorMappings>
+                <connectorMapping name="A55" protocolPortIndex="0"/>
+                <connectorMapping name="F52" protocolPortIndex="1"/>
+                <connectorMapping name="E55" protocolPortIndex="2"/>
+                <connectorMapping name="J58" protocolPortIndex="3"/>
+                <connectorMapping name="B57" protocolPortIndex="4"/>
+                <connectorMapping name="F55" protocolPortIndex="5"/>
+                <connectorMapping name="A54" protocolPortIndex="6"/>
+                <connectorMapping name="D53" protocolPortIndex="7"/>
+                <connectorMapping name="C53" protocolPortIndex="8"/>
+                <connectorMapping name="D52" protocolPortIndex="9"/>
+                <connectorMapping name="C58" protocolPortIndex="10"/>
+                <connectorMapping name="A52" protocolPortIndex="11"/>
+                <connectorMapping name="G54" protocolPortIndex="12"/>
+                <connectorMapping name="B53" protocolPortIndex="13"/>
+                <connectorMapping name="H54" protocolPortIndex="14"/>
+                <connectorMapping name="J55" protocolPortIndex="15"/>
+                <connectorMapping name="C59" protocolPortIndex="16"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="SSTL12_DCI"/>
+                <ioStandard type="HR" value="SSTL12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_ba">
+              <connectorMappings>
+                <connectorMapping name="H55" protocolPortIndex="0"/>
+                <connectorMapping name="A56" protocolPortIndex="1"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="SSTL12_DCI"/>
+                <ioStandard type="HR" value="SSTL12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_cke">
+              <connectorMappings>
+                <connectorMapping name="D57" protocolPortIndex="0"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="SSTL12_DCI"/>
+                <ioStandard type="HR" value="SSTL12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_odt">
+              <connectorMappings>
+                <connectorMapping name="D55" protocolPortIndex="0"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="SSTL12_DCI"/>
+                <ioStandard type="HR" value="SSTL12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_cs_n">
+              <connectorMappings>
+                <connectorMapping name="G52" protocolPortIndex="0"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="SSTL12_DCI"/>
+                <ioStandard type="HR" value="SSTL12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_bg">
+              <connectorMappings>
+                <connectorMapping name="A59" protocolPortIndex="0"/>
+                <connectorMapping name="B59" protocolPortIndex="1"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="SSTL12_DCI"/>
+                <ioStandard type="HR" value="SSTL12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_dqs_c">
+              <connectorMappings>
+                <connectorMapping name="D61" protocolPortIndex="0"/>
+                <connectorMapping name="G63" protocolPortIndex="1"/>
+                <connectorMapping name="L62" protocolPortIndex="2"/>
+                <connectorMapping name="R63" protocolPortIndex="3"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="DIFF_POD12_DCI"/>
+                <ioStandard type="HR" value="DIFF_POD12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_dqs_t">
+              <connectorMappings>
+                <connectorMapping name="D60" protocolPortIndex="0"/>
+                <connectorMapping name="H63" protocolPortIndex="1"/>
+                <connectorMapping name="L61" protocolPortIndex="2"/>
+                <connectorMapping name="R62" protocolPortIndex="3"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="DIFF_POD12_DCI"/>
+                <ioStandard type="HR" value="DIFF_POD12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_ck_c">
+              <connectorMappings>
+                <connectorMapping name="G53" protocolPortIndex="0"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="DIFF_SSTL12_DCI"/>
+                <ioStandard type="HR" value="DIFF_SSTL12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_ck_t">
+              <connectorMappings>
+                <connectorMapping name="H53" protocolPortIndex="0"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="DIFF_SSTL12_DCI"/>
+                <ioStandard type="HR" value="DIFF_SSTL12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="sys_clk_n">
+              <connectorMappings>
+                <connectorMapping name="E54"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="DIFF_SSTL12"/>
+                <ioStandard type="HR" value="DIFF_SSTL12"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="sys_clk_p">
+              <connectorMappings>
+                <connectorMapping name="F54"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="DIFF_SSTL12"/>
+                <ioStandard type="HR" value="DIFF_SSTL12"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_reset_n">
+              <connectorMappings>
+                <connectorMapping name="B54"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVCMOS12"/>
+                <ioStandard type="HR" value="LVCMOS12"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_act_n">
+              <connectorMappings>
+                <connectorMapping name="D58"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="SSTL12_DCI"/>
+                <ioStandard type="HR" value="SSTL12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_par">
+              <connectorMappings>
+                <connectorMapping name="B52"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="SSTL12_DCI"/>
+                <ioStandard type="HR" value="SSTL12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_alert_n">
+              <connectorMappings>
+                <connectorMapping name="C54"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="POD12_DCI"/>
+                <ioStandard type="HR" value="POD12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+          </protocolInstanceMappings>
+          <vendorExtensions>
+            <vendorExtension name="location" value="1"/>
+            <vendorExtension name="real_location" value="1"/>
+            <vendorExtension name="board_type" value="R5"/>
+          </vendorExtensions>
+        </protocolInstance>
+        <protocolInstance name="DDR4_CHIP_CH2" model = "DDR4" vendor="B10">
+          <protocolInstanceDefParam>
+             <parameter name="ddr4_dq_msb" value="31"/>
+             <parameter name="ddr4_dm_dbi_n_msb" value="3"/>
+             <parameter name="ddr4_adr_msb" value="16"/>
+             <parameter name="ddr4_ba_msb" value="1"/>
+             <parameter name="ddr4_cke_msb" value="0"/>
+             <parameter name="ddr4_odt_msb" value="0"/>
+             <parameter name="ddr4_cs_n_msb" value="0"/>
+             <parameter name="ddr4_bg_msb" value="1"/>
+             <parameter name="ddr4_dqs_c_msb" value="3"/>
+             <parameter name="ddr4_dqs_t_msb" value="3"/>
+             <parameter name="ddr4_ck_c_msb" value="0"/>
+             <parameter name="ddr4_ck_t_msb" value="0"/>
+          </protocolInstanceDefParam>
+          <protocolInstanceMappings>
+            <protocolInstanceMapping protocolPort="ddr4_dq">
+              <connectorMappings>
+                <connectorMapping name="J48" protocolPortIndex="0"/>
+                <connectorMapping name="H49" protocolPortIndex="1"/>
+                <connectorMapping name="G46" protocolPortIndex="2"/>
+                <connectorMapping name="G49" protocolPortIndex="3"/>
+                <connectorMapping name="G47" protocolPortIndex="4"/>
+                <connectorMapping name="G51" protocolPortIndex="5"/>
+                <connectorMapping name="J47" protocolPortIndex="6"/>
+                <connectorMapping name="H51" protocolPortIndex="7"/>
+                <connectorMapping name="M47" protocolPortIndex="8"/>
+                <connectorMapping name="K50" protocolPortIndex="9"/>
+                <connectorMapping name="K47" protocolPortIndex="10"/>
+                <connectorMapping name="K49" protocolPortIndex="11"/>
+                <connectorMapping name="M46" protocolPortIndex="12"/>
+                <connectorMapping name="L50" protocolPortIndex="13"/>
+                <connectorMapping name="K48" protocolPortIndex="14"/>
+                <connectorMapping name="L49" protocolPortIndex="15"/>
+                <connectorMapping name="N48" protocolPortIndex="16"/>
+                <connectorMapping name="R50" protocolPortIndex="17"/>
+                <connectorMapping name="P46" protocolPortIndex="18"/>
+                <connectorMapping name="N49" protocolPortIndex="19"/>
+                <connectorMapping name="N46" protocolPortIndex="20"/>
+                <connectorMapping name="R49" protocolPortIndex="21"/>
+                <connectorMapping name="P47" protocolPortIndex="22"/>
+                <connectorMapping name="P48" protocolPortIndex="23"/>
+                <connectorMapping name="U48" protocolPortIndex="24"/>
+                <connectorMapping name="V50" protocolPortIndex="25"/>
+                <connectorMapping name="V46" protocolPortIndex="26"/>
+                <connectorMapping name="T47" protocolPortIndex="27"/>
+                <connectorMapping name="V48" protocolPortIndex="28"/>
+                <connectorMapping name="W50" protocolPortIndex="29"/>
+                <connectorMapping name="U47" protocolPortIndex="30"/>
+                <connectorMapping name="U46" protocolPortIndex="31"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="POD12_DCI"/>
+                <ioStandard type="HR" value="POD12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_dm_dbi_n">
+              <connectorMappings>
+                <connectorMapping name="J50" protocolPortIndex="0"/>
+                <connectorMapping name="M48" protocolPortIndex="1"/>
+                <connectorMapping name="R47" protocolPortIndex="2"/>
+                <connectorMapping name="V49" protocolPortIndex="3"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="POD12_DCI"/>
+                <ioStandard type="HR" value="POD12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_adr">
+              <connectorMappings>
+                <connectorMapping name="D43" protocolPortIndex="0"/>
+                <connectorMapping name="B46" protocolPortIndex="1"/>
+                <connectorMapping name="A45" protocolPortIndex="2"/>
+                <connectorMapping name="A49" protocolPortIndex="3"/>
+                <connectorMapping name="E43" protocolPortIndex="4"/>
+                <connectorMapping name="C45" protocolPortIndex="5"/>
+                <connectorMapping name="C46" protocolPortIndex="6"/>
+                <connectorMapping name="C43" protocolPortIndex="7"/>
+                <connectorMapping name="D50" protocolPortIndex="8"/>
+                <connectorMapping name="A44" protocolPortIndex="9"/>
+                <connectorMapping name="F41" protocolPortIndex="10"/>
+                <connectorMapping name="C51" protocolPortIndex="11"/>
+                <connectorMapping name="A50" protocolPortIndex="12"/>
+                <connectorMapping name="A42" protocolPortIndex="13"/>
+                <connectorMapping name="B51" protocolPortIndex="14"/>
+                <connectorMapping name="C50" protocolPortIndex="15"/>
+                <connectorMapping name="E42" protocolPortIndex="16"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="SSTL12_DCI"/>
+                <ioStandard type="HR" value="SSTL12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_ba">
+              <connectorMappings>
+                <connectorMapping name="A47" protocolPortIndex="0"/>
+                <connectorMapping name="E44" protocolPortIndex="1"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="SSTL12_DCI"/>
+                <ioStandard type="HR" value="SSTL12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_cke">
+              <connectorMappings>
+                <connectorMapping name="B41" protocolPortIndex="0"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="SSTL12_DCI"/>
+                <ioStandard type="HR" value="SSTL12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_odt">
+              <connectorMappings>
+                <connectorMapping name="A41" protocolPortIndex="0"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="SSTL12_DCI"/>
+                <ioStandard type="HR" value="SSTL12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_cs_n">
+              <connectorMappings>
+                <connectorMapping name="A51" protocolPortIndex="0"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="SSTL12_DCI"/>
+                <ioStandard type="HR" value="SSTL12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_bg">
+              <connectorMappings>
+                <connectorMapping name="B42" protocolPortIndex="0"/>
+                <connectorMapping name="F42" protocolPortIndex="1"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="SSTL12_DCI"/>
+                <ioStandard type="HR" value="SSTL12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_dqs_c">
+              <connectorMappings>
+                <connectorMapping name="G48" protocolPortIndex="0"/>
+                <connectorMapping name="L47" protocolPortIndex="1"/>
+                <connectorMapping name="N50" protocolPortIndex="2"/>
+                <connectorMapping name="W48" protocolPortIndex="3"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="DIFF_POD12_DCI"/>
+                <ioStandard type="HR" value="DIFF_POD12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_dqs_t">
+              <connectorMappings>
+                <connectorMapping name="H48" protocolPortIndex="0"/>
+                <connectorMapping name="L46" protocolPortIndex="1"/>
+                <connectorMapping name="P50" protocolPortIndex="2"/>
+                <connectorMapping name="W47" protocolPortIndex="3"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="DIFF_POD12_DCI"/>
+                <ioStandard type="HR" value="DIFF_POD12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_ck_c">
+              <connectorMappings>
+                <connectorMapping name="C41" protocolPortIndex="0"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="DIFF_SSTL12_DCI"/>
+                <ioStandard type="HR" value="DIFF_SSTL12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_ck_t">
+              <connectorMappings>
+                <connectorMapping name="D41" protocolPortIndex="0"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="DIFF_SSTL12_DCI"/>
+                <ioStandard type="HR" value="DIFF_SSTL12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="sys_clk_n">
+              <connectorMappings>
+                <connectorMapping name="D46"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="DIFF_SSTL12"/>
+                <ioStandard type="HR" value="DIFF_SSTL12"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="sys_clk_p">
+              <connectorMappings>
+                <connectorMapping name="D45"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="DIFF_SSTL12"/>
+                <ioStandard type="HR" value="DIFF_SSTL12"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_reset_n">
+              <connectorMappings>
+                <connectorMapping name="C49"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVCMOS12"/>
+                <ioStandard type="HR" value="LVCMOS12"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_act_n">
+              <connectorMappings>
+                <connectorMapping name="D42"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="SSTL12_DCI"/>
+                <ioStandard type="HR" value="SSTL12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_par">
+              <connectorMappings>
+                <connectorMapping name="B43"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="SSTL12_DCI"/>
+                <ioStandard type="HR" value="SSTL12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_alert_n">
+              <connectorMappings>
+                <connectorMapping name="C44"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="POD12_DCI"/>
+                <ioStandard type="HR" value="POD12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+          </protocolInstanceMappings>
+          <vendorExtensions>
+            <vendorExtension name="location" value="2"/>
+            <vendorExtension name="real_location" value="2"/>
+            <vendorExtension name="board_type" value="R5"/>
+          </vendorExtensions>
+        </protocolInstance>
+        <protocolInstance name="DDR4_DIMM_CH3" model = "DDR4" vendor="B10">
+          <protocolInstanceDefParam>
+             <parameter name="ddr4_dq_msb" value="71"/>
+             <parameter name="ddr4_dm_dbi_n_msb" value="8"/>
+             <parameter name="ddr4_adr_msb" value="16"/>
+             <parameter name="ddr4_ba_msb" value="1"/>
+             <parameter name="ddr4_cke_msb" value="3"/>
+             <parameter name="ddr4_odt_msb" value="3"/>
+             <parameter name="ddr4_cs_n_msb" value="3"/>
+             <parameter name="ddr4_bg_msb" value="1"/>
+             <parameter name="ddr4_dqs_c_msb" value="8"/>
+             <parameter name="ddr4_dqs_t_msb" value="8"/>
+             <parameter name="ddr4_ck_c_msb" value="3"/>
+             <parameter name="ddr4_ck_t_msb" value="3"/>
+          </protocolInstanceDefParam>
+          <protocolInstanceMappings>
+            <protocolInstanceMapping protocolPort="ddr4_dq">
+              <connectorMappings>
+                <connectorMapping name="CB49" protocolPortIndex="0"/>
+                <connectorMapping name="BY50" protocolPortIndex="1"/>
+                <connectorMapping name="CB52" protocolPortIndex="2"/>
+                <connectorMapping name="CC53" protocolPortIndex="3"/>
+                <connectorMapping name="CA49" protocolPortIndex="4"/>
+                <connectorMapping name="CA50" protocolPortIndex="5"/>
+                <connectorMapping name="CB51" protocolPortIndex="6"/>
+                <connectorMapping name="CA51" protocolPortIndex="7"/>
+                <connectorMapping name="CA54" protocolPortIndex="8"/>
+                <connectorMapping name="CA55" protocolPortIndex="9"/>
+                <connectorMapping name="CB53" protocolPortIndex="10"/>
+                <connectorMapping name="CB57" protocolPortIndex="11"/>
+                <connectorMapping name="BY54" protocolPortIndex="12"/>
+                <connectorMapping name="BY53" protocolPortIndex="13"/>
+                <connectorMapping name="CB56" protocolPortIndex="14"/>
+                <connectorMapping name="CB54" protocolPortIndex="15"/>
+                <connectorMapping name="BW52" protocolPortIndex="16"/>
+                <connectorMapping name="BW50" protocolPortIndex="17"/>
+                <connectorMapping name="BU54" protocolPortIndex="18"/>
+                <connectorMapping name="BT54" protocolPortIndex="19"/>
+                <connectorMapping name="BW53" protocolPortIndex="20"/>
+                <connectorMapping name="BV50" protocolPortIndex="21"/>
+                <connectorMapping name="BV54" protocolPortIndex="22"/>
+                <connectorMapping name="BV53" protocolPortIndex="23"/>
+                <connectorMapping name="BW55" protocolPortIndex="24"/>
+                <connectorMapping name="BU56" protocolPortIndex="25"/>
+                <connectorMapping name="BU58" protocolPortIndex="26"/>
+                <connectorMapping name="BT56" protocolPortIndex="27"/>
+                <connectorMapping name="BY55" protocolPortIndex="28"/>
+                <connectorMapping name="BV56" protocolPortIndex="29"/>
+                <connectorMapping name="BT55" protocolPortIndex="30"/>
+                <connectorMapping name="BT57" protocolPortIndex="31"/>
+                <connectorMapping name="BR58" protocolPortIndex="32"/>
+                <connectorMapping name="BR54" protocolPortIndex="33"/>
+                <connectorMapping name="BN56" protocolPortIndex="34"/>
+                <connectorMapping name="BP56" protocolPortIndex="35"/>
+                <connectorMapping name="BR57" protocolPortIndex="36"/>
+                <connectorMapping name="BR55" protocolPortIndex="37"/>
+                <connectorMapping name="BM58" protocolPortIndex="38"/>
+                <connectorMapping name="BN58" protocolPortIndex="39"/>
+                <connectorMapping name="BL55" protocolPortIndex="40"/>
+                <connectorMapping name="BK55" protocolPortIndex="41"/>
+                <connectorMapping name="BJ58" protocolPortIndex="42"/>
+                <connectorMapping name="BJ57" protocolPortIndex="43"/>
+                <connectorMapping name="BM57" protocolPortIndex="44"/>
+                <connectorMapping name="BL57" protocolPortIndex="45"/>
+                <connectorMapping name="BJ55" protocolPortIndex="46"/>
+                <connectorMapping name="BJ56" protocolPortIndex="47"/>
+                <connectorMapping name="BK52" protocolPortIndex="48"/>
+                <connectorMapping name="BM53" protocolPortIndex="49"/>
+                <connectorMapping name="BL50" protocolPortIndex="50"/>
+                <connectorMapping name="BK50" protocolPortIndex="51"/>
+                <connectorMapping name="BM54" protocolPortIndex="52"/>
+                <connectorMapping name="BK53" protocolPortIndex="53"/>
+                <connectorMapping name="BM51" protocolPortIndex="54"/>
+                <connectorMapping name="BM52" protocolPortIndex="55"/>
+                <connectorMapping name="BN48" protocolPortIndex="56"/>
+                <connectorMapping name="BM49" protocolPortIndex="57"/>
+                <connectorMapping name="BL47" protocolPortIndex="58"/>
+                <connectorMapping name="BK48" protocolPortIndex="59"/>
+                <connectorMapping name="BN49" protocolPortIndex="60"/>
+                <connectorMapping name="BM48" protocolPortIndex="61"/>
+                <connectorMapping name="BM47" protocolPortIndex="62"/>
+                <connectorMapping name="BJ48" protocolPortIndex="63"/>
+                <connectorMapping name="BR53" protocolPortIndex="64"/>
+                <connectorMapping name="BT51" protocolPortIndex="65"/>
+                <connectorMapping name="BP53" protocolPortIndex="66"/>
+                <connectorMapping name="BN53" protocolPortIndex="67"/>
+                <connectorMapping name="BR52" protocolPortIndex="68"/>
+                <connectorMapping name="BT50" protocolPortIndex="69"/>
+                <connectorMapping name="BN54" protocolPortIndex="70"/>
+                <connectorMapping name="BP52" protocolPortIndex="71"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="POD12_DCI"/>
+                <ioStandard type="HR" value="POD12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_dm_dbi_n">
+              <connectorMappings>
+                <connectorMapping name="CC49" protocolPortIndex="0"/>
+                <connectorMapping name="CC54" protocolPortIndex="1"/>
+                <connectorMapping name="BV51" protocolPortIndex="2"/>
+                <connectorMapping name="BV55" protocolPortIndex="3"/>
+                <connectorMapping name="BN55" protocolPortIndex="4"/>
+                <connectorMapping name="BK54" protocolPortIndex="5"/>
+                <connectorMapping name="BJ51" protocolPortIndex="6"/>
+                <connectorMapping name="BP47" protocolPortIndex="7"/>
+                <connectorMapping name="BN50" protocolPortIndex="8"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="POD12_DCI"/>
+                <ioStandard type="HR" value="POD12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_adr">
+              <connectorMappings>
+                <connectorMapping name="BR63" protocolPortIndex="0"/>
+                <connectorMapping name="BU59" protocolPortIndex="1"/>
+                <connectorMapping name="BU62" protocolPortIndex="2"/>
+                <connectorMapping name="BT62" protocolPortIndex="3"/>
+                <connectorMapping name="BV58" protocolPortIndex="4"/>
+                <connectorMapping name="BU61" protocolPortIndex="5"/>
+                <connectorMapping name="BV59" protocolPortIndex="6"/>
+                <connectorMapping name="BV63" protocolPortIndex="7"/>
+                <connectorMapping name="BW58" protocolPortIndex="8"/>
+                <connectorMapping name="BY60" protocolPortIndex="9"/>
+                <connectorMapping name="BR62" protocolPortIndex="10"/>
+                <connectorMapping name="BU63" protocolPortIndex="11"/>
+                <connectorMapping name="CA61" protocolPortIndex="12"/>
+                <connectorMapping name="BN60" protocolPortIndex="13"/>
+                <connectorMapping name="BM61" protocolPortIndex="14"/>
+                <connectorMapping name="BN59" protocolPortIndex="15"/>
+                <connectorMapping name="BM62" protocolPortIndex="16"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="SSTL12_DCI"/>
+                <ioStandard type="HR" value="SSTL12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_ba">
+              <connectorMappings>
+                <connectorMapping name="BN61" protocolPortIndex="0"/>
+                <connectorMapping name="BP61" protocolPortIndex="1"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="SSTL12_DCI"/>
+                <ioStandard type="HR" value="SSTL12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_cke">
+              <connectorMappings>
+                <connectorMapping name="CB59" protocolPortIndex="0"/>
+                <connectorMapping name="CC59" protocolPortIndex="1"/>
+                <connectorMapping name="CB58" protocolPortIndex="2"/>
+                <connectorMapping name="CC58" protocolPortIndex="3"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="SSTL12_DCI"/>
+                <ioStandard type="HR" value="SSTL12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_odt">
+              <connectorMappings>
+                <connectorMapping name="BL62" protocolPortIndex="0"/>
+                <connectorMapping name="BK60" protocolPortIndex="1"/>
+                <connectorMapping name="BL60" protocolPortIndex="2"/>
+                <connectorMapping name="BM59" protocolPortIndex="3"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="SSTL12_DCI"/>
+                <ioStandard type="HR" value="SSTL12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_cs_n">
+              <connectorMappings>
+                <connectorMapping name="BL59" protocolPortIndex="0"/>
+                <connectorMapping name="BK63" protocolPortIndex="1"/>
+                <connectorMapping name="BL61" protocolPortIndex="2"/>
+                <connectorMapping name="BK62" protocolPortIndex="3"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="SSTL12_DCI"/>
+                <ioStandard type="HR" value="SSTL12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_bg">
+              <connectorMappings>
+                <connectorMapping name="CA60" protocolPortIndex="0"/>
+                <connectorMapping name="CA59" protocolPortIndex="1"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="SSTL12_DCI"/>
+                <ioStandard type="HR" value="SSTL12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_dqs_c">
+              <connectorMappings>
+                <connectorMapping name="CA52" protocolPortIndex="0"/>
+                <connectorMapping name="CA57" protocolPortIndex="1"/>
+                <connectorMapping name="BU52" protocolPortIndex="2"/>
+                <connectorMapping name="BY57" protocolPortIndex="3"/>
+                <connectorMapping name="BP58" protocolPortIndex="4"/>
+                <connectorMapping name="BK58" protocolPortIndex="5"/>
+                <connectorMapping name="BL52" protocolPortIndex="6"/>
+                <connectorMapping name="BL49" protocolPortIndex="7"/>
+                <connectorMapping name="BR50" protocolPortIndex="8"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="DIFF_POD12_DCI"/>
+                <ioStandard type="HR" value="DIFF_POD12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_dqs_t">
+              <connectorMappings>
+                <connectorMapping name="BY52" protocolPortIndex="0"/>
+                <connectorMapping name="CA56" protocolPortIndex="1"/>
+                <connectorMapping name="BU51" protocolPortIndex="2"/>
+                <connectorMapping name="BW57" protocolPortIndex="3"/>
+                <connectorMapping name="BP57" protocolPortIndex="4"/>
+                <connectorMapping name="BK57" protocolPortIndex="5"/>
+                <connectorMapping name="BL51" protocolPortIndex="6"/>
+                <connectorMapping name="BK49" protocolPortIndex="7"/>
+                <connectorMapping name="BP50" protocolPortIndex="8"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="DIFF_POD12_DCI"/>
+                <ioStandard type="HR" value="DIFF_POD12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_ck_c">
+              <connectorMappings>
+                <connectorMapping name="BR60" protocolPortIndex="0"/>
+                <connectorMapping name="BP63" protocolPortIndex="1"/>
+                <connectorMapping name="BT61" protocolPortIndex="2"/>
+                <connectorMapping name="BT59" protocolPortIndex="3"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="DIFF_SSTL12_DCI"/>
+                <ioStandard type="HR" value="DIFF_SSTL12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_ck_t">
+              <connectorMappings>
+                <connectorMapping name="BP60" protocolPortIndex="0"/>
+                <connectorMapping name="BP62" protocolPortIndex="1"/>
+                <connectorMapping name="BT60" protocolPortIndex="2"/>
+                <connectorMapping name="BR59" protocolPortIndex="3"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="DIFF_SSTL12_DCI"/>
+                <ioStandard type="HR" value="DIFF_SSTL12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="sys_clk_n">
+              <connectorMappings>
+                <connectorMapping name="BW60"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="DIFF_SSTL12"/>
+                <ioStandard type="HR" value="DIFF_SSTL12"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="sys_clk_p">
+              <connectorMappings>
+                <connectorMapping name="BV60"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="DIFF_SSTL12"/>
+                <ioStandard type="HR" value="DIFF_SSTL12"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_reset_n">
+              <connectorMappings>
+                <connectorMapping name="BW62"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="LVCMOS12"/>
+                <ioStandard type="HR" value="LVCMOS12"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+            <protocolInstanceMapping protocolPort="ddr4_act_n">
+              <connectorMappings>
+                <connectorMapping name="BV61"/>
+              </connectorMappings>
+              <ioStandards>
+                <ioStandard type="HP" value="SSTL12_DCI"/>
+                <ioStandard type="HR" value="SSTL12_DCI"/>
+              </ioStandards>
+            </protocolInstanceMapping>
+          </protocolInstanceMappings>
+          <vendorExtensions>
+            <vendorExtension name="location" value="3"/>
+            <vendorExtension name="real_location" value="3"/>
+            <vendorExtension name="board_type" value="R6"/>
+          </vendorExtensions>
+        </protocolInstance>
+      </protocolInstances>
+      <vendorExtensions>
+        <vendorExtension name="speed_grade" type="String" value="2"/>
+        <vendorExtension name="temperature_grade" type="STRING" value="E"/>
+      </vendorExtensions>
+    </instance>
+  </instances>
+  <connectors>
+    <connector name="LLINK01" size="48" cabling="false" visibleInDB="true" instance="FPGA">
+      <vendorExtensions>
+        <vendorExtension name="type" value="LLINK"/>
+        <vendorExtension name="index" value="1"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="CA44" index="0"/>
+        <connectorPort name="BY44" index="1"/>
+        <connectorPort name="BY43" index="2"/>
+        <connectorPort name="BW43" index="3"/>
+        <connectorPort name="CC45" index="4"/>
+        <connectorPort name="CB44" index="5"/>
+        <connectorPort name="CB43" index="6"/>
+        <connectorPort name="CB42" index="7"/>
+        <connectorPort name="CC44" index="8"/>
+        <connectorPort name="CC43" index="9"/>
+        <connectorPort name="CA42" index="10"/>
+        <connectorPort name="BY42" index="11"/>
+        <connectorPort name="BU46" index="12"/>
+        <connectorPort name="BT46" index="13"/>
+        <connectorPort name="BV43" index="14"/>
+        <connectorPort name="BU43" index="15"/>
+        <connectorPort name="BV46" index="16"/>
+        <connectorPort name="BV45" index="17"/>
+        <connectorPort name="BU42" index="18"/>
+        <connectorPort name="BT42" index="19"/>
+        <connectorPort name="BV44" index="20"/>
+        <connectorPort name="BU44" index="21"/>
+        <connectorPort name="BT44" index="22"/>
+        <connectorPort name="BR44" index="23"/>
+        <connectorPort name="BW48" index="24"/>
+        <connectorPort name="BW47" index="25"/>
+        <connectorPort name="BT49" index="26"/>
+        <connectorPort name="BR49" index="27"/>
+        <connectorPort name="BR48" index="28"/>
+        <connectorPort name="BR47" index="29"/>
+        <connectorPort name="BV48" index="30"/>
+        <connectorPort name="BU48" index="31"/>
+        <connectorPort name="BV49" index="32"/>
+        <connectorPort name="BU49" index="33"/>
+        <connectorPort name="BU47" index="34"/>
+        <connectorPort name="BT47" index="35"/>
+        <connectorPort name="CB48" index="36"/>
+        <connectorPort name="CB47" index="37"/>
+        <connectorPort name="BY48" index="38"/>
+        <connectorPort name="BY47" index="39"/>
+        <connectorPort name="CA47" index="40"/>
+        <connectorPort name="CA46" index="41"/>
+        <connectorPort name="CC46" index="42"/>
+        <connectorPort name="CB46" index="43"/>
+        <connectorPort name="CA45" index="44"/>
+        <connectorPort name="BY45" index="45"/>
+        <connectorPort name="BW46" index="46"/>
+        <connectorPort name="BW45" index="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="LLINK02" size="48" cabling="false" visibleInDB="true" instance="FPGA">
+      <vendorExtensions>
+        <vendorExtension name="type" value="LLINK"/>
+        <vendorExtension name="index" value="2"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="BM39" index="0"/>
+        <connectorPort name="BM38" index="1"/>
+        <connectorPort name="BL40" index="2"/>
+        <connectorPort name="BL39" index="3"/>
+        <connectorPort name="BN39" index="4"/>
+        <connectorPort name="BN38" index="5"/>
+        <connectorPort name="BP41" index="6"/>
+        <connectorPort name="BN41" index="7"/>
+        <connectorPort name="BP40" index="8"/>
+        <connectorPort name="BN40" index="9"/>
+        <connectorPort name="BM41" index="10"/>
+        <connectorPort name="BL41" index="11"/>
+        <connectorPort name="BJ38" index="12"/>
+        <connectorPort name="BJ37" index="13"/>
+        <connectorPort name="BK40" index="14"/>
+        <connectorPort name="BK39" index="15"/>
+        <connectorPort name="BH39" index="16"/>
+        <connectorPort name="BG39" index="17"/>
+        <connectorPort name="BJ41" index="18"/>
+        <connectorPort name="BJ40" index="19"/>
+        <connectorPort name="BF40" index="20"/>
+        <connectorPort name="BF39" index="21"/>
+        <connectorPort name="BE40" index="22"/>
+        <connectorPort name="BE39" index="23"/>
+        <connectorPort name="BF36" index="24"/>
+        <connectorPort name="BF35" index="25"/>
+        <connectorPort name="BJ36" index="26"/>
+        <connectorPort name="BJ35" index="27"/>
+        <connectorPort name="BF37" index="28"/>
+        <connectorPort name="BE37" index="29"/>
+        <connectorPort name="BG37" index="30"/>
+        <connectorPort name="BG36" index="31"/>
+        <connectorPort name="BH38" index="32"/>
+        <connectorPort name="BG38" index="33"/>
+        <connectorPort name="BH36" index="34"/>
+        <connectorPort name="BH35" index="35"/>
+        <connectorPort name="BL35" index="36"/>
+        <connectorPort name="BK35" index="37"/>
+        <connectorPort name="BP36" index="38"/>
+        <connectorPort name="BP35" index="39"/>
+        <connectorPort name="BN36" index="40"/>
+        <connectorPort name="BN35" index="41"/>
+        <connectorPort name="BP38" index="42"/>
+        <connectorPort name="BP37" index="43"/>
+        <connectorPort name="BM37" index="44"/>
+        <connectorPort name="BM36" index="45"/>
+        <connectorPort name="BL37" index="46"/>
+        <connectorPort name="BL36" index="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="LLINK03" size="48" cabling="false" visibleInDB="true" instance="FPGA">
+      <vendorExtensions>
+        <vendorExtension name="type" value="LLINK"/>
+        <vendorExtension name="index" value="3"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="P36" index="0"/>
+        <connectorPort name="P35" index="1"/>
+        <connectorPort name="N36" index="2"/>
+        <connectorPort name="N35" index="3"/>
+        <connectorPort name="L36" index="4"/>
+        <connectorPort name="M36" index="5"/>
+        <connectorPort name="K35" index="6"/>
+        <connectorPort name="K34" index="7"/>
+        <connectorPort name="M34" index="8"/>
+        <connectorPort name="N34" index="9"/>
+        <connectorPort name="L35" index="10"/>
+        <connectorPort name="L34" index="11"/>
+        <connectorPort name="U34" index="12"/>
+        <connectorPort name="V34" index="13"/>
+        <connectorPort name="R35" index="14"/>
+        <connectorPort name="R34" index="15"/>
+        <connectorPort name="W37" index="16"/>
+        <connectorPort name="W36" index="17"/>
+        <connectorPort name="T35" index="18"/>
+        <connectorPort name="T34" index="19"/>
+        <connectorPort name="V36" index="20"/>
+        <connectorPort name="V35" index="21"/>
+        <connectorPort name="T36" index="22"/>
+        <connectorPort name="U36" index="23"/>
+        <connectorPort name="V40" index="24"/>
+        <connectorPort name="W40" index="25"/>
+        <connectorPort name="R40" index="26"/>
+        <connectorPort name="R39" index="27"/>
+        <connectorPort name="U38" index="28"/>
+        <connectorPort name="U37" index="29"/>
+        <connectorPort name="U39" index="30"/>
+        <connectorPort name="V39" index="31"/>
+        <connectorPort name="V38" index="32"/>
+        <connectorPort name="W38" index="33"/>
+        <connectorPort name="T40" index="34"/>
+        <connectorPort name="T39" index="35"/>
+        <connectorPort name="M39" index="36"/>
+        <connectorPort name="N39" index="37"/>
+        <connectorPort name="N40" index="38"/>
+        <connectorPort name="P40" index="39"/>
+        <connectorPort name="L37" index="40"/>
+        <connectorPort name="M37" index="41"/>
+        <connectorPort name="L40" index="42"/>
+        <connectorPort name="L39" index="43"/>
+        <connectorPort name="P37" index="44"/>
+        <connectorPort name="R37" index="45"/>
+        <connectorPort name="N38" index="46"/>
+        <connectorPort name="P38" index="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="LLINK04" size="48" cabling="false" visibleInDB="true" instance="FPGA">
+      <vendorExtensions>
+        <vendorExtension name="type" value="LLINK"/>
+        <vendorExtension name="index" value="4"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="M44" index="0"/>
+        <connectorPort name="N44" index="1"/>
+        <connectorPort name="M43" index="2"/>
+        <connectorPort name="N43" index="3"/>
+        <connectorPort name="L42" index="4"/>
+        <connectorPort name="L41" index="5"/>
+        <connectorPort name="M41" index="6"/>
+        <connectorPort name="N41" index="7"/>
+        <connectorPort name="K43" index="8"/>
+        <connectorPort name="K42" index="9"/>
+        <connectorPort name="L45" index="10"/>
+        <connectorPort name="L44" index="11"/>
+        <connectorPort name="H44" index="12"/>
+        <connectorPort name="H43" index="13"/>
+        <connectorPort name="J43" index="14"/>
+        <connectorPort name="J42" index="15"/>
+        <connectorPort name="G44" index="16"/>
+        <connectorPort name="G43" index="17"/>
+        <connectorPort name="H41" index="18"/>
+        <connectorPort name="J41" index="19"/>
+        <connectorPort name="G42" index="20"/>
+        <connectorPort name="G41" index="21"/>
+        <connectorPort name="H45" index="22"/>
+        <connectorPort name="J45" index="23"/>
+        <connectorPort name="V44" index="24"/>
+        <connectorPort name="V43" index="25"/>
+        <connectorPort name="V41" index="26"/>
+        <connectorPort name="W41" index="27"/>
+        <connectorPort name="W43" index="28"/>
+        <connectorPort name="W42" index="29"/>
+        <connectorPort name="U42" index="30"/>
+        <connectorPort name="U41" index="31"/>
+        <connectorPort name="W46" index="32"/>
+        <connectorPort name="W45" index="33"/>
+        <connectorPort name="U44" index="34"/>
+        <connectorPort name="U43" index="35"/>
+        <connectorPort name="N45" index="36"/>
+        <connectorPort name="P45" index="37"/>
+        <connectorPort name="T45" index="38"/>
+        <connectorPort name="T44" index="39"/>
+        <connectorPort name="R45" index="40"/>
+        <connectorPort name="R44" index="41"/>
+        <connectorPort name="T42" index="42"/>
+        <connectorPort name="T41" index="43"/>
+        <connectorPort name="P43" index="44"/>
+        <connectorPort name="P42" index="45"/>
+        <connectorPort name="R43" index="46"/>
+        <connectorPort name="R42" index="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="LLINK05" size="48" cabling="false" visibleInDB="true" instance="FPGA">
+      <vendorExtensions>
+        <vendorExtension name="type" value="LLINK"/>
+        <vendorExtension name="index" value="5"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="BK27" index="0"/>
+        <connectorPort name="BJ27" index="1"/>
+        <connectorPort name="BL26" index="2"/>
+        <connectorPort name="BL27" index="3"/>
+        <connectorPort name="BJ25" index="4"/>
+        <connectorPort name="BJ26" index="5"/>
+        <connectorPort name="BL25" index="6"/>
+        <connectorPort name="BK25" index="7"/>
+        <connectorPort name="BK28" index="8"/>
+        <connectorPort name="BJ28" index="9"/>
+        <connectorPort name="BL29" index="10"/>
+        <connectorPort name="BK29" index="11"/>
+        <connectorPort name="BG27" index="12"/>
+        <connectorPort name="BF27" index="13"/>
+        <connectorPort name="BH25" index="14"/>
+        <connectorPort name="BH26" index="15"/>
+        <connectorPort name="BE27" index="16"/>
+        <connectorPort name="BE28" index="17"/>
+        <connectorPort name="BG26" index="18"/>
+        <connectorPort name="BF26" index="19"/>
+        <connectorPort name="BF25" index="20"/>
+        <connectorPort name="BE25" index="21"/>
+        <connectorPort name="BG29" index="22"/>
+        <connectorPort name="BF29" index="23"/>
+        <connectorPort name="BT29" index="24"/>
+        <connectorPort name="BR29" index="25"/>
+        <connectorPort name="BU24" index="26"/>
+        <connectorPort name="BT24" index="27"/>
+        <connectorPort name="BT25" index="28"/>
+        <connectorPort name="BT26" index="29"/>
+        <connectorPort name="BU26" index="30"/>
+        <connectorPort name="BT27" index="31"/>
+        <connectorPort name="BR24" index="32"/>
+        <connectorPort name="BR25" index="33"/>
+        <connectorPort name="BR27" index="34"/>
+        <connectorPort name="BR28" index="35"/>
+        <connectorPort name="BN24" index="36"/>
+        <connectorPort name="BM24" index="37"/>
+        <connectorPort name="BN28" index="38"/>
+        <connectorPort name="BM28" index="39"/>
+        <connectorPort name="BP25" index="40"/>
+        <connectorPort name="BN25" index="41"/>
+        <connectorPort name="BN29" index="42"/>
+        <connectorPort name="BM29" index="43"/>
+        <connectorPort name="BM26" index="44"/>
+        <connectorPort name="BM27" index="45"/>
+        <connectorPort name="BP26" index="46"/>
+        <connectorPort name="BN26" index="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="LLINK06" size="48" cabling="false" visibleInDB="true" instance="FPGA">
+      <vendorExtensions>
+        <vendorExtension name="type" value="LLINK"/>
+        <vendorExtension name="index" value="6"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="CB29" index="0"/>
+        <connectorPort name="CA29" index="1"/>
+        <connectorPort name="CA30" index="2"/>
+        <connectorPort name="CA31" index="3"/>
+        <connectorPort name="CC28" index="4"/>
+        <connectorPort name="CC29" index="5"/>
+        <connectorPort name="CB32" index="6"/>
+        <connectorPort name="CA32" index="7"/>
+        <connectorPort name="CC30" index="8"/>
+        <connectorPort name="CC31" index="9"/>
+        <connectorPort name="CC33" index="10"/>
+        <connectorPort name="CB33" index="11"/>
+        <connectorPort name="BY29" index="12"/>
+        <connectorPort name="BY30" index="13"/>
+        <connectorPort name="BW32" index="14"/>
+        <connectorPort name="BW33" index="15"/>
+        <connectorPort name="BW30" index="16"/>
+        <connectorPort name="BW31" index="17"/>
+        <connectorPort name="BY33" index="18"/>
+        <connectorPort name="BY34" index="19"/>
+        <connectorPort name="BV30" index="20"/>
+        <connectorPort name="BV31" index="21"/>
+        <connectorPort name="BV33" index="22"/>
+        <connectorPort name="BV34" index="23"/>
+        <connectorPort name="BW27" index="24"/>
+        <connectorPort name="BW28" index="25"/>
+        <connectorPort name="BU28" index="26"/>
+        <connectorPort name="BU29" index="27"/>
+        <connectorPort name="BV28" index="28"/>
+        <connectorPort name="BV29" index="29"/>
+        <connectorPort name="BW25" index="30"/>
+        <connectorPort name="BW26" index="31"/>
+        <connectorPort name="BV25" index="32"/>
+        <connectorPort name="BV26" index="33"/>
+        <connectorPort name="BY27" index="34"/>
+        <connectorPort name="BY28" index="35"/>
+        <connectorPort name="BY24" index="36"/>
+        <connectorPort name="BY25" index="37"/>
+        <connectorPort name="CA24" index="38"/>
+        <connectorPort name="CA25" index="39"/>
+        <connectorPort name="CC25" index="40"/>
+        <connectorPort name="CC26" index="41"/>
+        <connectorPort name="CC24" index="42"/>
+        <connectorPort name="CB24" index="43"/>
+        <connectorPort name="CA26" index="44"/>
+        <connectorPort name="CA27" index="45"/>
+        <connectorPort name="CB26" index="46"/>
+        <connectorPort name="CB27" index="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="LLINK07" size="48" cabling="false" visibleInDB="true" instance="FPGA">
+      <vendorExtensions>
+        <vendorExtension name="type" value="LLINK"/>
+        <vendorExtension name="index" value="7"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="BK32" index="0"/>
+        <connectorPort name="BJ32" index="1"/>
+        <connectorPort name="BK33" index="2"/>
+        <connectorPort name="BJ33" index="3"/>
+        <connectorPort name="BJ30" index="4"/>
+        <connectorPort name="BJ31" index="5"/>
+        <connectorPort name="BH30" index="6"/>
+        <connectorPort name="BH31" index="7"/>
+        <connectorPort name="BL30" index="8"/>
+        <connectorPort name="BK30" index="9"/>
+        <connectorPort name="BL34" index="10"/>
+        <connectorPort name="BK34" index="11"/>
+        <connectorPort name="BG31" index="12"/>
+        <connectorPort name="BG32" index="13"/>
+        <connectorPort name="BE32" index="14"/>
+        <connectorPort name="BE33" index="15"/>
+        <connectorPort name="BF31" index="16"/>
+        <connectorPort name="BF32" index="17"/>
+        <connectorPort name="BG33" index="18"/>
+        <connectorPort name="BG34" index="19"/>
+        <connectorPort name="BE29" index="20"/>
+        <connectorPort name="BE30" index="21"/>
+        <connectorPort name="BF34" index="22"/>
+        <connectorPort name="BE34" index="23"/>
+        <connectorPort name="BU32" index="24"/>
+        <connectorPort name="BT32" index="25"/>
+        <connectorPort name="BR32" index="26"/>
+        <connectorPort name="BR33" index="27"/>
+        <connectorPort name="BT30" index="28"/>
+        <connectorPort name="BR30" index="29"/>
+        <connectorPort name="BU33" index="30"/>
+        <connectorPort name="BU34" index="31"/>
+        <connectorPort name="BU31" index="32"/>
+        <connectorPort name="BT31" index="33"/>
+        <connectorPort name="BT34" index="34"/>
+        <connectorPort name="BR34" index="35"/>
+        <connectorPort name="BP30" index="36"/>
+        <connectorPort name="BP31" index="37"/>
+        <connectorPort name="BN33" index="38"/>
+        <connectorPort name="BN34" index="39"/>
+        <connectorPort name="BN30" index="40"/>
+        <connectorPort name="BN31" index="41"/>
+        <connectorPort name="BM33" index="42"/>
+        <connectorPort name="BM34" index="43"/>
+        <connectorPort name="BM31" index="44"/>
+        <connectorPort name="BL31" index="45"/>
+        <connectorPort name="BM32" index="46"/>
+        <connectorPort name="BL32" index="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="LLINK08" size="48" cabling="false" visibleInDB="true" instance="FPGA">
+      <vendorExtensions>
+        <vendorExtension name="type" value="LLINK"/>
+        <vendorExtension name="index" value="8"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="F36" index="0"/>
+        <connectorPort name="G36" index="1"/>
+        <connectorPort name="E35" index="2"/>
+        <connectorPort name="F35" index="3"/>
+        <connectorPort name="H36" index="4"/>
+        <connectorPort name="H35" index="5"/>
+        <connectorPort name="E34" index="6"/>
+        <connectorPort name="F34" index="7"/>
+        <connectorPort name="J36" index="8"/>
+        <connectorPort name="J35" index="9"/>
+        <connectorPort name="G34" index="10"/>
+        <connectorPort name="H34" index="11"/>
+        <connectorPort name="G39" index="12"/>
+        <connectorPort name="H39" index="13"/>
+        <connectorPort name="F37" index="14"/>
+        <connectorPort name="G37" index="15"/>
+        <connectorPort name="G38" index="16"/>
+        <connectorPort name="H38" index="17"/>
+        <connectorPort name="H40" index="18"/>
+        <connectorPort name="J40" index="19"/>
+        <connectorPort name="J38" index="20"/>
+        <connectorPort name="J37" index="21"/>
+        <connectorPort name="K40" index="22"/>
+        <connectorPort name="K39" index="23"/>
+        <connectorPort name="A40" index="24"/>
+        <connectorPort name="A39" index="25"/>
+        <connectorPort name="C40" index="26"/>
+        <connectorPort name="D40" index="27"/>
+        <connectorPort name="D38" index="28"/>
+        <connectorPort name="E38" index="29"/>
+        <connectorPort name="B39" index="30"/>
+        <connectorPort name="B38" index="31"/>
+        <connectorPort name="E40" index="32"/>
+        <connectorPort name="E39" index="33"/>
+        <connectorPort name="C39" index="34"/>
+        <connectorPort name="C38" index="35"/>
+        <connectorPort name="A35" index="36"/>
+        <connectorPort name="A34" index="37"/>
+        <connectorPort name="A37" index="38"/>
+        <connectorPort name="B37" index="39"/>
+        <connectorPort name="B34" index="40"/>
+        <connectorPort name="C34" index="41"/>
+        <connectorPort name="A36" index="42"/>
+        <connectorPort name="B36" index="43"/>
+        <connectorPort name="D36" index="44"/>
+        <connectorPort name="D35" index="45"/>
+        <connectorPort name="C36" index="46"/>
+        <connectorPort name="C35" index="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="LLINK09" size="48" cabling="false" visibleInDB="true" instance="FPGA">
+      <vendorExtensions>
+        <vendorExtension name="type" value="LLINK"/>
+        <vendorExtension name="index" value="9"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="G31" index="0"/>
+        <connectorPort name="G32" index="1"/>
+        <connectorPort name="F30" index="2"/>
+        <connectorPort name="F31" index="3"/>
+        <connectorPort name="H31" index="4"/>
+        <connectorPort name="J31" index="5"/>
+        <connectorPort name="H30" index="6"/>
+        <connectorPort name="J30" index="7"/>
+        <connectorPort name="J32" index="8"/>
+        <connectorPort name="J33" index="9"/>
+        <connectorPort name="G33" index="10"/>
+        <connectorPort name="H33" index="11"/>
+        <connectorPort name="G28" index="12"/>
+        <connectorPort name="G29" index="13"/>
+        <connectorPort name="F27" index="14"/>
+        <connectorPort name="G27" index="15"/>
+        <connectorPort name="H28" index="16"/>
+        <connectorPort name="H29" index="17"/>
+        <connectorPort name="E29" index="18"/>
+        <connectorPort name="F29" index="19"/>
+        <connectorPort name="J27" index="20"/>
+        <connectorPort name="J28" index="21"/>
+        <connectorPort name="E27" index="22"/>
+        <connectorPort name="E28" index="23"/>
+        <connectorPort name="A27" index="24"/>
+        <connectorPort name="B27" index="25"/>
+        <connectorPort name="D27" index="26"/>
+        <connectorPort name="D28" index="27"/>
+        <connectorPort name="C29" index="28"/>
+        <connectorPort name="C30" index="29"/>
+        <connectorPort name="A29" index="30"/>
+        <connectorPort name="A30" index="31"/>
+        <connectorPort name="D30" index="32"/>
+        <connectorPort name="E30" index="33"/>
+        <connectorPort name="B28" index="34"/>
+        <connectorPort name="B29" index="35"/>
+        <connectorPort name="A31" index="36"/>
+        <connectorPort name="A32" index="37"/>
+        <connectorPort name="C33" index="38"/>
+        <connectorPort name="D33" index="39"/>
+        <connectorPort name="B31" index="40"/>
+        <connectorPort name="C31" index="41"/>
+        <connectorPort name="B32" index="42"/>
+        <connectorPort name="B33" index="43"/>
+        <connectorPort name="D31" index="44"/>
+        <connectorPort name="D32" index="45"/>
+        <connectorPort name="E32" index="46"/>
+        <connectorPort name="F32" index="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="LLINK10" size="48" cabling="false" visibleInDB="true" instance="FPGA">
+      <vendorExtensions>
+        <vendorExtension name="type" value="LLINK"/>
+        <vendorExtension name="index" value="10"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="D20" index="0"/>
+        <connectorPort name="E20" index="1"/>
+        <connectorPort name="C21" index="2"/>
+        <connectorPort name="D21" index="3"/>
+        <connectorPort name="E17" index="4"/>
+        <connectorPort name="F17" index="5"/>
+        <connectorPort name="D17" index="6"/>
+        <connectorPort name="D18" index="7"/>
+        <connectorPort name="F19" index="8"/>
+        <connectorPort name="F20" index="9"/>
+        <connectorPort name="E18" index="10"/>
+        <connectorPort name="E19" index="11"/>
+        <connectorPort name="E23" index="12"/>
+        <connectorPort name="F24" index="13"/>
+        <connectorPort name="F22" index="14"/>
+        <connectorPort name="G22" index="15"/>
+        <connectorPort name="F25" index="16"/>
+        <connectorPort name="F26" index="17"/>
+        <connectorPort name="D22" index="18"/>
+        <connectorPort name="E22" index="19"/>
+        <connectorPort name="G23" index="20"/>
+        <connectorPort name="G24" index="21"/>
+        <connectorPort name="E24" index="22"/>
+        <connectorPort name="E25" index="23"/>
+        <connectorPort name="A25" index="24"/>
+        <connectorPort name="A26" index="25"/>
+        <connectorPort name="D25" index="26"/>
+        <connectorPort name="D26" index="27"/>
+        <connectorPort name="C24" index="28"/>
+        <connectorPort name="C25" index="29"/>
+        <connectorPort name="A24" index="30"/>
+        <connectorPort name="B24" index="31"/>
+        <connectorPort name="C23" index="32"/>
+        <connectorPort name="D23" index="33"/>
+        <connectorPort name="B26" index="34"/>
+        <connectorPort name="C26" index="35"/>
+        <connectorPort name="A17" index="36"/>
+        <connectorPort name="B17" index="37"/>
+        <connectorPort name="A19" index="38"/>
+        <connectorPort name="B19" index="39"/>
+        <connectorPort name="B18" index="40"/>
+        <connectorPort name="C18" index="41"/>
+        <connectorPort name="A21" index="42"/>
+        <connectorPort name="A22" index="43"/>
+        <connectorPort name="C19" index="44"/>
+        <connectorPort name="C20" index="45"/>
+        <connectorPort name="B21" index="46"/>
+        <connectorPort name="B22" index="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="LLINK01_SE" size="3" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="CC48" index="0"/>
+        <connectorPort name="BW42" index="1"/>
+        <connectorPort name="BT45" index="2"/>
+      </connectorPorts>
+    </connector>
+    <connector name="LLINK02_SE" size="3" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="BK37" index="0"/>
+        <connectorPort name="BK38" index="1"/>
+        <connectorPort name="BH40" index="2"/>
+      </connectorPorts>
+    </connector>
+    <connector name="LLINK03_SE" size="3" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="M38" index="0"/>
+        <connectorPort name="K37" index="1"/>
+        <connectorPort name="T37" index="2"/>
+      </connectorPorts>
+    </connector>
+    <connector name="LLINK04_SE" size="3" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="P41" index="0"/>
+        <connectorPort name="M42" index="1"/>
+        <connectorPort name="K44" index="2"/>
+      </connectorPorts>
+    </connector>
+    <connector name="LLINK05_SE" size="3" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="BP27" index="0"/>
+        <connectorPort name="BH29" index="1"/>
+        <connectorPort name="BH28" index="2"/>
+      </connectorPorts>
+    </connector>
+    <connector name="LLINK06_SE" size="3" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="CB28" index="0"/>
+        <connectorPort name="CB31" index="1"/>
+        <connectorPort name="BY32" index="2"/>
+      </connectorPorts>
+    </connector>
+    <connector name="LLINK07_SE" size="3" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="BP32" index="0"/>
+        <connectorPort name="BH33" index="1"/>
+        <connectorPort name="BH34" index="2"/>
+      </connectorPorts>
+    </connector>
+    <connector name="LLINK08_SE" size="3" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="D37" index="0"/>
+        <connectorPort name="E37" index="1"/>
+        <connectorPort name="F39" index="2"/>
+      </connectorPorts>
+    </connector>
+    <connector name="LLINK09_SE" size="3" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="E33" index="0"/>
+        <connectorPort name="K29" index="1"/>
+        <connectorPort name="K28" index="2"/>
+      </connectorPorts>
+    </connector>
+    <connector name="LLINK10_SE" size="3" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="A20" index="0"/>
+        <connectorPort name="F21" index="1"/>
+        <connectorPort name="G21" index="2"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_FLINK01" size="48" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="F14" index="0"/>
+        <connectorPort name="G14" index="1"/>
+        <connectorPort name="E15" index="2"/>
+        <connectorPort name="F15" index="3"/>
+        <connectorPort name="D15" index="4"/>
+        <connectorPort name="D16" index="5"/>
+        <connectorPort name="E13" index="6"/>
+        <connectorPort name="E14" index="7"/>
+        <connectorPort name="F12" index="8"/>
+        <connectorPort name="G12" index="9"/>
+        <connectorPort name="D12" index="10"/>
+        <connectorPort name="E12" index="11"/>
+        <connectorPort name="A16" index="12"/>
+        <connectorPort name="B16" index="13"/>
+        <connectorPort name="A12" index="14"/>
+        <connectorPort name="B12" index="15"/>
+        <connectorPort name="B14" index="16"/>
+        <connectorPort name="C14" index="17"/>
+        <connectorPort name="C13" index="18"/>
+        <connectorPort name="D13" index="19"/>
+        <connectorPort name="A14" index="20"/>
+        <connectorPort name="A15" index="21"/>
+        <connectorPort name="C15" index="22"/>
+        <connectorPort name="C16" index="23"/>
+        <connectorPort name="M14" index="24"/>
+        <connectorPort name="N14" index="25"/>
+        <connectorPort name="R15" index="26"/>
+        <connectorPort name="T15" index="27"/>
+        <connectorPort name="N15" index="28"/>
+        <connectorPort name="P15" index="29"/>
+        <connectorPort name="P13" index="30"/>
+        <connectorPort name="R13" index="31"/>
+        <connectorPort name="R14" index="32"/>
+        <connectorPort name="T14" index="33"/>
+        <connectorPort name="M13" index="34"/>
+        <connectorPort name="N13" index="35"/>
+        <connectorPort name="K12" index="36"/>
+        <connectorPort name="L12" index="37"/>
+        <connectorPort name="J12" index="38"/>
+        <connectorPort name="J13" index="39"/>
+        <connectorPort name="K13" index="40"/>
+        <connectorPort name="K14" index="41"/>
+        <connectorPort name="J15" index="42"/>
+        <connectorPort name="K15" index="43"/>
+        <connectorPort name="H14" index="44"/>
+        <connectorPort name="H15" index="45"/>
+        <connectorPort name="G13" index="46"/>
+        <connectorPort name="H13" index="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_FLINK03" size="48" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="F9" index="0"/>
+        <connectorPort name="G9" index="1"/>
+        <connectorPort name="H9" index="2"/>
+        <connectorPort name="H10" index="3"/>
+        <connectorPort name="F11" index="4"/>
+        <connectorPort name="G11" index="5"/>
+        <connectorPort name="G7" index="6"/>
+        <connectorPort name="G8" index="7"/>
+        <connectorPort name="E8" index="8"/>
+        <connectorPort name="E9" index="9"/>
+        <connectorPort name="E10" index="10"/>
+        <connectorPort name="F10" index="11"/>
+        <connectorPort name="C10" index="12"/>
+        <connectorPort name="C11" index="13"/>
+        <connectorPort name="D10" index="14"/>
+        <connectorPort name="D11" index="15"/>
+        <connectorPort name="A11" index="16"/>
+        <connectorPort name="B11" index="17"/>
+        <connectorPort name="C8" index="18"/>
+        <connectorPort name="C9" index="19"/>
+        <connectorPort name="A9" index="20"/>
+        <connectorPort name="A10" index="21"/>
+        <connectorPort name="B8" index="22"/>
+        <connectorPort name="B9" index="23"/>
+        <connectorPort name="M11" index="24"/>
+        <connectorPort name="N11" index="25"/>
+        <connectorPort name="M8" index="26"/>
+        <connectorPort name="N8" index="27"/>
+        <connectorPort name="M9" index="28"/>
+        <connectorPort name="N9" index="29"/>
+        <connectorPort name="P11" index="30"/>
+        <connectorPort name="R11" index="31"/>
+        <connectorPort name="N10" index="32"/>
+        <connectorPort name="P10" index="33"/>
+        <connectorPort name="P12" index="34"/>
+        <connectorPort name="R12" index="35"/>
+        <connectorPort name="K7" index="36"/>
+        <connectorPort name="L7" index="37"/>
+        <connectorPort name="J7" index="38"/>
+        <connectorPort name="J8" index="39"/>
+        <connectorPort name="H11" index="40"/>
+        <connectorPort name="J11" index="41"/>
+        <connectorPort name="L10" index="42"/>
+        <connectorPort name="L11" index="43"/>
+        <connectorPort name="J10" index="44"/>
+        <connectorPort name="K10" index="45"/>
+        <connectorPort name="K8" index="46"/>
+        <connectorPort name="K9" index="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_FLINK05" size="48" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="G3" index="0"/>
+        <connectorPort name="G4" index="1"/>
+        <connectorPort name="H3" index="2"/>
+        <connectorPort name="H4" index="3"/>
+        <connectorPort name="G1" index="4"/>
+        <connectorPort name="G2" index="5"/>
+        <connectorPort name="J2" index="6"/>
+        <connectorPort name="J3" index="7"/>
+        <connectorPort name="H1" index="8"/>
+        <connectorPort name="J1" index="9"/>
+        <connectorPort name="H5" index="10"/>
+        <connectorPort name="H6" index="11"/>
+        <connectorPort name="K5" index="12"/>
+        <connectorPort name="L5" index="13"/>
+        <connectorPort name="J5" index="14"/>
+        <connectorPort name="J6" index="15"/>
+        <connectorPort name="K2" index="16"/>
+        <connectorPort name="K3" index="17"/>
+        <connectorPort name="L4" index="18"/>
+        <connectorPort name="M4" index="19"/>
+        <connectorPort name="L1" index="20"/>
+        <connectorPort name="L2" index="21"/>
+        <connectorPort name="L6" index="22"/>
+        <connectorPort name="M6" index="23"/>
+        <connectorPort name="C5" index="24"/>
+        <connectorPort name="D5" index="25"/>
+        <connectorPort name="A7" index="26"/>
+        <connectorPort name="B7" index="27"/>
+        <connectorPort name="A5" index="28"/>
+        <connectorPort name="A6" index="29"/>
+        <connectorPort name="F6" index="30"/>
+        <connectorPort name="F7" index="31"/>
+        <connectorPort name="B6" index="32"/>
+        <connectorPort name="C6" index="33"/>
+        <connectorPort name="D6" index="34"/>
+        <connectorPort name="D7" index="35"/>
+        <connectorPort name="B4" index="36"/>
+        <connectorPort name="C4" index="37"/>
+        <connectorPort name="E2" index="38"/>
+        <connectorPort name="E3" index="39"/>
+        <connectorPort name="C3" index="40"/>
+        <connectorPort name="D3" index="41"/>
+        <connectorPort name="F1" index="42"/>
+        <connectorPort name="F2" index="43"/>
+        <connectorPort name="E4" index="44"/>
+        <connectorPort name="E5" index="45"/>
+        <connectorPort name="F4" index="46"/>
+        <connectorPort name="F5" index="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_FLINK07" size="48" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="M18" index="0"/>
+        <connectorPort name="M19" index="1"/>
+        <connectorPort name="K19" index="2"/>
+        <connectorPort name="L19" index="3"/>
+        <connectorPort name="M16" index="4"/>
+        <connectorPort name="M17" index="5"/>
+        <connectorPort name="L16" index="6"/>
+        <connectorPort name="L17" index="7"/>
+        <connectorPort name="K20" index="8"/>
+        <connectorPort name="L20" index="9"/>
+        <connectorPort name="K17" index="10"/>
+        <connectorPort name="K18" index="11"/>
+        <connectorPort name="G19" index="12"/>
+        <connectorPort name="H19" index="13"/>
+        <connectorPort name="J17" index="14"/>
+        <connectorPort name="J18" index="15"/>
+        <connectorPort name="H20" index="16"/>
+        <connectorPort name="J20" index="17"/>
+        <connectorPort name="G17" index="18"/>
+        <connectorPort name="G18" index="19"/>
+        <connectorPort name="H21" index="20"/>
+        <connectorPort name="J21" index="21"/>
+        <connectorPort name="H16" index="22"/>
+        <connectorPort name="J16" index="23"/>
+        <connectorPort name="U18" index="24"/>
+        <connectorPort name="U19" index="25"/>
+        <connectorPort name="W20" index="26"/>
+        <connectorPort name="W21" index="27"/>
+        <connectorPort name="V19" index="28"/>
+        <connectorPort name="V20" index="29"/>
+        <connectorPort name="U16" index="30"/>
+        <connectorPort name="U17" index="31"/>
+        <connectorPort name="V18" index="32"/>
+        <connectorPort name="W18" index="33"/>
+        <connectorPort name="T16" index="34"/>
+        <connectorPort name="T17" index="35"/>
+        <connectorPort name="R20" index="36"/>
+        <connectorPort name="T20" index="37"/>
+        <connectorPort name="R17" index="38"/>
+        <connectorPort name="R18" index="39"/>
+        <connectorPort name="R19" index="40"/>
+        <connectorPort name="T19" index="41"/>
+        <connectorPort name="N16" index="42"/>
+        <connectorPort name="P16" index="43"/>
+        <connectorPort name="N18" index="44"/>
+        <connectorPort name="N19" index="45"/>
+        <connectorPort name="P17" index="46"/>
+        <connectorPort name="P18" index="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_FLINK09" size="48" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="BN15" index="0"/>
+        <connectorPort name="BN16" index="1"/>
+        <connectorPort name="BM16" index="2"/>
+        <connectorPort name="BL16" index="3"/>
+        <connectorPort name="BL14" index="4"/>
+        <connectorPort name="BL15" index="5"/>
+        <connectorPort name="BN13" index="6"/>
+        <connectorPort name="BN14" index="7"/>
+        <connectorPort name="BM17" index="8"/>
+        <connectorPort name="BL17" index="9"/>
+        <connectorPort name="BM13" index="10"/>
+        <connectorPort name="BM14" index="11"/>
+        <connectorPort name="BK17" index="12"/>
+        <connectorPort name="BJ17" index="13"/>
+        <connectorPort name="BJ18" index="14"/>
+        <connectorPort name="BH18" index="15"/>
+        <connectorPort name="BJ16" index="16"/>
+        <connectorPort name="BH16" index="17"/>
+        <connectorPort name="BJ15" index="18"/>
+        <connectorPort name="BH15" index="19"/>
+        <connectorPort name="BK14" index="20"/>
+        <connectorPort name="BK15" index="21"/>
+        <connectorPort name="BK13" index="22"/>
+        <connectorPort name="BJ13" index="23"/>
+        <connectorPort name="BV18" index="24"/>
+        <connectorPort name="BU18" index="25"/>
+        <connectorPort name="BV15" index="26"/>
+        <connectorPort name="BV16" index="27"/>
+        <connectorPort name="BV13" index="28"/>
+        <connectorPort name="BV14" index="29"/>
+        <connectorPort name="BU17" index="30"/>
+        <connectorPort name="BT17" index="31"/>
+        <connectorPort name="BU13" index="32"/>
+        <connectorPort name="BU14" index="33"/>
+        <connectorPort name="BU16" index="34"/>
+        <connectorPort name="BT16" index="35"/>
+        <connectorPort name="BR17" index="36"/>
+        <connectorPort name="BP17" index="37"/>
+        <connectorPort name="BP18" index="38"/>
+        <connectorPort name="BN18" index="39"/>
+        <connectorPort name="BT14" index="40"/>
+        <connectorPort name="BT15" index="41"/>
+        <connectorPort name="BR13" index="42"/>
+        <connectorPort name="BP13" index="43"/>
+        <connectorPort name="BR14" index="44"/>
+        <connectorPort name="BR15" index="45"/>
+        <connectorPort name="BP15" index="46"/>
+        <connectorPort name="BP16" index="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_FLINK11" size="48" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="CA16" index="0"/>
+        <connectorPort name="CA17" index="1"/>
+        <connectorPort name="CB16" index="2"/>
+        <connectorPort name="CB17" index="3"/>
+        <connectorPort name="BY17" index="4"/>
+        <connectorPort name="BW17" index="5"/>
+        <connectorPort name="CC15" index="6"/>
+        <connectorPort name="CC16" index="7"/>
+        <connectorPort name="BW15" index="8"/>
+        <connectorPort name="BW16" index="9"/>
+        <connectorPort name="CA15" index="10"/>
+        <connectorPort name="BY15" index="11"/>
+        <connectorPort name="CC11" index="12"/>
+        <connectorPort name="CB11" index="13"/>
+        <connectorPort name="CB14" index="14"/>
+        <connectorPort name="CA14" index="15"/>
+        <connectorPort name="CA11" index="16"/>
+        <connectorPort name="CA12" index="17"/>
+        <connectorPort name="CC13" index="18"/>
+        <connectorPort name="CC14" index="19"/>
+        <connectorPort name="BY13" index="20"/>
+        <connectorPort name="BW13" index="21"/>
+        <connectorPort name="CB12" index="22"/>
+        <connectorPort name="CB13" index="23"/>
+        <connectorPort name="CC23" index="24"/>
+        <connectorPort name="CB23" index="25"/>
+        <connectorPort name="BY22" index="26"/>
+        <connectorPort name="BY23" index="27"/>
+        <connectorPort name="BW22" index="28"/>
+        <connectorPort name="BW23" index="29"/>
+        <connectorPort name="CB21" index="30"/>
+        <connectorPort name="CB22" index="31"/>
+        <connectorPort name="BW21" index="32"/>
+        <connectorPort name="BV21" index="33"/>
+        <connectorPort name="CA21" index="34"/>
+        <connectorPort name="CA22" index="35"/>
+        <connectorPort name="BY18" index="36"/>
+        <connectorPort name="BW18" index="37"/>
+        <connectorPort name="CC19" index="38"/>
+        <connectorPort name="CC20" index="39"/>
+        <connectorPort name="BY20" index="40"/>
+        <connectorPort name="BW20" index="41"/>
+        <connectorPort name="BV19" index="42"/>
+        <connectorPort name="BV20" index="43"/>
+        <connectorPort name="CA19" index="44"/>
+        <connectorPort name="BY19" index="45"/>
+        <connectorPort name="CB18" index="46"/>
+        <connectorPort name="CB19" index="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_BLINK01" size="48" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="AB52" index="0"/>
+        <connectorPort name="AB51" index="1"/>
+        <connectorPort name="AA52" index="2"/>
+        <connectorPort name="AA51" index="3"/>
+        <connectorPort name="AC51" index="4"/>
+        <connectorPort name="AC50" index="5"/>
+        <connectorPort name="Y50" index="6"/>
+        <connectorPort name="Y49" index="7"/>
+        <connectorPort name="V51" index="8"/>
+        <connectorPort name="W51" index="9"/>
+        <connectorPort name="AA49" index="10"/>
+        <connectorPort name="AB49" index="11"/>
+        <connectorPort name="AC49" index="12"/>
+        <connectorPort name="AC48" index="13"/>
+        <connectorPort name="AA46" index="14"/>
+        <connectorPort name="AB46" index="15"/>
+        <connectorPort name="AB48" index="16"/>
+        <connectorPort name="AB47" index="17"/>
+        <connectorPort name="Y45" index="18"/>
+        <connectorPort name="AA45" index="19"/>
+        <connectorPort name="Y47" index="20"/>
+        <connectorPort name="AA47" index="21"/>
+        <connectorPort name="AC46" index="22"/>
+        <connectorPort name="AC45" index="23"/>
+        <connectorPort name="AB57" index="24"/>
+        <connectorPort name="AB56" index="25"/>
+        <connectorPort name="AC54" index="26"/>
+        <connectorPort name="AC53" index="27"/>
+        <connectorPort name="AC56" index="28"/>
+        <connectorPort name="AC55" index="29"/>
+        <connectorPort name="AA55" index="30"/>
+        <connectorPort name="AA54" index="31"/>
+        <connectorPort name="AB54" index="32"/>
+        <connectorPort name="AB53" index="33"/>
+        <connectorPort name="AA57" index="34"/>
+        <connectorPort name="AA56" index="35"/>
+        <connectorPort name="Y55" index="36"/>
+        <connectorPort name="Y54" index="37"/>
+        <connectorPort name="V56" index="38"/>
+        <connectorPort name="V55" index="39"/>
+        <connectorPort name="W56" index="40"/>
+        <connectorPort name="W55" index="41"/>
+        <connectorPort name="V54" index="42"/>
+        <connectorPort name="V53" index="43"/>
+        <connectorPort name="W53" index="44"/>
+        <connectorPort name="W52" index="45"/>
+        <connectorPort name="Y53" index="46"/>
+        <connectorPort name="Y52" index="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_BLINK05" size="48" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="AF50" index="0"/>
+        <connectorPort name="AF49" index="1"/>
+        <connectorPort name="AE50" index="2"/>
+        <connectorPort name="AE49" index="3"/>
+        <connectorPort name="AH51" index="4"/>
+        <connectorPort name="AH50" index="5"/>
+        <connectorPort name="AH49" index="6"/>
+        <connectorPort name="AH48" index="7"/>
+        <connectorPort name="AD51" index="8"/>
+        <connectorPort name="AD50" index="9"/>
+        <connectorPort name="AG49" index="10"/>
+        <connectorPort name="AG48" index="11"/>
+        <connectorPort name="AG47" index="12"/>
+        <connectorPort name="AG46" index="13"/>
+        <connectorPort name="AG44" index="14"/>
+        <connectorPort name="AH44" index="15"/>
+        <connectorPort name="AF47" index="16"/>
+        <connectorPort name="AF46" index="17"/>
+        <connectorPort name="AE45" index="18"/>
+        <connectorPort name="AF45" index="19"/>
+        <connectorPort name="AE48" index="20"/>
+        <connectorPort name="AE47" index="21"/>
+        <connectorPort name="AD47" index="22"/>
+        <connectorPort name="AD46" index="23"/>
+        <connectorPort name="AF57" index="24"/>
+        <connectorPort name="AF56" index="25"/>
+        <connectorPort name="AH56" index="26"/>
+        <connectorPort name="AH55" index="27"/>
+        <connectorPort name="AG57" index="28"/>
+        <connectorPort name="AG56" index="29"/>
+        <connectorPort name="AE55" index="30"/>
+        <connectorPort name="AE54" index="31"/>
+        <connectorPort name="AD57" index="32"/>
+        <connectorPort name="AE57" index="33"/>
+        <connectorPort name="AD56" index="34"/>
+        <connectorPort name="AD55" index="35"/>
+        <connectorPort name="AH54" index="36"/>
+        <connectorPort name="AH53" index="37"/>
+        <connectorPort name="AD53" index="38"/>
+        <connectorPort name="AD52" index="39"/>
+        <connectorPort name="AG54" index="40"/>
+        <connectorPort name="AG53" index="41"/>
+        <connectorPort name="AE53" index="42"/>
+        <connectorPort name="AE52" index="43"/>
+        <connectorPort name="AF52" index="44"/>
+        <connectorPort name="AF51" index="45"/>
+        <connectorPort name="AG52" index="46"/>
+        <connectorPort name="AG51" index="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_BLINK06" size="48" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="AL61" index="0"/>
+        <connectorPort name="AL60" index="1"/>
+        <connectorPort name="AL62" index="2"/>
+        <connectorPort name="AK62" index="3"/>
+        <connectorPort name="AJ63" index="4"/>
+        <connectorPort name="AH63" index="5"/>
+        <connectorPort name="AJ61" index="6"/>
+        <connectorPort name="AH61" index="7"/>
+        <connectorPort name="AK63" index="8"/>
+        <connectorPort name="AJ62" index="9"/>
+        <connectorPort name="AJ60" index="10"/>
+        <connectorPort name="AH60" index="11"/>
+        <connectorPort name="AP58" index="12"/>
+        <connectorPort name="AN58" index="13"/>
+        <connectorPort name="AL57" index="14"/>
+        <connectorPort name="AK57" index="15"/>
+        <connectorPort name="AN59" index="16"/>
+        <connectorPort name="AM59" index="17"/>
+        <connectorPort name="AK60" index="18"/>
+        <connectorPort name="AK59" index="19"/>
+        <connectorPort name="AM58" index="20"/>
+        <connectorPort name="AM57" index="21"/>
+        <connectorPort name="AK58" index="22"/>
+        <connectorPort name="AJ58" index="23"/>
+        <connectorPort name="AT60" index="24"/>
+        <connectorPort name="AR60" index="25"/>
+        <connectorPort name="AV58" index="26"/>
+        <connectorPort name="AU58" index="27"/>
+        <connectorPort name="AU59" index="28"/>
+        <connectorPort name="AT59" index="29"/>
+        <connectorPort name="AV60" index="30"/>
+        <connectorPort name="AV59" index="31"/>
+        <connectorPort name="AR59" index="32"/>
+        <connectorPort name="AR58" index="33"/>
+        <connectorPort name="AU61" index="34"/>
+        <connectorPort name="AT61" index="35"/>
+        <connectorPort name="AP61" index="36"/>
+        <connectorPort name="AP60" index="37"/>
+        <connectorPort name="AT62" index="38"/>
+        <connectorPort name="AR62" index="39"/>
+        <connectorPort name="AR63" index="40"/>
+        <connectorPort name="AP62" index="41"/>
+        <connectorPort name="AP63" index="42"/>
+        <connectorPort name="AN63" index="43"/>
+        <connectorPort name="AN61" index="44"/>
+        <connectorPort name="AN60" index="45"/>
+        <connectorPort name="AM62" index="46"/>
+        <connectorPort name="AM61" index="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_BLINK03" size="48" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="BD61" index="0"/>
+        <connectorPort name="BC61" index="1"/>
+        <connectorPort name="BD60" index="2"/>
+        <connectorPort name="BC60" index="3"/>
+        <connectorPort name="BC63" index="4"/>
+        <connectorPort name="BB63" index="5"/>
+        <connectorPort name="BB59" index="6"/>
+        <connectorPort name="BB58" index="7"/>
+        <connectorPort name="BC59" index="8"/>
+        <connectorPort name="BC58" index="9"/>
+        <connectorPort name="BB62" index="10"/>
+        <connectorPort name="BA62" index="11"/>
+        <connectorPort name="BA61" index="12"/>
+        <connectorPort name="BA60" index="13"/>
+        <connectorPort name="AY62" index="14"/>
+        <connectorPort name="AW62" index="15"/>
+        <connectorPort name="AY60" index="16"/>
+        <connectorPort name="AW60" index="17"/>
+        <connectorPort name="AW61" index="18"/>
+        <connectorPort name="AV61" index="19"/>
+        <connectorPort name="BA59" index="20"/>
+        <connectorPort name="AY59" index="21"/>
+        <connectorPort name="AW63" index="22"/>
+        <connectorPort name="AV63" index="23"/>
+        <connectorPort name="BJ61" index="24"/>
+        <connectorPort name="BH61" index="25"/>
+        <connectorPort name="BH58" index="26"/>
+        <connectorPort name="BG58" index="27"/>
+        <connectorPort name="BH59" index="28"/>
+        <connectorPort name="BG59" index="29"/>
+        <connectorPort name="BG62" index="30"/>
+        <connectorPort name="BG61" index="31"/>
+        <connectorPort name="BJ60" index="32"/>
+        <connectorPort name="BH60" index="33"/>
+        <connectorPort name="BJ63" index="34"/>
+        <connectorPort name="BJ62" index="35"/>
+        <connectorPort name="BF62" index="36"/>
+        <connectorPort name="BF61" index="37"/>
+        <connectorPort name="BE62" index="38"/>
+        <connectorPort name="BD62" index="39"/>
+        <connectorPort name="BE63" index="40"/>
+        <connectorPort name="BD63" index="41"/>
+        <connectorPort name="BE58" index="42"/>
+        <connectorPort name="BD58" index="43"/>
+        <connectorPort name="BF59" index="44"/>
+        <connectorPort name="BE59" index="45"/>
+        <connectorPort name="BF60" index="46"/>
+        <connectorPort name="BE60" index="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_BLINK07" size="48" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="BG52" index="0"/>
+        <connectorPort name="BF52" index="1"/>
+        <connectorPort name="BG51" index="2"/>
+        <connectorPort name="BF51" index="3"/>
+        <connectorPort name="BE52" index="4"/>
+        <connectorPort name="BD52" index="5"/>
+        <connectorPort name="BH53" index="6"/>
+        <connectorPort name="BG53" index="7"/>
+        <connectorPort name="BE53" index="8"/>
+        <connectorPort name="BD53" index="9"/>
+        <connectorPort name="BH54" index="10"/>
+        <connectorPort name="BG54" index="11"/>
+        <connectorPort name="BE55" index="12"/>
+        <connectorPort name="BE54" index="13"/>
+        <connectorPort name="BH56" index="14"/>
+        <connectorPort name="BG56" index="15"/>
+        <connectorPort name="BD56" index="16"/>
+        <connectorPort name="BD55" index="17"/>
+        <connectorPort name="BG57" index="18"/>
+        <connectorPort name="BF57" index="19"/>
+        <connectorPort name="BE57" index="20"/>
+        <connectorPort name="BD57" index="21"/>
+        <connectorPort name="BF56" index="22"/>
+        <connectorPort name="BF55" index="23"/>
+        <connectorPort name="BH46" index="24"/>
+        <connectorPort name="BH45" index="25"/>
+        <connectorPort name="BD48" index="26"/>
+        <connectorPort name="BD47" index="27"/>
+        <connectorPort name="BD46" index="28"/>
+        <connectorPort name="BD45" index="29"/>
+        <connectorPort name="BG47" index="30"/>
+        <connectorPort name="BG46" index="31"/>
+        <connectorPort name="BF45" index="32"/>
+        <connectorPort name="BE45" index="33"/>
+        <connectorPort name="BF47" index="34"/>
+        <connectorPort name="BF46" index="35"/>
+        <connectorPort name="BH51" index="36"/>
+        <connectorPort name="BH50" index="37"/>
+        <connectorPort name="BH48" index="38"/>
+        <connectorPort name="BG48" index="39"/>
+        <connectorPort name="BD51" index="40"/>
+        <connectorPort name="BD50" index="41"/>
+        <connectorPort name="BH49" index="42"/>
+        <connectorPort name="BG49" index="43"/>
+        <connectorPort name="BF50" index="44"/>
+        <connectorPort name="BE50" index="45"/>
+        <connectorPort name="BF49" index="46"/>
+        <connectorPort name="BE49" index="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_BLINK04" size="48" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="AB62" index="0"/>
+        <connectorPort name="AB61" index="1"/>
+        <connectorPort name="AA62" index="2"/>
+        <connectorPort name="AA61" index="3"/>
+        <connectorPort name="AB59" index="4"/>
+        <connectorPort name="AB58" index="5"/>
+        <connectorPort name="Y60" index="6"/>
+        <connectorPort name="Y59" index="7"/>
+        <connectorPort name="AA60" index="8"/>
+        <connectorPort name="AA59" index="9"/>
+        <connectorPort name="Y63" index="10"/>
+        <connectorPort name="Y62" index="11"/>
+        <connectorPort name="W61" index="12"/>
+        <connectorPort name="W60" index="13"/>
+        <connectorPort name="V59" index="14"/>
+        <connectorPort name="V58" index="15"/>
+        <connectorPort name="W63" index="16"/>
+        <connectorPort name="W62" index="17"/>
+        <connectorPort name="V61" index="18"/>
+        <connectorPort name="V60" index="19"/>
+        <connectorPort name="U63" index="20"/>
+        <connectorPort name="V63" index="21"/>
+        <connectorPort name="U62" index="22"/>
+        <connectorPort name="U61" index="23"/>
+        <connectorPort name="AF61" index="24"/>
+        <connectorPort name="AG61" index="25"/>
+        <connectorPort name="AH59" index="26"/>
+        <connectorPort name="AH58" index="27"/>
+        <connectorPort name="AG59" index="28"/>
+        <connectorPort name="AG58" index="29"/>
+        <connectorPort name="AG63" index="30"/>
+        <connectorPort name="AG62" index="31"/>
+        <connectorPort name="AF60" index="32"/>
+        <connectorPort name="AF59" index="33"/>
+        <connectorPort name="AE62" index="34"/>
+        <connectorPort name="AF62" index="35"/>
+        <connectorPort name="AE60" index="36"/>
+        <connectorPort name="AE59" index="37"/>
+        <connectorPort name="AD63" index="38"/>
+        <connectorPort name="AD62" index="39"/>
+        <connectorPort name="AC59" index="40"/>
+        <connectorPort name="AC58" index="41"/>
+        <connectorPort name="AB63" index="42"/>
+        <connectorPort name="AC63" index="43"/>
+        <connectorPort name="AD61" index="44"/>
+        <connectorPort name="AD60" index="45"/>
+        <connectorPort name="AC61" index="46"/>
+        <connectorPort name="AC60" index="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_BLINK08" size="48" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="AL50" index="0"/>
+        <connectorPort name="AL49" index="1"/>
+        <connectorPort name="AK50" index="2"/>
+        <connectorPort name="AK49" index="3"/>
+        <connectorPort name="AN49" index="4"/>
+        <connectorPort name="AM49" index="5"/>
+        <connectorPort name="AK48" index="6"/>
+        <connectorPort name="AJ48" index="7"/>
+        <connectorPort name="AN48" index="8"/>
+        <connectorPort name="AM48" index="9"/>
+        <connectorPort name="AK47" index="10"/>
+        <connectorPort name="AJ47" index="11"/>
+        <connectorPort name="AM47" index="12"/>
+        <connectorPort name="AL47" index="13"/>
+        <connectorPort name="AM44" index="14"/>
+        <connectorPort name="AL44" index="15"/>
+        <connectorPort name="AN46" index="16"/>
+        <connectorPort name="AM46" index="17"/>
+        <connectorPort name="AK45" index="18"/>
+        <connectorPort name="AK44" index="19"/>
+        <connectorPort name="AN45" index="20"/>
+        <connectorPort name="AN44" index="21"/>
+        <connectorPort name="AJ46" index="22"/>
+        <connectorPort name="AJ45" index="23"/>
+        <connectorPort name="AL55" index="24"/>
+        <connectorPort name="AL54" index="25"/>
+        <connectorPort name="AN56" index="26"/>
+        <connectorPort name="AN55" index="27"/>
+        <connectorPort name="AN54" index="28"/>
+        <connectorPort name="AM54" index="29"/>
+        <connectorPort name="AK55" index="30"/>
+        <connectorPort name="AK54" index="31"/>
+        <connectorPort name="AM56" index="32"/>
+        <connectorPort name="AL56" index="33"/>
+        <connectorPort name="AJ56" index="34"/>
+        <connectorPort name="AJ55" index="35"/>
+        <connectorPort name="AN51" index="36"/>
+        <connectorPort name="AM51" index="37"/>
+        <connectorPort name="AJ53" index="38"/>
+        <connectorPort name="AJ52" index="39"/>
+        <connectorPort name="AN53" index="40"/>
+        <connectorPort name="AM53" index="41"/>
+        <connectorPort name="AJ51" index="42"/>
+        <connectorPort name="AJ50" index="43"/>
+        <connectorPort name="AK53" index="44"/>
+        <connectorPort name="AK52" index="45"/>
+        <connectorPort name="AL52" index="46"/>
+        <connectorPort name="AL51" index="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_BLINK10" size="48" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="AT50" index="0"/>
+        <connectorPort name="AT49" index="1"/>
+        <connectorPort name="AR50" index="2"/>
+        <connectorPort name="AR49" index="3"/>
+        <connectorPort name="AV51" index="4"/>
+        <connectorPort name="AV50" index="5"/>
+        <connectorPort name="AV48" index="6"/>
+        <connectorPort name="AU48" index="7"/>
+        <connectorPort name="AV49" index="8"/>
+        <connectorPort name="AU49" index="9"/>
+        <connectorPort name="AP48" index="10"/>
+        <connectorPort name="AP47" index="11"/>
+        <connectorPort name="AT47" index="12"/>
+        <connectorPort name="AR47" index="13"/>
+        <connectorPort name="AT45" index="14"/>
+        <connectorPort name="AT44" index="15"/>
+        <connectorPort name="AU47" index="16"/>
+        <connectorPort name="AU46" index="17"/>
+        <connectorPort name="AR45" index="18"/>
+        <connectorPort name="AR44" index="19"/>
+        <connectorPort name="AV46" index="20"/>
+        <connectorPort name="AV45" index="21"/>
+        <connectorPort name="AP46" index="22"/>
+        <connectorPort name="AP45" index="23"/>
+        <connectorPort name="AU57" index="24"/>
+        <connectorPort name="AU56" index="25"/>
+        <connectorPort name="AV55" index="26"/>
+        <connectorPort name="AV54" index="27"/>
+        <connectorPort name="AP56" index="28"/>
+        <connectorPort name="AP55" index="29"/>
+        <connectorPort name="AT57" index="30"/>
+        <connectorPort name="AT56" index="31"/>
+        <connectorPort name="AR55" index="32"/>
+        <connectorPort name="AR54" index="33"/>
+        <connectorPort name="AT55" index="34"/>
+        <connectorPort name="AT54" index="35"/>
+        <connectorPort name="AV53" index="36"/>
+        <connectorPort name="AU53" index="37"/>
+        <connectorPort name="AP53" index="38"/>
+        <connectorPort name="AP52" index="39"/>
+        <connectorPort name="AU52" index="40"/>
+        <connectorPort name="AU51" index="41"/>
+        <connectorPort name="AP51" index="42"/>
+        <connectorPort name="AP50" index="43"/>
+        <connectorPort name="AT52" index="44"/>
+        <connectorPort name="AT51" index="45"/>
+        <connectorPort name="AR53" index="46"/>
+        <connectorPort name="AR52" index="47"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_OLINK01" size="4" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="AB3" index="0"/>
+        <connectorPort name="AB4" index="1"/>
+        <connectorPort name="AD8" index="2"/>
+        <connectorPort name="AD9" index="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_OLINK02" size="4" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="AA1" index="0"/>
+        <connectorPort name="AA2" index="1"/>
+        <connectorPort name="AC6" index="2"/>
+        <connectorPort name="AC7" index="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_OLINK03" size="4" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="AD3" index="0"/>
+        <connectorPort name="AD4" index="1"/>
+        <connectorPort name="AF8" index="2"/>
+        <connectorPort name="AF9" index="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_OLINK04" size="4" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="AC1" index="0"/>
+        <connectorPort name="AC2" index="1"/>
+        <connectorPort name="AE6" index="2"/>
+        <connectorPort name="AE7" index="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_OLINK05" size="4" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="AF3" index="0"/>
+        <connectorPort name="AF4" index="1"/>
+        <connectorPort name="AH8" index="2"/>
+        <connectorPort name="AH9" index="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_OLINK06" size="4" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="AE1" index="0"/>
+        <connectorPort name="AE2" index="1"/>
+        <connectorPort name="AG6" index="2"/>
+        <connectorPort name="AG7" index="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_OLINK07" size="4" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="AH3" index="0"/>
+        <connectorPort name="AH4" index="1"/>
+        <connectorPort name="AK8" index="2"/>
+        <connectorPort name="AK9" index="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_OLINK08" size="4" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="AG1" index="0"/>
+        <connectorPort name="AG2" index="1"/>
+        <connectorPort name="AJ6" index="2"/>
+        <connectorPort name="AJ7" index="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_OLINK09" size="4" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="AK3" index="0"/>
+        <connectorPort name="AK4" index="1"/>
+        <connectorPort name="AM8" index="2"/>
+        <connectorPort name="AM9" index="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_OLINK10" size="4" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="AJ1" index="0"/>
+        <connectorPort name="AJ2" index="1"/>
+        <connectorPort name="AL6" index="2"/>
+        <connectorPort name="AL7" index="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_OLINK11" size="4" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="AM3" index="0"/>
+        <connectorPort name="AM4" index="1"/>
+        <connectorPort name="AP8" index="2"/>
+        <connectorPort name="AP9" index="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_OLINK12" size="4" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="AL1" index="0"/>
+        <connectorPort name="AL2" index="1"/>
+        <connectorPort name="AN6" index="2"/>
+        <connectorPort name="AN7" index="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_OLINK13" size="4" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="BK3" index="0"/>
+        <connectorPort name="BK4" index="1"/>
+        <connectorPort name="BM8" index="2"/>
+        <connectorPort name="BM9" index="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_OLINK14" size="4" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="BJ1" index="0"/>
+        <connectorPort name="BJ2" index="1"/>
+        <connectorPort name="BL6" index="2"/>
+        <connectorPort name="BL7" index="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_OLINK15" size="4" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="BM3" index="0"/>
+        <connectorPort name="BM4" index="1"/>
+        <connectorPort name="BP8" index="2"/>
+        <connectorPort name="BP9" index="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_OLINK16" size="4" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="BL1" index="0"/>
+        <connectorPort name="BL2" index="1"/>
+        <connectorPort name="BN6" index="2"/>
+        <connectorPort name="BN7" index="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_OLINK17" size="4" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="BP3" index="0"/>
+        <connectorPort name="BP4" index="1"/>
+        <connectorPort name="BT8" index="2"/>
+        <connectorPort name="BT9" index="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_OLINK18" size="4" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="BN1" index="0"/>
+        <connectorPort name="BN2" index="1"/>
+        <connectorPort name="BR6" index="2"/>
+        <connectorPort name="BR7" index="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_OLINK19" size="4" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="BT3" index="0"/>
+        <connectorPort name="BT4" index="1"/>
+        <connectorPort name="BV8" index="2"/>
+        <connectorPort name="BV9" index="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_OLINK20" size="4" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="BR1" index="0"/>
+        <connectorPort name="BR2" index="1"/>
+        <connectorPort name="BU6" index="2"/>
+        <connectorPort name="BU7" index="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_OLINK21" size="4" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="BV3" index="0"/>
+        <connectorPort name="BV4" index="1"/>
+        <connectorPort name="CA6" index="2"/>
+        <connectorPort name="CA7" index="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_OLINK22" size="4" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="BU1" index="0"/>
+        <connectorPort name="BU2" index="1"/>
+        <connectorPort name="BW6" index="2"/>
+        <connectorPort name="BW7" index="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_OLINK23" size="4" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="BY3" index="0"/>
+        <connectorPort name="BY4" index="1"/>
+        <connectorPort name="CC6" index="2"/>
+        <connectorPort name="CC7" index="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_OLINK24" size="4" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="BW1" index="0"/>
+        <connectorPort name="BW2" index="1"/>
+        <connectorPort name="CB4" index="2"/>
+        <connectorPort name="CB5" index="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_OLINK25" size="4" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="AP3" index="0"/>
+        <connectorPort name="AP4" index="1"/>
+        <connectorPort name="AT8" index="2"/>
+        <connectorPort name="AT9" index="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_OLINK26" size="4" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="AN1" index="0"/>
+        <connectorPort name="AN2" index="1"/>
+        <connectorPort name="AR6" index="2"/>
+        <connectorPort name="AR7" index="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_OLINK27" size="4" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="AT3" index="0"/>
+        <connectorPort name="AT4" index="1"/>
+        <connectorPort name="AV8" index="2"/>
+        <connectorPort name="AV9" index="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_OLINK28" size="4" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="AR1" index="0"/>
+        <connectorPort name="AR2" index="1"/>
+        <connectorPort name="AU6" index="2"/>
+        <connectorPort name="AU7" index="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_OLINK29" size="4" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="AV3" index="0"/>
+        <connectorPort name="AV4" index="1"/>
+        <connectorPort name="AY8" index="2"/>
+        <connectorPort name="AY9" index="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_OLINK30" size="4" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="AU1" index="0"/>
+        <connectorPort name="AU2" index="1"/>
+        <connectorPort name="AW6" index="2"/>
+        <connectorPort name="AW7" index="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_OLINK31" size="4" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="AY3" index="0"/>
+        <connectorPort name="AY4" index="1"/>
+        <connectorPort name="BB8" index="2"/>
+        <connectorPort name="BB9" index="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_OLINK32" size="4" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="AW1" index="0"/>
+        <connectorPort name="AW2" index="1"/>
+        <connectorPort name="BA6" index="2"/>
+        <connectorPort name="BA7" index="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_OLINK33" size="4" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="BB3" index="0"/>
+        <connectorPort name="BB4" index="1"/>
+        <connectorPort name="BD8" index="2"/>
+        <connectorPort name="BD9" index="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_OLINK34" size="4" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="BA1" index="0"/>
+        <connectorPort name="BA2" index="1"/>
+        <connectorPort name="BC6" index="2"/>
+        <connectorPort name="BC7" index="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_OLINK35" size="4" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="BD3" index="0"/>
+        <connectorPort name="BD4" index="1"/>
+        <connectorPort name="BF8" index="2"/>
+        <connectorPort name="BF9" index="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_OLINK36" size="4" cabling="false" visibleInDB="false" instance="FPGA">
+      <connectorPorts>
+        <connectorPort name="BC1" index="0"/>
+        <connectorPort name="BC2" index="1"/>
+        <connectorPort name="BE6" index="2"/>
+        <connectorPort name="BE7" index="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="GLINK01" size="4" cabling="false" visibleInDB="true" instance="FPGA">
+      <vendorExtensions>
+        <vendorExtension name="type" value="GLINK"/>
+        <vendorExtension name="index" value="1"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="Y3" index="0"/>
+        <connectorPort name="Y4" index="1"/>
+        <connectorPort name="AB8" index="2"/>
+        <connectorPort name="AB9" index="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="GLINK02" size="4" cabling="false" visibleInDB="true" instance="FPGA">
+      <vendorExtensions>
+        <vendorExtension name="type" value="GLINK"/>
+        <vendorExtension name="index" value="2"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="W1" index="0"/>
+        <connectorPort name="W2" index="1"/>
+        <connectorPort name="AA6" index="2"/>
+        <connectorPort name="AA7" index="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="GLINK03" size="4" cabling="false" visibleInDB="true" instance="FPGA">
+      <vendorExtensions>
+        <vendorExtension name="type" value="GLINK"/>
+        <vendorExtension name="index" value="3"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="V3" index="0"/>
+        <connectorPort name="V4" index="1"/>
+        <connectorPort name="Y8" index="2"/>
+        <connectorPort name="Y9" index="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="GLINK04" size="4" cabling="false" visibleInDB="true" instance="FPGA">
+      <vendorExtensions>
+        <vendorExtension name="type" value="GLINK"/>
+        <vendorExtension name="index" value="4"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="U1" index="0"/>
+        <connectorPort name="U2" index="1"/>
+        <connectorPort name="W6" index="2"/>
+        <connectorPort name="W7" index="3"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_MGT_REFCLK_0" size="2" cabling="false" visibleInDB="false" instance="FPGA">
+      <vendorExtensions>
+        <vendorExtension name="type" value="MGT_REFCLK"/>
+        <vendorExtension name="index" value="0"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="BU10" index="0"/>
+        <connectorPort name="BU11" index="1"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_MGT_REFCLK_1" size="2" cabling="false" visibleInDB="false" instance="FPGA">
+      <vendorExtensions>
+        <vendorExtension name="type" value="MGT_REFCLK"/>
+        <vendorExtension name="index" value="1"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="BC10" index="0"/>
+        <connectorPort name="BC11" index="1"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_MGT_REFCLK_2" size="2" cabling="false" visibleInDB="false" instance="FPGA">
+      <vendorExtensions>
+        <vendorExtension name="type" value="MGT_REFCLK"/>
+        <vendorExtension name="index" value="2"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="AP12" index="0"/>
+        <connectorPort name="AP13" index="1"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_MGT_REFCLK_3" size="2" cabling="false" visibleInDB="false" instance="FPGA">
+      <vendorExtensions>
+        <vendorExtension name="type" value="MGT_REFCLK"/>
+        <vendorExtension name="index" value="2"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="AC10" index="0"/>
+        <connectorPort name="AC11" index="1"/>
+      </connectorPorts>
+    </connector>
+    <connector name="FPGA_MGT_USER_CLK_4" size="2" cabling="false" visibleInDB="false" instance="FPGA">
+      <vendorExtensions>
+        <vendorExtension name="type" value="MGT_REFCLK"/>
+        <vendorExtension name="index" value="4"/>
+      </vendorExtensions>
+      <connectorPorts>
+        <connectorPort name="AG10" index="0"/>
+        <connectorPort name="AG11" index="1"/>
+      </connectorPorts>
+    </connector>
+  </connectors>
+</module>
+

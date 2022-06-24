@@ -1,0 +1,215 @@
+<?xml version="1.0"?>
+<!--- ================================================================= -->
+<!--- Unpublished work. Copyright 2021 Siemens                          -->
+<!--- This material contains trade secrets or otherwise                 -->
+<!--- confidential information owned by Siemens Industry Software Inc.  -->
+<!--- or its affiliates (collectively, "SISW"), or its licensors.       -->
+<!--- Access to and use of this information is strictly limited as      -->
+<!--- set forth in the Customer's applicable agreements with SISW.      -->
+<!---                                                                   -->
+<!--- ================================================================= -->
+
+
+<connectionModel name="CONN_MTP24" type="cable">
+  <connectionConnectors>
+    <connectionConnector name="MTP24_B" size="48" logicalType="MGT" physicalType="MTP24"/>
+    <connectionConnector name="MTP24_A" size="48" logicalType="MGT" physicalType="MTP24"/>
+  </connectionConnectors>
+  <connectionWires>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="0"/>
+      <connectionConnectorRef name="MTP24_B" index="2"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="1"/>
+      <connectionConnectorRef name="MTP24_B" index="3"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="2"/>
+      <connectionConnectorRef name="MTP24_B" index="0"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="3"/>
+      <connectionConnectorRef name="MTP24_B" index="1"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="4"/>
+      <connectionConnectorRef name="MTP24_B" index="6"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="5"/>
+      <connectionConnectorRef name="MTP24_B" index="7"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="6"/>
+      <connectionConnectorRef name="MTP24_B" index="4"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="7"/>
+      <connectionConnectorRef name="MTP24_B" index="5"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="8"/>
+      <connectionConnectorRef name="MTP24_B" index="10"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="9"/>
+      <connectionConnectorRef name="MTP24_B" index="11"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="10"/>
+      <connectionConnectorRef name="MTP24_B" index="8"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="11"/>
+      <connectionConnectorRef name="MTP24_B" index="9"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="12"/>
+      <connectionConnectorRef name="MTP24_B" index="14"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="13"/>
+      <connectionConnectorRef name="MTP24_B" index="15"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="14"/>
+      <connectionConnectorRef name="MTP24_B" index="12"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="15"/>
+      <connectionConnectorRef name="MTP24_B" index="13"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="16"/>
+      <connectionConnectorRef name="MTP24_B" index="18"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="17"/>
+      <connectionConnectorRef name="MTP24_B" index="19"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="18"/>
+      <connectionConnectorRef name="MTP24_B" index="16"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="19"/>
+      <connectionConnectorRef name="MTP24_B" index="17"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="20"/>
+      <connectionConnectorRef name="MTP24_B" index="22"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="21"/>
+      <connectionConnectorRef name="MTP24_B" index="23"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="22"/>
+      <connectionConnectorRef name="MTP24_B" index="20"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="23"/>
+      <connectionConnectorRef name="MTP24_B" index="21"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="24"/>
+      <connectionConnectorRef name="MTP24_B" index="26"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="25"/>
+      <connectionConnectorRef name="MTP24_B" index="27"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="26"/>
+      <connectionConnectorRef name="MTP24_B" index="24"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="27"/>
+      <connectionConnectorRef name="MTP24_B" index="25"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="28"/>
+      <connectionConnectorRef name="MTP24_B" index="30"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="29"/>
+      <connectionConnectorRef name="MTP24_B" index="31"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="30"/>
+      <connectionConnectorRef name="MTP24_B" index="28"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="31"/>
+      <connectionConnectorRef name="MTP24_B" index="29"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="32"/>
+      <connectionConnectorRef name="MTP24_B" index="34"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="33"/>
+      <connectionConnectorRef name="MTP24_B" index="35"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="34"/>
+      <connectionConnectorRef name="MTP24_B" index="32"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="35"/>
+      <connectionConnectorRef name="MTP24_B" index="33"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="36"/>
+      <connectionConnectorRef name="MTP24_B" index="38"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="37"/>
+      <connectionConnectorRef name="MTP24_B" index="39"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="38"/>
+      <connectionConnectorRef name="MTP24_B" index="36"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="39"/>
+      <connectionConnectorRef name="MTP24_B" index="37"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="40"/>
+      <connectionConnectorRef name="MTP24_B" index="42"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="41"/>
+      <connectionConnectorRef name="MTP24_B" index="43"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="42"/>
+      <connectionConnectorRef name="MTP24_B" index="40"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="43"/>
+      <connectionConnectorRef name="MTP24_B" index="41"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="44"/>
+      <connectionConnectorRef name="MTP24_B" index="46"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="45"/>
+      <connectionConnectorRef name="MTP24_B" index="47"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="46"/>
+      <connectionConnectorRef name="MTP24_B" index="44"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="MTP24_A" index="47"/>
+      <connectionConnectorRef name="MTP24_B" index="45"/>
+    </connectionWire>
+  </connectionWires>
+    <vendorExtensions>
+      <vendorExtension name="mentor" value="Black10"/>
+    </vendorExtensions>²
+  </connectionModel>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--- ================================================================= -->
+<!--- Unpublished work. Copyright 2021 Siemens                          -->
+<!--- This material contains trade secrets or otherwise                 -->
+<!--- confidential information owned by Siemens Industry Software Inc.  -->
+<!--- or its affiliates (collectively, "SISW"), or its licensors.       -->
+<!--- Access to and use of this information is strictly limited as      -->
+<!--- set forth in the Customer's applicable agreements with SISW.      -->
+<!---                                                                   -->
+<!--- ================================================================= -->
+
+
+<protocol>
+  <protocolId name="ICE_IOM_NVRAM_QSPI_NOR_FLASH_REV0" vendor="B10"/>
+  <ports>
+    <port name="qspi_c" direction="input"/>
+    <port name="qspi_s_n" direction="input"/>
+    <port name="qspi_d3" direction="inout"/>
+    <port name="qspi_d2" direction="inout"/>
+    <port name="qspi_d1" direction="inout"/>
+    <port name="qspi_d0" direction="inout"/>
+  </ports>
+</protocol>

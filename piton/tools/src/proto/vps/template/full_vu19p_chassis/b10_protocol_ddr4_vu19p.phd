@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<protocol>
+    <protocolId name="DDR4" vendor="B10"/>
+    <parameters>
+      <parameter name="ddr4_dq_msb" value="63"/>
+      <parameter name="ddr4_dqs_t_msb" value="7"/>-
+      <parameter name="ddr4_dqs_c_msb" value="7"/>
+      <parameter name="ddr4_ck_t_msb" value="0"/>
+      <parameter name="ddr4_ck_c_msb" value="0"/>
+      <parameter name="ddr4_dm_dbi_n_msb" value="7"/>
+      <parameter name="ddr4_adr_msb" value="16"/>
+      <parameter name="ddr4_ba_msb" value="1"/>
+      <parameter name="ddr4_cke_msb" value="0"/>
+      <parameter name="ddr4_odt_msb" value="0"/>
+      <parameter name="ddr4_cs_n_msb" value="0"/>
+      <parameter name="ddr4_bg_msb" value="1"/>
+    </parameters>
+    <ports>
+      <port name="ddr4_dq" msb="ddr4_dq_msb" lsb="0" direction="inout"/>
+      <port name="ddr4_dqs_t" msb="ddr4_dqs_t_msb" lsb="0" direction="inout"/>
+      <port name="ddr4_dqs_c" msb="ddr4_dqs_c_msb" lsb="0" direction="inout"/>
+      <port name="ddr4_ck_t" msb="ddr4_ck_t_msb" lsb="0" direction="input"/>
+      <port name="ddr4_ck_c" msb="ddr4_ck_c_msb" lsb="0" direction="input"/>
+      <port name="ddr4_dm_dbi_n" msb="ddr4_dm_dbi_n_msb" lsb="0" direction="input"/>
+      <port name="ddr4_adr" msb="ddr4_adr_msb" lsb="0" direction="input"/>
+      <port name="ddr4_ba" msb="ddr4_ba_msb" lsb="0" direction="input"/>
+      <port name="ddr4_cke" msb="ddr4_cke_msb" lsb="0" direction="input"/>
+      <port name="ddr4_odt" msb="ddr4_odt_msb" lsb="0" direction="input"/>
+      <port name="ddr4_cs_n" msb="ddr4_cs_n_msb" lsb="0" direction="input"/>
+      <port name="ddr4_bg" msb="ddr4_bg_msb" lsb="0" direction="input"/>
+      <port name="ddr4_reset_n" direction="input"/>
+      <port name="ddr4_act_n" direction="input"/>
+      <port name="ddr4_par" direction="input"/>
+      <port name="ddr4_alert_n" direction="output"/>
+      <port name="sys_clk_p" direction="output"/>
+      <port name="sys_clk_n" direction="output"/>
+    </ports>
+</protocol>

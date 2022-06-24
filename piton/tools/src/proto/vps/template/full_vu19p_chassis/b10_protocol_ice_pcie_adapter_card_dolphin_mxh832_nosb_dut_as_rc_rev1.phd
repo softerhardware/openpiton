@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--- ================================================================= -->
+<!--- Unpublished work. Copyright 2021 Siemens                          -->
+<!--- This material contains trade secrets or otherwise                 -->
+<!--- confidential information owned by Siemens Industry Software Inc.  -->
+<!--- or its affiliates (collectively, "SISW"), or its licensors.       -->
+<!--- Access to and use of this information is strictly limited as      -->
+<!--- set forth in the Customer's applicable agreements with SISW.      -->
+<!---                                                                   -->
+<!--- ================================================================= -->
+
+
+<protocol>
+  <protocolId name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_NOSB_DUT_AS_RC_REV1" vendor="B10"/>
+  <parameters>
+    <parameter name="pcie_msb" value="7"/>
+  </parameters>
+  <ports>
+    <port name="mgt_refclk_n" direction="output"/>
+    <port name="mgt_refclk_p" direction="output"/>
+    <port name="pcie_rxn" msb="pcie_msb" lsb="0" direction="output"/>
+    <port name="pcie_rxp" msb="pcie_msb" lsb="0" direction="output"/>
+    <port name="pcie_txn" msb="pcie_msb" lsb="0" direction="input"/>
+    <port name="pcie_txp" msb="pcie_msb" lsb="0" direction="input"/>
+  </ports>
+</protocol>

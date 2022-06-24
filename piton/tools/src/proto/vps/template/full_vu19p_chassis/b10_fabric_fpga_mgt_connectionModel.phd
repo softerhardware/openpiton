@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--- ================================================================= -->
+<!--- Unpublished work. Copyright 2021 Siemens                          -->
+<!--- This material contains trade secrets or otherwise                 -->
+<!--- confidential information owned by Siemens Industry Software Inc.  -->
+<!--- or its affiliates (collectively, "SISW"), or its licensors.       -->
+<!--- Access to and use of this information is strictly limited as      -->
+<!--- set forth in the Customer's applicable agreements with SISW.      -->
+<!---                                                                   -->
+<!--- ================================================================= -->
+
+
+<connectionModel name="CONN_FABRIC_MGT" type="pcb">
+  <connectionConnectors>
+    <connectionConnector name="fpga_connector" size="4"/>
+    <connectionConnector name="fabric_connector" size="4"/>
+  </connectionConnectors>
+  <connectionWires>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="0"/>
+      <connectionConnectorRef name="fabric_connector" index="0"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="1"/>
+      <connectionConnectorRef name="fabric_connector" index="1"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="2"/>
+      <connectionConnectorRef name="fabric_connector" index="2"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="fpga_connector" index="3"/>
+      <connectionConnectorRef name="fabric_connector" index="3"/>
+    </connectionWire>
+  </connectionWires>
+    <vendorExtensions>
+      <vendorExtension name="mentor" value="Black10"/>
+    </vendorExtensions>
+  </connectionModel>

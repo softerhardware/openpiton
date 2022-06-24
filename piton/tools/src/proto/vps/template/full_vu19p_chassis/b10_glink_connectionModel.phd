@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--- ================================================================= -->
+<!--- Unpublished work. Copyright 2021 Siemens                          -->
+<!--- This material contains trade secrets or otherwise                 -->
+<!--- confidential information owned by Siemens Industry Software Inc.  -->
+<!--- or its affiliates (collectively, "SISW"), or its licensors.       -->
+<!--- Access to and use of this information is strictly limited as      -->
+<!--- set forth in the Customer's applicable agreements with SISW.      -->
+<!---                                                                   -->
+<!--- ================================================================= -->
+
+
+<connectionModel name="CONN_GLINK" type="pcb">
+  <connectionConnectors>
+    <connectionConnector name="GLINK_B" size="4"/>
+    <connectionConnector name="GLINK_A" size="4"/>
+  </connectionConnectors>
+  <connectionWires>
+    <connectionWire>
+      <connectionConnectorRef name="GLINK_A" index="0"/>
+      <connectionConnectorRef name="GLINK_B" index="2"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="GLINK_A" index="1"/>
+      <connectionConnectorRef name="GLINK_B" index="3"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="GLINK_A" index="2"/>
+      <connectionConnectorRef name="GLINK_B" index="0"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="GLINK_A" index="3"/>
+      <connectionConnectorRef name="GLINK_B" index="1"/>
+    </connectionWire>
+  </connectionWires>
+    <vendorExtensions>
+      <vendorExtension name="mentor" value="Black10"/>
+    </vendorExtensions>
+</connectionModel>

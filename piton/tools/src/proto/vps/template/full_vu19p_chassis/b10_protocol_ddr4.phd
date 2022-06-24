@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--- ================================================================= -->
+<!--- Unpublished work. Copyright 2021 Siemens                          -->
+<!--- This material contains trade secrets or otherwise                 -->
+<!--- confidential information owned by Siemens Industry Software Inc.  -->
+<!--- or its affiliates (collectively, "SISW"), or its licensors.       -->
+<!--- Access to and use of this information is strictly limited as      -->
+<!--- set forth in the Customer's applicable agreements with SISW.      -->
+<!---                                                                   -->
+<!--- ================================================================= -->
+
+
+<protocol>
+  <protocolId name="DDR4" vendor="B10"/>
+  <ports>
+  <port name="ddr4_adr" msb="16" lsb="0" direction="input"/>
+  <port name="ddr4_ba" msb="1" lsb="0" direction="input"/>
+  <port name="ddr4_cke" msb="0" lsb="0" direction="input"/>
+  <port name="ddr4_cs_n" msb="0" lsb="0" direction="input"/>
+  <port name="ddr4_dm_dbi_n" msb="4" lsb="0" direction="input"/>
+  <port name="ddr4_dq" msb="39" lsb="0" direction="inout"/>
+  <port name="ddr4_dqs_c" msb="4" lsb="0" direction="inout"/>
+  <port name="ddr4_dqs_t" msb="4" lsb="0" direction="inout"/>
+  <port name="ddr4_odt" msb="0" lsb="0" direction="input"/>
+  <port name="ddr4_bg" msb="1" lsb="0" direction="input"/>
+  <port name="ddr4_ck_t" msb="0" lsb="0" direction="input"/>
+  <port name="ddr4_ck_c" msb="0" lsb="0" direction="input"/>
+  <port name="ddr4_reset_n" direction="input"/>
+  <port name="ddr4_act_n" direction="input"/>
+  <port name="ddr4_alert_n" direction="output"/>
+  <port name="ddr4_par" direction="output"/>
+  <port name="sys_clk_p" direction="output"/>
+  <port name="sys_clk_n" direction="output"/>
+  </ports>
+</protocol>

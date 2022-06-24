@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--- ================================================================= -->
+<!--- Unpublished work. Copyright 2021 Siemens                          -->
+<!--- This material contains trade secrets or otherwise                 -->
+<!--- confidential information owned by Siemens Industry Software Inc.  -->
+<!--- or its affiliates (collectively, "SISW"), or its licensors.       -->
+<!--- Access to and use of this information is strictly limited as      -->
+<!--- set forth in the Customer's applicable agreements with SISW.      -->
+<!---                                                                   -->
+<!--- ================================================================= -->
+
+
+<protocol>
+  <protocolId name="ICE_ETH_10G_OPTICAL_X4_REV1" vendor="B10"/>
+  <parameters>
+    <parameter name="lanes_number_msb" value="3"/>
+  </parameters>
+  <ports>
+    <port name="rx_n" msb="lanes_number_msb" lsb="0" direction="output"/>
+    <port name="rx_p" msb="lanes_number_msb" lsb="0" direction="output"/>
+    <port name="tx_n" msb="lanes_number_msb" lsb="0" direction="input"/>
+    <port name="tx_p" msb="lanes_number_msb" lsb="0" direction="input"/>
+    <port name="refclk_n" direction="output"/>
+    <port name="refclk_p" direction="output"/>
+  </ports>
+</protocol>

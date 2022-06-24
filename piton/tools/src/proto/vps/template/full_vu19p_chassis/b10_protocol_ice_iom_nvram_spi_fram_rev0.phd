@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--- ================================================================= -->
+<!--- Unpublished work. Copyright 2021 Siemens                          -->
+<!--- This material contains trade secrets or otherwise                 -->
+<!--- confidential information owned by Siemens Industry Software Inc.  -->
+<!--- or its affiliates (collectively, "SISW"), or its licensors.       -->
+<!--- Access to and use of this information is strictly limited as      -->
+<!--- set forth in the Customer's applicable agreements with SISW.      -->
+<!---                                                                   -->
+<!--- ================================================================= -->
+
+
+<protocol>
+  <protocolId name="ICE_IOM_NVRAM_SPI_FRAM_REV0" vendor="B10"/>
+  <ports>
+    <port name="fram_sclk_f" direction="output"/>
+    <port name="fram_wp_n" direction="input"/>
+    <port name="fram_si" direction="input"/>
+    <port name="fram_so" direction="output"/>
+    <port name="fram_cs_n" direction="input"/>
+    <port name="fram_sck" direction="input"/>
+  </ports>
+</protocol>

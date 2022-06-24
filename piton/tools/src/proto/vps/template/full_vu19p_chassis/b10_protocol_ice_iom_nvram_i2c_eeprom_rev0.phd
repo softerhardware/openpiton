@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--- ================================================================= -->
+<!--- Unpublished work. Copyright 2021 Siemens                          -->
+<!--- This material contains trade secrets or otherwise                 -->
+<!--- confidential information owned by Siemens Industry Software Inc.  -->
+<!--- or its affiliates (collectively, "SISW"), or its licensors.       -->
+<!--- Access to and use of this information is strictly limited as      -->
+<!--- set forth in the Customer's applicable agreements with SISW.      -->
+<!---                                                                   -->
+<!--- ================================================================= -->
+
+
+<protocol>
+  <protocolId name="ICE_IOM_NVRAM_I2C_EEPROM_REV0" vendor="B10"/>
+  <ports>
+    <port name="i2c_wp" direction="input"/>
+    <port name="i2c_sda" direction="inout"/>
+    <port name="i2c_scl" direction="input"/>
+  </ports>
+</protocol>

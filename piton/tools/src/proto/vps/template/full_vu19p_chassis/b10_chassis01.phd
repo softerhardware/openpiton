@@ -1,0 +1,302 @@
+<?xml version="1.0"?>
+<!--- ================================================================ -->
+<!--- Unpublished work. Copyright 2022 Siemens                         -->
+<!--- This material contains trade secrets or otherwise                -->
+<!--- confidential information owned by Siemens Industry Software Inc. -->
+<!--- or its affiliates (collectively, "SISW"), or its licensors.      -->
+<!--- Access to and use of this information is strictly limited as     -->
+<!--- set forth in the Customer's applicable agreements with SISW.     -->
+<!---                                                                  -->
+<!--- ================================================================ -->
+
+
+<module name="chassis01">
+  <instances>
+    <instance name="U_SLOT01">
+      <moduleRef name="fabric_revB"/>
+        <vendorExtensions>
+          <vendorExtension name="SLOT_ID" type="String" value="1"/>
+          <vendorExtension name="SLOT_REV" type="String" value="1"/>
+          <vendorExtension name="SLOT_PART_NUM" type="String" value="281545"/>
+        </vendorExtensions>
+    </instance>
+    <instance name="U_SLOT02">
+      <moduleRef name="fabric_revB"/>
+        <vendorExtensions>
+          <vendorExtension name="SLOT_ID" type="String" value="2"/>
+          <vendorExtension name="SLOT_REV" type="String" value="1"/>
+          <vendorExtension name="SLOT_PART_NUM" type="String" value="281545"/>
+        </vendorExtensions>
+    </instance>
+    <instance name="U_SLOT03">
+      <moduleRef name="fabric_revB"/>
+        <vendorExtensions>
+          <vendorExtension name="SLOT_ID" type="String" value="3"/>
+          <vendorExtension name="SLOT_REV" type="String" value="1"/>
+          <vendorExtension name="SLOT_PART_NUM" type="String" value="281545"/>
+        </vendorExtensions>
+    </instance>
+    <instance name="U_SLOT04">
+      <moduleRef name="fabric_revB"/>
+        <vendorExtensions>
+          <vendorExtension name="SLOT_ID" type="String" value="4"/>
+          <vendorExtension name="SLOT_REV" type="String" value="1"/>
+          <vendorExtension name="SLOT_PART_NUM" type="String" value="281545"/>
+        </vendorExtensions>
+    </instance>
+    <instance name="U_SLOT05">
+      <moduleRef name="fabric_revB"/>
+        <vendorExtensions>
+          <vendorExtension name="SLOT_ID" type="String" value="5"/>
+          <vendorExtension name="SLOT_REV" type="String" value="1"/>
+          <vendorExtension name="SLOT_PART_NUM" type="String" value="281545"/>
+        </vendorExtensions>
+    </instance>
+    <instance name="U_SLOT06">
+      <moduleRef name="fabric_revB"/>
+        <vendorExtensions>
+          <vendorExtension name="SLOT_ID" type="String" value="6"/>
+          <vendorExtension name="SLOT_REV" type="String" value="1"/>
+          <vendorExtension name="SLOT_PART_NUM" type="String" value="281545"/>
+        </vendorExtensions>
+    </instance>
+    <instance name="U_SLOT07">
+      <moduleRef name="fabric_revB"/>
+        <vendorExtensions>
+          <vendorExtension name="SLOT_ID" type="String" value="7"/>
+          <vendorExtension name="SLOT_REV" type="String" value="1"/>
+          <vendorExtension name="SLOT_PART_NUM" type="String" value="281545"/>
+        </vendorExtensions>
+    </instance>
+    <instance name="U_SLOT08">
+      <moduleRef name="fabric_revB"/>
+        <vendorExtensions>
+          <vendorExtension name="SLOT_ID" type="String" value="8"/>
+          <vendorExtension name="SLOT_REV" type="String" value="1"/>
+          <vendorExtension name="SLOT_PART_NUM" type="String" value="281545"/>
+        </vendorExtensions>
+    </instance>
+    <instance name="U_SLOT09">
+      <moduleRef name="fabric_revB"/>
+        <vendorExtensions>
+          <vendorExtension name="SLOT_ID" type="String" value="9"/>
+          <vendorExtension name="SLOT_REV" type="String" value="1"/>
+          <vendorExtension name="SLOT_PART_NUM" type="String" value="282080"/>
+        </vendorExtensions>
+    </instance>
+    <instance name="U_SLOT10">
+      <moduleRef name="fabric_revB"/>
+        <vendorExtensions>
+          <vendorExtension name="SLOT_ID" type="String" value="10"/>
+          <vendorExtension name="SLOT_REV" type="String" value="1"/>
+          <vendorExtension name="SLOT_PART_NUM" type="String" value="281545"/>
+        </vendorExtensions>
+    </instance>
+  </instances>
+  <connections>
+    <connection name="BACKPLANE" connectionModelRef="CONN_BLINK">
+      <connectorRefs>
+        <connectorRef instancePath="U_SLOT01" connector="BLINK01" connectionConnector="U_SLOT01_BLINK01"/>
+        <connectorRef instancePath="U_SLOT01" connector="BLINK03" connectionConnector="U_SLOT01_BLINK03"/>
+        <connectorRef instancePath="U_SLOT01" connector="BLINK04" connectionConnector="U_SLOT01_BLINK04"/>
+        <connectorRef instancePath="U_SLOT01" connector="BLINK05" connectionConnector="U_SLOT01_BLINK05"/>
+        <connectorRef instancePath="U_SLOT01" connector="BLINK06" connectionConnector="U_SLOT01_BLINK06"/>
+        <connectorRef instancePath="U_SLOT01" connector="BLINK07" connectionConnector="U_SLOT01_BLINK07"/>
+        <connectorRef instancePath="U_SLOT01" connector="BLINK08" connectionConnector="U_SLOT01_BLINK08"/>
+        <connectorRef instancePath="U_SLOT01" connector="BLINK10" connectionConnector="U_SLOT01_BLINK10"/>
+        <connectorRef instancePath="U_SLOT01" connector="BLINK02" connectionConnector="U_SLOT01_BLINK02"/>
+        <connectorRef instancePath="U_SLOT01" connector="BLINK09" connectionConnector="U_SLOT01_BLINK09"/>
+        <connectorRef instancePath="U_SLOT01" connector="BLINK11" connectionConnector="U_SLOT01_BLINK11"/>
+        <connectorRef instancePath="U_SLOT01" connector="BLINK12" connectionConnector="U_SLOT01_BLINK12"/>
+        <connectorRef instancePath="U_SLOT01" connector="BLINK13" connectionConnector="U_SLOT01_BLINK13"/>
+        <connectorRef instancePath="U_SLOT01" connector="BLINK14" connectionConnector="U_SLOT01_BLINK14"/>
+        <connectorRef instancePath="U_SLOT01" connector="BLINK15" connectionConnector="U_SLOT01_BLINK15"/>
+        <connectorRef instancePath="U_SLOT01" connector="BLINK16" connectionConnector="U_SLOT01_BLINK16"/>
+        <connectorRef instancePath="U_SLOT02" connector="BLINK01" connectionConnector="U_SLOT02_BLINK01"/>
+        <connectorRef instancePath="U_SLOT02" connector="BLINK03" connectionConnector="U_SLOT02_BLINK03"/>
+        <connectorRef instancePath="U_SLOT02" connector="BLINK04" connectionConnector="U_SLOT02_BLINK04"/>
+        <connectorRef instancePath="U_SLOT02" connector="BLINK05" connectionConnector="U_SLOT02_BLINK05"/>
+        <connectorRef instancePath="U_SLOT02" connector="BLINK06" connectionConnector="U_SLOT02_BLINK06"/>
+        <connectorRef instancePath="U_SLOT02" connector="BLINK07" connectionConnector="U_SLOT02_BLINK07"/>
+        <connectorRef instancePath="U_SLOT02" connector="BLINK08" connectionConnector="U_SLOT02_BLINK08"/>
+        <connectorRef instancePath="U_SLOT02" connector="BLINK10" connectionConnector="U_SLOT02_BLINK10"/>
+        <connectorRef instancePath="U_SLOT02" connector="BLINK02" connectionConnector="U_SLOT02_BLINK02"/>
+        <connectorRef instancePath="U_SLOT02" connector="BLINK09" connectionConnector="U_SLOT02_BLINK09"/>
+        <connectorRef instancePath="U_SLOT02" connector="BLINK11" connectionConnector="U_SLOT02_BLINK11"/>
+        <connectorRef instancePath="U_SLOT02" connector="BLINK12" connectionConnector="U_SLOT02_BLINK12"/>
+        <connectorRef instancePath="U_SLOT02" connector="BLINK13" connectionConnector="U_SLOT02_BLINK13"/>
+        <connectorRef instancePath="U_SLOT02" connector="BLINK14" connectionConnector="U_SLOT02_BLINK14"/>
+        <connectorRef instancePath="U_SLOT02" connector="BLINK15" connectionConnector="U_SLOT02_BLINK15"/>
+        <connectorRef instancePath="U_SLOT02" connector="BLINK16" connectionConnector="U_SLOT02_BLINK16"/>
+        <connectorRef instancePath="U_SLOT03" connector="BLINK01" connectionConnector="U_SLOT03_BLINK01"/>
+        <connectorRef instancePath="U_SLOT03" connector="BLINK03" connectionConnector="U_SLOT03_BLINK03"/>
+        <connectorRef instancePath="U_SLOT03" connector="BLINK04" connectionConnector="U_SLOT03_BLINK04"/>
+        <connectorRef instancePath="U_SLOT03" connector="BLINK05" connectionConnector="U_SLOT03_BLINK05"/>
+        <connectorRef instancePath="U_SLOT03" connector="BLINK06" connectionConnector="U_SLOT03_BLINK06"/>
+        <connectorRef instancePath="U_SLOT03" connector="BLINK07" connectionConnector="U_SLOT03_BLINK07"/>
+        <connectorRef instancePath="U_SLOT03" connector="BLINK08" connectionConnector="U_SLOT03_BLINK08"/>
+        <connectorRef instancePath="U_SLOT03" connector="BLINK10" connectionConnector="U_SLOT03_BLINK10"/>
+        <connectorRef instancePath="U_SLOT03" connector="BLINK02" connectionConnector="U_SLOT03_BLINK02"/>
+        <connectorRef instancePath="U_SLOT03" connector="BLINK09" connectionConnector="U_SLOT03_BLINK09"/>
+        <connectorRef instancePath="U_SLOT03" connector="BLINK11" connectionConnector="U_SLOT03_BLINK11"/>
+        <connectorRef instancePath="U_SLOT03" connector="BLINK12" connectionConnector="U_SLOT03_BLINK12"/>
+        <connectorRef instancePath="U_SLOT03" connector="BLINK13" connectionConnector="U_SLOT03_BLINK13"/>
+        <connectorRef instancePath="U_SLOT03" connector="BLINK14" connectionConnector="U_SLOT03_BLINK14"/>
+        <connectorRef instancePath="U_SLOT03" connector="BLINK15" connectionConnector="U_SLOT03_BLINK15"/>
+        <connectorRef instancePath="U_SLOT03" connector="BLINK16" connectionConnector="U_SLOT03_BLINK16"/>
+        <connectorRef instancePath="U_SLOT04" connector="BLINK01" connectionConnector="U_SLOT04_BLINK01"/>
+        <connectorRef instancePath="U_SLOT04" connector="BLINK03" connectionConnector="U_SLOT04_BLINK03"/>
+        <connectorRef instancePath="U_SLOT04" connector="BLINK04" connectionConnector="U_SLOT04_BLINK04"/>
+        <connectorRef instancePath="U_SLOT04" connector="BLINK05" connectionConnector="U_SLOT04_BLINK05"/>
+        <connectorRef instancePath="U_SLOT04" connector="BLINK06" connectionConnector="U_SLOT04_BLINK06"/>
+        <connectorRef instancePath="U_SLOT04" connector="BLINK07" connectionConnector="U_SLOT04_BLINK07"/>
+        <connectorRef instancePath="U_SLOT04" connector="BLINK08" connectionConnector="U_SLOT04_BLINK08"/>
+        <connectorRef instancePath="U_SLOT04" connector="BLINK10" connectionConnector="U_SLOT04_BLINK10"/>
+        <connectorRef instancePath="U_SLOT04" connector="BLINK02" connectionConnector="U_SLOT04_BLINK02"/>
+        <connectorRef instancePath="U_SLOT04" connector="BLINK09" connectionConnector="U_SLOT04_BLINK09"/>
+        <connectorRef instancePath="U_SLOT04" connector="BLINK11" connectionConnector="U_SLOT04_BLINK11"/>
+        <connectorRef instancePath="U_SLOT04" connector="BLINK12" connectionConnector="U_SLOT04_BLINK12"/>
+        <connectorRef instancePath="U_SLOT04" connector="BLINK13" connectionConnector="U_SLOT04_BLINK13"/>
+        <connectorRef instancePath="U_SLOT04" connector="BLINK14" connectionConnector="U_SLOT04_BLINK14"/>
+        <connectorRef instancePath="U_SLOT04" connector="BLINK15" connectionConnector="U_SLOT04_BLINK15"/>
+        <connectorRef instancePath="U_SLOT04" connector="BLINK16" connectionConnector="U_SLOT04_BLINK16"/>
+        <connectorRef instancePath="U_SLOT05" connector="BLINK01" connectionConnector="U_SLOT05_BLINK01"/>
+        <connectorRef instancePath="U_SLOT05" connector="BLINK03" connectionConnector="U_SLOT05_BLINK03"/>
+        <connectorRef instancePath="U_SLOT05" connector="BLINK04" connectionConnector="U_SLOT05_BLINK04"/>
+        <connectorRef instancePath="U_SLOT05" connector="BLINK05" connectionConnector="U_SLOT05_BLINK05"/>
+        <connectorRef instancePath="U_SLOT05" connector="BLINK06" connectionConnector="U_SLOT05_BLINK06"/>
+        <connectorRef instancePath="U_SLOT05" connector="BLINK07" connectionConnector="U_SLOT05_BLINK07"/>
+        <connectorRef instancePath="U_SLOT05" connector="BLINK08" connectionConnector="U_SLOT05_BLINK08"/>
+        <connectorRef instancePath="U_SLOT05" connector="BLINK10" connectionConnector="U_SLOT05_BLINK10"/>
+        <connectorRef instancePath="U_SLOT05" connector="BLINK02" connectionConnector="U_SLOT05_BLINK02"/>
+        <connectorRef instancePath="U_SLOT05" connector="BLINK09" connectionConnector="U_SLOT05_BLINK09"/>
+        <connectorRef instancePath="U_SLOT05" connector="BLINK11" connectionConnector="U_SLOT05_BLINK11"/>
+        <connectorRef instancePath="U_SLOT05" connector="BLINK12" connectionConnector="U_SLOT05_BLINK12"/>
+        <connectorRef instancePath="U_SLOT05" connector="BLINK13" connectionConnector="U_SLOT05_BLINK13"/>
+        <connectorRef instancePath="U_SLOT05" connector="BLINK14" connectionConnector="U_SLOT05_BLINK14"/>
+        <connectorRef instancePath="U_SLOT05" connector="BLINK15" connectionConnector="U_SLOT05_BLINK15"/>
+        <connectorRef instancePath="U_SLOT05" connector="BLINK16" connectionConnector="U_SLOT05_BLINK16"/>
+        <connectorRef instancePath="U_SLOT06" connector="BLINK01" connectionConnector="U_SLOT06_BLINK01"/>
+        <connectorRef instancePath="U_SLOT06" connector="BLINK03" connectionConnector="U_SLOT06_BLINK03"/>
+        <connectorRef instancePath="U_SLOT06" connector="BLINK04" connectionConnector="U_SLOT06_BLINK04"/>
+        <connectorRef instancePath="U_SLOT06" connector="BLINK05" connectionConnector="U_SLOT06_BLINK05"/>
+        <connectorRef instancePath="U_SLOT06" connector="BLINK06" connectionConnector="U_SLOT06_BLINK06"/>
+        <connectorRef instancePath="U_SLOT06" connector="BLINK07" connectionConnector="U_SLOT06_BLINK07"/>
+        <connectorRef instancePath="U_SLOT06" connector="BLINK08" connectionConnector="U_SLOT06_BLINK08"/>
+        <connectorRef instancePath="U_SLOT06" connector="BLINK10" connectionConnector="U_SLOT06_BLINK10"/>
+        <connectorRef instancePath="U_SLOT06" connector="BLINK02" connectionConnector="U_SLOT06_BLINK02"/>
+        <connectorRef instancePath="U_SLOT06" connector="BLINK09" connectionConnector="U_SLOT06_BLINK09"/>
+        <connectorRef instancePath="U_SLOT06" connector="BLINK11" connectionConnector="U_SLOT06_BLINK11"/>
+        <connectorRef instancePath="U_SLOT06" connector="BLINK12" connectionConnector="U_SLOT06_BLINK12"/>
+        <connectorRef instancePath="U_SLOT06" connector="BLINK13" connectionConnector="U_SLOT06_BLINK13"/>
+        <connectorRef instancePath="U_SLOT06" connector="BLINK14" connectionConnector="U_SLOT06_BLINK14"/>
+        <connectorRef instancePath="U_SLOT06" connector="BLINK15" connectionConnector="U_SLOT06_BLINK15"/>
+        <connectorRef instancePath="U_SLOT06" connector="BLINK16" connectionConnector="U_SLOT06_BLINK16"/>
+        <connectorRef instancePath="U_SLOT07" connector="BLINK01" connectionConnector="U_SLOT07_BLINK01"/>
+        <connectorRef instancePath="U_SLOT07" connector="BLINK03" connectionConnector="U_SLOT07_BLINK03"/>
+        <connectorRef instancePath="U_SLOT07" connector="BLINK04" connectionConnector="U_SLOT07_BLINK04"/>
+        <connectorRef instancePath="U_SLOT07" connector="BLINK05" connectionConnector="U_SLOT07_BLINK05"/>
+        <connectorRef instancePath="U_SLOT07" connector="BLINK06" connectionConnector="U_SLOT07_BLINK06"/>
+        <connectorRef instancePath="U_SLOT07" connector="BLINK07" connectionConnector="U_SLOT07_BLINK07"/>
+        <connectorRef instancePath="U_SLOT07" connector="BLINK08" connectionConnector="U_SLOT07_BLINK08"/>
+        <connectorRef instancePath="U_SLOT07" connector="BLINK10" connectionConnector="U_SLOT07_BLINK10"/>
+        <connectorRef instancePath="U_SLOT07" connector="BLINK02" connectionConnector="U_SLOT07_BLINK02"/>
+        <connectorRef instancePath="U_SLOT07" connector="BLINK09" connectionConnector="U_SLOT07_BLINK09"/>
+        <connectorRef instancePath="U_SLOT07" connector="BLINK11" connectionConnector="U_SLOT07_BLINK11"/>
+        <connectorRef instancePath="U_SLOT07" connector="BLINK12" connectionConnector="U_SLOT07_BLINK12"/>
+        <connectorRef instancePath="U_SLOT07" connector="BLINK13" connectionConnector="U_SLOT07_BLINK13"/>
+        <connectorRef instancePath="U_SLOT07" connector="BLINK14" connectionConnector="U_SLOT07_BLINK14"/>
+        <connectorRef instancePath="U_SLOT07" connector="BLINK15" connectionConnector="U_SLOT07_BLINK15"/>
+        <connectorRef instancePath="U_SLOT07" connector="BLINK16" connectionConnector="U_SLOT07_BLINK16"/>
+        <connectorRef instancePath="U_SLOT08" connector="BLINK01" connectionConnector="U_SLOT08_BLINK01"/>
+        <connectorRef instancePath="U_SLOT08" connector="BLINK03" connectionConnector="U_SLOT08_BLINK03"/>
+        <connectorRef instancePath="U_SLOT08" connector="BLINK04" connectionConnector="U_SLOT08_BLINK04"/>
+        <connectorRef instancePath="U_SLOT08" connector="BLINK05" connectionConnector="U_SLOT08_BLINK05"/>
+        <connectorRef instancePath="U_SLOT08" connector="BLINK06" connectionConnector="U_SLOT08_BLINK06"/>
+        <connectorRef instancePath="U_SLOT08" connector="BLINK07" connectionConnector="U_SLOT08_BLINK07"/>
+        <connectorRef instancePath="U_SLOT08" connector="BLINK08" connectionConnector="U_SLOT08_BLINK08"/>
+        <connectorRef instancePath="U_SLOT08" connector="BLINK10" connectionConnector="U_SLOT08_BLINK10"/>
+        <connectorRef instancePath="U_SLOT08" connector="BLINK02" connectionConnector="U_SLOT08_BLINK02"/>
+        <connectorRef instancePath="U_SLOT08" connector="BLINK09" connectionConnector="U_SLOT08_BLINK09"/>
+        <connectorRef instancePath="U_SLOT08" connector="BLINK11" connectionConnector="U_SLOT08_BLINK11"/>
+        <connectorRef instancePath="U_SLOT08" connector="BLINK12" connectionConnector="U_SLOT08_BLINK12"/>
+        <connectorRef instancePath="U_SLOT08" connector="BLINK13" connectionConnector="U_SLOT08_BLINK13"/>
+        <connectorRef instancePath="U_SLOT08" connector="BLINK14" connectionConnector="U_SLOT08_BLINK14"/>
+        <connectorRef instancePath="U_SLOT08" connector="BLINK15" connectionConnector="U_SLOT08_BLINK15"/>
+        <connectorRef instancePath="U_SLOT08" connector="BLINK16" connectionConnector="U_SLOT08_BLINK16"/>
+        <connectorRef instancePath="U_SLOT09" connector="BLINK01" connectionConnector="U_SLOT09_BLINK01"/>
+        <connectorRef instancePath="U_SLOT09" connector="BLINK03" connectionConnector="U_SLOT09_BLINK03"/>
+        <connectorRef instancePath="U_SLOT09" connector="BLINK04" connectionConnector="U_SLOT09_BLINK04"/>
+        <connectorRef instancePath="U_SLOT09" connector="BLINK05" connectionConnector="U_SLOT09_BLINK05"/>
+        <connectorRef instancePath="U_SLOT09" connector="BLINK06" connectionConnector="U_SLOT09_BLINK06"/>
+        <connectorRef instancePath="U_SLOT09" connector="BLINK07" connectionConnector="U_SLOT09_BLINK07"/>
+        <connectorRef instancePath="U_SLOT09" connector="BLINK08" connectionConnector="U_SLOT09_BLINK08"/>
+        <connectorRef instancePath="U_SLOT09" connector="BLINK10" connectionConnector="U_SLOT09_BLINK10"/>
+        <connectorRef instancePath="U_SLOT09" connector="BLINK02" connectionConnector="U_SLOT09_BLINK02"/>
+        <connectorRef instancePath="U_SLOT09" connector="BLINK09" connectionConnector="U_SLOT09_BLINK09"/>
+        <connectorRef instancePath="U_SLOT09" connector="BLINK11" connectionConnector="U_SLOT09_BLINK11"/>
+        <connectorRef instancePath="U_SLOT09" connector="BLINK12" connectionConnector="U_SLOT09_BLINK12"/>
+        <connectorRef instancePath="U_SLOT09" connector="BLINK13" connectionConnector="U_SLOT09_BLINK13"/>
+        <connectorRef instancePath="U_SLOT09" connector="BLINK14" connectionConnector="U_SLOT09_BLINK14"/>
+        <connectorRef instancePath="U_SLOT09" connector="BLINK15" connectionConnector="U_SLOT09_BLINK15"/>
+        <connectorRef instancePath="U_SLOT09" connector="BLINK16" connectionConnector="U_SLOT09_BLINK16"/>
+        <connectorRef instancePath="U_SLOT10" connector="BLINK01" connectionConnector="U_SLOT10_BLINK01"/>
+        <connectorRef instancePath="U_SLOT10" connector="BLINK03" connectionConnector="U_SLOT10_BLINK03"/>
+        <connectorRef instancePath="U_SLOT10" connector="BLINK04" connectionConnector="U_SLOT10_BLINK04"/>
+        <connectorRef instancePath="U_SLOT10" connector="BLINK05" connectionConnector="U_SLOT10_BLINK05"/>
+        <connectorRef instancePath="U_SLOT10" connector="BLINK06" connectionConnector="U_SLOT10_BLINK06"/>
+        <connectorRef instancePath="U_SLOT10" connector="BLINK07" connectionConnector="U_SLOT10_BLINK07"/>
+        <connectorRef instancePath="U_SLOT10" connector="BLINK08" connectionConnector="U_SLOT10_BLINK08"/>
+        <connectorRef instancePath="U_SLOT10" connector="BLINK10" connectionConnector="U_SLOT10_BLINK10"/>
+        <connectorRef instancePath="U_SLOT10" connector="BLINK02" connectionConnector="U_SLOT10_BLINK02"/>
+        <connectorRef instancePath="U_SLOT10" connector="BLINK09" connectionConnector="U_SLOT10_BLINK09"/>
+        <connectorRef instancePath="U_SLOT10" connector="BLINK11" connectionConnector="U_SLOT10_BLINK11"/>
+        <connectorRef instancePath="U_SLOT10" connector="BLINK12" connectionConnector="U_SLOT10_BLINK12"/>
+        <connectorRef instancePath="U_SLOT10" connector="BLINK13" connectionConnector="U_SLOT10_BLINK13"/>
+        <connectorRef instancePath="U_SLOT10" connector="BLINK14" connectionConnector="U_SLOT10_BLINK14"/>
+        <connectorRef instancePath="U_SLOT10" connector="BLINK15" connectionConnector="U_SLOT10_BLINK15"/>
+        <connectorRef instancePath="U_SLOT10" connector="BLINK16" connectionConnector="U_SLOT10_BLINK16"/>
+      </connectorRefs>
+    </connection>
+    <connection name="ICE_Cube_3" connectionModelRef="B10_ICE_IOM_NVRAM_REV0">
+      <connectorRefs>
+        <connectorRef instancePath="U_SLOT03" connector="FLINK01" connectionConnector="IOM_NVRAM_FLINK01"/>
+        <connectorRef instancePath="U_SLOT03" connector="FLINK03" connectionConnector="IOM_NVRAM_FLINK02"/>
+      </connectorRefs>
+      <vendorExtensions>
+        <vendorExtension name="ICE_CUBE_SLOT_ID" type="String" value="3"/>
+      </vendorExtensions>
+    </connection>
+    <connection name="ICE_Cube_4" connectionModelRef="B10_ICE_IOM_NVRAM_REV0">
+      <connectorRefs>
+        <connectorRef instancePath="U_SLOT04" connector="FLINK01" connectionConnector="IOM_NVRAM_FLINK01"/>
+        <connectorRef instancePath="U_SLOT04" connector="FLINK03" connectionConnector="IOM_NVRAM_FLINK02"/>
+      </connectorRefs>
+      <vendorExtensions>
+        <vendorExtension name="ICE_CUBE_SLOT_ID" type="String" value="4"/>
+      </vendorExtensions>
+    </connection>
+    <connection name="ICE_Cube_5" connectionModelRef="B10_ICE_IOM_USBETH_REV0">
+      <connectorRefs>
+        <connectorRef instancePath="U_SLOT05" connector="FLINK01" connectionConnector="IOM_USBETH_FLINK01"/>
+        <connectorRef instancePath="U_SLOT05" connector="FLINK03" connectionConnector="IOM_USBETH_FLINK02"/>
+      </connectorRefs>
+      <vendorExtensions>
+        <vendorExtension name="ICE_CUBE_SLOT_ID" type="String" value="5"/>
+      </vendorExtensions>
+    </connection>
+    <connection name="ICE_native_1g_1" connectionModelRef="B10_ICE_ETH_1G_OPTICAL_REV1">
+      <connectorRefs>
+        <connectorRef instancePath="U_SLOT01" connector="MGT_REFCLK_2" connectionConnector="ETH_1G_OPTICAL_REFCLK"/>
+        <connectorRef instancePath="U_SLOT01" connector="OLINK12" connectionConnector="ETH_1G_OPTICAL_OLINK01"/>
+      </connectorRefs>
+    </connection>
+    <connection name="ICE_native_1g_2" connectionModelRef="B10_ICE_ETH_1G_OPTICAL_REV1">
+      <connectorRefs>
+        <connectorRef instancePath="U_SLOT02" connector="MGT_REFCLK_6" connectionConnector="ETH_1G_OPTICAL_REFCLK"/>
+        <connectorRef instancePath="U_SLOT02" connector="OLINK48" connectionConnector="ETH_1G_OPTICAL_OLINK01"/>
+      </connectorRefs>
+    </connection>
+  </connections>
+</module>
+

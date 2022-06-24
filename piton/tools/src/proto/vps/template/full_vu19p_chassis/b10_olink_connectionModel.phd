@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--- ================================================================= -->
+<!--- Unpublished work. Copyright 2021 Siemens                          -->
+<!--- This material contains trade secrets or otherwise                 -->
+<!--- confidential information owned by Siemens Industry Software Inc.  -->
+<!--- or its affiliates (collectively, "SISW"), or its licensors.       -->
+<!--- Access to and use of this information is strictly limited as      -->
+<!--- set forth in the Customer's applicable agreements with SISW.      -->
+<!---                                                                   -->
+<!--- ================================================================= -->
+
+
+<connectionModel name="CONN_OLINK" type="cable">
+  <connectionConnectors>
+    <connectionConnector name="OLINK_B" size="4" logicalType="MGT" physicalType="LC"/>
+    <connectionConnector name="OLINK_A" size="4" logicalType="MGT" physicalType="LC"/>
+  </connectionConnectors>
+  <connectionWires>
+    <connectionWire>
+      <connectionConnectorRef name="OLINK_A" index="0"/>
+      <connectionConnectorRef name="OLINK_B" index="2"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="OLINK_A" index="1"/>
+      <connectionConnectorRef name="OLINK_B" index="3"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="OLINK_A" index="2"/>
+      <connectionConnectorRef name="OLINK_B" index="0"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="OLINK_A" index="3"/>
+      <connectionConnectorRef name="OLINK_B" index="1"/>
+    </connectionWire>
+  </connectionWires>
+    <vendorExtensions>
+      <vendorExtension name="mentor" value="Black10"/>
+    </vendorExtensions>
+</connectionModel>

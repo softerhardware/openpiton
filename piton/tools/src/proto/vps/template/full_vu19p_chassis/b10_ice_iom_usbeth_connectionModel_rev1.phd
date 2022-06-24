@@ -1,0 +1,676 @@
+<?xml version="1.0"?>
+<!--- ================================================================= -->
+<!--- Unpublished work. Copyright 2021 Siemens                          -->
+<!--- This material contains trade secrets or otherwise                 -->
+<!--- confidential information owned by Siemens Industry Software Inc.  -->
+<!--- or its affiliates (collectively, "SISW"), or its licensors.       -->
+<!--- Access to and use of this information is strictly limited as      -->
+<!--- set forth in the Customer's applicable agreements with SISW.      -->
+<!---                                                                   -->
+<!--- ================================================================= -->
+
+
+<connectionModel name="B10_ICE_IOM_USBETH_REV1" type="extensionBoard">
+  <connectionConnectors>
+    <connectionConnector name="IOM_USBETH_FLINK01" size="48" logicalType="GPIO" physicalType="FLINK"/>
+    <connectionConnector name="IOM_USBETH_FLINK02" size="48" logicalType="GPIO" physicalType="FLINK"/>
+    <connectionConnector name="FLINK01_INTERNAL" size="48" type="internal"/>
+    <connectionConnector name="FLINK02_INTERNAL" size="48" type="internal"/>
+  </connectionConnectors>
+  <connectionWires>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="0"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="24"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="1"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="25"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="2"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="26"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="3"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="27"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="4"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="28"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="5"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="29"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="6"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="30"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="7"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="31"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="8"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="32"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="9"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="33"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="10"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="34"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="11"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="35"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="12"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="36"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="13"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="37"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="14"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="38"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="15"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="39"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="16"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="40"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="17"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="41"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="18"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="42"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="19"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="43"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="20"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="44"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="21"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="45"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="22"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="46"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="23"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="47"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="24"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="0"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="25"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="1"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="26"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="2"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="27"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="3"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="28"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="4"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="29"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="5"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="30"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="6"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="31"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="7"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="32"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="8"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="33"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="9"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="34"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="10"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="35"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="11"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="36"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="12"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="37"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="13"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="38"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="14"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="39"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="15"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="40"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="16"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="41"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="17"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="42"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="18"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="43"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="19"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="44"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="20"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="45"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="21"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="46"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="22"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK01" index="47"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="23"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="0"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="24"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="1"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="25"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="2"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="26"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="3"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="27"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="4"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="28"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="5"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="29"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="6"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="30"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="7"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="31"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="8"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="32"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="9"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="33"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="10"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="34"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="11"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="35"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="12"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="36"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="13"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="37"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="14"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="38"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="15"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="39"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="16"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="40"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="17"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="41"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="18"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="42"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="19"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="43"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="20"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="44"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="21"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="45"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="22"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="46"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="23"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="47"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="24"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="0"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="25"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="1"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="26"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="2"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="27"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="3"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="28"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="4"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="29"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="5"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="30"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="6"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="31"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="7"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="32"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="8"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="33"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="9"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="34"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="10"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="35"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="11"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="36"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="12"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="37"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="13"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="38"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="14"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="39"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="15"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="40"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="16"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="41"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="17"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="42"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="18"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="43"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="19"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="44"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="20"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="45"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="21"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="46"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="22"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="IOM_USBETH_FLINK02" index="47"/>
+      <connectionConnectorRef name="FLINK02_INTERNAL" index="23"/>
+    </connectionWire>
+  </connectionWires>
+  <protocolInstances>
+    <protocolInstance name="ICE_IOM_CONTROL_1" model="ICE_IOM_CONTROL_REV1" vendor="B10">
+      <protocolInstanceMappings>
+        <protocolInstanceMapping protocolPort="iom_error_n">
+          <connectorMappings>
+            <connectorMapping name="FLINK01_INTERNAL" index="26" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="iom_go">
+          <connectorMappings>
+            <connectorMapping name="FLINK01_INTERNAL" index="27" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+      </protocolInstanceMappings>
+    </protocolInstance>
+    <protocolInstance name="ICE_IOM_CONTROL_2" model="ICE_IOM_CONTROL_REV1" vendor="B10">
+      <protocolInstanceMappings>
+        <protocolInstanceMapping protocolPort="iom_error_n">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="8" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="iom_go">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="9" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+      </protocolInstanceMappings>
+    </protocolInstance>
+    <protocolInstance name="ICE_IOM_USBETH_USB2" model="ICE_IOM_USBETH_USB2_REV1" vendor="B10">
+      <protocolInstanceMappings>
+        <protocolInstanceMapping protocolPort="usb_ulpi_data0">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="27" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="usb_ulpi_data1">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="29" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="usb_ulpi_data2">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="31" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="usb_ulpi_data3">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="33" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="usb_ulpi_data4">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="35" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="usb_ulpi_data5">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="37" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="usb_ulpi_data6">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="39" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="usb_ulpi_data7">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="41" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="usb_ulpi_stp">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="43" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="usb_ulpi_dir">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="45" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="usb_ulpi_nxt">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="47" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="usb_ulpi_clock">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="25" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="usb_ulpi_cs">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="3" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="usb_reset_n">
+          <connectorMappings>
+            <connectorMapping name="FLINK02_INTERNAL" index="5" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+      </protocolInstanceMappings>
+    </protocolInstance>
+    <protocolInstance name="ICE_IOM_USBETH_ETH10_100_1000" model="ICE_IOM_USBETH_ETH10_100_1000_REV1" vendor="B10">
+      <protocolInstanceMappings>
+        <protocolInstanceMapping protocolPort="eth_int_pwdn">
+          <connectorMappings>
+            <connectorMapping name="FLINK01_INTERNAL" index="37" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="eth_mdio">
+          <connectorMappings>
+            <connectorMapping name="FLINK01_INTERNAL" index="39" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="eth_mdc">
+          <connectorMappings>
+            <connectorMapping name="FLINK01_INTERNAL" index="41" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="eth_sig_detect">
+          <connectorMappings>
+            <connectorMapping name="FLINK01_INTERNAL" index="43" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="eth_sgmii_txd_m">
+          <connectorMappings>
+            <connectorMapping name="FLINK01_INTERNAL" index="28" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVDS"/>
+            <ioStandard type="HR" value="LVDS"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="eth_sgmii_txd_p">
+          <connectorMappings>
+            <connectorMapping name="FLINK01_INTERNAL" index="29" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVDS"/>
+            <ioStandard type="HR" value="LVDS"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="eth_sgmii_rxd_m">
+          <connectorMappings>
+            <connectorMapping name="FLINK01_INTERNAL" index="30" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVDS"/>
+            <ioStandard type="HR" value="LVDS"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="eth_sgmii_rxd_p">
+          <connectorMappings>
+            <connectorMapping name="FLINK01_INTERNAL" index="31" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVDS"/>
+            <ioStandard type="HR" value="LVDS"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="eth_refclk_25meg_p">
+          <connectorMappings>
+            <connectorMapping name="FLINK01_INTERNAL" index="25" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVDS"/>
+            <ioStandard type="HR" value="LVDS"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="eth_refclk_25meg_m">
+          <connectorMappings>
+            <connectorMapping name="FLINK01_INTERNAL" index="24" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVDS"/>
+            <ioStandard type="HR" value="LVDS"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+      </protocolInstanceMappings>
+    </protocolInstance>
+  </protocolInstances>
+</connectionModel>

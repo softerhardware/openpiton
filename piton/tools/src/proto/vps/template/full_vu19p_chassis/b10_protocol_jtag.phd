@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--- ================================================================= -->
+<!--- Unpublished work. Copyright 2021 Siemens                          -->
+<!--- This material contains trade secrets or otherwise                 -->
+<!--- confidential information owned by Siemens Industry Software Inc.  -->
+<!--- or its affiliates (collectively, "SISW"), or its licensors.       -->
+<!--- Access to and use of this information is strictly limited as      -->
+<!--- set forth in the Customer's applicable agreements with SISW.      -->
+<!---                                                                   -->
+<!--- ================================================================= -->
+
+
+<protocol>
+  <protocolId name="JTAG" vendor="B10"/>
+  <ports>
+    <port name="jtag_tck" direction="input"/>
+    <port name="jtag_trst" direction="input"/>
+    <port name="jtag_tms" direction="input"/>
+    <port name="jtag_tdi" direction="input"/>
+    <port name="jtag_tdo" direction="output"/>
+  </ports>
+</protocol>

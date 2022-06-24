@@ -1,0 +1,149 @@
+<?xml version="1.0"?>
+<!--- ================================================================ -->
+<!--- Unpublished work. Copyright 2022 Siemens                         -->
+<!--- This material contains trade secrets or otherwise                -->
+<!--- confidential information owned by Siemens Industry Software Inc. -->
+<!--- or its affiliates (collectively, "SISW"), or its licensors.      -->
+<!--- Access to and use of this information is strictly limited as     -->
+<!--- set forth in the Customer's applicable agreements with SISW.     -->
+<!---                                                                  -->
+<!--- ================================================================ -->
+
+
+<hardware xmlns:xi="http://www.w3.org/2001/XInclude">
+  <version major="2" minor="0" revision="0"/>
+  <xi:include href="b10_user_cable_assignments.phd"/>
+  <xi:include href="b10_system.phd"/>
+  <annotations>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT01/U_A/FPGA" connector="AV53" annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT01/U_A/FPGA" connector="AV54" annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT01/U_A/FPGA" connector="P53"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT01/U_A/FPGA" connector="P54"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT01/U_A/FPGA" connector="B49"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT01/U_A/FPGA" connector="A49"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT01/U_B/FPGA" connector="AV53" annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT01/U_B/FPGA" connector="AV54" annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT01/U_B/FPGA" connector="P53"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT01/U_B/FPGA" connector="P54"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT01/U_B/FPGA" connector="B49"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT01/U_B/FPGA" connector="A49"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT02/U_A/FPGA" connector="AV53" annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT02/U_A/FPGA" connector="AV54" annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT02/U_A/FPGA" connector="P53"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT02/U_A/FPGA" connector="P54"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT02/U_A/FPGA" connector="B49"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT02/U_A/FPGA" connector="A49"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT02/U_B/FPGA" connector="AV53" annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT02/U_B/FPGA" connector="AV54" annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT02/U_B/FPGA" connector="P53"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT02/U_B/FPGA" connector="P54"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT02/U_B/FPGA" connector="B49"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT02/U_B/FPGA" connector="A49"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT03/U_A/FPGA" connector="AV53" annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT03/U_A/FPGA" connector="AV54" annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT03/U_A/FPGA" connector="P53"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT03/U_A/FPGA" connector="P54"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT03/U_A/FPGA" connector="B49"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT03/U_A/FPGA" connector="A49"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT03/U_B/FPGA" connector="AV53" annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT03/U_B/FPGA" connector="AV54" annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT03/U_B/FPGA" connector="P53"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT03/U_B/FPGA" connector="P54"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT03/U_B/FPGA" connector="B49"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT03/U_B/FPGA" connector="A49"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT04/U_A/FPGA" connector="AV53" annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT04/U_A/FPGA" connector="AV54" annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT04/U_A/FPGA" connector="P53"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT04/U_A/FPGA" connector="P54"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT04/U_A/FPGA" connector="B49"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT04/U_A/FPGA" connector="A49"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT04/U_B/FPGA" connector="AV53" annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT04/U_B/FPGA" connector="AV54" annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT04/U_B/FPGA" connector="P53"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT04/U_B/FPGA" connector="P54"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT04/U_B/FPGA" connector="B49"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT04/U_B/FPGA" connector="A49"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT05/U_A/FPGA" connector="AV53" annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT05/U_A/FPGA" connector="AV54" annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT05/U_A/FPGA" connector="P53"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT05/U_A/FPGA" connector="P54"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT05/U_A/FPGA" connector="B49"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT05/U_A/FPGA" connector="A49"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT05/U_B/FPGA" connector="AV53" annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT05/U_B/FPGA" connector="AV54" annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT05/U_B/FPGA" connector="P53"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT05/U_B/FPGA" connector="P54"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT05/U_B/FPGA" connector="B49"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT05/U_B/FPGA" connector="A49"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT06/U_A/FPGA" connector="AV53" annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT06/U_A/FPGA" connector="AV54" annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT06/U_A/FPGA" connector="P53"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT06/U_A/FPGA" connector="P54"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT06/U_A/FPGA" connector="B49"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT06/U_A/FPGA" connector="A49"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT06/U_B/FPGA" connector="AV53" annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT06/U_B/FPGA" connector="AV54" annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT06/U_B/FPGA" connector="P53"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT06/U_B/FPGA" connector="P54"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT06/U_B/FPGA" connector="B49"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT06/U_B/FPGA" connector="A49"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT07/U_A/FPGA" connector="AV53" annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT07/U_A/FPGA" connector="AV54" annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT07/U_A/FPGA" connector="P53"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT07/U_A/FPGA" connector="P54"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT07/U_A/FPGA" connector="B49"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT07/U_A/FPGA" connector="A49"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT07/U_B/FPGA" connector="AV53" annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT07/U_B/FPGA" connector="AV54" annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT07/U_B/FPGA" connector="P53"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT07/U_B/FPGA" connector="P54"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT07/U_B/FPGA" connector="B49"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT07/U_B/FPGA" connector="A49"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT08/U_A/FPGA" connector="AV53" annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT08/U_A/FPGA" connector="AV54" annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT08/U_A/FPGA" connector="P53"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT08/U_A/FPGA" connector="P54"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT08/U_A/FPGA" connector="B49"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT08/U_A/FPGA" connector="A49"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT08/U_B/FPGA" connector="AV53" annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT08/U_B/FPGA" connector="AV54" annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT08/U_B/FPGA" connector="P53"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT08/U_B/FPGA" connector="P54"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT08/U_B/FPGA" connector="B49"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT08/U_B/FPGA" connector="A49"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT09/U_A/FPGA" connector="AV53" annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT09/U_A/FPGA" connector="AV54" annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT09/U_A/FPGA" connector="P53"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT09/U_A/FPGA" connector="P54"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT09/U_A/FPGA" connector="B49"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT09/U_A/FPGA" connector="A49"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT09/U_B/FPGA" connector="AV53" annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT09/U_B/FPGA" connector="AV54" annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT09/U_B/FPGA" connector="P53"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT09/U_B/FPGA" connector="P54"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT09/U_B/FPGA" connector="B49"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT09/U_B/FPGA" connector="A49"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT10/U_A/FPGA" connector="AV53" annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT10/U_A/FPGA" connector="AV54" annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT10/U_A/FPGA" connector="P53"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT10/U_A/FPGA" connector="P54"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT10/U_A/FPGA" connector="B49"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT10/U_A/FPGA" connector="A49"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT10/U_B/FPGA" connector="AV53" annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT10/U_B/FPGA" connector="AV54" annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT10/U_B/FPGA" connector="P53"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT10/U_B/FPGA" connector="P54"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT10/U_B/FPGA" connector="B49"  annotationType="NotUseable"/>
+    <trackAnnotation instancePath="U_CHAS01/U_SLOT10/U_B/FPGA" connector="A49"  annotationType="NotUseable"/>
+  </annotations>
+  <annotations>
+    <connectorAnnotation instancePath="U_CHAS01/U_SLOT01/U_A/FPGA" connector="BLINK04" annotationType="NotUseable"/>
+    <connectorAnnotation instancePath="U_CHAS01/U_SLOT01/U_B/FPGA" connector="BLINK12" annotationType="NotUseable"/>
+    <connectorAnnotation instancePath="U_CHAS01/U_SLOT02/U_A/FPGA" connector="BLINK04" annotationType="NotUseable"/>
+    <connectorAnnotation instancePath="U_CHAS01/U_SLOT02/U_B/FPGA" connector="BLINK12" annotationType="NotUseable"/>
+    <connectorAnnotation instancePath="U_CHAS01/U_SLOT09/U_A/FPGA" connector="BLINK08" annotationType="NotUseable"/>
+    <connectorAnnotation instancePath="U_CHAS01/U_SLOT09/U_B/FPGA" connector="BLINK16" annotationType="NotUseable"/>
+    <connectorAnnotation instancePath="U_CHAS01/U_SLOT10/U_A/FPGA" connector="BLINK08" annotationType="NotUseable"/>
+    <connectorAnnotation instancePath="U_CHAS01/U_SLOT10/U_B/FPGA" connector="BLINK16" annotationType="NotUseable"/>
+  </annotations>
+</hardware>

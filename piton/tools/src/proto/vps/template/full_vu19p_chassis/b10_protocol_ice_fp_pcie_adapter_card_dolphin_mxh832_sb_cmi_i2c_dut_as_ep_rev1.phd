@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--- ================================================================= -->
+<!--- Unpublished work. Copyright 2021 Siemens                          -->
+<!--- This material contains trade secrets or otherwise                 -->
+<!--- confidential information owned by Siemens Industry Software Inc.  -->
+<!--- or its affiliates (collectively, "SISW"), or its licensors.       -->
+<!--- Access to and use of this information is strictly limited as      -->
+<!--- set forth in the Customer's applicable agreements with SISW.      -->
+<!---                                                                   -->
+<!--- ================================================================= -->
+
+
+<protocol>
+  <protocolId name="ICE_FP_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_SB_CMI_I2C_DUT_AS_EP_REV1" vendor="B10"/>
+  <parameters>
+    <parameter name="pcie_msb" value="3"/>
+  </parameters>
+  <ports>
+    <port name="refclk_enable" direction="input"/>
+    <port name="mgt_refclk_n" direction="output"/>
+    <port name="mgt_refclk_p" direction="output"/>
+    <port name="pcie_rxn" msb="pcie_msb" lsb="0" direction="output"/>
+    <port name="pcie_rxp" msb="pcie_msb" lsb="0" direction="output"/>
+    <port name="pcie_txn" msb="pcie_msb" lsb="0" direction="input"/>
+    <port name="pcie_txp" msb="pcie_msb" lsb="0" direction="input"/>
+    <port name="cmi_i2c_sda" direction="inout"/>
+    <port name="cmi_i2c_scl" direction="inout"/>
+    <port name="cmi_caddr" direction="input"/>
+    <port name="cmi_cint_n" direction="output"/>
+    <port name="cmi_cblprsnt_n" direction="output"/>
+  </ports>
+</protocol>

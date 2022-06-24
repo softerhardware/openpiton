@@ -1,0 +1,676 @@
+<?xml version="1.0"?>
+<!--- ================================================================= -->
+<!--- Unpublished work. Copyright 2021 Siemens                          -->
+<!--- This material contains trade secrets or otherwise                 -->
+<!--- confidential information owned by Siemens Industry Software Inc.  -->
+<!--- or its affiliates (collectively, "SISW"), or its licensors.       -->
+<!--- Access to and use of this information is strictly limited as      -->
+<!--- set forth in the Customer's applicable agreements with SISW.      -->
+<!---                                                                   -->
+<!--- ================================================================= -->
+
+
+<connectionModel name="B10_ICE_PCIE_ADAPTER_CARD_CUSTOM_REV0" type="extensionBoard">
+  <connectionConnectors>
+    <connectionConnector name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MGT_REFCLK" size="2"/>
+    <connectionConnector name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" size="48" logicalType="MGT" physicalType="MTP24"/>
+    <connectionConnector name="ICE_PCIE_ADAPTER_CARD_CUSTOM_REFCLK" size="2"/>
+    <connectionConnector name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" size="48" logicalType="GPIO" physicalType="FLINK"/>
+    <connectionConnector name="MGT_REFCLK_INTERNAL" size="2" type="internal"/>
+    <connectionConnector name="MTP24_INTERNAL" size="48" type="internal"/>
+    <connectionConnector name="REFCLK_INTERNAL" size="2" type="internal"/>
+    <connectionConnector name="FLINK01_INTERNAL" size="48" type="internal"/>
+  </connectionConnectors>
+  <connectionWires>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MGT_REFCLK" index="0"/>
+      <connectionConnectorRef name="MGT_REFCLK_INTERNAL" index="0"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MGT_REFCLK" index="1"/>
+      <connectionConnectorRef name="MGT_REFCLK_INTERNAL" index="1"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="0"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="0"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="1"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="1"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="2"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="2"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="3"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="3"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="4"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="4"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="5"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="5"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="6"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="6"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="7"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="7"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="8"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="8"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="9"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="9"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="10"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="10"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="11"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="11"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="12"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="12"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="13"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="13"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="14"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="14"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="15"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="15"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="16"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="16"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="17"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="17"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="18"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="18"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="19"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="19"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="20"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="20"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="21"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="21"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="22"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="22"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="23"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="23"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="24"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="24"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="25"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="25"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="26"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="26"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="27"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="27"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="28"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="28"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="29"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="29"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="30"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="30"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="31"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="31"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="32"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="32"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="33"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="33"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="34"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="34"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="35"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="35"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="36"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="36"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="37"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="37"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="38"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="38"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="39"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="39"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="40"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="40"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="41"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="41"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="42"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="42"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="43"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="43"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="44"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="44"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="45"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="45"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="46"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="46"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_MTP24" index="47"/>
+      <connectionConnectorRef name="MTP24_INTERNAL" index="47"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_REFCLK" index="0"/>
+      <connectionConnectorRef name="REFCLK_INTERNAL" index="0"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_REFCLK" index="1"/>
+      <connectionConnectorRef name="REFCLK_INTERNAL" index="1"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="0"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="24"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="1"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="25"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="2"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="26"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="3"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="27"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="4"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="28"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="5"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="29"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="6"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="30"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="7"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="31"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="8"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="32"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="9"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="33"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="10"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="34"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="11"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="35"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="12"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="36"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="13"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="37"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="14"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="38"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="15"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="39"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="16"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="40"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="17"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="41"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="18"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="42"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="19"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="43"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="20"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="44"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="21"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="45"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="22"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="46"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="23"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="47"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="24"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="0"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="25"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="1"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="26"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="2"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="27"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="3"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="28"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="4"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="29"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="5"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="30"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="6"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="31"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="7"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="32"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="8"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="33"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="9"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="34"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="10"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="35"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="11"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="36"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="12"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="37"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="13"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="38"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="14"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="39"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="15"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="40"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="16"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="41"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="17"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="42"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="18"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="43"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="19"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="44"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="20"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="45"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="21"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="46"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="22"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_CUSTOM_FLINK01" index="47"/>
+      <connectionConnectorRef name="FLINK01_INTERNAL" index="23"/>
+    </connectionWire>
+  </connectionWires>
+  <protocolInstances>
+    <protocolInstance name="ICE_PCIE_ADAPTER_CARD_CUSTOM_IOM_CONTROL_1" model="ICE_IOM_CONTROL_REV0" vendor="B10">
+      <protocolInstanceMappings>
+        <protocolInstanceMapping protocolPort="iom_error_n">
+          <connectorMappings>
+            <connectorMapping name="FLINK01_INTERNAL" index="26" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="iom_go">
+          <connectorMappings>
+            <connectorMapping name="FLINK01_INTERNAL" index="27" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+      </protocolInstanceMappings>
+    </protocolInstance>
+    <protocolInstance name="ICE_PCIE_ADAPTER_CARD_CUSTOM_SB_DUT_AS_EP" model="ICE_PCIE_ADAPTER_CARD_CUSTOM_SB_DUT_AS_EP_REV0" vendor="B10">
+      <protocolInstanceMappings>
+        <protocolInstanceMapping protocolPort="pcie_rxn">
+          <connectorMappings>
+            <connectorMapping name="MTP24_INTERNAL" index="20" protocolPortIndex = "0"/>
+            <connectorMapping name="MTP24_INTERNAL" index="16" protocolPortIndex = "1"/>
+            <connectorMapping name="MTP24_INTERNAL" index="28" protocolPortIndex = "2"/>
+            <connectorMapping name="MTP24_INTERNAL" index="24" protocolPortIndex = "3"/>
+            <connectorMapping name="MTP24_INTERNAL" index="36" protocolPortIndex = "4"/>
+            <connectorMapping name="MTP24_INTERNAL" index="32" protocolPortIndex = "5"/>
+            <connectorMapping name="MTP24_INTERNAL" index="44" protocolPortIndex = "6"/>
+            <connectorMapping name="MTP24_INTERNAL" index="40" protocolPortIndex = "7"/>
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="NONE"/>
+            <ioStandard type="HR" value="NONE"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="pcie_rxp">
+          <connectorMappings>
+            <connectorMapping name="MTP24_INTERNAL" index="21" protocolPortIndex = "0"/>
+            <connectorMapping name="MTP24_INTERNAL" index="17" protocolPortIndex = "1"/>
+            <connectorMapping name="MTP24_INTERNAL" index="29" protocolPortIndex = "2"/>
+            <connectorMapping name="MTP24_INTERNAL" index="25" protocolPortIndex = "3"/>
+            <connectorMapping name="MTP24_INTERNAL" index="37" protocolPortIndex = "4"/>
+            <connectorMapping name="MTP24_INTERNAL" index="33" protocolPortIndex = "5"/>
+            <connectorMapping name="MTP24_INTERNAL" index="45" protocolPortIndex = "6"/>
+            <connectorMapping name="MTP24_INTERNAL" index="41" protocolPortIndex = "7"/>
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="NONE"/>
+            <ioStandard type="HR" value="NONE"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="pcie_txn">
+          <connectorMappings>
+            <connectorMapping name="MTP24_INTERNAL" index="22" protocolPortIndex = "0"/>
+            <connectorMapping name="MTP24_INTERNAL" index="18" protocolPortIndex = "1"/>
+            <connectorMapping name="MTP24_INTERNAL" index="30" protocolPortIndex = "2"/>
+            <connectorMapping name="MTP24_INTERNAL" index="26" protocolPortIndex = "3"/>
+            <connectorMapping name="MTP24_INTERNAL" index="38" protocolPortIndex = "4"/>
+            <connectorMapping name="MTP24_INTERNAL" index="34" protocolPortIndex = "5"/>
+            <connectorMapping name="MTP24_INTERNAL" index="46" protocolPortIndex = "6"/>
+            <connectorMapping name="MTP24_INTERNAL" index="42" protocolPortIndex = "7"/>
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="NONE"/>
+            <ioStandard type="HR" value="NONE"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="pcie_txp">
+          <connectorMappings>
+            <connectorMapping name="MTP24_INTERNAL" index="23" protocolPortIndex = "0"/>
+            <connectorMapping name="MTP24_INTERNAL" index="19" protocolPortIndex = "1"/>
+            <connectorMapping name="MTP24_INTERNAL" index="31" protocolPortIndex = "2"/>
+            <connectorMapping name="MTP24_INTERNAL" index="27" protocolPortIndex = "3"/>
+            <connectorMapping name="MTP24_INTERNAL" index="39" protocolPortIndex = "4"/>
+            <connectorMapping name="MTP24_INTERNAL" index="35" protocolPortIndex = "5"/>
+            <connectorMapping name="MTP24_INTERNAL" index="47" protocolPortIndex = "6"/>
+            <connectorMapping name="MTP24_INTERNAL" index="43" protocolPortIndex = "7"/>
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="NONE"/>
+            <ioStandard type="HR" value="NONE"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="pcie_refclk_n">
+          <connectorMappings>
+            <connectorMapping name="REFCLK_INTERNAL" index="0" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="NONE"/>
+            <ioStandard type="HR" value="NONE"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="pcie_refclk_p">
+          <connectorMappings>
+            <connectorMapping name="REFCLK_INTERNAL" index="1" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="NONE"/>
+            <ioStandard type="HR" value="NONE"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="perst_n">
+          <connectorMappings>
+            <connectorMapping name="FLINK01_INTERNAL" index="31" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="wake_n">
+          <connectorMappings>
+            <connectorMapping name="FLINK01_INTERNAL" index="29" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+      </protocolInstanceMappings>
+    </protocolInstance>
+    <protocolInstance name="ICE_PCIE_ADAPTER_CARD_CUSTOM_SB_DUT_AS_RC" model="ICE_PCIE_ADAPTER_CARD_CUSTOM_SB_DUT_AS_RC_REV0" vendor="B10">
+      <protocolInstanceMappings>
+        <protocolInstanceMapping protocolPort="mgt_refclk_n">
+          <connectorMappings>
+            <connectorMapping name="MGT_REFCLK_INTERNAL" index="0" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="NONE"/>
+            <ioStandard type="HR" value="NONE"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="mgt_refclk_p">
+          <connectorMappings>
+            <connectorMapping name="MGT_REFCLK_INTERNAL" index="1" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="NONE"/>
+            <ioStandard type="HR" value="NONE"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="pcie_rxn">
+          <connectorMappings>
+            <connectorMapping name="MTP24_INTERNAL" index="20" protocolPortIndex = "0"/>
+            <connectorMapping name="MTP24_INTERNAL" index="16" protocolPortIndex = "1"/>
+            <connectorMapping name="MTP24_INTERNAL" index="28" protocolPortIndex = "2"/>
+            <connectorMapping name="MTP24_INTERNAL" index="24" protocolPortIndex = "3"/>
+            <connectorMapping name="MTP24_INTERNAL" index="36" protocolPortIndex = "4"/>
+            <connectorMapping name="MTP24_INTERNAL" index="32" protocolPortIndex = "5"/>
+            <connectorMapping name="MTP24_INTERNAL" index="44" protocolPortIndex = "6"/>
+            <connectorMapping name="MTP24_INTERNAL" index="40" protocolPortIndex = "7"/>
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="NONE"/>
+            <ioStandard type="HR" value="NONE"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="pcie_rxp">
+          <connectorMappings>
+            <connectorMapping name="MTP24_INTERNAL" index="21" protocolPortIndex = "0"/>
+            <connectorMapping name="MTP24_INTERNAL" index="17" protocolPortIndex = "1"/>
+            <connectorMapping name="MTP24_INTERNAL" index="29" protocolPortIndex = "2"/>
+            <connectorMapping name="MTP24_INTERNAL" index="25" protocolPortIndex = "3"/>
+            <connectorMapping name="MTP24_INTERNAL" index="37" protocolPortIndex = "4"/>
+            <connectorMapping name="MTP24_INTERNAL" index="33" protocolPortIndex = "5"/>
+            <connectorMapping name="MTP24_INTERNAL" index="45" protocolPortIndex = "6"/>
+            <connectorMapping name="MTP24_INTERNAL" index="41" protocolPortIndex = "7"/>
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="NONE"/>
+            <ioStandard type="HR" value="NONE"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="pcie_txn">
+          <connectorMappings>
+            <connectorMapping name="MTP24_INTERNAL" index="22" protocolPortIndex = "0"/>
+            <connectorMapping name="MTP24_INTERNAL" index="18" protocolPortIndex = "1"/>
+            <connectorMapping name="MTP24_INTERNAL" index="30" protocolPortIndex = "2"/>
+            <connectorMapping name="MTP24_INTERNAL" index="26" protocolPortIndex = "3"/>
+            <connectorMapping name="MTP24_INTERNAL" index="38" protocolPortIndex = "4"/>
+            <connectorMapping name="MTP24_INTERNAL" index="34" protocolPortIndex = "5"/>
+            <connectorMapping name="MTP24_INTERNAL" index="46" protocolPortIndex = "6"/>
+            <connectorMapping name="MTP24_INTERNAL" index="42" protocolPortIndex = "7"/>
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="NONE"/>
+            <ioStandard type="HR" value="NONE"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="pcie_txp">
+          <connectorMappings>
+            <connectorMapping name="MTP24_INTERNAL" index="23" protocolPortIndex = "0"/>
+            <connectorMapping name="MTP24_INTERNAL" index="19" protocolPortIndex = "1"/>
+            <connectorMapping name="MTP24_INTERNAL" index="31" protocolPortIndex = "2"/>
+            <connectorMapping name="MTP24_INTERNAL" index="27" protocolPortIndex = "3"/>
+            <connectorMapping name="MTP24_INTERNAL" index="39" protocolPortIndex = "4"/>
+            <connectorMapping name="MTP24_INTERNAL" index="35" protocolPortIndex = "5"/>
+            <connectorMapping name="MTP24_INTERNAL" index="47" protocolPortIndex = "6"/>
+            <connectorMapping name="MTP24_INTERNAL" index="43" protocolPortIndex = "7"/>
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="NONE"/>
+            <ioStandard type="HR" value="NONE"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="pcie_refclk_n">
+          <connectorMappings>
+            <connectorMapping name="FLINK01_INTERNAL" index="3" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="pcie_refclk_p">
+          <connectorMappings>
+            <connectorMapping name="FLINK01_INTERNAL" index="2" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="perst_n">
+          <connectorMappings>
+            <connectorMapping name="FLINK01_INTERNAL" index="31" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="wake_n">
+          <connectorMappings>
+            <connectorMapping name="FLINK01_INTERNAL" index="29" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="LVCMOS18"/>
+            <ioStandard type="HR" value="LVCMOS18"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+      </protocolInstanceMappings>
+    </protocolInstance>
+  </protocolInstances>
+</connectionModel>

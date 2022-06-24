@@ -1,0 +1,591 @@
+<?xml version="1.0"?>
+<!--- ================================================================ -->
+<!--- Unpublished work. Copyright 2022 Siemens                         -->
+<!--- This material contains trade secrets or otherwise                -->
+<!--- confidential information owned by Siemens Industry Software Inc. -->
+<!--- or its affiliates (collectively, "SISW"), or its licensors.      -->
+<!--- Access to and use of this information is strictly limited as     -->
+<!--- set forth in the Customer's applicable agreements with SISW.     -->
+<!---                                                                  -->
+<!--- ================================================================ -->
+
+
+<connections>
+  <connection name="user_cable_0" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT08" connector="OLINK59" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT10" connector="OLINK57" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_1" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT08" connector="OLINK60" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT10" connector="OLINK58" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_2" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT08" connector="OLINK57" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT10" connector="OLINK59" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_3" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT08" connector="OLINK58" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT10" connector="OLINK60" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_4" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT01" connector="OLINK07" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT01" connector="OLINK43" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_5" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT01" connector="OLINK57" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT03" connector="OLINK60" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_6" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT01" connector="OLINK58" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT03" connector="OLINK59" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_7" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT01" connector="OLINK59" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT03" connector="OLINK57" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_8" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT01" connector="OLINK60" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT03" connector="OLINK58" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_9" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT02" connector="OLINK07" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT02" connector="OLINK43" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_10" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT02" connector="OLINK57" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT04" connector="OLINK59" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_11" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT02" connector="OLINK58" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT04" connector="OLINK60" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_12" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT02" connector="OLINK59" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT04" connector="OLINK57" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_13" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT02" connector="OLINK60" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT04" connector="OLINK58" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_14" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT03" connector="OLINK07" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT03" connector="OLINK43" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_15" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT04" connector="OLINK07" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT04" connector="OLINK43" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_16" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK10" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK10" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_17" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK11" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK11" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_18" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK01" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK01" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_19" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK12" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK12" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_20" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK13" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK37" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_21" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK14" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK38" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_22" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK15" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK39" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_23" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK16" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK40" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_24" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK17" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK41" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_25" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK18" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK42" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_26" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK19" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK43" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_27" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK20" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK44" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_28" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK21" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK45" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_29" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK02" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK02" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_30" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK22" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK46" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_31" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK23" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK47" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_32" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK24" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK48" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_33" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK03" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK03" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_34" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK04" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK04" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_35" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK05" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK05" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_36" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK06" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK06" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_37" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK07" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK07" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_38" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK08" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK08" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_39" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK09" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK09" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_40" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK37" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK13" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_41" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK38" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK14" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_42" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK39" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK15" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_43" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK40" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK16" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_44" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK41" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK17" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_45" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK42" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK18" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_46" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK43" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK19" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_47" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK44" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK20" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_48" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK45" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK21" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_49" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK46" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK22" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_50" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK47" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK23" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_51" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK48" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK24" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_52" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK49" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK49" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_53" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK50" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK50" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_54" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK51" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK51" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_55" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK52" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK52" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_56" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK53" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK53" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_57" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK54" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK54" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_58" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK55" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK55" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_59" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK56" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK56" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_60" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK57" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK57" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_61" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK58" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK58" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_62" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK59" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK59" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_63" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="OLINK60" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="OLINK60" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_64" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT07" connector="OLINK57" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT09" connector="OLINK59" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_65" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT07" connector="OLINK58" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT09" connector="OLINK60" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_66" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT07" connector="OLINK59" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT09" connector="OLINK57" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_67" connectionModelRef="CONN_OLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT07" connector="OLINK60" connectionConnector="OLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT09" connector="OLINK58" connectionConnector="OLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_68" connectionModelRef="CONN_MTP24">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="MTP24_A" connectionConnector="MTP24_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="MTP24_A" connectionConnector="MTP24_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_69" connectionModelRef="CONN_MTP24">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="MTP24_B" connectionConnector="MTP24_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="MTP24_B" connectionConnector="MTP24_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_70" connectionModelRef="CONN_FLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT01" connector="FLINK11" connectionConnector="FLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT02" connector="FLINK12" connectionConnector="FLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_71" connectionModelRef="CONN_FLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT01" connector="FLINK05" connectionConnector="FLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT02" connector="FLINK08" connectionConnector="FLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_72" connectionModelRef="CONN_FLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT01" connector="FLINK07" connectionConnector="FLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="FLINK08" connectionConnector="FLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_73" connectionModelRef="CONN_FLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT01" connector="FLINK09" connectionConnector="FLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="FLINK10" connectionConnector="FLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_74" connectionModelRef="CONN_FLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT01" connector="FLINK10" connectionConnector="FLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT02" connector="FLINK09" connectionConnector="FLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_75" connectionModelRef="CONN_FLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT01" connector="FLINK12" connectionConnector="FLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="FLINK11" connectionConnector="FLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_76" connectionModelRef="CONN_FLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT01" connector="FLINK06" connectionConnector="FLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="FLINK05" connectionConnector="FLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_77" connectionModelRef="CONN_FLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT01" connector="FLINK08" connectionConnector="FLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT02" connector="FLINK06" connectionConnector="FLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_78" connectionModelRef="CONN_FLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT02" connector="FLINK11" connectionConnector="FLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT03" connector="FLINK12" connectionConnector="FLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_79" connectionModelRef="CONN_FLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT02" connector="FLINK05" connectionConnector="FLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT03" connector="FLINK08" connectionConnector="FLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_80" connectionModelRef="CONN_FLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT02" connector="FLINK07" connectionConnector="FLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT03" connector="FLINK06" connectionConnector="FLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_81" connectionModelRef="CONN_FLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT02" connector="FLINK10" connectionConnector="FLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT03" connector="FLINK09" connectionConnector="FLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_82" connectionModelRef="CONN_FLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT03" connector="FLINK11" connectionConnector="FLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT04" connector="FLINK11" connectionConnector="FLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_83" connectionModelRef="CONN_FLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT03" connector="FLINK05" connectionConnector="FLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT04" connector="FLINK07" connectionConnector="FLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_84" connectionModelRef="CONN_FLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT03" connector="FLINK07" connectionConnector="FLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT04" connector="FLINK06" connectionConnector="FLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_85" connectionModelRef="CONN_FLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT03" connector="FLINK10" connectionConnector="FLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT04" connector="FLINK09" connectionConnector="FLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_86" connectionModelRef="CONN_FLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT04" connector="FLINK05" connectionConnector="FLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="FLINK07" connectionConnector="FLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_87" connectionModelRef="CONN_FLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT04" connector="FLINK10" connectionConnector="FLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="FLINK09" connectionConnector="FLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_88" connectionModelRef="CONN_FLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT04" connector="FLINK12" connectionConnector="FLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="FLINK12" connectionConnector="FLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_89" connectionModelRef="CONN_FLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT04" connector="FLINK08" connectionConnector="FLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="FLINK06" connectionConnector="FLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_90" connectionModelRef="CONN_FLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="FLINK11" connectionConnector="FLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="FLINK12" connectionConnector="FLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_91" connectionModelRef="CONN_FLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="FLINK05" connectionConnector="FLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="FLINK07" connectionConnector="FLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_92" connectionModelRef="CONN_FLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="FLINK10" connectionConnector="FLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="FLINK09" connectionConnector="FLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="user_cable_93" connectionModelRef="CONN_FLINK">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT05" connector="FLINK08" connectionConnector="FLINK_A"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT06" connector="FLINK06" connectionConnector="FLINK_B"/>
+    </connectorRefs>
+  </connection>
+  <connection name="HOST1" connectionModelRef="HPFE">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT02" connector="OLINK13" connectionConnector="HPFE_OLINK_1"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT02" connector="OLINK14" connectionConnector="HPFE_OLINK_2"/>
+    </connectorRefs>
+  </connection>
+  <connection name="HOST2" connectionModelRef="HPFE">
+    <connectorRefs>
+      <connectorRef instancePath="U_CHAS01/U_SLOT03" connector="OLINK49" connectionConnector="HPFE_OLINK_1"/>
+      <connectorRef instancePath="U_CHAS01/U_SLOT03" connector="OLINK50" connectionConnector="HPFE_OLINK_2"/>
+    </connectorRefs>
+  </connection>
+</connections>
+

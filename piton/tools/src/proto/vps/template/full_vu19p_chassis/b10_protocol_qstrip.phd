@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!--- ================================================================= -->
+<!--- Unpublished work. Copyright 2021 Siemens                          -->
+<!--- This material contains trade secrets or otherwise                 -->
+<!--- confidential information owned by Siemens Industry Software Inc.  -->
+<!--- or its affiliates (collectively, "SISW"), or its licensors.       -->
+<!--- Access to and use of this information is strictly limited as      -->
+<!--- set forth in the Customer's applicable agreements with SISW.      -->
+<!---                                                                   -->
+<!--- ================================================================= -->
+
+
+<protocol>
+  <protocolId name="QSTRIP" vendor="B10"/>
+  <ports>
+    <port name="qstrip_hi_clk_m" direction="inout"/>
+    <port name="qstrip_hi_clk_p" direction="inout"/>
+    <port name="qstrip_hi_data0_m" direction="inout"/>
+    <port name="qstrip_hi_data0_p" direction="inout"/>
+    <port name="qstrip_hi_data1_m" direction="inout"/>
+    <port name="qstrip_hi_data1_p" direction="inout"/>
+    <port name="qstrip_hi_data2_m" direction="inout"/>
+    <port name="qstrip_hi_data2_p" direction="inout"/>
+    <port name="qstrip_hi_data3_m" direction="inout"/>
+    <port name="qstrip_hi_data3_p" direction="inout"/>
+    <port name="qstrip_hi_data4_m" direction="inout"/>
+    <port name="qstrip_hi_data4_p" direction="inout"/>
+    <port name="qstrip_hi_data5_m" direction="inout"/>
+    <port name="qstrip_hi_data5_p" direction="inout"/>
+    <port name="qstrip_hi_data6_m" direction="inout"/>
+    <port name="qstrip_hi_data6_p" direction="inout"/>
+    <port name="qstrip_lo_clk_m" direction="inout"/>
+    <port name="qstrip_lo_clk_p" direction="inout"/>
+    <port name="qstrip_lo_data0_m" direction="inout"/>
+    <port name="qstrip_lo_data0_p" direction="inout"/>
+    <port name="qstrip_lo_data1_m" direction="inout"/>
+    <port name="qstrip_lo_data1_p" direction="inout"/>
+    <port name="qstrip_lo_data2_m" direction="inout"/>
+    <port name="qstrip_lo_data2_p" direction="inout"/>
+    <port name="qstrip_lo_data3_m" direction="inout"/>
+    <port name="qstrip_lo_data3_p" direction="inout"/>
+    <port name="qstrip_lo_data4_m" direction="inout"/>
+    <port name="qstrip_lo_data4_p" direction="inout"/>
+    <port name="qstrip_lo_data5_m" direction="inout"/>
+    <port name="qstrip_lo_data5_p" direction="inout"/>
+    <port name="qstrip_lo_data6_m" direction="inout"/>
+    <port name="qstrip_lo_data6_p" direction="inout"/>
+  </ports>
+</protocol>

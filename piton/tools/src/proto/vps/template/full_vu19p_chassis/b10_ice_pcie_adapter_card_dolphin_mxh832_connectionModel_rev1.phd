@@ -1,0 +1,346 @@
+<?xml version="1.0"?>
+<!--- ================================================================= -->
+<!--- Unpublished work. Copyright 2021 Siemens                          -->
+<!--- This material contains trade secrets or otherwise                 -->
+<!--- confidential information owned by Siemens Industry Software Inc.  -->
+<!--- or its affiliates (collectively, "SISW"), or its licensors.       -->
+<!--- Access to and use of this information is strictly limited as      -->
+<!--- set forth in the Customer's applicable agreements with SISW.      -->
+<!---                                                                   -->
+<!--- ================================================================= -->
+
+
+<connectionModel name="B10_ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_REV1" type="extensionBoard">
+  <connectionConnectors>
+    <connectionConnector name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_MGT_REFCLK" size="2"/>
+    <connectionConnector name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_OLINK01" size="4" logicalType="MGT" physicalType="LC"/>
+    <connectionConnector name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_OLINK02" size="4" logicalType="MGT" physicalType="LC"/>
+    <connectionConnector name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_OLINK03" size="4" logicalType="MGT" physicalType="LC"/>
+    <connectionConnector name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_OLINK04" size="4" logicalType="MGT" physicalType="LC"/>
+    <connectionConnector name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_OLINK05" size="4" logicalType="MGT" physicalType="LC"/>
+    <connectionConnector name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_OLINK06" size="4" logicalType="MGT" physicalType="LC"/>
+    <connectionConnector name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_OLINK07" size="4" logicalType="MGT" physicalType="LC"/>
+    <connectionConnector name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_OLINK08" size="4" logicalType="MGT" physicalType="LC"/>
+    <connectionConnector name="MGT_REFCLK_INTERNAL" size="2" type="internal"/>
+    <connectionConnector name="OLINK01_INTERNAL" size="4" type="internal"/>
+    <connectionConnector name="OLINK02_INTERNAL" size="4" type="internal"/>
+    <connectionConnector name="OLINK03_INTERNAL" size="4" type="internal"/>
+    <connectionConnector name="OLINK04_INTERNAL" size="4" type="internal"/>
+    <connectionConnector name="OLINK05_INTERNAL" size="4" type="internal"/>
+    <connectionConnector name="OLINK06_INTERNAL" size="4" type="internal"/>
+    <connectionConnector name="OLINK07_INTERNAL" size="4" type="internal"/>
+    <connectionConnector name="OLINK08_INTERNAL" size="4" type="internal"/>
+  </connectionConnectors>
+  <connectionWires>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_MGT_REFCLK" index="0"/>
+      <connectionConnectorRef name="MGT_REFCLK_INTERNAL" index="0"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_MGT_REFCLK" index="1"/>
+      <connectionConnectorRef name="MGT_REFCLK_INTERNAL" index="1"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_OLINK01" index="0"/>
+      <connectionConnectorRef name="OLINK01_INTERNAL" index="0"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_OLINK01" index="1"/>
+      <connectionConnectorRef name="OLINK01_INTERNAL" index="1"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_OLINK01" index="2"/>
+      <connectionConnectorRef name="OLINK01_INTERNAL" index="2"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_OLINK01" index="3"/>
+      <connectionConnectorRef name="OLINK01_INTERNAL" index="3"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_OLINK02" index="0"/>
+      <connectionConnectorRef name="OLINK02_INTERNAL" index="0"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_OLINK02" index="1"/>
+      <connectionConnectorRef name="OLINK02_INTERNAL" index="1"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_OLINK02" index="2"/>
+      <connectionConnectorRef name="OLINK02_INTERNAL" index="2"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_OLINK02" index="3"/>
+      <connectionConnectorRef name="OLINK02_INTERNAL" index="3"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_OLINK03" index="0"/>
+      <connectionConnectorRef name="OLINK03_INTERNAL" index="0"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_OLINK03" index="1"/>
+      <connectionConnectorRef name="OLINK03_INTERNAL" index="1"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_OLINK03" index="2"/>
+      <connectionConnectorRef name="OLINK03_INTERNAL" index="2"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_OLINK03" index="3"/>
+      <connectionConnectorRef name="OLINK03_INTERNAL" index="3"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_OLINK04" index="0"/>
+      <connectionConnectorRef name="OLINK04_INTERNAL" index="0"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_OLINK04" index="1"/>
+      <connectionConnectorRef name="OLINK04_INTERNAL" index="1"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_OLINK04" index="2"/>
+      <connectionConnectorRef name="OLINK04_INTERNAL" index="2"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_OLINK04" index="3"/>
+      <connectionConnectorRef name="OLINK04_INTERNAL" index="3"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_OLINK05" index="0"/>
+      <connectionConnectorRef name="OLINK05_INTERNAL" index="0"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_OLINK05" index="1"/>
+      <connectionConnectorRef name="OLINK05_INTERNAL" index="1"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_OLINK05" index="2"/>
+      <connectionConnectorRef name="OLINK05_INTERNAL" index="2"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_OLINK05" index="3"/>
+      <connectionConnectorRef name="OLINK05_INTERNAL" index="3"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_OLINK06" index="0"/>
+      <connectionConnectorRef name="OLINK06_INTERNAL" index="0"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_OLINK06" index="1"/>
+      <connectionConnectorRef name="OLINK06_INTERNAL" index="1"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_OLINK06" index="2"/>
+      <connectionConnectorRef name="OLINK06_INTERNAL" index="2"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_OLINK06" index="3"/>
+      <connectionConnectorRef name="OLINK06_INTERNAL" index="3"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_OLINK07" index="0"/>
+      <connectionConnectorRef name="OLINK07_INTERNAL" index="0"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_OLINK07" index="1"/>
+      <connectionConnectorRef name="OLINK07_INTERNAL" index="1"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_OLINK07" index="2"/>
+      <connectionConnectorRef name="OLINK07_INTERNAL" index="2"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_OLINK07" index="3"/>
+      <connectionConnectorRef name="OLINK07_INTERNAL" index="3"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_OLINK08" index="0"/>
+      <connectionConnectorRef name="OLINK08_INTERNAL" index="0"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_OLINK08" index="1"/>
+      <connectionConnectorRef name="OLINK08_INTERNAL" index="1"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_OLINK08" index="2"/>
+      <connectionConnectorRef name="OLINK08_INTERNAL" index="2"/>
+    </connectionWire>
+    <connectionWire>
+      <connectionConnectorRef name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_OLINK08" index="3"/>
+      <connectionConnectorRef name="OLINK08_INTERNAL" index="3"/>
+    </connectionWire>
+  </connectionWires>
+  <protocolInstances>
+    <protocolInstance name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_NOSB_DUT_AS_EP" model="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_NOSB_DUT_AS_EP_REV1" vendor="B10">
+      <protocolInstanceMappings>
+        <protocolInstanceMapping protocolPort="mgt_refclk_n">
+          <connectorMappings>
+            <connectorMapping name="MGT_REFCLK_INTERNAL" index="0" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="NONE"/>
+            <ioStandard type="HR" value="NONE"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="mgt_refclk_p">
+          <connectorMappings>
+            <connectorMapping name="MGT_REFCLK_INTERNAL" index="1" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="NONE"/>
+            <ioStandard type="HR" value="NONE"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="pcie_rxn">
+          <connectorMappings>
+            <connectorMapping name="OLINK01_INTERNAL" index="0" protocolPortIndex = "0"/>
+            <connectorMapping name="OLINK02_INTERNAL" index="0" protocolPortIndex = "1"/>
+            <connectorMapping name="OLINK03_INTERNAL" index="0" protocolPortIndex = "2"/>
+            <connectorMapping name="OLINK04_INTERNAL" index="0" protocolPortIndex = "3"/>
+            <connectorMapping name="OLINK05_INTERNAL" index="0" protocolPortIndex = "4"/>
+            <connectorMapping name="OLINK06_INTERNAL" index="0" protocolPortIndex = "5"/>
+            <connectorMapping name="OLINK07_INTERNAL" index="0" protocolPortIndex = "6"/>
+            <connectorMapping name="OLINK08_INTERNAL" index="0" protocolPortIndex = "7"/>
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="NONE"/>
+            <ioStandard type="HR" value="NONE"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="pcie_rxp">
+          <connectorMappings>
+            <connectorMapping name="OLINK01_INTERNAL" index="1" protocolPortIndex = "0"/>
+            <connectorMapping name="OLINK02_INTERNAL" index="1" protocolPortIndex = "1"/>
+            <connectorMapping name="OLINK03_INTERNAL" index="1" protocolPortIndex = "2"/>
+            <connectorMapping name="OLINK04_INTERNAL" index="1" protocolPortIndex = "3"/>
+            <connectorMapping name="OLINK05_INTERNAL" index="1" protocolPortIndex = "4"/>
+            <connectorMapping name="OLINK06_INTERNAL" index="1" protocolPortIndex = "5"/>
+            <connectorMapping name="OLINK07_INTERNAL" index="1" protocolPortIndex = "6"/>
+            <connectorMapping name="OLINK08_INTERNAL" index="1" protocolPortIndex = "7"/>
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="NONE"/>
+            <ioStandard type="HR" value="NONE"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="pcie_txn">
+          <connectorMappings>
+            <connectorMapping name="OLINK01_INTERNAL" index="2" protocolPortIndex = "0"/>
+            <connectorMapping name="OLINK02_INTERNAL" index="2" protocolPortIndex = "1"/>
+            <connectorMapping name="OLINK03_INTERNAL" index="2" protocolPortIndex = "2"/>
+            <connectorMapping name="OLINK04_INTERNAL" index="2" protocolPortIndex = "3"/>
+            <connectorMapping name="OLINK05_INTERNAL" index="2" protocolPortIndex = "4"/>
+            <connectorMapping name="OLINK06_INTERNAL" index="2" protocolPortIndex = "5"/>
+            <connectorMapping name="OLINK07_INTERNAL" index="2" protocolPortIndex = "6"/>
+            <connectorMapping name="OLINK08_INTERNAL" index="2" protocolPortIndex = "7"/>
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="NONE"/>
+            <ioStandard type="HR" value="NONE"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="pcie_txp">
+          <connectorMappings>
+            <connectorMapping name="OLINK01_INTERNAL" index="3" protocolPortIndex = "0"/>
+            <connectorMapping name="OLINK02_INTERNAL" index="3" protocolPortIndex = "1"/>
+            <connectorMapping name="OLINK03_INTERNAL" index="3" protocolPortIndex = "2"/>
+            <connectorMapping name="OLINK04_INTERNAL" index="3" protocolPortIndex = "3"/>
+            <connectorMapping name="OLINK05_INTERNAL" index="3" protocolPortIndex = "4"/>
+            <connectorMapping name="OLINK06_INTERNAL" index="3" protocolPortIndex = "5"/>
+            <connectorMapping name="OLINK07_INTERNAL" index="3" protocolPortIndex = "6"/>
+            <connectorMapping name="OLINK08_INTERNAL" index="3" protocolPortIndex = "7"/>
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="NONE"/>
+            <ioStandard type="HR" value="NONE"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+      </protocolInstanceMappings>
+    </protocolInstance>
+    <protocolInstance name="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_NOSB_DUT_AS_RC" model="ICE_PCIE_ADAPTER_CARD_DOLPHIN_MXH832_NOSB_DUT_AS_RC_REV1" vendor="B10">
+      <protocolInstanceMappings>
+        <protocolInstanceMapping protocolPort="mgt_refclk_n">
+          <connectorMappings>
+            <connectorMapping name="MGT_REFCLK_INTERNAL" index="0" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="NONE"/>
+            <ioStandard type="HR" value="NONE"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="mgt_refclk_p">
+          <connectorMappings>
+            <connectorMapping name="MGT_REFCLK_INTERNAL" index="1" />
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="NONE"/>
+            <ioStandard type="HR" value="NONE"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="pcie_rxn">
+          <connectorMappings>
+            <connectorMapping name="OLINK01_INTERNAL" index="0" protocolPortIndex = "0"/>
+            <connectorMapping name="OLINK02_INTERNAL" index="0" protocolPortIndex = "1"/>
+            <connectorMapping name="OLINK03_INTERNAL" index="0" protocolPortIndex = "2"/>
+            <connectorMapping name="OLINK04_INTERNAL" index="0" protocolPortIndex = "3"/>
+            <connectorMapping name="OLINK05_INTERNAL" index="0" protocolPortIndex = "4"/>
+            <connectorMapping name="OLINK06_INTERNAL" index="0" protocolPortIndex = "5"/>
+            <connectorMapping name="OLINK07_INTERNAL" index="0" protocolPortIndex = "6"/>
+            <connectorMapping name="OLINK08_INTERNAL" index="0" protocolPortIndex = "7"/>
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="NONE"/>
+            <ioStandard type="HR" value="NONE"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="pcie_rxp">
+          <connectorMappings>
+            <connectorMapping name="OLINK01_INTERNAL" index="1" protocolPortIndex = "0"/>
+            <connectorMapping name="OLINK02_INTERNAL" index="1" protocolPortIndex = "1"/>
+            <connectorMapping name="OLINK03_INTERNAL" index="1" protocolPortIndex = "2"/>
+            <connectorMapping name="OLINK04_INTERNAL" index="1" protocolPortIndex = "3"/>
+            <connectorMapping name="OLINK05_INTERNAL" index="1" protocolPortIndex = "4"/>
+            <connectorMapping name="OLINK06_INTERNAL" index="1" protocolPortIndex = "5"/>
+            <connectorMapping name="OLINK07_INTERNAL" index="1" protocolPortIndex = "6"/>
+            <connectorMapping name="OLINK08_INTERNAL" index="1" protocolPortIndex = "7"/>
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="NONE"/>
+            <ioStandard type="HR" value="NONE"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="pcie_txn">
+          <connectorMappings>
+            <connectorMapping name="OLINK01_INTERNAL" index="2" protocolPortIndex = "0"/>
+            <connectorMapping name="OLINK02_INTERNAL" index="2" protocolPortIndex = "1"/>
+            <connectorMapping name="OLINK03_INTERNAL" index="2" protocolPortIndex = "2"/>
+            <connectorMapping name="OLINK04_INTERNAL" index="2" protocolPortIndex = "3"/>
+            <connectorMapping name="OLINK05_INTERNAL" index="2" protocolPortIndex = "4"/>
+            <connectorMapping name="OLINK06_INTERNAL" index="2" protocolPortIndex = "5"/>
+            <connectorMapping name="OLINK07_INTERNAL" index="2" protocolPortIndex = "6"/>
+            <connectorMapping name="OLINK08_INTERNAL" index="2" protocolPortIndex = "7"/>
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="NONE"/>
+            <ioStandard type="HR" value="NONE"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+        <protocolInstanceMapping protocolPort="pcie_txp">
+          <connectorMappings>
+            <connectorMapping name="OLINK01_INTERNAL" index="3" protocolPortIndex = "0"/>
+            <connectorMapping name="OLINK02_INTERNAL" index="3" protocolPortIndex = "1"/>
+            <connectorMapping name="OLINK03_INTERNAL" index="3" protocolPortIndex = "2"/>
+            <connectorMapping name="OLINK04_INTERNAL" index="3" protocolPortIndex = "3"/>
+            <connectorMapping name="OLINK05_INTERNAL" index="3" protocolPortIndex = "4"/>
+            <connectorMapping name="OLINK06_INTERNAL" index="3" protocolPortIndex = "5"/>
+            <connectorMapping name="OLINK07_INTERNAL" index="3" protocolPortIndex = "6"/>
+            <connectorMapping name="OLINK08_INTERNAL" index="3" protocolPortIndex = "7"/>
+          </connectorMappings>
+          <ioStandards>
+            <ioStandard type="HP" value="NONE"/>
+            <ioStandard type="HR" value="NONE"/>
+          </ioStandards>
+        </protocolInstanceMapping>
+      </protocolInstanceMappings>
+    </protocolInstance>
+  </protocolInstances>
+</connectionModel>

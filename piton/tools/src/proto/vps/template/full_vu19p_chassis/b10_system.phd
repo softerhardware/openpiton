@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<!--- ================================================================ -->
+<!--- Unpublished work. Copyright 2022 Siemens                         -->
+<!--- This material contains trade secrets or otherwise                -->
+<!--- confidential information owned by Siemens Industry Software Inc. -->
+<!--- or its affiliates (collectively, "SISW"), or its licensors.      -->
+<!--- Access to and use of this information is strictly limited as     -->
+<!--- set forth in the Customer's applicable agreements with SISW.     -->
+<!---                                                                  -->
+<!--- ================================================================ -->
+
+
+<system vendor="B10" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <protocols>
+    <xi:include href="b10_protocol_ddr4_vu19p.phd"/>
+    <xi:include href="b10_protocol_ice_fp_pcie_adapter_card_dolphin_mxh832_nosb_dut_as_ep_rev1.phd"/>
+    <xi:include href="b10_protocol_ice_fp_pcie_adapter_card_dolphin_mxh832_nosb_dut_as_rc_rev1.phd"/>
+    <xi:include href="b10_protocol_ice_fp_pcie_adapter_card_dolphin_mxh832_sb_cmi_i2c_dut_as_ep_rev1.phd"/>
+    <xi:include href="b10_protocol_jtag.phd"/>
+    <xi:include href="b10_protocol_qstrip.phd"/>
+    <xi:include href="b10_protocol_uart.phd"/>
+    <xi:include href="b10_protocol_arm_dstream_mictor38.phd"/>
+    <xi:include href="b10_protocol_ice_eth_1g_optical_rev1.phd"/>
+    <xi:include href="b10_protocol_ice_eth_1g_optical_x4_rev1.phd"/>
+    <xi:include href="b10_protocol_ice_iom_nvram_i2c_eeprom_rev0.phd"/>
+    <xi:include href="b10_protocol_ice_iom_nvram_spi_eeprom_rev0.phd"/>
+    <xi:include href="b10_protocol_ice_iom_nvram_qspi_nor_flash_rev0.phd"/>
+    <xi:include href="b10_protocol_ice_iom_nvram_spi_fram_rev0.phd"/>
+    <xi:include href="b10_protocol_ice_iom_nvram_emmc_rev0.phd"/>
+    <xi:include href="b10_protocol_ice_iom_nvram_sdcard_rev0.phd"/>
+    <xi:include href="b10_protocol_ice_iom_nvram_uart_rev0.phd"/>
+    <xi:include href="b10_protocol_ice_iom_control_rev0.phd"/>
+    <xi:include href="b10_protocol_ice_iom_control_rev1.phd"/>
+    <xi:include href="b10_protocol_ice_iom_usbeth_eth10_100_1000_rev0.phd"/>
+    <xi:include href="b10_protocol_ice_iom_usbeth_usb2_rev0.phd"/>
+    <xi:include href="b10_protocol_hpfe.phd"/>
+  </protocols>
+  <modules xmlns:xi="http://www.w3.org/2001/XInclude">
+    <xi:include href="b10_fabric_vu19p_revB_module.phd"/>
+    <xi:include href="b10_fabric_fpga_ua_vu19p_revB_module.phd"/>
+    <xi:include href="b10_fabric_fpga_ub_vu19p_revB_module.phd"/>
+    <xi:include href="b10_chassis01.phd"/>
+
+    <module name="cabinet">
+      <instances>
+        <instance name="U_CHAS01">
+          <moduleRef name="chassis01"/>
+          <vendorExtensions>
+            <vendorExtension name="CHASSIS_ID" type="String" value="1"/>
+            <vendorExtension name="CHASSIS_PREFIX" type="String" value="U_CHAS"/>
+            <vendorExtension name="SLOT_PREFIX" type="String" value="U_SLOT"/>
+            <vendorExtension name="FPGA_PREFIX" type="String" value="U_"/>
+            <vendorExtension name="COMPATIBLE_PHD" type="String" value="2"/>
+          </vendorExtensions>
+        </instance>
+
+      </instances>
+    </module>
+  </modules>
+  <connectionModels>
+    <xi:include href="b10_blink_vu19p_connectionModel.phd"/>
+    <xi:include href="b10_flink_connectionModel.phd"/>
+    <xi:include href="b10_olink_connectionModel.phd"/>
+    <xi:include href="b10_llink_connectionModel.phd"/>
+    <xi:include href="b10_glink_connectionModel.phd"/>
+    <xi:include href="b10_mtp24_connectionModel.phd"/>
+    <xi:include href="b10_mtp24_breakout_connectionModel.phd"/>
+    <xi:include href="b10_fabric_fpga_lvds_connectionModel.phd"/>
+    <xi:include href="b10_fabric_fpga_mgt_connectionModel.phd"/>
+    <xi:include href="b10_fabric_fpga_mgt_refclk_connectionModel.phd"/>
+    <xi:include href="b10_fabric_fpga_mtp24_connectionModel.phd"/>
+    <xi:include href="b10_ice_eth_1g_optical_connectionModel_rev1.phd"/>
+    <xi:include href="b10_ice_iom_nvram_connectionModel_rev0.phd"/>
+    <xi:include href="b10_ice_iom_usbeth_connectionModel_rev0.phd"/>
+    <xi:include href="b10_hpfe_connectionModel.phd"/>
+  </connectionModels>
+</system>
+
