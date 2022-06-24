@@ -35,7 +35,6 @@ set GLOBAL_INCLUDE_DIRS [list \
     "${DV_ROOT}/design/chip/tile/ariane/common/local/util" \
     "${DV_ROOT}/design/chip/tile/ariane/corev_apu/register_interface/include" \
     "${DV_ROOT}/design/chipset/noc_axi4_bridge/rtl" \
-    "${DV_ROOT}/design/chip/tile/ariane/src/common_cells/include" \
 ]
 
 # RTL include files
@@ -513,8 +512,6 @@ set CHIP_RTL_IMPL_FILES [list \
     "${DV_ROOT}/design/chip/tile/ariane/corev_apu/fpga/src/axi_slice/src/axi_r_buffer.sv"               \
     "${DV_ROOT}/design/chip/tile/ariane/corev_apu/fpga/src/axi_slice/src/axi_aw_buffer.sv"              \
     "${DV_ROOT}/design/chip/tile/ariane/corev_apu/register_interface/src/apb_to_reg.sv"             \
-    "${DV_ROOT}/design/chip/tile/ariane/src/register_interface/src/reg_intf.sv"               \
-    "${DV_ROOT}/design/chip/tile/ariane/corev_apu/register_interface/src/reg_intf_pkg.sv"           \
     "${DV_ROOT}/design/chip/tile/ariane/core/fpu/src/fpu_div_sqrt_mvp/hdl/defs_div_sqrt_mvp.sv"      \
     "${DV_ROOT}/design/chip/tile/ariane/core/fpu/src/fpu_div_sqrt_mvp/hdl/control_mvp.sv"            \
     "${DV_ROOT}/design/chip/tile/ariane/core/fpu/src/fpu_div_sqrt_mvp/hdl/div_sqrt_mvp_wrapper.sv"   \
@@ -739,7 +736,6 @@ set CHIPSET_INCLUDE_FILES [list \
     "${DV_ROOT}/design/chipset/include/uart16550_define.vh" \
     "${DV_ROOT}/design/chipset/include/chipset_define.vh" \
     "${DV_ROOT}/design/chipset/noc_axi4_bridge/rtl/noc_axi4_bridge_define.vh" \
-    "${DV_ROOT}/design/chip/tile/ariane/src/common_cells/include/common_cells/registers.svh"
 ]
 
 set CHIPSET_IP_FILE_PREFIXES [list \
