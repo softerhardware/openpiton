@@ -444,7 +444,7 @@ l2_mshr_decoder mshr_decoder(
     `ifndef NO_RTL_CSM
     .smc_miss_out       (mshr_smc_miss),
     `else
-    .smc_miss_out       (0),
+    .smc_miss_out       (),
     `endif
     .recycled           (mshr_recycled),
     .inv_fwd_pending    ()

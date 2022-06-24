@@ -277,7 +277,9 @@ begin
 end
 
 
-reg [`NOC_DATA_WIDTH-1:0] header_buf_mem_f [`L2_P1_HEADER_BUF_IN_SIZE-1:0];
+// VPS_FIX
+//reg [`NOC_DATA_WIDTH-1:0] header_buf_mem_f [`L2_P1_HEADER_BUF_IN_SIZE-1:0];
+(* logic_block=1 *) reg [`NOC_DATA_WIDTH-1:0] header_buf_mem_f [`L2_P1_HEADER_BUF_IN_SIZE-1:0];
 reg header_buf_empty;
 reg header_buf_full;
 reg [`L2_P1_HEADER_BUF_IN_LOG_SIZE:0] header_buf_counter_f;
@@ -417,7 +419,9 @@ end
 
 
 
-reg [`NOC_DATA_WIDTH-1:0] data_buf_mem_f [`L2_P1_DATA_BUF_IN_SIZE-1:0];
+// VPS_FIX
+//reg [`NOC_DATA_WIDTH-1:0] data_buf_mem_f [`L2_P1_DATA_BUF_IN_SIZE-1:0];
+(* logic_block=1 *) reg [`NOC_DATA_WIDTH-1:0] data_buf_mem_f [`L2_P1_DATA_BUF_IN_SIZE-1:0];
 reg data_buf_empty;
 reg data_buf_full;
 reg [`L2_P1_DATA_BUF_IN_LOG_SIZE:0] data_buf_counter_f;
