@@ -28,7 +28,15 @@
 # Not intended to be run standalone
 #
 
-set GLOBAL_INCLUDE_DIRS "${DV_ROOT}/design/include ${DV_ROOT}/design/chipset/include ${DV_ROOT}/design/chip/tile/ariane/common/submodules/common_cells/include ${DV_ROOT}/design/chip/tile/ariane/common/local/util ${DV_ROOT}/design/chip/tile/ariane/corev_apu/register_interface/include"
+set GLOBAL_INCLUDE_DIRS [list \
+    "${DV_ROOT}/design/include" \
+    "${DV_ROOT}/design/chipset/include" \
+    "${DV_ROOT}/design/chip/tile/ariane/common/submodules/common_cells/include" \
+    "${DV_ROOT}/design/chip/tile/ariane/common/local/util" \
+    "${DV_ROOT}/design/chip/tile/ariane/corev_apu/register_interface/include" \
+    "${DV_ROOT}/design/chipset/noc_axi4_bridge/rtl" \
+    "${DV_ROOT}/design/chip/tile/ariane/src/common_cells/include" \
+]
 
 # RTL include files
 set GLOBAL_INCLUDE_FILES [list \
@@ -409,10 +417,6 @@ set CHIP_RTL_IMPL_FILES [list \
     "${DV_ROOT}/design/chip/tile/ariane/core/cvxif_example/include/cvxif_instr_pkg.sv" \
     "${DV_ROOT}/design/chip/tile/ariane/corev_apu/rv_plic/rtl/rv_plic_reg_pkg.sv" \
     "${DV_ROOT}/design/chip/tile/ariane/common/local/util/sram.sv"                                     \
-    "${DV_ROOT}/design/chip/tile/ariane/common/local/util/axi_master_connect.sv"                       \
-    "${DV_ROOT}/design/chip/tile/ariane/common/local/util/axi_master_connect_rev.sv"                   \
-    "${DV_ROOT}/design/chip/tile/ariane/common/local/util/axi_slave_connect.sv"                        \
-    "${DV_ROOT}/design/chip/tile/ariane/common/local/util/axi_slave_connect_rev.sv"                    \
     "${DV_ROOT}/design/chip/tile/ariane/common/submodules/common_cells/src/deprecated/rrarbiter.sv"         \
     "${DV_ROOT}/design/chip/tile/ariane/common/submodules/common_cells/src/deprecated/fifo_v1.sv"           \
     "${DV_ROOT}/design/chip/tile/ariane/common/submodules/common_cells/src/deprecated/fifo_v2.sv"           \
@@ -509,7 +513,7 @@ set CHIP_RTL_IMPL_FILES [list \
     "${DV_ROOT}/design/chip/tile/ariane/corev_apu/fpga/src/axi_slice/src/axi_r_buffer.sv"               \
     "${DV_ROOT}/design/chip/tile/ariane/corev_apu/fpga/src/axi_slice/src/axi_aw_buffer.sv"              \
     "${DV_ROOT}/design/chip/tile/ariane/corev_apu/register_interface/src/apb_to_reg.sv"             \
-    "${DV_ROOT}/design/chip/tile/ariane/corev_apu/register_interface/src/reg_intf.sv"               \
+    "${DV_ROOT}/design/chip/tile/ariane/src/register_interface/src/reg_intf.sv"               \
     "${DV_ROOT}/design/chip/tile/ariane/corev_apu/register_interface/src/reg_intf_pkg.sv"           \
     "${DV_ROOT}/design/chip/tile/ariane/core/fpu/src/fpu_div_sqrt_mvp/hdl/defs_div_sqrt_mvp.sv"      \
     "${DV_ROOT}/design/chip/tile/ariane/core/fpu/src/fpu_div_sqrt_mvp/hdl/control_mvp.sv"            \
@@ -557,9 +561,6 @@ set CHIP_PRJ_IP_FILES [list \
 ]
 
 set PASSTHRU_RTL_IMPL_FILES [list \
-    "${DV_ROOT}/design/passthru/rtl/passthru.v" \
-    "${DV_ROOT}/design/passthru/passthru_nodec/rtl/passthru_nodec.v" \
-    "${DV_ROOT}/design/passthru/passthru_dec/rtl/passthru_dec.v" \
     "${DV_ROOT}/design/common/rtl/chip_rst_seq.v" \
     "${DV_ROOT}/design/common/rtl/alarm_counter.v" \
     "${DV_ROOT}/design/common/fpga_bridge/rtl/fpga_bridge.v" \
