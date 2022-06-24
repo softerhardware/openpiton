@@ -48,6 +48,25 @@
     `define DDR3_CS_WIDTH           1
     `define DDR3_ODT_WIDTH          1
 
+`elsif VPS_BOARD
+    // specify mem size in MByte here
+    `define BOARD_MEM_SIZE_MB       4096
+    `define WORDS_PER_BURST         8
+    `define WORD_SIZE               8 // in bytes
+    `define MIG_APP_ADDR_WIDTH      28
+    `define MIG_APP_CMD_WIDTH       3
+    `define MIG_APP_DATA_WIDTH      512
+    `define MIG_APP_MASK_WIDTH      64
+
+    `define DDR3_DQ_WIDTH           64
+    `define DDR3_DQS_WIDTH          8
+    `define DDR3_ADDR_WIDTH         14
+    `define DDR3_BA_WIDTH           3
+    `define DDR3_DM_WIDTH           8
+    `define DDR3_CK_WIDTH           1
+    `define DDR3_CKE_WIDTH          1
+    `define DDR3_CS_WIDTH           1
+    `define DDR3_ODT_WIDTH          1
 `elsif VC707_BOARD
     // specify mem size in MByte here
     `define BOARD_MEM_SIZE_MB       1024

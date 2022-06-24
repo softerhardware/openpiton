@@ -472,10 +472,11 @@ begin
     end
 end
 
-always @ *
-begin
-    noc_valid_out = (buf_out_counter_f != 0);
-end
+//VPS_FIX
+//always @ *
+//begin
+//    noc_valid_out = (buf_out_counter_f != 0);
+//end
 
 always @ *
 begin

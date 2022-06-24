@@ -44,6 +44,8 @@ module noc_axi4_bridge_ser(
   input flit_out_rdy 
 );
 
+reg [`NOC_DATA_WIDTH-1:0] resp_header;
+
 // states
 localparam ACCEPT = 2'd0;
 localparam SEND_HEADER = 2'd1;
@@ -118,7 +120,6 @@ always @(posedge clk) begin
   end
 end
 
-reg [`NOC_DATA_WIDTH-1:0] resp_header;
 always @(posedge clk) begin
   if (~rst_n) begin
     resp_header <= `NOC_DATA_WIDTH'b0;

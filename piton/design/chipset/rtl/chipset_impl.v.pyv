@@ -90,12 +90,14 @@ module chipset_impl(
 `ifndef PITONSYS_NO_MC
 `ifdef PITON_FPGA_MC_DDR3
 `ifndef F1_BOARD
+`ifndef VPS_AXI_SM
 `ifdef PITONSYS_DDR4
     input                                       mc_clk_p,
     input                                       mc_clk_n,
 `else  // PITONSYS_DDR4
     input                                       mc_clk,
 `endif // PITONSYS_DDR4
+`endif // ifndef VPS_AXI_SM
 `endif // ifndef F1_BOARD
 `endif // endif PITON_FPGA_MC_DDR3
 `endif // endif PITONSYS_NO_MC
@@ -129,6 +131,12 @@ module chipset_impl(
 `ifndef F1_BOARD
     // Generalized interface for any FPGA board we support.
     // Not all signals will be used for all FPGA boards (see constraints)
+`ifdef VPS_AXI_SM
+	,
+    input                                       axi_sm_aclk,
+    input                                       axi_sm_aresetn,
+    output                                      mmcm_locked
+`else // VPS_AXI_SM
 `ifdef PITONSYS_DDR4
     ,
     output                                      ddr_act_n,
@@ -161,6 +169,7 @@ module chipset_impl(
     output [`DDR3_DM_WIDTH-1:0]                 ddr_dm,
 `endif // PITONSYS_DDR4
     output [`DDR3_ODT_WIDTH-1:0]                ddr_odt
+`endif // VPS_AXI_SM 
 `else // ifndef F1_BOARD
     // AXI Write Address Channel Signals
     ,
@@ -789,6 +798,11 @@ credit_to_valrdy noc3_xbar_to_%s(
             .uart_boot_en(uart_boot_en),
             .init_calib_complete_out(init_calib_complete),
 
+        `ifdef VPS_AXI_SM
+            .axi_sm_aclk(axi_sm_aclk),
+            .axi_sm_aresetn(axi_sm_aresetn),
+            .mmcm_locked(mmcm_locked)
+        `else // VPS_AXI_SM
         `ifdef PITONSYS_DDR4
             .sys_clk_p(mc_clk_p),
             .sys_clk_n(mc_clk_n),
@@ -819,6 +833,7 @@ credit_to_valrdy noc3_xbar_to_%s(
             .ddr_dm(ddr_dm),
         `endif // XUPP3R_BOARD
             .ddr_odt(ddr_odt)
+        `endif // VPS_AXI_SM
         );
     `endif // F1_BOARD
 
