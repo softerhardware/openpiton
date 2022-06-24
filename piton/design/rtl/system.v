@@ -127,7 +127,9 @@ module system(
     input                                       chipset_clk,
 `ifndef PITONSYS_NO_MC
 `ifdef PITON_FPGA_MC_DDR3
+`ifndef VPS_AXI_SM 
     input                                       mc_clk,
+`endif // endif VPS_AXI_SM 
 `endif // endif PITON_FPGA_MC_DDR3
 `endif // endif PITONSYS_NO_MC
 `ifdef PITONSYS_SPI
@@ -181,11 +183,13 @@ module system(
 `ifndef NEXYSVIDEO_BOARD
 `ifndef XUPP3R_BOARD
 `ifndef F1_BOARD
+`ifndef VPS_BOARD
   input                                         tck_i,
   input                                         tms_i,
   input                                         trst_ni,
   input                                         td_i,
   output                                        td_o,
+`endif //VPS_BOARD
 `endif//F1_BOARD
 `endif//XUPP3R_BOARD
 `endif //NEXYSVIDEO_BOARD
@@ -206,6 +210,11 @@ module system(
 `ifndef PITONSYS_NO_MC
 `ifdef PITON_FPGA_MC_DDR3
 `ifndef F1_BOARD
+`ifdef VPS_AXI_SM
+    input                                       axi_sm_aclk,
+    input                                       axi_sm_aresetn,
+    output                                      mmcm_locked,
+`else // VPS_AXI_SM
     // Generalized interface for any FPGA board we support.
     // Not all signals will be used for all FPGA boards (see constraints)
     `ifdef PITONSYS_DDR4
@@ -239,6 +248,7 @@ module system(
     output [`DDR3_DM_WIDTH-1:0]                 ddr_dm,
     `endif // PITONSYS_DDR4
     output [`DDR3_ODT_WIDTH-1:0]                ddr_odt,
+`endif // VPS_AXI_SM
 `else //ifndef F1_BOARD 
     input                                        mc_clk,
     // AXI Write Address Channel Signals
@@ -396,6 +406,17 @@ module system(
     output [7:0]                                leds
 `endif
 );
+
+`ifdef RED_VUART
+supply0 uart_select_rx;
+wire vuart_tx;
+assign uart_rx_int = (uart_select_rx) ? vuart_tx : uart_rx;
+
+RED_VUART vps_uart (
+    .rx(uart_tx),
+    .tx(vuart_tx)
+);
+`endif // endif RED_VUART
 
 ///////////////////////
 // Type declarations //
@@ -935,7 +956,9 @@ chipset chipset(
     .chipset_clk(chipset_clk),
 `ifndef PITONSYS_NO_MC
 `ifdef PITON_FPGA_MC_DDR3
+`ifndef VPS_AXI_SM 
     .mc_clk(mc_clk),
+`endif // endif VPS_AXI_SM 
 `endif // endif PITON_FPGA_MC_DDR3
 `endif // endif PITONSYS_NO_MC
 `ifdef PITONSYS_SPI
@@ -1032,6 +1055,11 @@ chipset chipset(
 `ifndef PITONSYS_NO_MC
 `ifdef PITON_FPGA_MC_DDR3
 `ifndef F1_BOARD
+`ifdef VPS_AXI_SM
+    .axi_sm_aclk(axi_sm_aclk),
+    .axi_sm_aresetn(axi_sm_aresetn),
+    .mmcm_locked(mmcm_locked),
+`else // VPS_AXI_SM
 `ifdef PITONSYS_DDR4
     .ddr_act_n(ddr_act_n),
     .ddr_bg(ddr_bg),
@@ -1058,6 +1086,7 @@ chipset chipset(
     .ddr_dm(ddr_dm),
 `endif
     .ddr_odt(ddr_odt),
+`endif // VPS_AXI_SM
 `else //ifndef F1_BOARD
     .mc_clk(mc_clk),
     // AXI Write Address Channel Signals
@@ -1123,7 +1152,11 @@ chipset chipset(
 `ifdef PITONSYS_IOCTRL
 `ifdef PITONSYS_UART
     .uart_tx(uart_tx),
-    .uart_rx(uart_rx),
+    `ifndef RED_VUART
+        .uart_rx(uart_rx),
+    `else // ifdef RED_VUART 
+        .uart_rx(uart_rx_int),
+    `endif // endif RED_VUART
 `ifdef PITONSYS_UART_BOOT
     .test_start(test_start),
 `endif // endif PITONSYS_UART_BOOT

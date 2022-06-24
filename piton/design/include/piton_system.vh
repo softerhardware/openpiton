@@ -42,11 +42,13 @@
 // but for top-level constraints I/Os are needed)
 // so the following macros always apply
 `ifdef PITON_FULL_SYSTEM
-    `define PITON_CHIPSET_CLKS_GEN
+    `ifndef VPS_BOARD
+        `define PITON_CHIPSET_CLKS_GEN
+        `define PITONSYS_SPI
+    `endif
     `define PITON_CLKS_CHIPSET
     `define PITONSYS_IOCTRL
     `define PITONSYS_UART
-    `define PITONSYS_SPI
 `endif
 
 `ifdef PITON_NOC_POWER_CHIPSET_TEST
@@ -58,7 +60,9 @@
     `define PITONSYS_IOCTRL
 // Only for FPGA synthesis
 `ifdef PITON_FPGA_SYNTH
-    `define PITON_CHIPSET_CLKS_GEN
+    `ifndef VPS_BOARD
+        `define PITON_CHIPSET_CLKS_GEN
+    `endif
     `ifdef PITON_ASIC_CHIPSET
         `define PITON_CLKS_PASSTHRU
         `define PITONSYS_INC_PASSTHRU
@@ -116,6 +120,8 @@
 
 `ifdef VC707_BOARD
     `define PITON_CHIPSET_DIFF_CLK
+`elsif VPS_BOARD
+    `define PITON_CHIPSET_DIFF_CLK
 `elsif VCU118_BOARD
     `define PITON_CHIPSET_DIFF_CLK
 `elsif XUPP3R_BOARD
@@ -131,6 +137,8 @@
 
 // Reset is active high on VC707 and VCU118
 `ifdef VC707_BOARD
+    `define PITON_FPGA_RST_ACT_HIGH
+`elsif VPS_BOARD
     `define PITON_FPGA_RST_ACT_HIGH
 `elsif VCU118_BOARD
     `define PITON_FPGA_RST_ACT_HIGH
