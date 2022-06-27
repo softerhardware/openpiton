@@ -301,10 +301,10 @@ def makeVPSProject(board, design_data, work_dir, log_dir, def_list, slurm, dep_l
             f.write("{0}\n".format(e))
         f.write("\n")
 
-        s = """./vpsrtl/uart_16550_stub.v
-./vpsrtl/atg_uart_init_stub.v
-./vpsrtl/afifo_w64_d128.v
-./vpsrtl/bram_256x512.sv
+        s = """./design/chipset/io_ctrl/xilinx/vps/ip_cores/uart_16550/uart_16550_stub.v
+./design/chipset/io_ctrl/xilinx/vps/ip_cores/atg_uart_init/atg_uart_init_stub.v
+./design/chipset/io_ctrl/xilinx/vps/ip_cores/afifo_w64_d128.v
+./design/chipset/io_ctrl/xilinx/vps/ip_cores/bram_256x512.sv
 $RED_HOME/partitioner/hdl/red_vip/axi_slave/axi4_slave_sm.sv
 $RED_HOME/partitioner/hdl/red_vip/vuart/RED_VUART.v"""
         f.write(s)
