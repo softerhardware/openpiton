@@ -28,7 +28,12 @@
 # Not intended to be run standalone
 #
 
-set GLOBAL_INCLUDE_DIRS "${DV_ROOT}/design/include ${DV_ROOT}/design/chipset/include ${DV_ROOT}/design/chip/tile/ariane/src/common_cells/include/"
+set GLOBAL_INCLUDE_DIRS [list \
+    "${DV_ROOT}/design/include" \
+    "${DV_ROOT}/design/chipset/include" \
+    "${DV_ROOT}/design/chip/tile/ariane/src/common_cells/include" \
+    "${DV_ROOT}/design/chipset/noc_axi4_bridge/rtl" \
+]
 
 # RTL include files
 set GLOBAL_INCLUDE_FILES [list \
@@ -394,13 +399,14 @@ set CHIP_RTL_IMPL_FILES [list \
     "${DV_ROOT}/design/chip/tile/sparc/srams/rtl/sram_wrappers/sram_l1d_tag.v" \
     "${DV_ROOT}/design/chip/tile/sparc/srams/rtl/sram_wrappers/sram_l1i_data.v" \
     "${DV_ROOT}/design/chip/tile/sparc/srams/rtl/sram_wrappers/sram_l1i_tag.v" \
-    "${DV_ROOT}/design/chip/tile/ariane/tb/ariane_soc_pkg.sv"                                 \
+    "${DV_ROOT}/design/chip/tile/ariane/src/register_interface/src/reg_intf_pkg.sv"           \
     "${DV_ROOT}/design/chip/tile/ariane/src/axi/src/axi_pkg.sv"                               \
     "${DV_ROOT}/design/chip/tile/ariane/src/riscv-dbg/src/dm_pkg.sv"                          \
     "${DV_ROOT}/design/chip/tile/ariane/include/riscv_pkg.sv"                                 \
     "${DV_ROOT}/design/chip/tile/ariane/include/ariane_pkg.sv"                                \
-    "${DV_ROOT}/design/chip/tile/ariane/include/ariane_axi_pkg.sv"                            \
     "${DV_ROOT}/design/chip/tile/ariane/include/wt_cache_pkg.sv"                              \
+    "${DV_ROOT}/design/chip/tile/ariane/tb/ariane_soc_pkg.sv"                                 \
+    "${DV_ROOT}/design/chip/tile/ariane/include/ariane_axi_pkg.sv"                            \
     "${DV_ROOT}/design/chip/tile/ariane/include/axi_intf.sv"                                  \
     "${DV_ROOT}/design/chip/tile/ariane/src/fpu/src/fpnew_pkg.sv"                             \
     "${DV_ROOT}/design/chip/tile/ariane/src/util/sram.sv"                                     \
@@ -502,8 +508,6 @@ set CHIP_RTL_IMPL_FILES [list \
     "${DV_ROOT}/design/chip/tile/ariane/fpga/src/axi_slice/src/axi_aw_buffer.sv"              \
     "${DV_ROOT}/design/chip/tile/ariane/src/register_interface/src/apb_to_reg.sv"             \
     "${DV_ROOT}/design/chip/tile/ariane/src/register_interface/src/reg_intf.sv"               \
-    "${DV_ROOT}/design/chip/tile/ariane/src/register_interface/src/reg_intf_pkg.sv"           \
-    "${DV_ROOT}/design/chip/tile/ariane/src/fpu/src/fpu_div_sqrt_mvp/hdl/fpu_ff.sv"                 \
     "${DV_ROOT}/design/chip/tile/ariane/src/fpu/src/fpu_div_sqrt_mvp/hdl/defs_div_sqrt_mvp.sv"      \
     "${DV_ROOT}/design/chip/tile/ariane/src/fpu/src/fpu_div_sqrt_mvp/hdl/control_mvp.sv"            \
     "${DV_ROOT}/design/chip/tile/ariane/src/fpu/src/fpu_div_sqrt_mvp/hdl/div_sqrt_mvp_wrapper.sv"   \
@@ -543,9 +547,6 @@ set CHIP_PRJ_IP_FILES [list \
 ]
 
 set PASSTHRU_RTL_IMPL_FILES [list \
-    "${DV_ROOT}/design/passthru/rtl/passthru.v" \
-    "${DV_ROOT}/design/passthru/passthru_nodec/rtl/passthru_nodec.v" \
-    "${DV_ROOT}/design/passthru/passthru_dec/rtl/passthru_dec.v" \
     "${DV_ROOT}/design/common/rtl/chip_rst_seq.v" \
     "${DV_ROOT}/design/common/rtl/alarm_counter.v" \
     "${DV_ROOT}/design/common/fpga_bridge/rtl/fpga_bridge.v" \
@@ -717,6 +718,7 @@ set CHIPSET_RTL_IMPL_FILES [list \
     "${DV_ROOT}/design/chipset/oled/rtl/ssd1306_init.v" \
     "${DV_ROOT}/design/chipset/oled/rtl/ssd1306_spi.v" \
     "${DV_ROOT}/design/chipset/oled/rtl/ssd1306_top.v" \
+    "${DV_ROOT}/design/chip/tile/ariane/src/common_cells/include/common_cells/registers.svh" \
 ]
 
 set CHIPSET_INCLUDE_FILES [list \
@@ -724,7 +726,6 @@ set CHIPSET_INCLUDE_FILES [list \
     "${DV_ROOT}/design/chipset/include/uart16550_define.vh" \
     "${DV_ROOT}/design/chipset/include/chipset_define.vh" \
     "${DV_ROOT}/design/chipset/noc_axi4_bridge/rtl/noc_axi4_bridge_define.vh" \
-    "${DV_ROOT}/design/chip/tile/ariane/src/common_cells/include/common_cells/registers.svh"
 ]
 
 set CHIPSET_IP_FILE_PREFIXES [list \
