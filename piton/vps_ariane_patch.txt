@@ -1,7 +1,7 @@
 
- diff -aurp a/design/chip/tile/ariane/core/fpu/src/fpnew_cast_multi.sv b/design/chip/tile/ariane/core/fpu/src/fpnew_cast_multi.sv
---- a/design/chip/tile/ariane/core/fpu/src/fpnew_cast_multi.sv  2022-06-22 10:48:21.979262000 -0700
-+++ b/design/chip/tile/ariane/core/fpu/src/fpnew_cast_multi.sv  2019-12-02 13:00:37.000000000 -0800
+ diff -aurp a/design/chip/tile/ariane/src/fpu/src/fpnew_cast_multi.sv b/design/chip/tile/ariane/src/fpu/src/fpnew_cast_multi.sv
+--- a/design/chip/tile/ariane/src/fpu/src/fpnew_cast_multi.sv  2022-06-22 10:48:21.979262000 -0700
++++ b/design/chip/tile/ariane/src/fpu/src/fpnew_cast_multi.sv  2019-12-02 13:00:37.000000000 -0800
 @@ -545,7 +545,9 @@ module fpnew_cast_multi #(
      .exact_zero_o            ( result_true_zero  )
    );
@@ -24,9 +24,9 @@
  
    // Special result construction
    for (genvar fmt = 0; fmt < int'(NUM_FORMATS); fmt++) begin : gen_special_results
-diff -aurp a/design/chip/tile/ariane/core/fpu/src/fpnew_pkg.sv b/design/chip/tile/ariane/core/fpu/src/fpnew_pkg.sv
---- a/design/chip/tile/ariane/core/fpu/src/fpnew_pkg.sv 2022-06-22 10:48:22.001254000 -0700
-+++ b/design/chip/tile/ariane/core/fpu/src/fpnew_pkg.sv 2019-11-01 05:19:45.000000000 -0700
+diff -aurp a/design/chip/tile/ariane/src/fpu/src/fpnew_pkg.sv b/design/chip/tile/ariane/src/fpu/src/fpnew_pkg.sv
+--- a/design/chip/tile/ariane/src/fpu/src/fpnew_pkg.sv 2022-06-22 10:48:22.001254000 -0700
++++ b/design/chip/tile/ariane/src/fpu/src/fpnew_pkg.sv 2019-11-01 05:19:45.000000000 -0700
 @@ -253,20 +253,34 @@ package fpnew_pkg;
    } fpu_implementation_t;
  
@@ -72,9 +72,9 @@ diff -aurp a/design/chip/tile/ariane/core/fpu/src/fpnew_pkg.sv b/design/chip/til
      PipeConfig: BEFORE
    };
  
-diff -aurp a/design/chip/tile/ariane/corev_apu/openpiton/bootrom/linux/src/main.c b/design/chip/tile/ariane/corev_apu/openpiton/bootrom/linux/src/main.c
---- a/design/chip/tile/ariane/corev_apu/openpiton/bootrom/linux/src/main.c 2022-06-23 21:45:39.132248000 -0700
-+++ b/design/chip/tile/ariane/corev_apu/openpiton/bootrom/linux/src/main.c 2022-06-23 22:03:54.356425000 -0700
+diff -aurp a/design/chip/tile/ariane/openpiton/bootrom/linux/src/main.c b/design/chip/tile/ariane/openpiton/bootrom/linux/src/main.c
+--- a/design/chip/tile/ariane/openpiton/bootrom/linux/src/main.c 2022-06-23 21:45:39.132248000 -0700
++++ b/design/chip/tile/ariane/openpiton/bootrom/linux/src/main.c 2022-06-23 22:03:54.356425000 -0700
 @@ -1,7 +1,4 @@
  #include "uart.h"
 -#include "spi.h"
@@ -96,9 +96,9 @@ diff -aurp a/design/chip/tile/ariane/corev_apu/openpiton/bootrom/linux/src/main.
  
      return 0;
  }
-diff -aurp a/design/chip/tile/ariane/corev_apu/openpiton/bootrom/linux/Makefile b/design/chip/tile/ariane/corev_apu/openpiton/bootrom/linux/Makefile
---- a/design/chip/tile/ariane/corev_apu/openpiton/bootrom/linux/Makefile 2022-06-23 21:45:39.116473000 -0700
-+++ b/design/chip/tile/ariane/corev_apu/openpiton/bootrom/linux/Makefile 2022-06-23 22:10:48.610754000 -0700
+diff -aurp a/design/chip/tile/ariane/openpiton/bootrom/linux/Makefile b/design/chip/tile/ariane/openpiton/bootrom/linux/Makefile
+--- a/design/chip/tile/ariane/openpiton/bootrom/linux/Makefile 2022-06-23 21:45:39.116473000 -0700
++++ b/design/chip/tile/ariane/openpiton/bootrom/linux/Makefile 2022-06-23 22:10:48.610754000 -0700
 @@ -10,7 +10,7 @@ LDFLAGS = -nostdlib -nodefaultlibs -nost
  
  INCLUDES = -I./ -I./src
