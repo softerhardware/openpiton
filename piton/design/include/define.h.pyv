@@ -365,10 +365,10 @@ print("`define PITON_Y_TILES %d"   % PITON_Y_TILES)
 //Additional fields for Sharer Domain ID and Logical Sharer ID
 //For coherence domain restriction only
 
-`define MSG_SDID_WIDTH          11
-`define MSG_LSID_WIDTH          7
-`define MSG_HDID_WIDTH          11
-`define MSG_LHID_WIDTH          7
+`define MSG_SDID_WIDTH          10
+`define MSG_LSID_WIDTH          6
+`define MSG_HDID_WIDTH          10
+`define MSG_LHID_WIDTH          6
 
 
 `define TLB_CSM_WIDTH           33
