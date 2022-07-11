@@ -72,27 +72,31 @@ diff -aurp a/design/chip/tile/ariane/src/fpu/src/fpnew_pkg.sv b/design/chip/tile
      PipeConfig: BEFORE
    };
  
-diff -aurp a/design/chip/tile/ariane/openpiton/bootrom/linux/src/main.c b/design/chip/tile/ariane/openpiton/bootrom/linux/src/main.c
---- a/design/chip/tile/ariane/openpiton/bootrom/linux/src/main.c 2022-06-23 21:45:39.132248000 -0700
-+++ b/design/chip/tile/ariane/openpiton/bootrom/linux/src/main.c 2022-06-23 22:03:54.356425000 -0700
-@@ -1,7 +1,4 @@
+diff --git a/design/chip/tile/ariane/openpiton/bootrom/linux/src/main.c b/design/chip/tile/ariane/openpiton/bootrom/linux/src/main.c
+index 528fab8..025239e 100644
+--- a/design/chip/tile/ariane/openpiton/bootrom/linux/src/main.c
++++ b/design/chip/tile/ariane/openpiton/bootrom/linux/src/main.c
+@@ -1,17 +1,17 @@
  #include "uart.h"
 -#include "spi.h"
 -#include "sd.h"
 -#include "gpt.h"
++//#include "spi.h"
++//#include "sd.h"
++//#include "gpt.h"
  #include "info.h"
  
  int main()
-@@ -9,9 +6,9 @@ int main()
+ {
      init_uart(UART_FREQ, 115200);
-     print_uart(info);
+-    print_uart(info);
++    //print_uart(info);
  
 -    print_uart("sd initialized!\r\n");
--
--    int res = gpt_find_boot_partition((uint8_t *)0x80000000UL, 2 * 32768);
-+    print_uart("skipping sd init!\r\n");
-+    print_uart("skipping sd copy!\r\n");
-+    print_uart("loading kernel from ddr!\r\n");
++    //print_uart("sd initialized!\r\n");
+ 
+-    int res = gpt_find_boot_partition((uint8_t *)0x80000000UL, 2 * 16384);
++    //int res = gpt_find_boot_partition((uint8_t *)0x80000000UL, 2 * 16384);
  
      return 0;
  }
@@ -108,3 +112,32 @@ diff -aurp a/design/chip/tile/ariane/openpiton/bootrom/linux/Makefile b/design/c
  SRCS_ASM = startup.S
  OBJS_C = $(SRCS_C:.c=.o)
  OBJS_S = $(SRCS_ASM:.S=.o)
+
+diff --git a/design/chip/tile/ariane/bootrom/Makefile b/design/chip/tile/ariane/bootrom/Makefile
+index 50bcd29..e78941a 100644
+--- a/design/chip/tile/ariane/bootrom/Makefile
++++ b/design/chip/tile/ariane/bootrom/Makefile
+@@ -3,7 +3,7 @@ bootrom_img = bootrom.img bootrom.sv
+ GCC=riscv64-unknown-elf-gcc
+ OBJCOPY=riscv64-unknown-elf-objcopy
+ DTB=ariane.dtb
+-PYTHON=python
++PYTHON=python3
+ 
+ all: $(bootrom_img)
+ 
+diff --git a/design/chip/tile/ariane/bootrom/gen_rom.py b/design/chip/tile/ariane/bootrom/gen_rom.py
+index bb2abc3..eed0d34 100755
+--- a/design/chip/tile/ariane/bootrom/gen_rom.py
++++ b/design/chip/tile/ariane/bootrom/gen_rom.py
+@@ -80,8 +80,8 @@ $content
+ def read_bin():
+ 
+     with open(filename + ".img", 'rb') as f:
+-        rom = binascii.hexlify(f.read())
+-        rom = map(''.join, zip(rom[::2], rom[1::2]))
++        rom = str(binascii.hexlify(f.read()))
++        rom = list(map(''.join, zip(rom[2::2], rom[3::2])))
+ 
+ 
+     # align to 64 bit
