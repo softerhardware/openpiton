@@ -268,7 +268,7 @@ def gen_riscv_dts(devices, nCpus, cpuFreq, timeBaseFreq, periphFreq, dtsPath, ti
             compatible = "ns16550";
             reg = <%s>;
             clock-frequency = <%d>;
-            current-speed = <115200>;
+            current-speed = <9600>;
             interrupt-parent = <&PLIC0>;
             interrupts = <%d>;
             reg-shift = <0>; // regs are spaced on 8 bit boundary (modified from Xilinx UART16550 to be ns16550 compatible)
