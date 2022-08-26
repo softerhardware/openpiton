@@ -72,47 +72,6 @@ diff -aurp a/design/chip/tile/ariane/src/fpu/src/fpnew_pkg.sv b/design/chip/tile
      PipeConfig: BEFORE
    };
  
-diff --git a/design/chip/tile/ariane/openpiton/bootrom/linux/src/main.c b/design/chip/tile/ariane/openpiton/bootrom/linux/src/main.c
-index 528fab8..025239e 100644
---- a/design/chip/tile/ariane/openpiton/bootrom/linux/src/main.c
-+++ b/design/chip/tile/ariane/openpiton/bootrom/linux/src/main.c
-@@ -1,17 +1,17 @@
- #include "uart.h"
--#include "spi.h"
--#include "sd.h"
--#include "gpt.h"
-+//#include "spi.h"
-+//#include "sd.h"
-+//#include "gpt.h"
- #include "info.h"
- 
- int main()
- {
-     init_uart(UART_FREQ, 115200);
--    print_uart(info);
-+    //print_uart(info);
- 
--    print_uart("sd initialized!\r\n");
-+    //print_uart("sd initialized!\r\n");
- 
--    int res = gpt_find_boot_partition((uint8_t *)0x80000000UL, 2 * 16384);
-+    //int res = gpt_find_boot_partition((uint8_t *)0x80000000UL, 2 * 16384);
- 
-     return 0;
- }
-diff -aurp a/design/chip/tile/ariane/openpiton/bootrom/linux/Makefile b/design/chip/tile/ariane/openpiton/bootrom/linux/Makefile
---- a/design/chip/tile/ariane/openpiton/bootrom/linux/Makefile 2022-06-23 21:45:39.116473000 -0700
-+++ b/design/chip/tile/ariane/openpiton/bootrom/linux/Makefile 2022-06-23 22:10:48.610754000 -0700
-@@ -10,7 +10,7 @@ LDFLAGS = -nostdlib -nodefaultlibs -nost
- 
- INCLUDES = -I./ -I./src
- 
--SRCS_C = src/main.c src/uart.c src/spi.c src/sd.c src/gpt.c
-+SRCS_C = src/main.c src/uart.c
- SRCS_ASM = startup.S
- OBJS_C = $(SRCS_C:.c=.o)
- OBJS_S = $(SRCS_ASM:.S=.o)
-
 diff --git a/design/chip/tile/ariane/bootrom/Makefile b/design/chip/tile/ariane/bootrom/Makefile
 index 50bcd29..e78941a 100644
 --- a/design/chip/tile/ariane/bootrom/Makefile
@@ -141,3 +100,46 @@ index bb2abc3..eed0d34 100755
  
  
      # align to 64 bit
+diff --git a/design/chip/tile/ariane/openpiton/bootrom/linux/Makefile b/design/chip/tile/ariane/openpiton/bootrom/linux/Makefile
+index 6c56dc9..574b825 100644
+--- a/design/chip/tile/ariane/openpiton/bootrom/linux/Makefile
++++ b/design/chip/tile/ariane/openpiton/bootrom/linux/Makefile
+@@ -10,7 +10,7 @@ LDFLAGS = -nostdlib -nodefaultlibs -nostartfiles
+ 
+ INCLUDES = -I./ -I./src
+ 
+-SRCS_C = src/main.c src/uart.c src/spi.c src/sd.c src/gpt.c
++SRCS_C = src/main.c src/uart.c
+ SRCS_ASM = startup.S
+ OBJS_C = $(SRCS_C:.c=.o)
+ OBJS_S = $(SRCS_ASM:.S=.o)
+diff --git a/design/chip/tile/ariane/openpiton/bootrom/linux/src/main.c b/design/chip/tile/ariane/openpiton/bootrom/linux/src/main.c
+index 528fab8..5a3632f 100644
+--- a/design/chip/tile/ariane/openpiton/bootrom/linux/src/main.c
++++ b/design/chip/tile/ariane/openpiton/bootrom/linux/src/main.c
+@@ -1,17 +1,17 @@
+ #include "uart.h"
+-#include "spi.h"
+-#include "sd.h"
+-#include "gpt.h"
++//#include "spi.h"
++//#include "sd.h"
++//#include "gpt.h"
+ #include "info.h"
+ 
+ int main()
+ {
+-    init_uart(UART_FREQ, 115200);
+-    print_uart(info);
++    //init_uart(UART_FREQ, 9600);
++    //print_uart(info);
+ 
+-    print_uart("sd initialized!\r\n");
++    //print_uart("sd initialized!\r\n");
+ 
+-    int res = gpt_find_boot_partition((uint8_t *)0x80000000UL, 2 * 16384);
++    //int res = gpt_find_boot_partition((uint8_t *)0x80000000UL, 2 * 16384);
+ 
+     return 0;
+ }
+
