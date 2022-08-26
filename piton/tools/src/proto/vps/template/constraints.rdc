@@ -7,8 +7,8 @@ create_clock -name axi_sm_aclk -period 20 [get_ports axi_sm_aclk]
 set_property CLOCK_GENERATOR_TYPE RCM_CD [get_clocks chipset_clk]
 set_property CLOCK_GENERATOR_TYPE RCM_CD [get_clocks axi_sm_aclk]
 
-set_property PRESERVE_PERIOD true [get_clocks chipset_clk]
-set_property PRESERVE_PERIOD true [get_clocks axi_sm_aclk]
+#set_property PRESERVE_PERIOD true [get_clocks chipset_clk]
+#set_property PRESERVE_PERIOD true [get_clocks axi_sm_aclk]
 
 
 #################################################################################################################################################
@@ -20,30 +20,32 @@ create_reset -name axi_sm_reset	-clock axi_sm_aclk [get_ports axi_sm_aresetn] -a
 #################################################################################################################################################
 ##################################################################### UART ######################################################################
 #################################################################################################################################################
-set_assignment [get_ports uart_rx] -protocol_instance_pin [get_hw_protocol_instance_pins U_CHAS01_U_SLOT01_U_A/B10_UART/rxd] -iostandard LVCMOS18
-set_assignment [get_ports uart_tx] -protocol_instance_pin [get_hw_protocol_instance_pins U_CHAS01_U_SLOT01_U_A/B10_UART/txd] -iostandard LVCMOS18
+set_assignment [get_ports uart_rx] -protocol_instance_pin [get_hw_protocol_instance_pins U_CHAS01_U_SLOT03_U_A/B10_UART/rxd] -iostandard LVCMOS18
+set_assignment [get_ports uart_tx] -protocol_instance_pin [get_hw_protocol_instance_pins U_CHAS01_U_SLOT03_U_A/B10_UART/txd] -iostandard LVCMOS18
 
 #################################################################################################################################################
 ################################################################### Switches ####################################################################
 #################################################################################################################################################
-set_assignment [get_ports {sw[7]}]       -fpga [get_hw_fpgas U_CHAS01_U_SLOT01_U_A] -model VLED -model_options [list active:high color:blue] -pulldown
-set_assignment [get_ports {sw[6]}]       -fpga [get_hw_fpgas U_CHAS01_U_SLOT01_U_A] -model VLED -model_options [list active:high color:blue] -pulldown
-set_assignment [get_ports {sw[5]}]       -fpga [get_hw_fpgas U_CHAS01_U_SLOT01_U_A] -model VLED -model_options [list active:high color:blue] -pulldown
-set_assignment [get_ports {sw[4]}]       -fpga [get_hw_fpgas U_CHAS01_U_SLOT01_U_A] -model VLED -model_options [list active:high color:blue] -pulldown
-set_assignment [get_ports {sw[3]}]       -fpga [get_hw_fpgas U_CHAS01_U_SLOT01_U_A] -model VLED -model_options [list active:high color:blue] -pulldown
-set_assignment [get_ports {sw[2]}]       -fpga [get_hw_fpgas U_CHAS01_U_SLOT01_U_A] -model VLED -model_options [list active:high color:blue] -pulldown
-set_assignment [get_ports {sw[1]}]       -fpga [get_hw_fpgas U_CHAS01_U_SLOT01_U_A] -model VLED -model_options [list active:high color:blue] -pulldown
-set_assignment [get_ports {sw[0]}]       -fpga [get_hw_fpgas U_CHAS01_U_SLOT01_U_A] -model VLED -model_options [list active:high color:blue] -pulldown
+set_assignment [get_ports {sw[7]}]       -fpga [get_hw_fpgas U_CHAS01_U_SLOT03_U_A] -model VLED -model_options [list active:high color:blue] -pulldown
+set_assignment [get_ports {sw[6]}]       -fpga [get_hw_fpgas U_CHAS01_U_SLOT03_U_A] -model VLED -model_options [list active:high color:blue] -pulldown
+set_assignment [get_ports {sw[5]}]       -fpga [get_hw_fpgas U_CHAS01_U_SLOT03_U_A] -model VLED -model_options [list active:high color:blue] -pulldown
+set_assignment [get_ports {sw[4]}]       -fpga [get_hw_fpgas U_CHAS01_U_SLOT03_U_A] -model VLED -model_options [list active:high color:blue] -pulldown
+set_assignment [get_ports {sw[3]}]       -fpga [get_hw_fpgas U_CHAS01_U_SLOT03_U_A] -model VLED -model_options [list active:high color:blue] -pulldown
+set_assignment [get_ports {sw[2]}]       -fpga [get_hw_fpgas U_CHAS01_U_SLOT03_U_A] -model VLED -model_options [list active:high color:blue] -pulldown
+set_assignment [get_ports {sw[1]}]       -fpga [get_hw_fpgas U_CHAS01_U_SLOT03_U_A] -model VLED -model_options [list active:high color:blue] -pulldown
+set_assignment [get_ports {sw[0]}]       -fpga [get_hw_fpgas U_CHAS01_U_SLOT03_U_A] -model VLED -model_options [list active:high color:blue] -pulldown
 
 #################################################################################################################################################
 ##################################################################### LEDs ######################################################################
 #################################################################################################################################################
-set_assignment [get_ports {leds[7]}]     -fpga [get_hw_fpgas U_CHAS01_U_SLOT01_U_A] -model VLED -model_options [list active:high color:blue]
-set_assignment [get_ports {leds[6]}]     -fpga [get_hw_fpgas U_CHAS01_U_SLOT01_U_A] -model VLED -model_options [list active:high color:blue]
-set_assignment [get_ports {leds[5]}]     -fpga [get_hw_fpgas U_CHAS01_U_SLOT01_U_A] -model VLED -model_options [list active:high color:blue]
-set_assignment [get_ports {leds[4]}]     -fpga [get_hw_fpgas U_CHAS01_U_SLOT01_U_A] -model VLED -model_options [list active:high color:blue]
-set_assignment [get_ports {leds[3]}]     -fpga [get_hw_fpgas U_CHAS01_U_SLOT01_U_A] -model VLED -model_options [list active:high color:blue]
-set_assignment [get_ports {leds[2]}]     -fpga [get_hw_fpgas U_CHAS01_U_SLOT01_U_A] -model VLED -model_options [list active:high color:blue]
-set_assignment [get_ports {leds[1]}]     -fpga [get_hw_fpgas U_CHAS01_U_SLOT01_U_A] -model VLED -model_options [list active:high color:blue]
-set_assignment [get_ports {leds[0]}]     -fpga [get_hw_fpgas U_CHAS01_U_SLOT01_U_A] -model VLED -model_options [list active:high color:blue]
-set_assignment [get_ports {mmcm_locked}] -fpga [get_hw_fpgas U_CHAS01_U_SLOT01_U_A] -model VLED -model_options [list active:high color:blue]
+set_assignment [get_ports {leds[7]}]     -fpga [get_hw_fpgas U_CHAS01_U_SLOT03_U_A] -model VLED -model_options [list active:high color:blue]
+set_assignment [get_ports {leds[6]}]     -fpga [get_hw_fpgas U_CHAS01_U_SLOT03_U_A] -model VLED -model_options [list active:high color:blue]
+set_assignment [get_ports {leds[5]}]     -fpga [get_hw_fpgas U_CHAS01_U_SLOT03_U_A] -model VLED -model_options [list active:high color:blue]
+set_assignment [get_ports {leds[4]}]     -fpga [get_hw_fpgas U_CHAS01_U_SLOT03_U_A] -model VLED -model_options [list active:high color:blue]
+set_assignment [get_ports {leds[3]}]     -fpga [get_hw_fpgas U_CHAS01_U_SLOT03_U_A] -model VLED -model_options [list active:high color:blue]
+set_assignment [get_ports {leds[2]}]     -fpga [get_hw_fpgas U_CHAS01_U_SLOT03_U_A] -model VLED -model_options [list active:high color:blue]
+set_assignment [get_ports {leds[1]}]     -fpga [get_hw_fpgas U_CHAS01_U_SLOT03_U_A] -model VLED -model_options [list active:high color:blue]
+set_assignment [get_ports {leds[0]}]     -fpga [get_hw_fpgas U_CHAS01_U_SLOT03_U_A] -model VLED -model_options [list active:high color:blue]
+set_assignment [get_ports {mmcm_locked}] -fpga [get_hw_fpgas U_CHAS01_U_SLOT03_U_A] -model VLED -model_options [list active:high color:blue]
+
+set_filling_rate 0.7
